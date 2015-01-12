@@ -1,4 +1,5 @@
-function rootController($scope, $log, $window, $rootScope, sessionService) {
+function rootController($scope, $log, $window, $rootScope, sessionService,
+		$aside) {
 
 	$rootScope.sessionContext = sessionService.context;
 
@@ -10,6 +11,28 @@ function rootController($scope, $log, $window, $rootScope, sessionService) {
 		$window.open(s);
 	};
 
+	$scope.showLeftMenu = function() {
+		$aside.open({
+			templateUrl : 'modules/zgeneral/sideBarLeft-d.html',
+			placement : 'left',
+			size : 'sm',
+			backdrop : false,
+			controller : function($scope, $modalInstance, $location) {
+
+				$scope.routeTo = function(e, uri) {
+					$modalInstance.close();
+					e.stopPropagation();
+					$location.path(uri);
+				};
+
+				$scope.close = function(e) {
+					$modalInstance.close();
+					e.stopPropagation();
+				};
+			}
+		})
+	};
+
 	$log.info('root...');
 }
 appControllers.controller('rootController', rootController);
@@ -19,6 +42,7 @@ dependents.push('ngStorage');
 dependents.push('green.inputmask4angular');
 // dependents.push('ngInputDate');
 // dependents.push('ngNotify');
+dependents.push('ngAside');
 dependents.push('ui.select');
 dependents.push('ui.bootstrap');
 dependents.push('app.filters');
@@ -69,8 +93,8 @@ app.config(function($routeProvider, $locationProvider) {
 	});
 
 	$routeProvider.when('/home', {
-		templateUrl : 'modules/home/index-d.html',
-		controller : 'indexController',
+		templateUrl : 'modules/home/home-d.html',
+		controller : 'homeController',
 		reloadOnSearch : false
 	});
 

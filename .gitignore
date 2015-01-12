@@ -1,1 +1,4 @@
 /bin/
+/build/
+/data-backup/
+/logs/

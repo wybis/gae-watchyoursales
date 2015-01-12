@@ -5,7 +5,7 @@ function headerNavigatorDirective() {
 
 		replace : true,
 
-		templateUrl : 'modules/zgeneral/headerNavigatorDirective.html',
+		templateUrl : 'modules/zgeneral/headerNavigatorDirective-d.html',
 
 		link : function($scope) {
 		}

@@ -16,7 +16,7 @@ try {
 	user.firstName = 'Eialarasu'
 	user.lastName = 'VT'
 	user.status = UserStatus.ACTIVE
-	user.roleId = Role.APP_ADMIN
+	user.roleId = Role.SYS_ADMIN
 	users << user
 
 	user = new User()
@@ -26,7 +26,7 @@ try {
 	user.firstName = 'Kamil'
 	user.lastName = 'Khan'
 	user.status = UserStatus.ACTIVE
-	user.roleId = Role.APP_ADMIN
+	user.roleId = Role.SYS_ADMIN
 	users << user
 
 	user = new User()
@@ -36,7 +36,7 @@ try {
 	user.firstName = 'Hariharasubramanian'
 	user.lastName = 'Jayaraman'
 	user.status = UserStatus.ACTIVE
-	user.roleId = Role.APP_ADMIN
+	user.roleId = Role.SYS_ADMIN
 	users << user
 
 	user = new User()
