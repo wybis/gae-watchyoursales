@@ -23,6 +23,8 @@ public class Account implements Serializable {
 	boolean isMinus
 
 	double balance
+	
+	double balancePft
 
 	String status
 

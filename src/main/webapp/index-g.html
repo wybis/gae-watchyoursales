@@ -19,49 +19,90 @@
 
 <br/>
 
-<div class="row">
+<div>
 	<div class="col-md-2 text-center">
 		<strong>WatchYourSales Console</strong>
 	</div>
-	<div class="col-md-10 text-center">
+	<div class="col-md-5 text-center">
 		<a href="index-d.html" class="btn btn-primary">Destop/Tablet</a>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href="_ah/admin/" class="btn btn-default">Google Datastore</a>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="index-m.html" class="btn btn-primary">Tablet/Mobile</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href="_ah/admin/" class="btn btn-default">Google Datastore</a>
+	</div>
+	<div class="col-md-5 text-center">
+		<button class="btn btn-default"
+			x-ng-click="execute('/sessions/properties')">Session Properties</button>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<button class="btn btn-default" 
+			x-ng-click="execute('/system/reset')">Reset</button> 
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<button class="btn btn-default"
+			x-ng-click="execute('/system/clear')">Clear</button>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<button class="btn btn-default"
+			x-ng-click="execute('/system/clearTransactions')">Clear Transactions</button>
 	</div>
 </div>
 
-<br/>
+<br/><hr/>
 
 <div>
-	<div class="col-md-2">
-		<button class="btn btn-default btn-block" 
-			x-ng-click="execute('/system/reset')">Reset</button> 
-		<br/>
-		<button class="btn btn-default btn-block"
-			x-ng-click="execute('/system/init')">Init</button>
-		<br/>
-		<button class="btn btn-default btn-block"
-			x-ng-click="execute('/system/clear')">Clear</button>
-		<br/>
-		<button class="btn btn-default btn-block"
-			x-ng-click="execute('/system/initTransactions')">Init Transactions</button>
-		<br/>
-		<button class="btn btn-default btn-block"
-			x-ng-click="execute('/system/clearTransactions')">Clear Transactions</button>
-		<br/>
-		<button class="btn btn-default btn-block"
-			x-ng-click="execute('/sessions/properties')">Session Properties</button>
+	<div class="col-md-6">
+
+		<div class="form-group">
+			<label><small>Agency JSON</small></label>
+			<select class="form-control" x-ng-model="agency" 
+				x-ng-change="onAgencyChange()"
+				x-ng-options="item.name for item in agencys">
+			</select>
+		</div>
+	
+		<tabset justified="true">
+
+    		<tab>
+      			<tab-heading>
+        			Create Agency Via JSON 						
+        			<button class="btn btn-primary btn-xs pull-right" 
+						x-ng-click="saveAgencyMaster()">Save</button>
+      			</tab-heading>
+  				<div>
+  					<br/>
+					<textarea class="form-control" rows="20" 
+						x-ng-model="agency.json">
+					</textarea>
+					<!-- 
+				 	<pre>{{agency.value | json}}</pre>
+				 	-->	
+				</div>
+    		</tab>
+
+    		<tab>
+      			<tab-heading>
+        			Create Agency Transactions Via JSON
+        			<button class="btn btn-primary btn-xs pull-right" 
+						x-ng-click="saveAgencyTrans()">Save</button>
+      			</tab-heading>
+  				<div>
+  					<br/>
+					<textarea class="form-control" rows="20" 
+						x-ng-model="agency.jsonTran">
+					</textarea>
+				</div>
+    		</tab>
+		</tabset>
+  
 	</div>
-	<div class="col-md-10">
+
+	<div class="col-md-6">
 		<div class="panel panel-default">
-			<div class="panel-heading">Message</div>
+			<div class="panel-heading">Response Message</div>
 			<div class="panel-body">
 				<pre>{{message}}</pre>
 			</div>
 		</div>
 	</div>
+	
 </div>
 
 
@@ -85,6 +126,9 @@
 
 <script type="text/javascript" 
 	src="assets/lib/ngStorage.min.js"></script>
+
+<script type="text/javascript" 
+	src="assets/lib/ui-bootstrap-tpls-0.12.0.min.js"></script>
 
 <script type="text/javascript" src="modules/init.js"></script>
 <script type="text/javascript" src="modules/home/indexController.js"></script>

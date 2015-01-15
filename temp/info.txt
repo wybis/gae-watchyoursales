@@ -1,0 +1,11 @@
+http://www.deadcoderising.com/java-8-no-more-loops/
+http://www.baeldung.com/jackson-exception
+http://www.baeldung.com/jackson-serialize-dates
+
+public class Event {
+    public String name;
+ 
+    @JsonFormat
+      (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+    public Date eventDate;
+}

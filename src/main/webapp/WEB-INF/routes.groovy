@@ -17,6 +17,8 @@ get 	'/cron/dailyBackup',			forward : '/cron/dailyBackup.groovy'
 // data
 get 	'/system/reset',    			forward : '/io/vteial/seetu/web/system/reset.groovy'
 get 	'/system/init',	    			forward : '/io/vteial/seetu/web/system/init.groovy'
+post 	'/system/saveAgencyMaster',		forward : '/io/vteial/seetu/web/system/saveAgencyMaster.groovy'
+post 	'/system/saveAgencyTrans',		forward : '/io/vteial/seetu/web/system/saveAgencyTrans.groovy'
 get 	'/system/clear',   				forward : '/io/vteial/seetu/web/system/clear.groovy'
 get 	'/system/initTransactions',   	forward : '/io/vteial/seetu/web/system/initTransactions.groovy'
 get 	'/system/clearTransactions',   	forward : '/io/vteial/seetu/web/system/clearTransactions.groovy'

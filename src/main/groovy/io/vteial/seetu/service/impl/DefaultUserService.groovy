@@ -1,6 +1,7 @@
 package io.vteial.seetu.service.impl
 
 import groovyx.gaelyk.logging.GroovyLogger
+import io.vteial.seetu.dto.SessionUserDto
 import io.vteial.seetu.model.Account
 import io.vteial.seetu.model.User
 import io.vteial.seetu.model.constants.AccountStatus
@@ -16,7 +17,7 @@ class DefaultUserService extends AbstractService implements UserService {
 	AccountService accountService
 
 	@Override
-	public void add(User sessionUser, User user)
+	public void add(SessionUserDto sessionUser, User user)
 	throws ModelAlreadyExistException {
 
 		User entity = User.get(user.id)
@@ -27,7 +28,7 @@ class DefaultUserService extends AbstractService implements UserService {
 		Account account = new Account()
 		account.name = "User-${user.id}"
 		account.aliasName = "User-${user.firstName}"
-		account.type = AccountType.ASSET
+		account.type = AccountType.USER
 		account.status = AccountStatus.ACTIVE
 		accountService.add(sessionUser, account);
 

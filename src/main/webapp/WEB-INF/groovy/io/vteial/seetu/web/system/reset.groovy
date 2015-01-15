@@ -1,5 +1,6 @@
 package io.vteial.seetu.web.system;
 
+import io.vteial.seetu.dto.SessionUserDto
 import io.vteial.seetu.model.Role
 import io.vteial.seetu.model.User
 import io.vteial.seetu.model.constants.UserStatus
@@ -7,6 +8,10 @@ import io.vteial.seetu.model.constants.UserStatus
 println 'reset started...'
 
 try {
+	SessionUserDto sessionUser = new SessionUserDto()
+	sessionUser.id = 'system'
+	sessionUser.roleId = Role.SYS_ADMIN
+
 	def users = []
 
 	User user = new User()
@@ -50,7 +55,7 @@ try {
 	users << user
 
 	users.each { u ->
-		userService.add(u, u)
+		userService.add(sessionUser, u)
 	}
 }
 catch(Throwable t) {

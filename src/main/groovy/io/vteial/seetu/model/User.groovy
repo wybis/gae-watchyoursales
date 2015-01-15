@@ -16,8 +16,7 @@ public class User implements Serializable {
 
 	String password
 
-	@Ignore
-	String newPassword
+	String identificationNumber
 
 	String emailId
 
@@ -37,6 +36,9 @@ public class User implements Serializable {
 	String status
 
 	String roleId
+
+	@Ignore
+	Role role
 
 	long accountId
 

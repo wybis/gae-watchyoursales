@@ -1,9 +1,9 @@
 package io.vteial.seetu.service.impl
 
 import groovyx.gaelyk.logging.GroovyLogger
+import io.vteial.seetu.dto.SessionUserDto
 import io.vteial.seetu.model.Account
 import io.vteial.seetu.model.AccountTransaction
-import io.vteial.seetu.model.User
 import io.vteial.seetu.model.constants.AccountTransactionStatus
 import io.vteial.seetu.model.constants.AccountTransactionType
 import io.vteial.seetu.service.AccountService
@@ -15,14 +15,11 @@ class DefaultAccountService extends AbstractService implements AccountService {
 	GroovyLogger log = new GroovyLogger(DefaultAccountService.class.getName())
 
 	@Override
-	public void add(User sessionUser, Account account)
+	public void add(SessionUserDto sessionUser, Account account)
 	throws ModelAlreadyExistException {
 		log.info "Pre-" + account.toString()
 
-		account.user   = sessionUser
-		account.userId = sessionUser.id
-
-		account.id = autoNumberService.getNextNumber(Account.ID_KEY)
+		account.id = autoNumberService.getNextNumber(sessionUser, Account.ID_KEY)
 
 		account.prePersist(sessionUser.id)
 		account.save()
@@ -31,7 +28,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 	}
 
 	@Override
-	public void addTransaction(User sessionUser, AccountTransaction accountTran) throws InSufficientFundException {
+	public void addTransaction(SessionUserDto sessionUser, AccountTransaction accountTran) throws InSufficientFundException {
 		log.info "Pre-" + accountTran.toString()
 
 		Account account = Account.get(accountTran.accountId)
@@ -64,7 +61,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 
 		accountTran.userId = sessionUser.id
 
-		accountTran.id = autoNumberService.getNextNumber(AccountTransaction.ID_KEY)
+		accountTran.id = autoNumberService.getNextNumber(sessionUser, AccountTransaction.ID_KEY)
 
 		accountTran.prePersist(sessionUser.id)
 		accountTran.save()

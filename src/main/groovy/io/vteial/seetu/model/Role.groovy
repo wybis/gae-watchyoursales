@@ -14,18 +14,21 @@ public class Role implements Serializable {
 
 	static final APP_ADMIN = 'App Administrator'
 
-	static final AGENT = 'Agent'
+	static final AGENCY_MANAGER = 'Manager'
 
-	static final AGENT_EMPLOYEE = 'Employee'
+	static final AGENCY_EMPLOYEE = 'Employee'
 
-	static final AGENT_CUSTOMER = 'Customer'
+	static final AGNECY_CUSTOMER = 'Customer'
+
+	static final AGNECY_DEALER = 'Dealer'
 
 	static final List<String> ROLES = [
 		SYS_ADMIN,
 		APP_ADMIN,
-		AGENT,
-		AGENT_EMPLOYEE,
-		AGENT_CUSTOMER
+		AGENCY_MANAGER,
+		AGENCY_EMPLOYEE,
+		AGNECY_CUSTOMER,
+		AGNECY_DEALER
 	]
 
 	@Key

@@ -1,10 +1,8 @@
 package io.vteial.seetu.service;
 
-import io.vteial.seetu.model.User
+import io.vteial.seetu.dto.SessionUserDto
 
 interface AutoNumberService {
 
-	long getNextNumber(String key)
-
-	long getNextNumber(User sessionUser, String key)
+	long getNextNumber(SessionUserDto sessionUser, String key)
 }

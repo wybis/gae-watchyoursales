@@ -9,16 +9,16 @@ import groovyx.gaelyk.datastore.Key
 @Entity(unindexed=false)
 @Canonical
 @ToString(includeNames=true)
-public class Customer implements Serializable {
+public class Dealer implements Serializable {
 
-	static final String ID_KEY = "customerId"
+	static final String ID_KEY = "dealerId"
 
 	@Key
 	long id
 
-	String firstName
+	String name
 
-	String lastName
+	String aliasName
 
 	String identificationNumber
 
@@ -34,8 +34,8 @@ public class Customer implements Serializable {
 	Address address
 
 	String status
-
-	String roleId = Role.AGNECY_CUSTOMER
+	
+	String roleId = Role.AGNECY_DEALER
 
 	long accountId
 
@@ -56,7 +56,7 @@ public class Customer implements Serializable {
 	Date updateTime
 
 	String toString() {
-		StringBuilder sb = new StringBuilder(Customer.class.getSimpleName())
+		StringBuilder sb = new StringBuilder(Dealer.class.getSimpleName())
 		sb.append('[')
 
 		sb.append("id:${this.id}, ")

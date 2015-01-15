@@ -2,13 +2,15 @@ package io.vteial.seetu.model.constants;
 
 interface AccountType {
 
-	final String COMMISION = 'commision'
+	final String AGENCY = 'agency'
 
-	final String FUND = 'fund'
+	final String EMPLOYEE = 'employee'
 
-	final String ASSET = 'asset'
+	final String DEALER = 'dealer'
 
-	final String INCOME = 'income'
+	final String CUSTOMER = 'customer'
 
-	final String EXPENSES = 'expenses'
+	final String STOCK = 'stock'
+	
+	final String USER = 'user'
 }
