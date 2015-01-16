@@ -1,5 +1,3 @@
-import io.vteial.seetu.model.User
-
 
 println '''
 <html><head><title>Test</title><head><body><pre>

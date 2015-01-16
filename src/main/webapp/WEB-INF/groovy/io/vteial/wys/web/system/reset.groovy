@@ -1,0 +1,65 @@
+package io.vteial.wys.web.system;
+
+import io.vteial.wys.dto.SessionUserDto
+import io.vteial.wys.model.Role
+import io.vteial.wys.model.User
+import io.vteial.wys.model.constants.UserStatus
+
+println 'reset started...'
+
+try {
+	SessionUserDto sessionUser = new SessionUserDto()
+	sessionUser.id = 'system'
+	sessionUser.roleId = Role.SYS_ADMIN
+
+	def users = []
+
+	User user = new User()
+	user.id = 'vteial'
+	user.password = '1234'
+	user.emailId = 'vteial@gmail.com'
+	user.firstName = 'Eialarasu'
+	user.lastName = 'VT'
+	user.status = UserStatus.ACTIVE
+	user.roleId = Role.SYS_ADMIN
+	users << user
+
+	user = new User()
+	user.id = 'donkhan'
+	user.password = '1234'
+	user.emailId = 'routetokamil@gmail.com'
+	user.firstName = 'Kamil'
+	user.lastName = 'Khan'
+	user.status = UserStatus.ACTIVE
+	user.roleId = Role.SYS_ADMIN
+	users << user
+
+	user = new User()
+	user.id = 'jayaramanhari'
+	user.password = '1234'
+	user.emailId = 'jayaramanhari@gmail.com'
+	user.firstName = 'Hariharasubramanian'
+	user.lastName = 'Jayaraman'
+	user.status = UserStatus.ACTIVE
+	user.roleId = Role.SYS_ADMIN
+	users << user
+
+	user = new User()
+	user.id = 'vrsumitha'
+	user.password = '1234'
+	user.emailId = 'sumitha.v.r@gmail.com'
+	user.firstName = 'Sumitha'
+	user.lastName = 'Vasanthan'
+	user.status = UserStatus.ACTIVE
+	user.roleId = Role.APP_ADMIN
+	users << user
+
+	users.each { u ->
+		userService.add(sessionUser, u)
+	}
+}
+catch(Throwable t) {
+	t.printStackTrace(out)
+}
+
+println 'reset finished...'
