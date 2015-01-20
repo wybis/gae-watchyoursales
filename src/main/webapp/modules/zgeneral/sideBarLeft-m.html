@@ -1,5 +1,5 @@
 <div class="scrollable">
-	<h1 class="scrollable-header app-name">Seetu</h1>
+	<h1 class="scrollable-header app-name">WatchYourSales</h1>
    	
    	<div class="scrollable-content" x-ng-hide="isLoggedIn">
 		<div class="list-group" x-ui-turn-off="uiSidebarLeft">
@@ -16,49 +16,45 @@
 		<div class="list-group" ui-turn-off="uiSidebarLeft">
 			<div class="list-group-item">
 				<i class="fa fa-user"></i>
-				{{sessionContext.sessionUser.firstName}} - {{sessionContext.sessionUser.id}} 
+				{{sessionContext.sessionUser.firstName}} {{sessionContext.sessionUser.lastName}}  
 				<a class="pull-right" href="#/settings">
 					<i class="fa fa-cog"></i>
-				</a>
+				</a><br/>
+				{{sessionContext.sessionUser.id}} / {{sessionContext.sessionUser.roleId}}
 			</div>
         	<a class="list-group-item" href="#/home">
         		Home <i class="fa fa-home pull-right"></i>
         	</a>
-        	<a class="list-group-item" href="#/counter">
-        		Sales Counter
-        	</a>
-        	<a class="list-group-item" href="#/dealerOrders">
-        		Customer Orders
-        	</a>
-        	<a class="list-group-item" href="#/dealerOrders">
-        		Dealer Orders
-        	</a>
-        	<a class="list-group-item" href="#/itemSales">
-        		Sales Transactions <i class="fa fa-history pull-right"></i>
-        	</a>
-			<a class="list-group-item" href="#/accountTransactions">
-				Account Transactions <i class="fa fa-history pull-right"></i>
-			</a>
-			<a class="list-group-item" href="#/reports">
-				Reports
-			</a>
-			<a class="list-group-item" href="#/dealers">
-				Dealers <i class="fa fa-users pull-right"></i>
+			<a class="list-group-item" href="#/items">
+				Products <i class="fa fa-database pull-right"></i>
 			</a>
 			<a class="list-group-item" href="#/customers">
 				Customers <i class="fa fa-users pull-right"></i>
 			</a>
-			<a class="list-group-item" href="#/stocks">
-				Stocks <i class="fa fa-database pull-right"></i>
+        	<a class="list-group-item" href="#/customerOrders">
+        		Customer Orders
+        	</a>
+        	<a class="list-group-item" href="#/customerTrans">
+        		Customer Transactions <i class="fa fa-history pull-right"></i>
+        	</a>
+			<a class="list-group-item" href="#/dealers">
+				Dealers <i class="fa fa-users pull-right"></i>
 			</a>
+        	<a class="list-group-item" href="#/dealerOrders">
+        		Dealer Orders
+        	</a>
+        	<a class="list-group-item" href="#/itemSales">
+        		Dealer Transactions <i class="fa fa-history pull-right"></i>
+        	</a>
 			<a class="list-group-item" href="#/accounts">
 				Accounts <i class="fa fa-database pull-right"></i>
 			</a>
-			<!-- 
-			<a class="list-group-item" href="#/users">
-				Users <i class="fa fa-users pull-right"></i>
+			<a class="list-group-item" href="#/accountTransactions">
+				Account Transactions <i class="fa fa-history pull-right"></i>
 			</a>
-			-->
+			<a class="list-group-item" href="#/employees">
+				Employees <i class="fa fa-users pull-right"></i>
+			</a>
 			<a class="list-group-item" href="#/signout">
 				Sign Out <i class="fa fa-sign-out pull-right"></i>
 			</a>

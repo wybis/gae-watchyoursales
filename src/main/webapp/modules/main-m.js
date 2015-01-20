@@ -85,9 +85,27 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/users', {
-		templateUrl : 'modules/user/m.html',
-		controller : 'userController',
+	$routeProvider.when('/items', {
+		templateUrl : 'modules/item/m.html',
+		controller : 'itemController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/employees', {
+		templateUrl : 'modules/employee/m.html',
+		controller : 'employeeController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/dealers', {
+		templateUrl : 'modules/dealer/m.html',
+		controller : 'dealerController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/customers', {
+		templateUrl : 'modules/customer/m.html',
+		controller : 'customerController',
 		reloadOnSearch : false
 	});
 
@@ -113,7 +131,7 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 				|| curLocPath == '/signout') {
 			return;
 		}
-		$sessionStorage.seetuCLP = curLocPath;
+		$sessionStorage.wysCLP = curLocPath;
 		// $log.info('Stored Location : ', $sessionStorage.seetuCLP);
 
 		var srcUrl = $location.absUrl().indexOf('index');
@@ -134,9 +152,9 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 	$rootScope.isLoggedIn = false;
 	$rootScope.homeView = '/index';
 
-	var path = $sessionStorage.seetuCLP;
+	var path = $sessionStorage.wysCLP;
 	if (!path) {
-		path = '/index';
+		path = '/signin';
 	}
 	$location.path(path);
 

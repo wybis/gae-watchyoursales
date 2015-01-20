@@ -4,9 +4,8 @@
 		<strong><small>{{viewName | capitalizeFilter}}</small></strong>
 	</div>
 	<div class="col-md-9 text-right" x-ng-show="isLoggedIn">
-		<strong><small>User : </small></strong>
 		<span class="text-primary"><strong><small>
-		{{sessionContext.sessionUser.id}} / {{sessionContext.sessionUser.role.name}}Administrator
+		{{sessionContext.sessionUser.firstName}} / {{sessionContext.sessionUser.id}} / {{sessionContext.sessionUser.roleId}}
 		</small></strong></span>
 	</div>
 

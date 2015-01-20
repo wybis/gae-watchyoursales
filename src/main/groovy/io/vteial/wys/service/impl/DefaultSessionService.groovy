@@ -89,6 +89,9 @@ SessionService {
 	private SessionUserDto createSessionUser(Employee employee) {
 		SessionUserDto su = new SessionUserDto(id : employee.id)
 
+		su.firstName = employee.firstName
+		su.lastName = employee.lastName
+
 		if(employee.roleId == Role.AGENCY_MANAGER) {
 			su.roleId = Role.AGENCY_MANAGER
 		}
@@ -105,6 +108,9 @@ SessionService {
 
 	private SessionUserDto createSessionUser(User user) {
 		SessionUserDto su = new SessionUserDto(id : user.id)
+
+		su.firstName = user.firstName
+		su.lastName = user.lastName
 
 		if(user.roleId == Role.SYS_ADMIN) {
 			su.roleId = Role.SYS_ADMIN

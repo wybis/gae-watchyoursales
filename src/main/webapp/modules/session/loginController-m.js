@@ -5,7 +5,7 @@ function loginController($rootScope, $scope, $log, $location, $sessionStorage,
 	$scope.message = null
 
 	$scope.user = {
-		id : 'vteial',
+		id : '',
 		password : ''
 	};
 
@@ -20,7 +20,7 @@ function loginController($rootScope, $scope, $log, $location, $sessionStorage,
 				$scope.user.password = '';
 				$rootScope.isLoggedIn = true;
 				$rootScope.homeView = '/home';
-				var locPath = $sessionStorage.currentLocationPath;
+				var locPath = $sessionStorage.wysCLP;
 				$log.info('Last Stored Location : ', locPath);
 				if (!locPath) {
 					locPath = $rootScope.homeView;
@@ -31,11 +31,15 @@ function loginController($rootScope, $scope, $log, $location, $sessionStorage,
 	}
 	$scope.signin = signin;
 
-	 $timeout(function() {
-		$log.info('Before signin...');
-		$scope.signin();
-		$log.info('After signin...');
-	}, 1000);
+	if (sessionService.context.localMode) {
+		$timeout(function() {
+			$log.info('Before signin...');
+			// $scope.user.id = 'vteial';
+			$scope.user.id = 'munmin2000@maxmoney';
+			$scope.signin();
+			$log.info('After signin...');
+		}, 1000);
+	}
 
 	$log.debug('loginController...');
 }
