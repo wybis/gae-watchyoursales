@@ -20,9 +20,9 @@ class Item implements Serializable {
 
 	String name
 
-	double baseUnit
+	int baseUnit
 
-	double denominator
+	int denominator
 
 	double buyRate
 
@@ -34,7 +34,7 @@ class Item implements Serializable {
 
 	String status
 
-	String agencyId
+	long agencyId
 
 	@Ignore
 	Agency agency

@@ -6,6 +6,7 @@ import io.vteial.wys.model.Account
 import io.vteial.wys.model.Customer
 import io.vteial.wys.model.constants.AccountStatus
 import io.vteial.wys.model.constants.AccountType
+import io.vteial.wys.model.constants.CustomerStatus
 import io.vteial.wys.service.AccountService
 import io.vteial.wys.service.CustomerService
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
@@ -26,6 +27,7 @@ class DefaultCustomerService extends AbstractService implements CustomerService 
 		account.type = AccountType.CUSTOMER
 		account.isMinus = true
 		account.status = AccountStatus.ACTIVE
+		account.agencyId = model.agencyId
 
 		accountService.add(sessionUser, account)
 
@@ -33,6 +35,7 @@ class DefaultCustomerService extends AbstractService implements CustomerService 
 		model.accountId = account.id
 
 		model.id = autoNumberService.getNextNumber(sessionUser, Customer.ID_KEY)
+		model.status = CustomerStatus.ACTIVE
 
 		model.prePersist(sessionUser.id)
 		model.save()

@@ -1,10 +1,14 @@
+import io.vteial.wys.model.Employee
+
 
 println '''
 <html><head><title>Test</title><head><body><pre>
 '''
 println '-----------------------------------------------------------------'
 try {
-	println autoNumberService.getNextNumber('testId')
+	Employee employee = Employee.get('munmin2000@maxmoney')
+
+	println employee
 }
 catch(Throwable t) {
 	t.printStackTrace(out)

@@ -30,6 +30,7 @@ class DefaultUserService extends AbstractService implements UserService {
 		account.aliasName = "User-${user.firstName}"
 		account.type = AccountType.USER
 		account.status = AccountStatus.ACTIVE
+		account.agencyId = 0
 		accountService.add(sessionUser, account);
 
 		user.account = account

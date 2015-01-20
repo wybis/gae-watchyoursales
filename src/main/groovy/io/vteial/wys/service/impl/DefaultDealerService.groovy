@@ -6,6 +6,7 @@ import io.vteial.wys.model.Account
 import io.vteial.wys.model.Dealer
 import io.vteial.wys.model.constants.AccountStatus
 import io.vteial.wys.model.constants.AccountType
+import io.vteial.wys.model.constants.DealerStatus
 import io.vteial.wys.service.AccountService
 import io.vteial.wys.service.DealerService
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
@@ -26,6 +27,7 @@ class DefaultDealerService extends AbstractService implements DealerService {
 		account.type = AccountType.DEALER
 		account.isMinus = true
 		account.status = AccountStatus.ACTIVE
+		account.agencyId = model.agencyId
 
 		accountService.add(sessionUser, account)
 
@@ -33,7 +35,8 @@ class DefaultDealerService extends AbstractService implements DealerService {
 		model.accountId = account.id
 
 		model.id = autoNumberService.getNextNumber(sessionUser, Dealer.ID_KEY)
-
+		model.status = DealerStatus.ACTIVE
+		
 		model.prePersist(sessionUser.id)
 		model.save()
 	}

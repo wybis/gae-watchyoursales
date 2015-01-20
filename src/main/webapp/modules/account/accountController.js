@@ -1,10 +1,13 @@
-function accountController($rootScope, $scope, $log, accountService) {
+function accountController($rootScope, $scope, $log, agencyService) {
 	$rootScope.viewName = 'Accounts';
 
-	$scope.items = accountService.items;
+	var agencyId = $rootScope.sessionContext.sessionUser.agencyId;
 
 	$scope.refresh = function() {
-		accountService.all();
+		agencyService.getAccounts(agencyId).then(function(response) {
+			var agency = agencyService.itemsMap[agencyId];
+			$scope.items = agency.accounts;
+		});
 	};
 
 	$scope.refresh();

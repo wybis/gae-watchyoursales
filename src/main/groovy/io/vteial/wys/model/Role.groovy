@@ -10,17 +10,17 @@ import groovyx.gaelyk.datastore.Key
 @ToString(includeNames=true)
 public class Role implements Serializable {
 
-	static final SYS_ADMIN = 'Sys Administrator'
+	static final String SYS_ADMIN = 'Sys Administrator'
 
-	static final APP_ADMIN = 'App Administrator'
+	static final String APP_ADMIN = 'App Administrator'
 
-	static final AGENCY_MANAGER = 'Manager'
+	static final String AGENCY_MANAGER = 'Manager'
 
-	static final AGENCY_EMPLOYEE = 'Employee'
+	static final String AGENCY_EMPLOYEE = 'Employee'
 
-	static final AGNECY_CUSTOMER = 'Customer'
+	static final String AGNECY_CUSTOMER = 'Customer'
 
-	static final AGNECY_DEALER = 'Dealer'
+	static final String AGNECY_DEALER = 'Dealer'
 
 	static final List<String> ROLES = [
 		SYS_ADMIN,

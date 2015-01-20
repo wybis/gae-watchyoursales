@@ -37,10 +37,7 @@ public class Employee implements Serializable {
 
 	String status
 
-	String roleId
-
-	@Ignore
-	Role role
+	String roleId = Role.AGENCY_EMPLOYEE
 
 	long accountId
 

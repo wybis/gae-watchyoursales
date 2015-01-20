@@ -6,6 +6,7 @@ import io.vteial.wys.model.Account
 import io.vteial.wys.model.Employee
 import io.vteial.wys.model.constants.AccountStatus
 import io.vteial.wys.model.constants.AccountType
+import io.vteial.wys.model.constants.EmployeeStatus
 import io.vteial.wys.service.AccountService
 import io.vteial.wys.service.EmployeeService
 import io.vteial.wys.service.StockService
@@ -29,13 +30,14 @@ class DefaultEmployeeService extends AbstractService implements EmployeeService 
 		account.type = AccountType.EMPLOYEE
 		account.isMinus = true
 		account.status = AccountStatus.ACTIVE
+		account.agencyId = model.agencyId
 
 		accountService.add(sessionUser, account)
 
 		model.account = account
 		model.accountId = account.id
 
-		model.id = autoNumberService.getNextNumber(sessionUser, Employee.ID_KEY)
+		model.status = EmployeeStatus.ACTIVE
 
 		model.prePersist(sessionUser.id)
 		model.save()

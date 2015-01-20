@@ -17,7 +17,7 @@ function accountService($log, $http, $q) {
 	}
 
 	service.all = function() {
-		var path = basePath + '/all';
+		var path = basePath;
 
 		var deferred = $q.defer();
 		$http.get(path).success(function(response) {

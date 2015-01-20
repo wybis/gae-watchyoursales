@@ -23,15 +23,15 @@ public class Account implements Serializable {
 	boolean isMinus
 
 	double balance
-	
+
 	double balancePft
 
 	String status
 
-	String userId
+	long agencyId
 
 	@Ignore
-	User user
+	Agency agency
 
 	String createBy
 
@@ -51,7 +51,7 @@ public class Account implements Serializable {
 		sb.append("isMinus:${this.isMinus}, ")
 		sb.append("balance:${this.balance}, ")
 		sb.append("status:${this.status}, ")
-		sb.append("userId:${this.userId} ")
+		sb.append("agencyId:${this.agencyId} ")
 
 		sb.append(']')
 		return sb.toString()

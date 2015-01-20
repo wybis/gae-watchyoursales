@@ -7,7 +7,9 @@ import io.vteial.wys.service.impl.DefaultAutoNumberService
 import io.vteial.wys.service.impl.DefaultCustomerService
 import io.vteial.wys.service.impl.DefaultDealerService
 import io.vteial.wys.service.impl.DefaultEmployeeService
+import io.vteial.wys.service.impl.DefaultItemService
 import io.vteial.wys.service.impl.DefaultSessionService
+import io.vteial.wys.service.impl.DefaultStockService
 import io.vteial.wys.service.impl.DefaultUserService
 
 class GeneralPlugin extends PluginBaseScript {
@@ -18,46 +20,55 @@ class GeneralPlugin extends PluginBaseScript {
 
 		DefaultAutoNumberService anS = new DefaultAutoNumberService()
 
-		DefaultSessionService sS = new DefaultSessionService()
-		sS.autoNumberService = anS
-		sS.app = app
-		sS.localMode = localMode
-		sS.appUserService = users
+		DefaultSessionService sesS = new DefaultSessionService()
+		sesS.autoNumberService = anS
+		sesS.app = app
+		sesS.localMode = localMode
+		sesS.appUserService = users
 
 		DefaultAccountService accS = new DefaultAccountService()
 		accS.autoNumberService = anS
 
-		DefaultUserService uS = new DefaultUserService()
-		uS.autoNumberService = anS
-		uS.accountService = accS
+		DefaultUserService usrS = new DefaultUserService()
+		usrS.autoNumberService = anS
+		usrS.accountService = accS
 
-		DefaultAgencyService aS = new DefaultAgencyService()
-		aS.autoNumberService = anS
-		aS.accountService = accS
+		DefaultAgencyService agnS = new DefaultAgencyService()
+		agnS.autoNumberService = anS
+		agnS.accountService = accS
 
-		DefaultEmployeeService eS = new DefaultEmployeeService()
-		eS.autoNumberService = anS
-		eS.accountService = accS
+		DefaultItemService itmS = new DefaultItemService()
+		itmS.autoNumberService = anS
 
-		DefaultDealerService dS = new DefaultDealerService()
-		dS.autoNumberService = anS
-		dS.accountService = accS
+		DefaultStockService stkS = new DefaultStockService()
+		stkS.autoNumberService = anS
 
-		DefaultCustomerService cS = new DefaultCustomerService()
-		cS.autoNumberService = anS
-		cS.accountService = accS
+		DefaultEmployeeService empS = new DefaultEmployeeService()
+		empS.autoNumberService = anS
+		empS.accountService = accS
+		empS.stockService = stkS
+
+		DefaultDealerService dlrS = new DefaultDealerService()
+		dlrS.autoNumberService = anS
+		dlrS.accountService = accS
+
+		DefaultCustomerService cusS = new DefaultCustomerService()
+		cusS.autoNumberService = anS
+		cusS.accountService = accS
 
 		binding {
 			jsonCategory      = JacksonCategory
 			jsonObjectMapper  = JacksonCategory.jsonObjectMapper
-			sessionService    = sS
+			sessionService    = sesS
 			autoNumberService = anS
 			accountService    = accS
-			userService       = uS
-			agencyService     = aS
-			employeeService   = eS
-			dealerService     = dS
-			customerService   = cS
+			usrService        = usrS
+			agencyService     = agnS
+			itemService       = itmS
+			stockService      = stkS
+			employeeService   = empS
+			dealerService     = dlrS
+			customerService   = cusS
 		}
 
 		routes {

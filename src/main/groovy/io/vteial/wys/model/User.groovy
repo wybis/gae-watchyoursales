@@ -58,7 +58,7 @@ public class User implements Serializable {
 		sb.append('[')
 
 		sb.append("id:${this.id}, ")
-		sb.append("roleId:${this.roleId}")
+		sb.append("roleId:${this.roleId}, ")
 		sb.append("accountId:${this.accountId}, ")
 		sb.append("status:${this.status}")
 

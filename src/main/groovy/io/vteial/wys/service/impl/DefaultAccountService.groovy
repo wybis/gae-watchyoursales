@@ -17,19 +17,19 @@ class DefaultAccountService extends AbstractService implements AccountService {
 	@Override
 	public void add(SessionUserDto sessionUser, Account account)
 	throws ModelAlreadyExistException {
-		log.info "Pre-" + account.toString()
+		//log.info "Pre-" + account.toString()
 
 		account.id = autoNumberService.getNextNumber(sessionUser, Account.ID_KEY)
 
 		account.prePersist(sessionUser.id)
 		account.save()
 
-		log.info "Post-" + account.toString()
+		//log.info "Post-" + account.toString()
 	}
 
 	@Override
 	public void addTransaction(SessionUserDto sessionUser, AccountTransaction accountTran) throws InSufficientFundException {
-		log.info "Pre-" + accountTran.toString()
+		//log.info "Pre-" + accountTran.toString()
 
 		Account account = Account.get(accountTran.accountId)
 
@@ -66,6 +66,6 @@ class DefaultAccountService extends AbstractService implements AccountService {
 		accountTran.prePersist(sessionUser.id)
 		accountTran.save()
 
-		log.info "Post-" + accountTran.toString()
+		//log.info "Post-" + accountTran.toString()
 	}
 }

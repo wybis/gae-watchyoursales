@@ -1,4 +1,4 @@
-function sessionService($log, $http, $q) {
+function sessionService($log, $http, $q, agencyService) {
 	var basePath = 'sessions';
 
 	var service = {
@@ -12,6 +12,10 @@ function sessionService($log, $http, $q) {
 		$http.get(path).success(function(response) {
 			if (response.type === 0) {
 				_.assign(service.context, response.data);
+				var agency = response.data.sessionUser.agency;
+				if (angular.isDefined(agency)) {
+					agencyService.addOrUpdateCache(agency);
+				}
 				deferred.resolve(response);
 			}
 			// $log.info(response);
@@ -30,6 +34,8 @@ function sessionService($log, $http, $q) {
 			if (response.type >= 0) {
 				if (response.type === 0) {
 					_.assign(service.context, response.data);
+					var agency = response.data.sessionUser.agency;
+					agencyService.addOrUpdateCache(agency);
 				}
 				deferred.resolve(response);
 			}
@@ -57,6 +63,7 @@ function sessionService($log, $http, $q) {
 
 		return deferred.promise;
 	};
+
 	return service;
 }
 appServices.factory('sessionService', sessionService);

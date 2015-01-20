@@ -3,6 +3,7 @@ package io.vteial.wys.service.impl;
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.dto.UserDto
+import io.vteial.wys.model.Agency
 import io.vteial.wys.model.Employee
 import io.vteial.wys.model.Role
 import io.vteial.wys.model.User
@@ -87,17 +88,38 @@ SessionService {
 
 	private SessionUserDto createSessionUser(Employee employee) {
 		SessionUserDto su = new SessionUserDto(id : employee.id)
-		switch(employee.roleId) {
-			case Role.AGENCY_MANAGER : su.roleId = employee.roleId; break
-			default : su.roleId = Role.AGENCY_EMPLOYEE; break
+
+		if(employee.roleId == Role.AGENCY_MANAGER) {
+			su.roleId = Role.AGENCY_MANAGER
 		}
+		else {
+			su.roleId = Role.AGENCY_EMPLOYEE
+		}
+
+		su.agencyId = employee.agencyId
+
+		su.agency = Agency.get(employee.agencyId);
+
+		return su
 	}
 
 	private SessionUserDto createSessionUser(User user) {
 		SessionUserDto su = new SessionUserDto(id : user.id)
-		switch(user.roleId) {
-			case Role.SYS_ADMIN : su.roleId = user.roleId; break
-			default : su.roleId = Role.APP_ADMIN; break
+
+		if(user.roleId == Role.SYS_ADMIN) {
+			su.roleId = Role.SYS_ADMIN
 		}
+		else {
+			su.roleId = Role.APP_ADMIN
+		}
+
+		su.agencyId = 0
+
+		Agency agency = new Agency();
+		agency.name = 'Watch Your Sales'
+		agency.aliasName = agency.name
+		su.agency = agency
+
+		return su
 	}
 }

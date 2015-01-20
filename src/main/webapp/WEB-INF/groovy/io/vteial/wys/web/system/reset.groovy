@@ -12,50 +12,50 @@ try {
 	sessionUser.id = 'system'
 	sessionUser.roleId = Role.SYS_ADMIN
 
-	def users = []
+	def usrs = []
 
-	User user = new User()
-	user.id = 'vteial'
-	user.password = '1234'
-	user.emailId = 'vteial@gmail.com'
-	user.firstName = 'Eialarasu'
-	user.lastName = 'VT'
-	user.status = UserStatus.ACTIVE
-	user.roleId = Role.SYS_ADMIN
-	users << user
+	User usr = new User()
+	usr.id = 'vteial'
+	usr.password = '1234'
+	usr.emailId = 'vteial@gmail.com'
+	usr.firstName = 'Eialarasu'
+	usr.lastName = 'VT'
+	usr.status = UserStatus.ACTIVE
+	usr.roleId = Role.SYS_ADMIN
+	usrs << usr
 
-	user = new User()
-	user.id = 'donkhan'
-	user.password = '1234'
-	user.emailId = 'routetokamil@gmail.com'
-	user.firstName = 'Kamil'
-	user.lastName = 'Khan'
-	user.status = UserStatus.ACTIVE
-	user.roleId = Role.SYS_ADMIN
-	users << user
+	usr = new User()
+	usr.id = 'donkhan'
+	usr.password = '1234'
+	usr.emailId = 'routetokamil@gmail.com'
+	usr.firstName = 'Kamil'
+	usr.lastName = 'Khan'
+	usr.status = UserStatus.ACTIVE
+	usr.roleId = Role.SYS_ADMIN
+	usrs << usr
 
-	user = new User()
-	user.id = 'jayaramanhari'
-	user.password = '1234'
-	user.emailId = 'jayaramanhari@gmail.com'
-	user.firstName = 'Hariharasubramanian'
-	user.lastName = 'Jayaraman'
-	user.status = UserStatus.ACTIVE
-	user.roleId = Role.SYS_ADMIN
-	users << user
+	usr = new User()
+	usr.id = 'jayaramanhari'
+	usr.password = '1234'
+	usr.emailId = 'jayaramanhari@gmail.com'
+	usr.firstName = 'Hariharasubramanian'
+	usr.lastName = 'Jayaraman'
+	usr.status = UserStatus.ACTIVE
+	usr.roleId = Role.SYS_ADMIN
+	usrs << usr
 
-	user = new User()
-	user.id = 'vrsumitha'
-	user.password = '1234'
-	user.emailId = 'sumitha.v.r@gmail.com'
-	user.firstName = 'Sumitha'
-	user.lastName = 'Vasanthan'
-	user.status = UserStatus.ACTIVE
-	user.roleId = Role.APP_ADMIN
-	users << user
+	usr = new User()
+	usr.id = 'vrsumitha'
+	usr.password = '1234'
+	usr.emailId = 'sumitha.v.r@gmail.com'
+	usr.firstName = 'Sumitha'
+	usr.lastName = 'Vasanthan'
+	usr.status = UserStatus.ACTIVE
+	usr.roleId = Role.APP_ADMIN
+	usrs << usr
 
-	users.each { u ->
-		userService.add(sessionUser, u)
+	usrs.each { u ->
+		usrService.add(sessionUser, u)
 	}
 }
 catch(Throwable t) {

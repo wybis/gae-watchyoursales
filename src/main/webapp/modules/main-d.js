@@ -110,6 +110,66 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/items', {
+		templateUrl : 'modules/item/d.html',
+		controller : 'itemController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/employees', {
+		templateUrl : 'modules/employee/d.html',
+		controller : 'employeeController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/dealers', {
+		templateUrl : 'modules/dealer/d.html',
+		controller : 'dealerController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/customers', {
+		templateUrl : 'modules/customer/d.html',
+		controller : 'customerController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/agencys', {
+		templateUrl : 'modules/agency/d.html',
+		controller : 'agencyController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/agencys/:id/accounts', {
+		templateUrl : 'modules/agency/d-accounts.html',
+		controller : 'agencyAccountController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/agencys/:id/items', {
+		templateUrl : 'modules/agency/d-items.html',
+		controller : 'agencyItemController',
+		reloadOnSearch : false
+	});
+	
+	$routeProvider.when('/agencys/:id/employees', {
+		templateUrl : 'modules/agency/d-employees.html',
+		controller : 'agencyEmployeeController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/agencys/:id/dealers', {
+		templateUrl : 'modules/agency/d-dealers.html',
+		controller : 'agencyDealerController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/agencys/:id/customers', {
+		templateUrl : 'modules/agency/d-customers.html',
+		controller : 'agencyCustomerController',
+		reloadOnSearch : false
+	});
+
 	$routeProvider.otherwise({
 		redirectTo : '/notFound'
 	});

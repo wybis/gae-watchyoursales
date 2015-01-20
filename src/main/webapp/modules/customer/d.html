@@ -15,12 +15,11 @@
 		<th class="text-right" width="30">#</th>
 		<th class="text-center"><small>Id</small></th>
 	   	<th class="text-center"><small>Name</small></th>
+	   	<th class="text-center"><small>Email Id</small></th>
 	   	<th class="text-center"><small>Mobile No</small></th>
 	   	<th class="text-center"><small>Status</small></th>
 	   	<th class="text-center"><small>Account Id</small></th>
-	   	<th class="text-center"><small>User Id</small></th>
 	   	<th class="text-center"><small>Update Time</small></th>
-		<th class="text-center" width="40">&nbsp;</th>	   	
 	</tr>
 	</thead>
 	<tbody>
@@ -32,7 +31,10 @@
 			{{item.id}}
 		</td>
 		<td>
-			{{item.firstName}}
+			{{item.firstName}} {{item.lastName}}  
+		</td>
+		<td>
+			{{item.emailId}}
 		</td>
 		<td>
 			{{item.handPhoneNumber}}
@@ -43,15 +45,9 @@
 		<td class="text-right">
 			{{item.accountId}}
 		</td>
-		<td>
-			{{item.userId}}
-		</td>
 		<td width="160">
 			{{item.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}
 		</td>
-		<td width="40">
-			&nbsp;
-		</td>	
 	</tr>
 	</tbody>
 	<tfoot x-ng-show="searchResults.hasItems">

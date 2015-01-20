@@ -1,0 +1,91 @@
+<br/>
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		<span class="pull-left">
+			<button	class="btn btn-default"	x-ng-disabled="items.length == 0"
+				x-ng-click="refresh()">
+				<i class="fa fa-refresh"></i>
+			</button>
+		</span>
+		&nbsp;
+	</div>
+	<table class="table table-condensed table-bordered table-striped">
+	<thead>
+	<tr>
+		<th class="text-right" width="30">#</th>
+		<th class="text-center"><small>Id</small></th>
+	   	<th class="text-center"><small>Code</small></th>
+	   	<th class="text-center"><small>Name</small></th>
+	   	<th class="text-center"><small>Base Unit</small></th>
+	   	<th class="text-center"><small>Denominator</small></th>
+	   	<th class="text-center"><small>Buy Rate</small></th>
+	   	<th class="text-center"><small>Buy Percent</small></th>
+	   	<th class="text-center"><small>Sell Rate</small></th>
+	   	<th class="text-center"><small>Sell Percent</small></th>
+	   	<th class="text-center"><small>Status</small></th>
+	   	<th class="text-center"><small>Date</small></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr x-ng-repeat-start="item in items">
+		<td class="text-right" width="40" rowspan="2">
+			{{$index+1}}
+		</td>
+		<td>
+			{{item.id}}
+		</td>
+		<td>
+			{{item.code}}
+		</td>
+		<td>
+			{{item.name}}
+		</td>
+		<td class="text-right">
+			{{item.baseUnit}}
+		</td>
+		<td class="text-right">
+			{{item.denominator}}
+		</td>	
+		<td class="text-right">
+			{{item.buyRate}}
+		</td>
+		<td class="text-right">
+			{{item.buyPercent}}
+		</td>
+		<td class="text-right">
+			{{item.sellRate}}
+		</td>
+		<td class="text-right">
+			{{item.sellPercent}}
+		</td>
+		<td>
+			{{item.status}}
+		</td>
+		<td width="160">
+			{{item.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}
+		</td>
+	</tr>
+	<tr x-ng-repeat-end>	
+		<td colspan="11" class="text-center">
+			<a x-ng-href="#/agencys/{{item.agencyId}}/items/{{item.id}}/stocks">Stocks</a> | 
+			<a x-ng-href="#/agencys/{{item.agencyId}}/items/{{item.id}}/dealerOrders">Dealer Orders</a> | 
+			<a x-ng-href="#/agencys/{{item.agencyId}}/items/{{item.id}}/dealerTrans">Dealer Transactions</a> |
+			<a x-ng-href="#/agencys/{{item.agencyId}}/items/{{item.id}}/customerOrders">Customer Orders</a> |
+			<a x-ng-href="#/agencys/{{item.agencyId}}/items/{{item.id}}/customerTrans">Customer Transactions</a> 
+		</td>	
+	</tr>
+	</tbody>
+	<tfoot x-ng-show="searchResults.hasItems">
+	<tr>
+		<td>&nbsp;</td>
+		<td colspan="6">
+			<buttton class="btn btn-info btn-block"	
+				x-ng-click="loadMore()">
+				Load More
+			</buttton>
+		</td>
+		<td>&nbsp;</td>
+	</tr>	
+	</tfoot>
+	</table>
+</div>

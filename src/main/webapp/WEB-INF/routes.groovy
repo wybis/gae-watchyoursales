@@ -35,6 +35,14 @@ get      '/users',          			forward : '/io/vteial/wys/web/user/list.groovy'
 //put    '/users/user/@id', 			forward : '/io/vteial/wys/web/user/update.groovy?id=@id'
 //delete '/users/user/@id', 			forward : '/io/vteial/wys/web/user/delete.groovy?id=@id'
 
+// agency
+get      '/agencys',         			forward : '/io/vteial/wys/web/agency/list.groovy'
+get      '/agencys/@id/accounts',       forward : '/io/vteial/wys/web/account/findByAgencyId.groovy?agencyId=@id'
+get      '/agencys/@id/items',       	forward : '/io/vteial/wys/web/item/findByAgencyId.groovy?agencyId=@id'
+get      '/agencys/@id/employees',      forward : '/io/vteial/wys/web/employee/findByAgencyId.groovy?agencyId=@id'
+get      '/agencys/@id/dealers',       	forward : '/io/vteial/wys/web/dealer/findByAgencyId.groovy?agencyId=@id'
+get      '/agencys/@id/customers',      forward : '/io/vteial/wys/web/customer/findByAgencyId.groovy?agencyId=@id'
+
 // customer
 get      '/customers/all',     			forward : '/io/vteial/wys/web/customer/all.groovy'
 get      '/customers',         			forward : '/io/vteial/wys/web/customer/list.groovy'

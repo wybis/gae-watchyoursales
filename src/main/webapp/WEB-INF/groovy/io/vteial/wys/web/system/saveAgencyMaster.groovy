@@ -4,7 +4,7 @@ import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Agency
 import io.vteial.wys.model.Role
 
-println 'init started...'
+println 'saving agency master started...'
 
 try {
 	SessionUserDto sessionUser = new SessionUserDto()
@@ -19,14 +19,14 @@ try {
 	sessionUser.id = agency.employees[0].id
 	sessionUser.roleId = agency.employees[0].roleId
 
-	agency.employees.each { t ->
-		t.agencyId = agency.id
-		employeeService.add(sessionUser, t)
-	}
-	
 	agency.items.each { t ->
 		t.agencyId = agency.id
 		itemService.add(sessionUser, t)
+	}
+
+	agency.employees.each { t ->
+		t.agencyId = agency.id
+		employeeService.add(sessionUser, t)
 	}
 
 	agency.dealers.each { t ->
@@ -43,4 +43,4 @@ catch(Throwable t) {
 	t.printStackTrace(out)
 }
 
-println 'init finished...'
+println 'saving agency master finished...'

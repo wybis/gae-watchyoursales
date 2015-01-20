@@ -1,10 +1,13 @@
-function customerController($rootScope, $scope, $log, customerService) {
-	$rootScope.viewName = 'Subscribers';
+function customerController($rootScope, $scope, $log, agencyService) {
+	$rootScope.viewName = 'Customers';
 
-	$scope.items = customerService.items;
+	var agencyId = $rootScope.sessionContext.sessionUser.agencyId;
 
 	$scope.refresh = function() {
-		customerService.all();
+		agencyService.getCustomers(agencyId).then(function(response) {
+			var agency = agencyService.itemsMap[agencyId];
+			$scope.items = agency.customers;
+		});
 	};
 
 	$scope.refresh();

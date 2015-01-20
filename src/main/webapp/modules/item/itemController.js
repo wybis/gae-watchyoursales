@@ -1,10 +1,13 @@
-function itemController($rootScope, $scope, $log, itemService) {
-	$rootScope.viewName = 'Chits';
+function itemController($rootScope, $scope, $log, agencyService) {
+	$rootScope.viewName = 'Products';
 
-	$scope.items = itemService.items
+	var agencyId = $rootScope.sessionContext.sessionUser.agencyId;
 
 	$scope.refresh = function() {
-		itemService.all();
+		agencyService.getItems(agencyId).then(function(response) {
+			var agency = agencyService.itemsMap[agencyId];
+			$scope.items = agency.items;
+		});
 	};
 
 	$scope.refresh();
@@ -16,29 +19,3 @@ function itemController($rootScope, $scope, $log, itemService) {
 	$log.debug('itemController...');
 }
 appControllers.controller('itemController', itemController);
-
-function itemAddOrEditController($rootScope, $scope, $log, itemService,
-		$routeParams, $location) {
-	$rootScope.viewName = 'Add/Edit Chit';
-
-	$scope.message = '';
-
-	if ($routeParams.id == 0) {
-		itemService.setCurrentItemAsNewItem();
-		$scope.item = itemService.currentItem;
-	} else {
-		itemService.setCurrentItemById($routeParams.id);
-		$scope.item = itemService.currentItem;
-	}
-	$log.info(itemService.currentItem);
-	$log.info($scope.item);
-
-	$scope.save = function() {
-		$log.info('Successfully saved...');
-		itemService.saveCurrentItem();
-		$location.path('/items');
-	};
-
-	$log.debug('itemAddOrEditController...');
-}
-appControllers.controller('itemAddOrEditController', itemAddOrEditController);
