@@ -14,6 +14,8 @@ class DefaultStockService extends AbstractService implements StockService {
 
 	GroovyLogger log = new GroovyLogger(DefaultStockService.class.getName())
 
+	boolean initMode
+
 	@Override
 	public void add(SessionUserDto sessionUser, Stock model)
 	throws ModelAlreadyExistException {
@@ -27,6 +29,23 @@ class DefaultStockService extends AbstractService implements StockService {
 
 	@Override
 	public void onItemCreate(SessionUserDto sessionUser, Item item) {
+		if(initMode) {
+			return
+		}
+
+		def entitys = datastore.execute {
+			from Employee.class.simpleName
+			where agencyId == item.agencyId
+		}
+
+		entitys.each { entity ->
+			Employee employee = entity as Employee
+			Stock model = new Stock()
+			model.itemId = item.id
+			model.employeeId = employee.id
+			model.agencyId = item.agencyId
+			this.add(sessionUser, model)
+		}
 	}
 
 	@Override

@@ -29,24 +29,12 @@ class GeneralPlugin extends PluginBaseScript {
 		DefaultAccountService accS = new DefaultAccountService()
 		accS.autoNumberService = anS
 
-		DefaultUserService usrS = new DefaultUserService()
-		usrS.autoNumberService = anS
-		usrS.accountService = accS
-
-		DefaultAgencyService agnS = new DefaultAgencyService()
-		agnS.autoNumberService = anS
-		agnS.accountService = accS
-
-		DefaultItemService itmS = new DefaultItemService()
-		itmS.autoNumberService = anS
-
 		DefaultStockService stkS = new DefaultStockService()
 		stkS.autoNumberService = anS
 
-		DefaultEmployeeService empS = new DefaultEmployeeService()
-		empS.autoNumberService = anS
-		empS.accountService = accS
-		empS.stockService = stkS
+		DefaultUserService usrS = new DefaultUserService()
+		usrS.autoNumberService = anS
+		usrS.accountService = accS
 
 		DefaultDealerService dlrS = new DefaultDealerService()
 		dlrS.autoNumberService = anS
@@ -55,6 +43,21 @@ class GeneralPlugin extends PluginBaseScript {
 		DefaultCustomerService cusS = new DefaultCustomerService()
 		cusS.autoNumberService = anS
 		cusS.accountService = accS
+
+		DefaultAgencyService agnS = new DefaultAgencyService()
+		agnS.autoNumberService = anS
+		agnS.accountService = accS
+		agnS.dealerService = dlrS
+		agnS.customerService = cusS
+
+		DefaultItemService itmS = new DefaultItemService()
+		itmS.autoNumberService = anS
+		itmS.stockService = stkS
+
+		DefaultEmployeeService empS = new DefaultEmployeeService()
+		empS.autoNumberService = anS
+		empS.accountService = accS
+		empS.stockService = stkS
 
 		binding {
 			jsonCategory      = JacksonCategory

@@ -35,16 +35,19 @@
   "employees": [
     {
       "id": "munmin2000@maxmoney",
+      "password": "1234",
       "firstName": "Munavar Ali",
       "roleId": "Manager"
     },
     {
       "id": "feroz@maxmoney",
+      "password": "1234",
       "firstName": "Feroz",
       "roleId": "Employee"
     },
     {
       "id": "rahamathulla@ramnadu_medicals",
+      "password": "1234",
       "firstName": "Rahamathulla",
       "roleId": "Employee"
     }
