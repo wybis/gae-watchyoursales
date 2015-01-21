@@ -28,7 +28,7 @@ class DefaultEmployeeService extends AbstractService implements EmployeeService 
 		account.name = "Employee-${model.firstName}"
 		account.aliasName = "Employee-${model.lastName}"
 		account.type = AccountType.EMPLOYEE
-		account.isMinus = true
+		account.isMinus = false
 		account.status = AccountStatus.ACTIVE
 		account.agencyId = model.agencyId
 
