@@ -116,6 +116,12 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/stocks', {
+		templateUrl : 'modules/stock/d.html',
+		controller : 'stockController',
+		reloadOnSearch : false
+	});
+
 	$routeProvider.when('/employees', {
 		templateUrl : 'modules/employee/d.html',
 		controller : 'employeeController',

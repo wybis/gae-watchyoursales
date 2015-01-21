@@ -19,7 +19,7 @@ function loginController($rootScope, $scope, $log, $location, $sessionStorage,
 			} else {
 				$scope.user.password = '';
 				$rootScope.isLoggedIn = true;
-				$rootScope.homeView = '/home';
+				$rootScope.homeView = '/stocks';
 				var locPath = $sessionStorage.wysCLP;
 				$log.info('Last Stored Location : ', locPath);
 				if (!locPath) {
@@ -31,15 +31,15 @@ function loginController($rootScope, $scope, $log, $location, $sessionStorage,
 	}
 	$scope.signin = signin;
 
-	// if (sessionService.context.localMode) {
-	// $timeout(function() {
-	// $log.info('Before signin...');
-	// // $scope.user.id = 'vteial';
-	// $scope.user.id = 'munmin2000@maxmoney';
-	// $scope.signin();
-	// $log.info('After signin...');
-	// }, 1000);
-	//	}
+//	if (sessionService.context.localMode) {
+//		$timeout(function() {
+//			$log.info('Before signin...');
+//			// $scope.user.id = 'vteial';
+//			$scope.user.id = 'munmin2000@maxmoney';
+//			$scope.signin();
+//			$log.info('After signin...');
+//		}, 1000);
+//	}
 
 	$log.debug('loginController...');
 }

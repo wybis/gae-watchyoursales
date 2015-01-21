@@ -1,0 +1,82 @@
+<br/>
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		<span class="pull-left">
+			<button	class="btn btn-default"	x-ng-disabled="items.length == 0"
+				x-ng-click="refresh()">
+				<i class="fa fa-refresh"></i>
+			</button>
+		</span>
+		&nbsp;
+	</div>
+	<table class="table table-condensed table-bordered table-striped">
+	<thead>
+	<tr>
+		<th class="text-right" width="30">#</th>
+		<th class="text-center"><small>Id</small></th>
+	   	<th class="text-center"><small>Code</small></th>
+	   	<th class="text-center"><small>Name</small></th>
+	   	<th class="text-center"><small>Stock In Hand</small></th>
+	   	<th class="text-center"><small>Stock In Move</small></th>
+	   	<th class="text-center"><small>Total Stock</small></th>
+	   	<th class="text-center"><small>Average</small></th>
+	   	<th class="text-center"><small>Order Buy</small></th>
+	   	<th class="text-center"><small>Order Average</small></th>
+	   	<th class="text-center"><small>Order Sell</small></th>
+	   	<th class="text-center"><small>Available</small></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr x-ng-repeat="item in items">
+		<td class="text-right" width="40">
+			{{$index+1}}
+		</td>
+		<td>
+			{{item.id}}
+		</td>
+		<td>
+			{{item.item.code}}
+		</td>
+		<td>
+			{{item.item.name}}
+		</td>
+		<td class="text-right">
+			{{item.handStock | number : 2}}
+		</td>
+		<td class="text-right">
+			{{item.handStockMove | number : 2}}
+		</td>
+		<td class="text-right">
+			{{item.handStockTotal | number : 2}}
+		</td>
+		<td class="text-right">
+			{{item.handStockAverage | number : 5}}
+		</td>	
+		<td class="text-right">
+			{{item.virtualStockBuy | number : 2}}
+		</td>
+		<td class="text-right">
+			{{item.virtualStockAverage | number : 5}}
+		</td>
+		<td class="text-right">
+			{{item.virtualStockSell | number : 2}}
+		</td>
+		<td class="text-right">
+			{{item.availableStock | number : 2}}
+		</td>
+	</tr>
+	</tbody>
+	<tfoot x-ng-show="searchResults.hasItems">
+	<tr>
+		<td>&nbsp;</td>
+		<td colspan="6">
+			<buttton class="btn btn-info btn-block"	
+				x-ng-click="loadMore()">
+				Load More
+			</buttton>
+		</td>
+		<td>&nbsp;</td>
+	</tr>	
+	</tfoot>
+	</table>
+</div>
