@@ -14,13 +14,11 @@
 			</a>
 		</li>	
 		<li class="list-group-item">
-			<a href="" x-ng-click="routeTo($event, '/stocks')">
-				Stocks
-			</a>
-		</li>	
-		<li class="list-group-item">
-			<a href="" x-ng-click="routeTo($event, '/items')">
+			<a href="" x-ng-click="routeTo($event, '/products')">
 				Products
+			</a>
+			<a href="" x-ng-click="routeTo($event, '/stocks')" class="pull-right">
+				Stocks
 			</a>
 		</li>	
 		<li class="list-group-item">
@@ -29,28 +27,51 @@
 			</a>
 		</li>	
 		<li class="list-group-item">
+				Customer &nbsp;&nbsp;
+			<a href="" x-ng-click="routeTo($event, '/customerOrders')"> 
+				Orders
+			</a>
+			<a href="" x-ng-click="routeTo($event, '/customerTrans')" class="pull-right"> 
+				Transactions
+			</a>
+		</li>
+		<!-- 	
+		<li class="list-group-item">
 			<a href="" x-ng-click="routeTo($event, '/dealers')"> 
 				Dealers
 			</a>
 		</li>	
+		<li class="list-group-item">
+				Dealer &nbsp;&nbsp;
+			<a href="" x-ng-click="routeTo($event, '/dealerOrders')"> 
+			 	Orders
+			</a>
+			<a href="" x-ng-click="routeTo($event, '/dealerTrans')" class="pull-right"> 
+				Transactions
+			</a>
+		</li>
+		-->	
 		<li class="list-group-item">
 			<a href="" x-ng-click="routeTo($event, '/employees')"> 
 				Employees
 			</a>
 		</li>	
 		<li class="list-group-item">
-			<a href="" x-ng-click="routeTo($event, '/accounts')">
+			<a href="" x-ng-click="routeTo($event, '/accounts')"> 
 				Accounts
 			</a>
-		</li>	
-		<li class="list-group-item">
-			<a href="" x-ng-click="routeTo($event, '/agencys')">
-				Agencys
+			<!-- 
+			<a href="" x-ng-click="routeTo($event, '/accountTrans')" class="pull-right"> 
+				Transactions
 			</a>
+			-->
 		</li>	
 		<li class="list-group-item">
 			<a href="" x-ng-click="routeTo($event, '/users')">
 				Users
+			</a>
+			<a href="" x-ng-click="routeTo($event, '/agencys')" class="pull-right">
+				Agencys
 			</a>
 		</li>	
 	</ul>

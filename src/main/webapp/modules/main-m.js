@@ -115,6 +115,18 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/customerOrders', {
+		templateUrl : 'modules/customerOrder/m.html',
+		controller : 'customerOrderController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/customerTrans', {
+		templateUrl : 'modules/customerTran/m.html',
+		controller : 'customerTranController',
+		reloadOnSearch : false
+	});
+
 	$routeProvider.otherwise({
 		redirectTo : '/notFound'
 	});

@@ -140,6 +140,18 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/customerOrders', {
+		templateUrl : 'modules/customerOrder/d.html',
+		controller : 'customerOrderController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/customerTrans', {
+		templateUrl : 'modules/customerTran/d.html',
+		controller : 'customerTranController',
+		reloadOnSearch : false
+	});
+
 	$routeProvider.when('/agencys', {
 		templateUrl : 'modules/agency/d.html',
 		controller : 'agencyController',
@@ -157,7 +169,7 @@ app.config(function($routeProvider, $locationProvider) {
 		controller : 'agencyItemController',
 		reloadOnSearch : false
 	});
-	
+
 	$routeProvider.when('/agencys/:id/employees', {
 		templateUrl : 'modules/agency/d-employees.html',
 		controller : 'agencyEmployeeController',
