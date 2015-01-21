@@ -1,0 +1,97 @@
+{
+  "name": "Tata Water Plus",
+  "items": [
+    {
+      "code": "TWP-111",
+      "name": "Tata water plus-500 ml",
+      "buyRate": 7.00,
+      "buyPercent": 10,
+      "sellRate": 7.50,
+      "sellPercent": 10
+    },
+    {
+      "code": "TWP-112",
+      "name": "Tata water plus-1 lit",
+      "buyRate": 14.00,
+      "buyPercent": 10,
+      "sellRate": 15.00,
+      "sellPercent": 10
+    },
+    {
+      "code": "TGP-01",
+      "name": "Tata gluco plus-Orange",
+      "buyRate": 8.00,
+      "buyPercent": 10,
+      "sellRate": 10.00,
+      "sellPercent": 10
+    },
+    {
+      "code": "TGP-02",
+      "name": "Tata gluco plus-Lemon",
+      "buyRate": 7.75,
+      "buyPercent": 10,
+      "sellRate": 9.90,
+      "sellPercent": 10
+    },
+    {
+      "code": "TGP-03",
+      "name": "Tata gluco plus-Apple",
+      "buyRate": 7.60,
+      "buyPercent": 15,
+      "sellRate": 11.50,
+      "sellPercent": 15
+    },
+    {
+      "code": "TGP-04",
+      "name": "Tata gluco plus-Mango",
+      "buyRate": 5.60,
+      "buyPercent": 15,
+      "sellRate": 7.00,
+      "sellPercent": 15
+    },
+     {
+      "code": "TGP-04",
+      "name": "Tata gluco plus-Grape",
+      "buyRate": 6.60,
+      "buyPercent": 12,
+      "sellRate": 10.00,
+      "sellPercent": 12
+    }
+  ],
+  "employees": [
+    {
+      "id": "ponnarasu@twp",
+      "password": "1234",
+      "firstName": "Ponnarasu"
+      "roleId": "Manager"
+    },
+    {
+      "id": "prabhakaran@twp",
+      "password": "parbhu",
+      "firstName": "Prabhakaran",
+      "roleId": "Employee"
+    },
+    {
+       "id": "kaali@twp",
+      "password": "kaali1234",
+      "firstName": "Kaali",
+      "roleId": "Employee"
+    }
+  ],
+  "dealers": [
+    {
+      "name": "Rohan Minerals"
+    },
+    {
+      "name": "Sri.Devi Traders"
+    }
+  ],
+  "customers": [
+    {
+      "firstName": "Naveen Bakery"
+    },
+    {
+      "firstName": "Nila Restaurent"
+    }
+  ]
+}

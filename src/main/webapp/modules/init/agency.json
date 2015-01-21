@@ -14,5 +14,10 @@
   {
     "id": "devi-pannai-service.json",
     "name": "Devi Pannai Service"
+  },
+   {
+    "id": "tata_water.json",
+    "name": "Tata Water Plus"
   }
+  
 ]
