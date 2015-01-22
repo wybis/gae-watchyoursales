@@ -1,17 +1,22 @@
 import com.google.apphosting.api.ApiProxy
 import com.google.apphosting.api.ApiProxy.Environment
 
+import eu.bitwalker.useragentutils.DeviceType
 import eu.bitwalker.useragentutils.UserAgent
 
-//println '''
-//<html><head><title>Test</title><head><body><pre>
-//'''
+UserAgent userAgent = UserAgent.parseUserAgentString(headers['User-Agent'])
+userAgent.operatingSystem.deviceType
+
+if(userAgent.operatingSystem.deviceType != DeviceType.COMPUTER) {
+	println '''
+<html><head><title>Test</title><head><body><pre>
+'''
+}
 String s = '-', schar = '-'; int noOfChars = 80;
 println s.padRight(noOfChars, schar)
 
 try {
 	println "App Info    = ${app}"
-	UserAgent userAgent = UserAgent.parseUserAgentString(headers['User-Agent'])
 	println "Device Type = $userAgent.operatingSystem.deviceType"
 
 	println s.padRight(noOfChars, schar)
@@ -31,6 +36,8 @@ catch(Throwable t) {
 
 println s.padRight(noOfChars, schar)
 
-//println '''
-//</pre></body></html>
-//'''
+if(userAgent.operatingSystem.deviceType != DeviceType.COMPUTER) {
+	println '''
+</pre></body></html>
+'''
+}
