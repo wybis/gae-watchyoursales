@@ -3,14 +3,16 @@ import com.google.apphosting.api.ApiProxy.Environment
 
 import eu.bitwalker.useragentutils.UserAgent
 
-println '''
-<html><head><title>Test</title><head><body><pre>
-'''
-String s = '-', schar = '-'; int noOfChars = 120;
+//println '''
+//<html><head><title>Test</title><head><body><pre>
+//'''
+String s = '-', schar = '-'; int noOfChars = 80;
 println s.padRight(noOfChars, schar)
 
 try {
-	println "App Info = ${app}"
+	println "App Info    = ${app}"
+	UserAgent userAgent = UserAgent.parseUserAgentString(headers['User-Agent'])
+	println "Device Type = $userAgent.operatingSystem.deviceType"
 
 	println s.padRight(noOfChars, schar)
 
@@ -22,9 +24,6 @@ try {
 
 	Environment env = ApiProxy.getCurrentEnvironment();
 	env.getAttributes().each { attr -> println "${attr.key} = ${attr.value}" }
-
-	UserAgent userAgent = UserAgent.parseUserAgentString(headers['User-Agent'])
-	println "Device Type : $userAgent.operatingSystem.deviceType"
 }
 catch(Throwable t) {
 	t.printStackTrace(out)
@@ -32,6 +31,6 @@ catch(Throwable t) {
 
 println s.padRight(noOfChars, schar)
 
-println '''
-</pre></body></html>
-'''
+//println '''
+//</pre></body></html>
+//'''

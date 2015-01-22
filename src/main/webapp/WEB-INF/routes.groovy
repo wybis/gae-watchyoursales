@@ -8,7 +8,7 @@ get 	'/favicon.ico',		redirect : '/assets/favicon.png'
 get     '/',				redirect : '/index'
 get     '/index',			forward  : '/index.groovy'
 get 	'/info',			forward  : '/info.groovy'
-//get	'/json',			forward  : '/json.groovy'
+get		'/ping',			forward  : '/ping.groovy'
 all 	'/_ah/warmup',		forward  : '/ping.groovy'
 
 // cron

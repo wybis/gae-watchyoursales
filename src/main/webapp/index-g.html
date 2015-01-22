@@ -23,14 +23,19 @@
 	<div class="col-md-2 text-center">
 		<strong>WatchYourSales Console</strong>
 	</div>
-	<div class="col-md-5 text-center">
+	<div class="col-md-10 text-center">
 		<a href="index-d.html" class="btn btn-primary">Destop/Tablet</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="index-m.html" class="btn btn-primary">Tablet/Mobile</a>
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href="_ah/admin/" class="btn btn-default">Google Datastore</a>
-	</div>
-	<div class="col-md-5 text-center">
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<button class="btn btn-default"
+			x-ng-click="execute('/ping')">Ping</button>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<button class="btn btn-default"
+			x-ng-click="execute('/info')">Info</button>
+		&nbsp;&nbsp;&nbsp;&nbsp;
 		<button class="btn btn-default"
 			x-ng-click="execute('/sessions/properties')">Session Properties</button>
 		&nbsp;&nbsp;&nbsp;&nbsp;
