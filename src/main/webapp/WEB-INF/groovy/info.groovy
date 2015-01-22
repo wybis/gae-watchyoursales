@@ -24,7 +24,7 @@ try {
 	env.getAttributes().each { attr -> println "${attr.key} = ${attr.value}" }
 
 	UserAgent userAgent = UserAgent.parseUserAgentString(headers['User-Agent'])
-	println userAgent
+	println "Device Type : $userAgent.operatingSystem.deviceType"
 }
 catch(Throwable t) {
 	t.printStackTrace(out)

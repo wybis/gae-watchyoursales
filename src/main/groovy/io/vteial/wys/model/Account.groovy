@@ -24,8 +24,6 @@ public class Account implements Serializable {
 
 	double balance
 
-	double balancePft
-
 	String status
 
 	long agencyId

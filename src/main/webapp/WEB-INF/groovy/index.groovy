@@ -1,7 +1,17 @@
-String path = '/index-g.html'
+import eu.bitwalker.useragentutils.DeviceType
+import eu.bitwalker.useragentutils.UserAgent
 
-if(!localMode) {
-	path = '/index-m.html'
+UserAgent userAgent = UserAgent.parseUserAgentString(headers['User-Agent'])
+userAgent.operatingSystem.deviceType
+
+if(localMode && userAgent.operatingSystem.deviceType == DeviceType.COMPUTER) {
+	forward '/index-g.html'
+	return
 }
 
-forward path
+if(userAgent.operatingSystem.deviceType != DeviceType.COMPUTER) {
+	forward '/index-d.html'
+}
+else {
+	forward '/index-m.html'
+}
