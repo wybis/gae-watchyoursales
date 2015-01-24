@@ -4,7 +4,7 @@ function agencyService($log, $http, $q) {
 	var service = {
 		items : [],
 		itemsMap : {}
-	}, omitProps = [ 'accounts', 'items', 'employees', 'dealers', 'customers' ];
+	}, omitProps = [ 'accounts', 'products', 'employees', 'dealers', 'customers' ];
 
 	function addOrUdpateCacheX(agency, propName, objectx) {
 		var objectsLst = agency[propName]
@@ -29,8 +29,8 @@ function agencyService($log, $http, $q) {
 
 			itemx.accounts = [];
 			itemx.accountsMap = {};
-			itemx.items = [];
-			itemx.itemsMap = {};
+			itemx.products = [];
+			itemx.productsMap = {};
 			itemx.employees = [];
 			itemx.employeesMap = {};
 			itemx.dealers = [];
@@ -76,19 +76,19 @@ function agencyService($log, $http, $q) {
 		return deferred.promise;
 	};
 
-	service.getItems = function(agencyId) {
-		var path = basePath + '/' + agencyId + '/items';
+	service.getProducts = function(agencyId) {
+		var path = basePath + '/' + agencyId + '/products';
 
 		var deferred = $q.defer();
 		$http.get(path).success(function(response) {
 			if (response.type === 0) {
 				var agency = service.itemsMap[agencyId];
 				_.forEach(response.data, function(objectx) {
-					addOrUdpateCacheX(agency, 'items', objectx);
+					addOrUdpateCacheX(agency, 'products', objectx);
 				});
 				deferred.resolve(response);
 			}
-			// $log.info(response);
+			$log.info(response);
 		})
 
 		return deferred.promise;

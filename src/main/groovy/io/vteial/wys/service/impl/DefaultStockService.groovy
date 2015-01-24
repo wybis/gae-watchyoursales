@@ -4,7 +4,7 @@ import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Employee
-import io.vteial.wys.model.Item
+import io.vteial.wys.model.Product
 import io.vteial.wys.model.Stock
 import io.vteial.wys.service.StockService
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
@@ -28,7 +28,7 @@ class DefaultStockService extends AbstractService implements StockService {
 
 
 	@Override
-	public void onItemCreate(SessionUserDto sessionUser, Item item) {
+	public void onItemCreate(SessionUserDto sessionUser, Product item) {
 		if(initMode) {
 			return
 		}
@@ -51,12 +51,12 @@ class DefaultStockService extends AbstractService implements StockService {
 	@Override
 	public void onEmployeeCreate(SessionUserDto sessionUser, Employee employee) {
 		def entitys = datastore.execute {
-			from Item.class.simpleName
+			from Product.class.simpleName
 			where agencyId == employee.agencyId
 		}
 
 		entitys.each { entity ->
-			Item item = entity as Item
+			Product item = entity as Product
 			Stock model = new Stock()
 			model.itemId = item.id
 			model.employeeId = employee.id

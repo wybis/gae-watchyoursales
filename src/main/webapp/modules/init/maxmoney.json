@@ -1,6 +1,6 @@
 {
   "name": "Max Money",
-  "items": [
+  "products": [
     {
       "code": "USD",
       "name": "United States Dollar",
@@ -54,10 +54,10 @@
   ],
   "dealers": [
     {
-      "name": "Rapid Million"
+      "firstName": "Rapid Million"
     },
     {
-      "name": "Ok Money"
+      "firstName": "Ok Money"
     }
   ],
   "customers": [

@@ -9,7 +9,7 @@ import groovyx.gaelyk.datastore.Key
 @Entity(unindexed=false)
 @Canonical
 @ToString(includeNames=true)
-class Item implements Serializable {
+class Product implements Serializable {
 
 	static final String ID_KEY = "itemId"
 

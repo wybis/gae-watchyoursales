@@ -5,6 +5,7 @@ import groovy.transform.ToString
 import groovyx.gaelyk.datastore.Entity
 import groovyx.gaelyk.datastore.Ignore
 import groovyx.gaelyk.datastore.Key
+import io.vteial.wys.model.constants.CustomerType
 
 @Entity(unindexed=false)
 @Canonical
@@ -34,6 +35,8 @@ public class Customer implements Serializable {
 	Address address
 
 	String status
+	
+	String type = CustomerType.CUSTOMER
 
 	String roleId = Role.AGNECY_CUSTOMER
 

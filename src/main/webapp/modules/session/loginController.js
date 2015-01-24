@@ -38,7 +38,7 @@ function loginController($rootScope, $scope, $log, $location, $sessionStorage,
 //		$timeout(function() {
 //			$log.info('Before signin...');
 //			$scope.user.id = 'vteial';
-//			// $scope.user.id = 'munmin2000@maxmoney';
+			$scope.user.id = 'munmin2000@maxmoney';
 //			$scope.signin();
 //			$log.info('After signin...');
 //		}, 1000);

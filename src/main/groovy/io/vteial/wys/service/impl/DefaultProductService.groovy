@@ -2,23 +2,23 @@ package io.vteial.wys.service.impl
 
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
-import io.vteial.wys.model.Item
+import io.vteial.wys.model.Product
 import io.vteial.wys.model.constants.ItemStatus
-import io.vteial.wys.service.ItemService
+import io.vteial.wys.service.ProductService
 import io.vteial.wys.service.StockService
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
-class DefaultItemService extends AbstractService implements ItemService {
+class DefaultProductService extends AbstractService implements ProductService {
 
-	GroovyLogger log = new GroovyLogger(DefaultItemService.class.getName())
+	GroovyLogger log = new GroovyLogger(DefaultProductService.class.getName())
 
 	StockService stockService
 
 	@Override
-	public void add(SessionUserDto sessionUser, Item model)
+	public void add(SessionUserDto sessionUser, Product model)
 	throws ModelAlreadyExistException {
 
-		model.id = autoNumberService.getNextNumber(sessionUser, Item.ID_KEY)
+		model.id = autoNumberService.getNextNumber(sessionUser, Product.ID_KEY)
 		model.status = ItemStatus.ACTIVE
 
 		model.prePersist(sessionUser.id)

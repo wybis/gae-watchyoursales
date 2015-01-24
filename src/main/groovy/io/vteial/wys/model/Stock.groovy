@@ -38,7 +38,7 @@ class Stock implements Serializable {
 	long itemId
 
 	@Ignore
-	Item item
+	Product item
 
 	String employeeId
 	

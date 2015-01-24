@@ -22,9 +22,9 @@ try {
 	sessionUser.id = agency.employees[0].id
 	sessionUser.roleId = agency.employees[0].roleId
 
-	agency.items.each { t ->
+	agency.products.each { t ->
 		t.agencyId = agency.id
-		itemService.add(sessionUser, t)
+		productService.add(sessionUser, t)
 	}
 
 	agency.employees.each { t ->

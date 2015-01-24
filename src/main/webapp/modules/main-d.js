@@ -110,9 +110,9 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/items', {
-		templateUrl : 'modules/item/d.html',
-		controller : 'itemController',
+	$routeProvider.when('/products', {
+		templateUrl : 'modules/product/d.html',
+		controller : 'productController',
 		reloadOnSearch : false
 	});
 
@@ -137,6 +137,18 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/customers', {
 		templateUrl : 'modules/customer/d.html',
 		controller : 'customerController',
+		reloadOnSearch : false
+	});
+	
+	$routeProvider.when('/dealerOrders', {
+		templateUrl : 'modules/dealerOrder/d.html',
+		controller : 'dealerOrderController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/dealerTrans', {
+		templateUrl : 'modules/dealerTran/d.html',
+		controller : 'dealerTranController',
 		reloadOnSearch : false
 	});
 

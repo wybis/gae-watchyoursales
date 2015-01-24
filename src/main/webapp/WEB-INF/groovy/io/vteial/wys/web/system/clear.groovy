@@ -6,9 +6,8 @@ import io.vteial.wys.model.Agency
 import io.vteial.wys.model.AutoNumber
 import io.vteial.wys.model.Country
 import io.vteial.wys.model.Customer
-import io.vteial.wys.model.Dealer
 import io.vteial.wys.model.Employee
-import io.vteial.wys.model.Item
+import io.vteial.wys.model.Product
 import io.vteial.wys.model.Stock
 import io.vteial.wys.model.User
 
@@ -40,7 +39,7 @@ try {
 	}
 	println entities.size() + ' users deleted'
 
-	entities = Item.findAll()
+	entities = Product.findAll()
 	entities.each { entity ->
 		entity.delete()
 	}
@@ -57,12 +56,6 @@ try {
 		entity.delete()
 	}
 	println entities.size() + ' employees deleted'
-
-	entities = Dealer.findAll()
-	entities.each { entity ->
-		entity.delete()
-	}
-	println entities.size() + ' dealers deleted'
 
 	entities = Customer.findAll()
 	entities.each { entity ->

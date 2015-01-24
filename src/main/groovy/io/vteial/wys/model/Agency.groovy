@@ -43,13 +43,13 @@ public class Agency implements Serializable {
 	long parentId
 
 	@Ignore
-	List<Item> items
+	List<Product> products
 
 	@Ignore
 	List<Employee> employees
 
 	@Ignore
-	List<Dealer> dealers
+	List<Customer> dealers
 
 	@Ignore
 	List<Customer> customers

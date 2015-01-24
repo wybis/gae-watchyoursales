@@ -5,10 +5,9 @@ import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Account
 import io.vteial.wys.model.Agency
 import io.vteial.wys.model.Customer
-import io.vteial.wys.model.Dealer
 import io.vteial.wys.model.constants.AccountStatus
 import io.vteial.wys.model.constants.AccountType
-import io.vteial.wys.model.constants.CustomerStatus
+import io.vteial.wys.model.constants.CustomerType
 import io.vteial.wys.model.constants.DealerStatus
 import io.vteial.wys.service.AccountService
 import io.vteial.wys.service.DealerService
@@ -21,12 +20,12 @@ class DefaultDealerService extends AbstractService implements DealerService {
 	AccountService accountService
 
 	@Override
-	public void add(SessionUserDto sessionUser, Dealer model)
+	public void add(SessionUserDto sessionUser, Customer model)
 	throws ModelAlreadyExistException {
 
 		Account account = new Account()
-		account.name = "Dealer-${model.name}"
-		account.aliasName = "Dealer-${model.aliasName}"
+		account.name = "Dealer-${model.firstName}"
+		account.aliasName = "Dealer-${model.lastName}"
 		account.type = AccountType.DEALER
 		account.isMinus = true
 		account.status = AccountStatus.ACTIVE
@@ -37,7 +36,8 @@ class DefaultDealerService extends AbstractService implements DealerService {
 		model.account = account
 		model.accountId = account.id
 
-		model.id = autoNumberService.getNextNumber(sessionUser, Dealer.ID_KEY)
+		model.id = autoNumberService.getNextNumber(sessionUser, Customer.ID_KEY)
+		model.type = CustomerType.CUSTOMER
 		model.status = DealerStatus.ACTIVE
 
 		model.prePersist(sessionUser.id)
@@ -47,16 +47,16 @@ class DefaultDealerService extends AbstractService implements DealerService {
 	@Override
 	public void onAgencyCreate(SessionUserDto sessionUser, Agency agency) {
 
-		Dealer model = new Dealer()
+		Customer model = new Customer()
 		model.with {
-			name = 'Guest'
-			aliasName = 'Dealer'
+			firstName = 'Guest'
+			lastName = 'Dealer'
 			agencyId = agency.id
 		}
 
 		Account account = new Account()
-		account.name = "Dealer-${model.name}"
-		account.aliasName = "Dealer-${model.name}"
+		account.name = "Dealer-${model.firstName}"
+		account.aliasName = "Dealer-${model.lastName}"
 		account.type = AccountType.CUSTOMER
 		account.isMinus = false
 		account.status = AccountStatus.ACTIVE
@@ -67,7 +67,8 @@ class DefaultDealerService extends AbstractService implements DealerService {
 		model.account = account
 		model.accountId = account.id
 
-		model.id = autoNumberService.getNextNumber(sessionUser, Dealer.ID_KEY)
+		model.id = autoNumberService.getNextNumber(sessionUser, Customer.ID_KEY)
+		model.type = CustomerType.CUSTOMER
 		model.status = DealerStatus.ACTIVE
 
 		model.prePersist(sessionUser.id)

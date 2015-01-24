@@ -3,11 +3,12 @@ package io.vteial.wys.service.impl
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Account
-import io.vteial.wys.model.Agency;
+import io.vteial.wys.model.Agency
 import io.vteial.wys.model.Customer
 import io.vteial.wys.model.constants.AccountStatus
 import io.vteial.wys.model.constants.AccountType
 import io.vteial.wys.model.constants.CustomerStatus
+import io.vteial.wys.model.constants.CustomerType
 import io.vteial.wys.service.AccountService
 import io.vteial.wys.service.CustomerService
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
@@ -36,6 +37,7 @@ class DefaultCustomerService extends AbstractService implements CustomerService 
 		model.accountId = account.id
 
 		model.id = autoNumberService.getNextNumber(sessionUser, Customer.ID_KEY)
+		model.type = CustomerType.CUSTOMER
 		model.status = CustomerStatus.ACTIVE
 
 		model.prePersist(sessionUser.id)
@@ -66,6 +68,7 @@ class DefaultCustomerService extends AbstractService implements CustomerService 
 		model.accountId = account.id
 
 		model.id = autoNumberService.getNextNumber(sessionUser, Customer.ID_KEY)
+		model.type = CustomerType.CUSTOMER
 		model.status = CustomerStatus.ACTIVE
 
 		model.prePersist(sessionUser.id)

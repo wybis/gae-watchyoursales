@@ -7,7 +7,7 @@ import io.vteial.wys.service.impl.DefaultAutoNumberService
 import io.vteial.wys.service.impl.DefaultCustomerService
 import io.vteial.wys.service.impl.DefaultDealerService
 import io.vteial.wys.service.impl.DefaultEmployeeService
-import io.vteial.wys.service.impl.DefaultItemService
+import io.vteial.wys.service.impl.DefaultProductService
 import io.vteial.wys.service.impl.DefaultSessionService
 import io.vteial.wys.service.impl.DefaultStockService
 import io.vteial.wys.service.impl.DefaultUserService
@@ -50,9 +50,9 @@ class GeneralPlugin extends PluginBaseScript {
 		agnS.dealerService = dlrS
 		agnS.customerService = cusS
 
-		DefaultItemService itmS = new DefaultItemService()
-		itmS.autoNumberService = anS
-		itmS.stockService = stkS
+		DefaultProductService prdS = new DefaultProductService()
+		prdS.autoNumberService = anS
+		prdS.stockService = stkS
 
 		DefaultEmployeeService empS = new DefaultEmployeeService()
 		empS.autoNumberService = anS
@@ -67,7 +67,7 @@ class GeneralPlugin extends PluginBaseScript {
 			accountService    = accS
 			usrService        = usrS
 			agencyService     = agnS
-			itemService       = itmS
+			productService    = prdS
 			stockService      = stkS
 			employeeService   = empS
 			dealerService     = dlrS
