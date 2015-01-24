@@ -41,11 +41,11 @@ class Stock implements Serializable {
 	Product item
 
 	String employeeId
-	
+
 	@Ignore
 	Employee employee
-	
-	String agencyId
+
+	long agencyId
 
 	@Ignore
 	Agency agency

@@ -37,7 +37,7 @@ class DefaultDealerService extends AbstractService implements DealerService {
 		model.accountId = account.id
 
 		model.id = autoNumberService.getNextNumber(sessionUser, Customer.ID_KEY)
-		model.type = CustomerType.CUSTOMER
+		model.type = CustomerType.DEALER
 		model.status = DealerStatus.ACTIVE
 
 		model.prePersist(sessionUser.id)
@@ -57,7 +57,7 @@ class DefaultDealerService extends AbstractService implements DealerService {
 		Account account = new Account()
 		account.name = "Dealer-${model.firstName}"
 		account.aliasName = "Dealer-${model.lastName}"
-		account.type = AccountType.CUSTOMER
+		account.type = AccountType.DEALER
 		account.isMinus = false
 		account.status = AccountStatus.ACTIVE
 		account.agencyId = model.agencyId
@@ -68,10 +68,10 @@ class DefaultDealerService extends AbstractService implements DealerService {
 		model.accountId = account.id
 
 		model.id = autoNumberService.getNextNumber(sessionUser, Customer.ID_KEY)
-		model.type = CustomerType.CUSTOMER
+		model.type = CustomerType.DEALER
 		model.status = DealerStatus.ACTIVE
 
-		model.prePersist(sessionUser.id)
+		model.prePersist(agency.createBy)
 		model.save()
 	}
 }

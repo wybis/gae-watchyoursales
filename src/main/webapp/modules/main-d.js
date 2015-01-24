@@ -139,7 +139,7 @@ app.config(function($routeProvider, $locationProvider) {
 		controller : 'customerController',
 		reloadOnSearch : false
 	});
-	
+
 	$routeProvider.when('/dealerOrders', {
 		templateUrl : 'modules/dealerOrder/d.html',
 		controller : 'dealerOrderController',
@@ -176,15 +176,27 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/agencys/:id/items', {
-		templateUrl : 'modules/agency/d-items.html',
-		controller : 'agencyItemController',
+	$routeProvider.when('/agencys/:id/products', {
+		templateUrl : 'modules/agency/d-products.html',
+		controller : 'agencyProductController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/agencys/:id/stocks', {
+		templateUrl : 'modules/agency/d-stocks.html',
+		controller : 'agencyStockController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/agencys/:id/employees', {
 		templateUrl : 'modules/agency/d-employees.html',
 		controller : 'agencyEmployeeController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/agencys/:id/employees/:employeeId/stocks', {
+		templateUrl : 'modules/agency/d-stocks.html',
+		controller : 'agencyEmployeeStockController',
 		reloadOnSearch : false
 	});
 

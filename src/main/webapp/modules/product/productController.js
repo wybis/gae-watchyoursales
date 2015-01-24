@@ -6,7 +6,7 @@ function productController($rootScope, $scope, $log, agencyService) {
 	$scope.refresh = function() {
 		agencyService.getProducts(agencyId).then(function(response) {
 			var agency = agencyService.itemsMap[agencyId];
-			$scope.produts = agency.products;
+			$scope.items = agency.products;
 		});
 	};
 

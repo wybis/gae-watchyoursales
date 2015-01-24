@@ -37,10 +37,18 @@ get      '/users',          			forward : '/io/vteial/wys/web/user/list.groovy'
 
 // agency
 get      '/agencys',         			forward : '/io/vteial/wys/web/agency/list.groovy'
+
 get      '/agencys/@id/accounts',       forward : '/io/vteial/wys/web/account/findByAgencyId.groovy?agencyId=@id'
+
 get      '/agencys/@id/products',      	forward : '/io/vteial/wys/web/product/findByAgencyId.groovy?agencyId=@id'
-get      '/agencys/@id/employees',      forward : '/io/vteial/wys/web/employee/findByAgencyId.groovy?agencyId=@id'
+
+get      '/agencys/@id/stocks',      	forward : '/io/vteial/wys/web/stock/findByAgencyId.groovy?agencyId=@id'
+
+get      '/agencys/@id/employees',      				forward : '/io/vteial/wys/web/employee/findByAgencyId.groovy?agencyId=@id'
+get      '/agencys/@id/employees/@employeeId/stocks', 	forward : '/io/vteial/wys/web/employee/findByAgencyIdAndEmployeeId.groovy?agencyId=@id&employeeId=@employeeId'
+
 get      '/agencys/@id/dealers',       	forward : '/io/vteial/wys/web/dealer/findByAgencyId.groovy?agencyId=@id'
+
 get      '/agencys/@id/customers',      forward : '/io/vteial/wys/web/customer/findByAgencyId.groovy?agencyId=@id'
 
 // customer

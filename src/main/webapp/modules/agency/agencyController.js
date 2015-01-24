@@ -30,22 +30,40 @@ function agencyAccountController($rootScope, $scope, $log, agencyService,
 }
 appControllers.controller('agencyAccountController', agencyAccountController);
 
-function agencyItemController($rootScope, $scope, $log, agencyService,
+function agencyProductController($rootScope, $scope, $log, agencyService,
 		$routeParams) {
 	$rootScope.viewName = 'Agency Items';
 
 	var agency = agencyService.itemsMap[$routeParams.id];
-	$scope.items = agency.items;
+	$scope.items = agency.products;
 
 	$scope.refresh = function() {
-		agencyService.getItems($routeParams.id);
+		agencyService.getProducts($routeParams.id);
 	};
 
 	$scope.refresh();
 
 	$log.debug('agencyItemsController...');
 }
-appControllers.controller('agencyItemController', agencyItemController);
+appControllers.controller('agencyProductController', agencyProductController);
+
+function agencyStockController($rootScope, $scope, $log, agencyService,
+		$routeParams) {
+	$rootScope.viewName = 'Agency Stocks';
+
+	var agency = agencyService.itemsMap[$routeParams.id];
+	$scope.productsMap = agency.productsMap;
+	$scope.items = agency.stocks;
+
+	$scope.refresh = function() {
+		agencyService.getStocks($routeParams.id);
+	};
+
+	$scope.refresh();
+
+	$log.debug('agencyItemsController...');
+}
+appControllers.controller('agencyStockController', agencyStockController);
 
 function agencyEmployeeController($rootScope, $scope, $log, agencyService,
 		$routeParams) {
@@ -63,6 +81,27 @@ function agencyEmployeeController($rootScope, $scope, $log, agencyService,
 	$log.debug('agencyEmployeesController...');
 }
 appControllers.controller('agencyEmployeeController', agencyEmployeeController);
+
+function agencyEmployeeStockController($rootScope, $scope, $log, agencyService,
+		$routeParams, $filter) {
+	$rootScope.viewName = 'Employee Stocks';
+
+	var agency = agencyService.itemsMap[$routeParams.id];
+	$scope.productsMap = agency.productsMap;
+	$scope.items = $filter('filter')(agency.stocks, {
+		employeeId : $routeParams.employeeId
+	});
+
+	$scope.refresh = function() {
+		agencyService.getStocks($routeParams.id);
+	};
+
+	$scope.refresh();
+
+	$log.debug('agencyEmployeeStockController...');
+}
+appControllers.controller('agencyEmployeeStockController',
+		agencyEmployeeStockController);
 
 function agencyDealerController($rootScope, $scope, $log, agencyService,
 		$routeParams) {

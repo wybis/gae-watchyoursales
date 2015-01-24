@@ -4,7 +4,8 @@ function agencyService($log, $http, $q) {
 	var service = {
 		items : [],
 		itemsMap : {}
-	}, omitProps = [ 'accounts', 'products', 'employees', 'dealers', 'customers' ];
+	}, omitProps = [ 'accounts', 'products', 'employees', 'dealers',
+			'customers' ];
 
 	function addOrUdpateCacheX(agency, propName, objectx) {
 		var objectsLst = agency[propName]
@@ -29,12 +30,19 @@ function agencyService($log, $http, $q) {
 
 			itemx.accounts = [];
 			itemx.accountsMap = {};
+
 			itemx.products = [];
 			itemx.productsMap = {};
+
+			itemx.stocks = [];
+			itemx.stocksMap = {};
+
 			itemx.employees = [];
 			itemx.employeesMap = {};
+
 			itemx.dealers = [];
 			itemx.dealersMap = {};
+
 			itemx.customers = [];
 			itemx.customersMap = {};
 		}
@@ -88,7 +96,25 @@ function agencyService($log, $http, $q) {
 				});
 				deferred.resolve(response);
 			}
-			$log.info(response);
+			// $log.info(response);
+		})
+
+		return deferred.promise;
+	};
+
+	service.getStocks = function(agencyId) {
+		var path = basePath + '/' + agencyId + '/stocks';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				var agency = service.itemsMap[agencyId];
+				_.forEach(response.data, function(objectx) {
+					addOrUdpateCacheX(agency, 'stocks', objectx);
+				});
+				deferred.resolve(response);
+			}
+			// $log.info(response);
 		})
 
 		return deferred.promise;

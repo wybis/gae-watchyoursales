@@ -71,7 +71,7 @@ class DefaultCustomerService extends AbstractService implements CustomerService 
 		model.type = CustomerType.CUSTOMER
 		model.status = CustomerStatus.ACTIVE
 
-		model.prePersist(sessionUser.id)
+		model.prePersist(agency.createBy)
 		model.save()
 	}
 }
