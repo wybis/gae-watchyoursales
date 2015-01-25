@@ -47,6 +47,27 @@ function agencyProductController($rootScope, $scope, $log, agencyService,
 }
 appControllers.controller('agencyProductController', agencyProductController);
 
+function agencyProductStockController($rootScope, $scope, $log, agencyService,
+		$routeParams, $filter) {
+	$rootScope.viewName = 'Product Stocks';
+
+	var agency = agencyService.itemsMap[$routeParams.id];
+	$scope.productsMap = agency.productsMap;
+	$scope.items = $filter('filter')(agency.stocks, {
+		productId : $routeParams.productId
+	});
+
+	$scope.refresh = function() {
+		agencyService.getStocks($routeParams.id);
+	};
+
+	$scope.refresh();
+
+	$log.debug('agencyProductStockController...');
+}
+appControllers.controller('agencyProductStockController',
+		agencyProductStockController);
+
 function agencyStockController($rootScope, $scope, $log, agencyService,
 		$routeParams) {
 	$rootScope.viewName = 'Agency Stocks';
@@ -92,16 +113,24 @@ function agencyEmployeeStockController($rootScope, $scope, $log, agencyService,
 		employeeId : $routeParams.employeeId
 	});
 
-	$scope.refresh = function() {
-		agencyService.getStocks($routeParams.id);
-	};
-
-	$scope.refresh();
-
 	$log.debug('agencyEmployeeStockController...');
 }
 appControllers.controller('agencyEmployeeStockController',
 		agencyEmployeeStockController);
+
+function agencyEmployeeAccountController($rootScope, $scope, $log,
+		agencyService, $routeParams, $filter) {
+	$rootScope.viewName = 'Employee Accounts';
+
+	var agency = agencyService.itemsMap[$routeParams.id];
+	var employee = agency.employeesMap[$routeParams.employeeId];
+	var account = agency.accountsMap[employee.accountId]
+	$scope.items = [ account ];
+
+	$log.debug('agencyEmployeeAccountController...');
+}
+appControllers.controller('agencyEmployeeAccountController',
+		agencyEmployeeAccountController);
 
 function agencyDealerController($rootScope, $scope, $log, agencyService,
 		$routeParams) {
@@ -120,6 +149,20 @@ function agencyDealerController($rootScope, $scope, $log, agencyService,
 }
 appControllers.controller('agencyDealerController', agencyDealerController);
 
+function agencyDealerAccountController($rootScope, $scope, $log, agencyService,
+		$routeParams, $filter) {
+	$rootScope.viewName = 'Dealer Accounts';
+
+	var agency = agencyService.itemsMap[$routeParams.id];
+	var dealer = agency.dealersMap[$routeParams.dealerId];
+	var account = agency.accountsMap[dealer.accountId]
+	$scope.items = [ account ];
+
+	$log.debug('agencyDealerAccountController...');
+}
+appControllers.controller('agencyDealerAccountController',
+		agencyDealerAccountController);
+
 function agencyCustomerController($rootScope, $scope, $log, agencyService,
 		$routeParams) {
 	$rootScope.viewName = 'Agency Customers';
@@ -136,3 +179,17 @@ function agencyCustomerController($rootScope, $scope, $log, agencyService,
 	$log.debug('agencyCustomersController...');
 }
 appControllers.controller('agencyCustomerController', agencyCustomerController);
+
+function agencyCustomerAccountController($rootScope, $scope, $log,
+		agencyService, $routeParams, $filter) {
+	$rootScope.viewName = 'Customer Accounts';
+
+	var agency = agencyService.itemsMap[$routeParams.id];
+	var customer = agency.customersMap[$routeParams.customerId];
+	var account = agency.accountsMap[customer.accountId]
+	$scope.items = [ account ];
+
+	$log.debug('agencyCustomerAccountController...');
+}
+appControllers.controller('agencyCustomerAccountController',
+		agencyCustomerAccountController);

@@ -182,6 +182,12 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/agencys/:id/products/:productId/stocks', {
+		templateUrl : 'modules/agency/d-stocks.html',
+		controller : 'agencyProductStockController',
+		reloadOnSearch : false
+	});
+
 	$routeProvider.when('/agencys/:id/stocks', {
 		templateUrl : 'modules/agency/d-stocks.html',
 		controller : 'agencyStockController',
@@ -200,15 +206,33 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/agencys/:id/employees/:employeeId/accounts', {
+		templateUrl : 'modules/agency/d-accounts.html',
+		controller : 'agencyEmployeeAccountController',
+		reloadOnSearch : false
+	});
+
 	$routeProvider.when('/agencys/:id/dealers', {
 		templateUrl : 'modules/agency/d-dealers.html',
 		controller : 'agencyDealerController',
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/agencys/:id/dealers/:dealerId/accounts', {
+		templateUrl : 'modules/agency/d-accounts.html',
+		controller : 'agencyDealerAccountController',
+		reloadOnSearch : false
+	});
+
 	$routeProvider.when('/agencys/:id/customers', {
 		templateUrl : 'modules/agency/d-customers.html',
 		controller : 'agencyCustomerController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/agencys/:id/customers/:customerId/accounts', {
+		templateUrl : 'modules/agency/d-accounts.html',
+		controller : 'agencyCustomerAccountController',
 		reloadOnSearch : false
 	});
 
