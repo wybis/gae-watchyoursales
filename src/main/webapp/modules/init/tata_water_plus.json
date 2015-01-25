@@ -4,25 +4,25 @@
     {
       "code": "TWP-111",
       "name": "Tata water plus-500 ml",
-      "buyRate": 7.00,
+      "buyRate": 7,
       "buyPercent": 10,
-      "sellRate": 7.50,
+      "sellRate": 7.5,
       "sellPercent": 10
     },
     {
       "code": "TWP-112",
       "name": "Tata water plus-1 lit",
-      "buyRate": 14.00,
+      "buyRate": 14,
       "buyPercent": 10,
-      "sellRate": 15.00,
+      "sellRate": 15,
       "sellPercent": 10
     },
     {
       "code": "TGP-01",
       "name": "Tata gluco plus-Orange",
-      "buyRate": 8.00,
+      "buyRate": 8,
       "buyPercent": 10,
-      "sellRate": 10.00,
+      "sellRate": 10,
       "sellPercent": 10
     },
     {
@@ -30,31 +30,31 @@
       "name": "Tata gluco plus-Lemon",
       "buyRate": 7.75,
       "buyPercent": 10,
-      "sellRate": 9.90,
+      "sellRate": 9.9,
       "sellPercent": 10
     },
     {
       "code": "TGP-03",
       "name": "Tata gluco plus-Apple",
-      "buyRate": 7.60,
+      "buyRate": 7.6,
       "buyPercent": 15,
-      "sellRate": 11.50,
+      "sellRate": 11.5,
       "sellPercent": 15
     },
     {
       "code": "TGP-04",
       "name": "Tata gluco plus-Mango",
-      "buyRate": 5.60,
+      "buyRate": 5.6,
       "buyPercent": 15,
-      "sellRate": 7.00,
+      "sellRate": 7,
       "sellPercent": 15
     },
-     {
+    {
       "code": "TGP-04",
       "name": "Tata gluco plus-Grape",
-      "buyRate": 6.60,
+      "buyRate": 6.6,
       "buyPercent": 12,
-      "sellRate": 10.00,
+      "sellRate": 10,
       "sellPercent": 12
     }
   ],
@@ -62,7 +62,7 @@
     {
       "id": "ponnarasu@twp",
       "password": "1234",
-      "firstName": "Ponnarasu"
+      "firstName": "Ponnarasu",
       "roleId": "Manager"
     },
     {
@@ -72,7 +72,7 @@
       "roleId": "Employee"
     },
     {
-       "id": "kaali@twp",
+      "id": "kaali@twp",
       "password": "kaali1234",
       "firstName": "Kaali",
       "roleId": "Employee"
@@ -80,10 +80,10 @@
   ],
   "dealers": [
     {
-      "name": "Rohan Minerals"
+      "firstName": "Rohan Minerals"
     },
     {
-      "name": "Sri.Devi Traders"
+      "firstName": "Sri.Devi Traders"
     }
   ],
   "customers": [

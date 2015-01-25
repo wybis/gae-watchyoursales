@@ -6,8 +6,6 @@ import io.vteial.wys.model.Role
 
 println 'saving agency master started...'
 
-stockService.initMode = true
-
 try {
 
 	SessionUserDto sessionUser = new SessionUserDto()
@@ -45,7 +43,5 @@ try {
 catch(Throwable t) {
 	t.printStackTrace(out)
 }
-
-stockService.initMode = false
 
 println 'saving agency master finished...'
