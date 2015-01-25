@@ -10,7 +10,7 @@ interface StockService {
 
 	void add(SessionUserDto sessionUser, Stock stock) throws ModelAlreadyExistException
 
-	void onItemCreate(SessionUserDto sessionUser, Product item)
+	void onProductCreate(SessionUserDto sessionUser, Product item)
 
 	void onEmployeeCreate(SessionUserDto sessionUser, Employee employee)
 }

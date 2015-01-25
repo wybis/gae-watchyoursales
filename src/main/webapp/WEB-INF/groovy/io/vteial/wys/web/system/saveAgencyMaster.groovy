@@ -22,11 +22,6 @@ try {
 	sessionUser.id = agency.employees[0].id
 	sessionUser.roleId = agency.employees[0].roleId
 
-	agency.products.each { t ->
-		t.agencyId = agency.id
-		productService.add(sessionUser, t)
-	}
-
 	agency.employees.each { t ->
 		t.agencyId = agency.id
 		employeeService.add(sessionUser, t)
@@ -40,6 +35,11 @@ try {
 	agency.customers.each { t ->
 		t.agencyId = agency.id
 		customerService.add(sessionUser, t)
+	}
+
+	agency.products.each { t ->
+		t.agencyId = agency.id
+		productService.add(sessionUser, t)
 	}
 }
 catch(Throwable t) {

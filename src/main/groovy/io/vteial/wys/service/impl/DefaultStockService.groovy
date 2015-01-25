@@ -28,22 +28,18 @@ class DefaultStockService extends AbstractService implements StockService {
 
 
 	@Override
-	public void onItemCreate(SessionUserDto sessionUser, Product item) {
-		if(initMode) {
-			return
-		}
-
+	public void onProductCreate(SessionUserDto sessionUser, Product product) {
 		def entitys = datastore.execute {
-			from Employee.class.simpleName
-			where agencyId == item.agencyId
+			from Employee.class.getSimpleName()
+			where agencyId == product.agencyId
 		}
 
 		entitys.each { entity ->
 			Employee employee = entity as Employee
 			Stock model = new Stock()
-			model.itemId = item.id
+			model.productId = product.id
 			model.employeeId = employee.id
-			model.agencyId = item.agencyId
+			model.agencyId = product.agencyId
 			this.add(sessionUser, model)
 		}
 	}
@@ -56,9 +52,9 @@ class DefaultStockService extends AbstractService implements StockService {
 		}
 
 		entitys.each { entity ->
-			Product item = entity as Product
+			Product product = entity as Product
 			Stock model = new Stock()
-			model.itemId = item.id
+			model.productId = product.id
 			model.employeeId = employee.id
 			model.agencyId = employee.agencyId
 			this.add(sessionUser, model)

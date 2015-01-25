@@ -3,6 +3,7 @@ package io.vteial.wys.service.impl
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Account
+import io.vteial.wys.model.Agency
 import io.vteial.wys.model.Employee
 import io.vteial.wys.model.constants.AccountStatus
 import io.vteial.wys.model.constants.AccountType
@@ -42,6 +43,19 @@ class DefaultEmployeeService extends AbstractService implements EmployeeService 
 		model.prePersist(sessionUser.id)
 		model.save()
 
-		stockService.onEmployeeCreate(sessionUser, model)
+		//stockService.onEmployeeCreate(sessionUser, model)
+	}
+
+	@Override
+	public void onAgencyCreate(SessionUserDto sessionUser, Agency agency) {
+		Employee model = new Employee()
+		model.id = agency.id + '@' + agency.name
+		model.with {
+			firstName = agency.name
+			lastName = agency.id as String
+			agencyId = agency.id
+		}
+
+		this.add(sessionUser, model)
 	}
 }

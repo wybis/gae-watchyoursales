@@ -35,11 +35,6 @@ public class Agency implements Serializable {
 
 	String status
 
-	long accountId
-
-	@Ignore
-	Account account
-
 	long parentId
 
 	@Ignore

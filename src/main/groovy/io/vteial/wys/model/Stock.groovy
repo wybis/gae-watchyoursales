@@ -35,10 +35,10 @@ class Stock implements Serializable {
 
 	double availableStockAverage
 
-	long itemId
+	long productId
 
 	@Ignore
-	Product item
+	Product product
 
 	String employeeId
 

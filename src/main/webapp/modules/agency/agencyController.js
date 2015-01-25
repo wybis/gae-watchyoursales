@@ -32,7 +32,7 @@ appControllers.controller('agencyAccountController', agencyAccountController);
 
 function agencyProductController($rootScope, $scope, $log, agencyService,
 		$routeParams) {
-	$rootScope.viewName = 'Agency Items';
+	$rootScope.viewName = 'Agency Products';
 
 	var agency = agencyService.itemsMap[$routeParams.id];
 	$scope.items = agency.products;

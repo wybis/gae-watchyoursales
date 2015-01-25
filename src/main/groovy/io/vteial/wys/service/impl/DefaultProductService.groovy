@@ -24,6 +24,6 @@ class DefaultProductService extends AbstractService implements ProductService {
 		model.prePersist(sessionUser.id)
 		model.save()
 
-		stockService.onItemCreate(sessionUser, model)
+		stockService.onProductCreate(sessionUser, model)
 	}
 }
