@@ -19,7 +19,7 @@ function loginController($rootScope, $scope, $log, $location, $sessionStorage,
 			} else {
 				$scope.user.password = '';
 				$rootScope.isLoggedIn = true;
-				$rootScope.homeView = '/stocks';
+				$rootScope.homeView = '/home';
 				var locPath = $sessionStorage.wysCLP;
 				$log.info('Last Stored Location : ', locPath);
 				if (!locPath) {

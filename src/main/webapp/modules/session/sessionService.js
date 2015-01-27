@@ -12,8 +12,9 @@ function sessionService($log, $http, $q, agencyService) {
 		$http.get(path).success(function(response) {
 			if (response.type === 0) {
 				_.assign(service.context, response.data);
-				var agency = response.data.sessionUser.agency;
-				if (angular.isDefined(agency)) {
+				identifyUserOrEmployee();
+				if (_.has(service.context.sessionUser, 'agency')) {
+					var agency = response.data.sessionUser.agency;
 					agencyService.addOrUpdateCache(agency);
 				}
 				deferred.resolve(response);
@@ -34,6 +35,7 @@ function sessionService($log, $http, $q, agencyService) {
 			if (response.type >= 0) {
 				if (response.type === 0) {
 					_.assign(service.context, response.data);
+					identifyUserOrEmployee();
 					var agency = response.data.sessionUser.agency;
 					agencyService.addOrUpdateCache(agency);
 				}
@@ -63,6 +65,19 @@ function sessionService($log, $http, $q, agencyService) {
 
 		return deferred.promise;
 	};
+
+	function identifyUserOrEmployee() {
+		if (!_.has(service.context.sessionUser, 'roleId')) {
+			return;
+		}
+		var roleId = service.context.sessionUser.roleId;
+		if (_.startsWith(roleId, 'Sys ') || _.startsWith(roleId, 'App ')) {
+			service.context.sessionUser.isAppUser = true;
+		} else {
+			service.context.sessionUser.isAppUser = false;
+		}
+		$log.info("isAppUser : " + service.context.sessionUser.isAppUser);
+	}
 
 	return service;
 }

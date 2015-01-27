@@ -25,24 +25,22 @@
 					<i class="fa fa-sign-out pull-right"></i>
 				</a><br/>
 			</div>
-			<!-- 
-        	<a class="list-group-item" href="#/home">
+        	<a class="list-group-item" href="#/home" x-ng-show="sessionContext.sessionUser.isAppUser">
         		Home <i class="fa fa-home pull-right"></i>
         	</a>
-        	-->
-			<a class="list-group-item" href="#/stocks">
+			<a class="list-group-item" href="#/stocks" x-ng-hide="sessionContext.sessionUser.isAppUser">
 				Stocks <i class="fa fa-database pull-right"></i>
 			</a>
-			<a class="list-group-item" href="#/items">
+			<a class="list-group-item" href="#/products" x-ng-hide="sessionContext.sessionUser.isAppUser">
 				Products <i class="fa fa-database pull-right"></i>
 			</a>
-			<a class="list-group-item" href="#/customers">
+			<a class="list-group-item" href="#/customers" x-ng-hide="sessionContext.sessionUser.isAppUser">
 				Customers <i class="fa fa-users pull-right"></i>
 			</a>
-        	<a class="list-group-item" href="#/customerOrders">
+        	<a class="list-group-item" href="#/customerOrders" x-ng-hide="sessionContext.sessionUser.isAppUser">
         		Customer Orders
         	</a>
-        	<a class="list-group-item" href="#/customerTrans">
+        	<a class="list-group-item" href="#/customerTrans" x-ng-hide="sessionContext.sessionUser.isAppUser">
         		Customer Transactions <i class="fa fa-history pull-right"></i>
         	</a>
         	<!-- 

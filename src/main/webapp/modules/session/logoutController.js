@@ -3,7 +3,7 @@ function logoutController($rootScope, $scope, $log, sessionService, $location) {
 
 	sessionService.logout().then(function(response) {
 		$rootScope.isLoggedIn = false;
-		$rootScope.homeView = '/index';
+		$rootScope.homeView = '/signin';
 		$location.path($rootScope.homeView);
 	});
 

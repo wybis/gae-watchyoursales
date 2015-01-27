@@ -91,6 +91,12 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/products', {
+		templateUrl : 'modules/product/m.html',
+		controller : 'productController',
+		reloadOnSearch : false
+	});
+
 	$routeProvider.when('/stocks', {
 		templateUrl : 'modules/stock/m.html',
 		controller : 'stockController',
@@ -137,7 +143,7 @@ app.config(function($routeProvider, $locationProvider) {
 function appInit($log, $rootScope, $location, $sessionStorage) {
 	$log.info('Initialization started...');
 
-	_.mixin(_.str.exports());
+	//_.mixin(_.str.exports());
 
 	$rootScope.$on("$routeChangeStart", function(event, next, current) {
 		$rootScope.loading = true;

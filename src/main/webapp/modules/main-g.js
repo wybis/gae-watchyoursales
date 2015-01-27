@@ -72,7 +72,7 @@ app.config(function($httpProvider) {
 function appInit($log, $window, $sessionStorage) {
 	$log.info('Initialization started...');
 
-	_.mixin(_.str.exports());
+	//_.mixin(_.str.exports());
 
 	$log.info('Initialization finished...');
 }
