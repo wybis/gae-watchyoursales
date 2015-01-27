@@ -5,11 +5,67 @@
 <div class="scrollable">
 <div class="scrollable-content">
   
-	<div class="list-group text-center">
+	<div class="list-group">
     	<div class="list-group-item list-group-item-home">
-        	<h1>Welcome to WatchYourSales!</h1>
+        	<h1>WatchYourSales</h1>
+        	<h4 class="text-success"><i>Sales is on your hand!</i></h4>
       	</div>  
-	</div>
-
+    	<div class="list-group-item list-group-item-home">
+			<a href="" x-ui-turn-on="modal1"
+				class="btn btn-default">
+				Show Modal&nbsp;&nbsp;&nbsp;  
+			</a>
+			<a href="" x-ui-turn-on="modal2"
+			    class="btn btn-default">
+			    Show Overlay
+			 </a>
+			<br/><br/>
+			<button class="btn btn-success btn-sm" x-ng-click="success()">Success</button>
+			<button class="btn btn-info btn-sm" x-ng-click="info()">Info</button>
+			<button class="btn btn-warning btn-sm" x-ng-click="warning()">Warning</button>
+			<button class="btn btn-danger btn-sm" x-ng-click="error()">Error</button>
+		</div>
+    </div>
+    
 </div>
+</div>
+
+<div x-ui-content-for="modals">
+	
+	<div class="modal" x-ui-if='modal1' x-ui-state='modal1'>
+  		<div class="modal-backdrop in"></div>
+  		<div class="modal-dialog">
+	    	<div class="modal-content">
+		      	<div class="modal-header">
+		        	<button class="close" x-ui-turn-off="modal1">&times;</button>
+		        	<h4 class="modal-title">Modal title</h4>
+		      	</div>
+		      	<div class="modal-body">
+		        	<p>modal type one...</p>
+		      	</div>
+		      	<div class="modal-footer">
+		        	<button x-ui-turn-off="modal1" class="btn btn-default">Close</button>
+		      	</div>
+			</div>
+		</div>
+  	</div>
+
+	<div class="modal modal-overlay" x-ui-if='modal2' x-ui-state='modal2'>
+		<div class="modal-dialog">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button class="close"
+	                	x-ui-turn-off="modal2">&times;</button>
+	        		<h4 class="modal-title">Modal title</h4>
+	      		</div>
+	      		<div class="modal-body">
+	        		<p>modal type two...</p>
+	      		</div>
+	      		<div class="modal-footer">
+	        		<button x-ui-turn-off="modal2" class="btn btn-default">Close</button>
+	      		</div>
+	    	</div>
+	  	</div>
+	</div>
+  	
 </div>

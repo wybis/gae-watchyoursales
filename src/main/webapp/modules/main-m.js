@@ -143,7 +143,7 @@ app.config(function($routeProvider, $locationProvider) {
 function appInit($log, $rootScope, $location, $sessionStorage) {
 	$log.info('Initialization started...');
 
-	//_.mixin(_.str.exports());
+	// _.mixin(_.str.exports());
 
 	$rootScope.$on("$routeChangeStart", function(event, next, current) {
 		$rootScope.loading = true;
@@ -156,7 +156,7 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 			return;
 		}
 		$sessionStorage.wysCLP = curLocPath;
-		// $log.info('Stored Location : ', $sessionStorage.seetuCLP);
+		// $log.info('Stored Location : ', $sessionStorage.wysCLP);
 
 		var srcUrl = $location.absUrl().indexOf('index');
 		srcUrl = $location.absUrl().substring(0, srcUrl);

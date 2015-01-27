@@ -5,9 +5,7 @@
 <div class="scrollable">
 
   	<div class="section scrollable-header">
-  		<a href="" class="btn btn-default pull-right">
-  			<i class="fa fa-plus"></i> New
-  		</a>
+		search coming soon...
   	</div>
 
 <div class="scrollable-content">
@@ -16,7 +14,7 @@
     	<div class="list-group">
         	<a class="list-group-item"  x-ng-href="" 
         		x-ng-repeat="item in items">
-        		{{ item.code }} - {{ item.name }} - {{ item.status }} 
+        		{{productsMap[item.productId].code}} - {{productsMap[item.productId].name}} 
         		<i class="fa fa-chevron-right pull-right"></i>
         	</a>
       	</div>

@@ -4,20 +4,19 @@
     "name": "Max Money"
   },
   {
+    "id": "tata-water-plus.json",
+    "name": "Tata Water Plus"
+  },
+  {
+    "id": "devi-pannai-service.json",
+    "name": "Devi Pannai Service"
+  },
+  {
     "id": "ram-naadu-medical.json",
     "name": "Ram Naadu Medical"
   },
   {
     "id": "kannan-departmental-store.json",
     "name": "Kannan Departmental Store"
-  },
-  {
-    "id": "devi-pannai-service.json",
-    "name": "Devi Pannai Service"
-  },
-   {
-    "id": "tata_water_plus.json",
-    "name": "Tata Water Plus"
   }
-  
 ]

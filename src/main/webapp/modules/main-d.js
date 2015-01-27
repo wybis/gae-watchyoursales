@@ -256,8 +256,8 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 				|| curLocPath == '/signout') {
 			return;
 		}
-		$sessionStorage.seetuCLP = curLocPath;
-		// $log.info('Stored Location : ', $sessionStorage.seetuCLP);
+		$sessionStorage.wysCLP = curLocPath;
+		// $log.info('Stored Location : ', $sessionStorage.wysCLP);
 
 		var srcUrl = $location.absUrl().indexOf('index');
 		srcUrl = $location.absUrl().substring(0, srcUrl);
