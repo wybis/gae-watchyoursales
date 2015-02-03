@@ -1,5 +1,3 @@
-'use strict';
-
 function rootController($scope, $log, $window, $rootScope, sessionService) {
 
 	$rootScope.sessionContext = sessionService.context;
@@ -142,8 +140,6 @@ app.config(function($routeProvider, $locationProvider) {
 
 function appInit($log, $rootScope, $location, $sessionStorage) {
 	$log.info('Initialization started...');
-
-	// _.mixin(_.str.exports());
 
 	$rootScope.$on("$routeChangeStart", function(event, next, current) {
 		$rootScope.loading = true;

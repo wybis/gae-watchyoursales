@@ -21,14 +21,14 @@
 		</ul>
 		<div class="nav navbar-nav" x-ng-show="isLoggedIn">
 			<div style="margin : 5px 0">
-				Agency Cash In Hand : <code>{{sessionContext.sessionUser.agency.cashInHand | number : 2}}</code>
-				Stock Worth : <code>{{sessionContext.sessionUser.agency.stockWorth | number : 2}}</code>
-				Total : <code>{{sessionContext.sessionUser.agency.totalWorth | number : 2}}</code>
+				Agency Cash In Hand : <code>{{0 | number : 2}}</code>
+				Stock Worth : <code>{{0 | number : 2}}</code>
+				Total : <code>{{0 | number : 2}}</code>
 			</div>
 			<div>
-				Mine Cash In Hand&nbsp;&nbsp;&nbsp;&nbsp; : <code>{{sessionContext.sessionUser.cashInHand | number : 2}}</code>
-				Stock Worth : <code>{{sessionContext.sessionUser.stockWorth | number : 2}}</code>
-				Total : <code>{{sessionContext.sessionUser.totalWorth | number : 2}}</code>
+				Mine Cash In Hand&nbsp;&nbsp;&nbsp;&nbsp; : <code>{{0 | number : 2}}</code>
+				Stock Worth : <code>{{0 | number : 2}}</code>
+				Total : <code>{{0 | number : 2}}</code>
 			</div>
 		</div>
 		<ul class="nav navbar-nav navbar-right" x-ng-hide="isLoggedIn">
@@ -41,4 +41,3 @@
 	</div>
 
 </div>
-

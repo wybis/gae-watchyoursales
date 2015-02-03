@@ -9,15 +9,15 @@
 				<h4>Mine</h4>
 				<h5>Cash In Hand : </h5>
 				<div>
-					<code>{{0 | number : 2}}</code>
+					<code>{{sessionContext.sessionUser.agency.cashInHand | number : 2}}</code>
 				</div>
 			   	<div>
 					<h5>Stock Worth : </h5>
-					<div><code>{{0 | number : 2}}</code></div>
+					<div><code>{{sessionContext.sessionUser.agency.stockWorth | number : 2}}</code></div>
 				</div>
 			   	<div>
 					<h5>Total : </h5>
-					<div><code>{{0 | number : 2}}</code></div>
+					<div><code>{{sessionContext.sessionUser.agency.totalWorth | number : 2}}</code></div>
 				</div>
 			</div>
 						
@@ -25,15 +25,15 @@
 				<h4>Agency</h4>
 				<h5>Cash In Hand : </h5>
 				<div>
-					<code>{{0 | number : 2}}</code>
+					<code>{{sessionContext.sessionUser.cashInHand | number : 2}}</code>
 				</div>
 			   	<div>
 					<h5>Stock Worth : </h5>
-					<div><code>{{0 | number : 2}}</code></div>
+					<div><code>{{sessionContext.sessionUser.stockWorth | number : 2}}</code></div>
 				</div>
 			   	<div>
 					<h5>Total : </h5>
-					<div><code>{{0 | number : 2}}</code></div>
+					<div><code>{{sessionContext.sessionUser.totalWorth | number : 2}}</code></div>
 				</div>
 			</div>
 	   	
