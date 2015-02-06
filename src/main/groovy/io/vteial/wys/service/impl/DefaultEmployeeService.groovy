@@ -1,10 +1,13 @@
 package io.vteial.wys.service.impl
 
+import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Account
 import io.vteial.wys.model.Agency
 import io.vteial.wys.model.Employee
+import io.vteial.wys.model.Product
+import io.vteial.wys.model.Stock
 import io.vteial.wys.model.constants.AccountStatus
 import io.vteial.wys.model.constants.AccountType
 import io.vteial.wys.model.constants.EmployeeStatus
@@ -13,6 +16,7 @@ import io.vteial.wys.service.EmployeeService
 import io.vteial.wys.service.StockService
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
+@GaelykBindings
 class DefaultEmployeeService extends AbstractService implements EmployeeService {
 
 	GroovyLogger log = new GroovyLogger(DefaultEmployeeService.class.getName())
@@ -44,6 +48,24 @@ class DefaultEmployeeService extends AbstractService implements EmployeeService 
 		model.save()
 
 		//stockService.onEmployeeCreate(sessionUser, model)
+	}
+
+	@Override
+	public List<Stock> getStocks(SessionUserDto sessionUser) {
+		List<Stock> models = []
+
+		def entitys = datastore.execute {
+			from Stock.class.simpleName
+			where employeeId == sessionUser.id
+		}
+
+		entitys.each { entity ->
+			Stock model = entity as Stock
+			model.product = Product.get(model.productId)
+			models <<  model
+		}
+
+		return models;
 	}
 
 	@Override

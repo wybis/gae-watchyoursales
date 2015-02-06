@@ -1,6 +1,6 @@
 package io.vteial.wys.model.constants;
 
-interface ItemStatus extends EntityStatus {
+interface ProductStatus extends EntityStatus {
 
 	final String CLOSED = 'closed'
 }

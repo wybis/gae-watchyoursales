@@ -62,7 +62,6 @@ public class Agency implements Serializable {
 		sb.append('[')
 
 		sb.append("id:${this.id}, ")
-		sb.append("accountId:${this.accountId}, ")
 		sb.append("parentId:${this.parentId}, ")
 		sb.append("status:${this.status}")
 

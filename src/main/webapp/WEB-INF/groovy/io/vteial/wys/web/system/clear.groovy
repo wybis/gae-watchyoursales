@@ -43,7 +43,7 @@ try {
 	entities.each { entity ->
 		entity.delete()
 	}
-	println entities.size() + ' items deleted'
+	println entities.size() + ' products deleted'
 
 	entities = Stock.findAll()
 	entities.each { entity ->

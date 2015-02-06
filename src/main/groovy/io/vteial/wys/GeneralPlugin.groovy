@@ -7,9 +7,11 @@ import io.vteial.wys.service.impl.DefaultAutoNumberService
 import io.vteial.wys.service.impl.DefaultCustomerService
 import io.vteial.wys.service.impl.DefaultDealerService
 import io.vteial.wys.service.impl.DefaultEmployeeService
+import io.vteial.wys.service.impl.DefaultOrderService
 import io.vteial.wys.service.impl.DefaultProductService
 import io.vteial.wys.service.impl.DefaultSessionService
 import io.vteial.wys.service.impl.DefaultStockService
+import io.vteial.wys.service.impl.DefaultTranService
 import io.vteial.wys.service.impl.DefaultUserService
 
 class GeneralPlugin extends PluginBaseScript {
@@ -60,6 +62,13 @@ class GeneralPlugin extends PluginBaseScript {
 		agnS.dealerService = dlrS
 		agnS.customerService = cusS
 
+		DefaultOrderService ordS = new DefaultOrderService()
+		ordS.autoNumberService = anS
+
+		DefaultTranService trnS = new DefaultTranService()
+		trnS.autoNumberService = anS
+		trnS.orderService      = ordS
+
 		binding {
 			jsonCategory      = JacksonCategory
 			jsonObjectMapper  = JacksonCategory.jsonObjectMapper
@@ -73,6 +82,8 @@ class GeneralPlugin extends PluginBaseScript {
 			employeeService   = empS
 			dealerService     = dlrS
 			customerService   = cusS
+			orderService      = ordS
+			tranService       = trnS
 		}
 
 		routes {

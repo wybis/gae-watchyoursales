@@ -11,7 +11,7 @@ import groovyx.gaelyk.datastore.Key
 @ToString(includeNames=true)
 class Product implements Serializable {
 
-	static final String ID_KEY = "itemId"
+	static final String ID_KEY = "productId"
 
 	@Key
 	long id
@@ -32,6 +32,20 @@ class Product implements Serializable {
 
 	double sellPercent
 
+	double handStock
+
+	double handStockAverage
+
+	double virtualStockBuy
+
+	double virtualStockAverage
+
+	double virtualStockSell
+
+	double availableStock
+
+	double availableStockAverage
+
 	String status
 
 	long agencyId
@@ -48,13 +62,19 @@ class Product implements Serializable {
 	Date updateTime
 
 	String toString() {
-		StringBuilder sb = new StringBuilder(User.class.getSimpleName())
+		StringBuilder sb = new StringBuilder(Product.class.getSimpleName())
 		sb.append('[')
 
 		sb.append("id:${this.id}, ")
-		sb.append("name:${this.name}, ")
+		sb.append("code:${this.code}, ")
+		sb.append("handStock:${this.handStock}, ")
+		sb.append("handStockAverage:${this.handStockAverage}, ")
+		sb.append("virtualStockBuy:${this.virtualStockBuy}, ")
+		sb.append("virtualStockAverage:${this.virtualStockAverage}, ")
+		sb.append("virtualStockSell:${this.virtualStockSell}, ")
+		sb.append("availableStock:${this.availableStock}, ")
+		sb.append("availableStockAverage:${this.availableStockAverage}, ")
 		sb.append("agencyId:${this.agencyId}, ")
-		sb.append("status:${this.status}")
 
 		sb.append(']')
 		return sb.toString()
@@ -93,5 +113,137 @@ class Product implements Serializable {
 	boolean isRateIsAllowableForSell(double rate) {
 		double spr = this.getSellPercentageRate()
 		return rate >= spr
+	}
+
+	boolean hasSufficientHandStock(double unit) {
+		return unit <= this.handStock
+	}
+
+	void withdrawHandStock(double unit) {
+		this.handStock -= unit
+	}
+
+	void depositHandStock(double unit) {
+		this.handStock += unit
+	}
+
+	double getVirtualStock() {
+		return this.virtualStockBuy - this.virtualStockSell
+	}
+
+	boolean hasSufficientVirtualStockBuy(double unit) {
+		return unit <= this.virtualStockBuy
+	}
+
+	boolean hasSufficientVirtualStockSell(double unit) {
+		return unit <= this.virtualStockSell
+	}
+
+	void withdrawVirtualStockBuy(double unit) {
+		this.virtualStockBuy -= unit
+	}
+
+	void depositVirtualStockBuy(double unit) {
+		this.virtualStockBuy += unit
+	}
+
+	void withdrawVirtualStockSell(double unit) {
+		this.virtualStockSell -= unit
+	}
+
+	void depositVirtualStockSell(double unit) {
+		this.virtualStockSell += unit
+	}
+
+	void computeAvailableStock() {
+		this.availableStock = this.getVirtualStock() + this.handStock
+	}
+
+	void computeHandStockAverage(double unit, double rate) {
+		// println("unit = " + unit)
+		// println("rate = " + rate)
+		// println("total = " + this.handStock)
+		double value1 = this.handStock * (this.handStockAverage / this.baseUnit)
+		// println("value1 = " + value1)
+		double value2 = unit * (rate / this.baseUnit)
+		// println("value2 = " + value2)
+		double value3 = value1 + value2
+		// println("value3 = " + value3)
+		double value4 = this.handStock + unit
+		// println("value4 = " + value4)
+		double value5 = (value3 / value4) * this.baseUnit
+		// println("value5 = " + value5)
+		this.handStockAverage = value5
+	}
+
+	void revertHandStockAverage(double unit, double rate) {
+		double hst = this.handStock - unit
+		if (hst > 0) {
+			// println("unit = " + unit)
+			// println("rate = " + rate)
+			// println("total = " + this.handStock)
+			double value1 = this.handStock * (this.handStockAverage / this.baseUnit)
+			// println("value1 = " + value1)
+			double value2 = unit * (rate / this.baseUnit)
+			// println("value2 = " + value2)
+			double value3 = value1 - value2
+			// println("value3 = " + value3)
+			double value4 = this.getHandStock - unit
+			// println("value4 = " + value4)
+			double value5 = (value3 / value4) * this.baseUnit
+			// println("value5 = " + value5)
+			this.handStockAverage = value5
+		}
+	}
+
+	public void computeVirtualStockAverage(double unit, double rate) {
+		// println("unit = " + unit)
+		// println("rate = " + rate)
+		// println("stockBuy = this.virtualStockBuy)
+		double value1 = this.virtualStockBuy	* (this.virtualStockAverage / this.baseUnit)
+		// println("value1 = " + value1)
+		double value2 = unit * (rate / this.baseUnit)
+		// println("value2 = " + value3)
+		double value3 = value1 + value2
+		// println("value3 = " + value3)
+		double value4 = this.virtualStockBuy + unit
+		// println("value4 = " + value4)
+		double value5 = (value3 / value4) * this.baseUnit
+		// println("value5 = " + value5)
+		this.virtualStockAverage = value5
+	}
+
+	public void revertVirtualStockAverage(double unit, double rate) {
+		double vsb = this.virtualStockBuy - unit
+		if (vsb != 0) {
+			// println("unit = " + unit)
+			// println("rate = " + rate)
+			// println("stockBuy = this.virtualStockBuy)
+			double value1 = this.virtualStockBuy	* (this.virtualStockAverage / this.baseUnit)
+			// println("value1 = " + value1)
+			double value2 = unit * (rate / this.baseUnit)
+			// println("value2 = " + value2)
+			double value3 = value1 - value2
+			// println("value3 = " + value3)
+			double value4 = this.virtualStockBuy - unit
+			// println("value4 = " + value4)
+			double value5 = (value3 / value4) * this.baseUnit
+			// println("value5 = " + value5)
+			this.virtualStockAverage = value5
+		}
+	}
+
+	void computeAvailableStockAverage(double rate) {
+		double value1 = this.virtualStockBuy * (this.virtualStockAverage / this.baseUnit)
+		// println("value1 = " + value1)
+		double value2 = this.handStock * (this.handStockAverage / this.baseUnit)
+		// println("value2 = " + value2)
+		double value3 = value1 + value2
+		// println("value3 = " + value3)
+		double value4 = this.virtualStockBuy + this.handStock
+		// println("value4 = " + value4)
+		double value5 = (value3 / value4) * this.baseUnit
+		// println("value5 = " + value5)
+		this.availableStockAverage = Double.isNaN(value5) ? 0 : value5
 	}
 }
