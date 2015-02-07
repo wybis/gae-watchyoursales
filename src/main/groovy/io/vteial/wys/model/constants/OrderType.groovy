@@ -1,5 +1,4 @@
 package io.vteial.wys.model.constants;
 
-interface OrderType  extends TransactionType {
-
+interface OrderType extends TransactionType {
 }

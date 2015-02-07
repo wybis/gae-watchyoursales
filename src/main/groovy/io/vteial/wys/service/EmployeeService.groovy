@@ -8,9 +8,19 @@ import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
 interface EmployeeService {
 
-	void add(SessionUserDto sessionUser, Employee employee) throws ModelAlreadyExistException
+	Stock getCashStock(SessionUserDto sessionUser)
 
-	List<Stock> getStocks(SessionUserDto sessionUser)
+	Stock getProfitStock(SessionUserDto sessionUser)
+
+	Stock getProductStockByProductCode(SessionUserDto sessionUser, String productCode)
+
+	Stock getProductStockByProductId(SessionUserDto sessionUser, long productId)
+
+	List<Stock> getProductStocks(SessionUserDto sessionUser)
+
+	//List<Stock> getStocks(SessionUserDto sessionUser)
+
+	void add(SessionUserDto sessionUser, Employee employee) throws ModelAlreadyExistException
 
 	void onAgencyCreate(SessionUserDto sessionUser, Agency agency)
 }

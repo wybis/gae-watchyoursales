@@ -16,6 +16,8 @@ class Stock implements Serializable {
 	@Key
 	long id
 
+	String type
+
 	double handStock
 
 	double virtualStockBuy

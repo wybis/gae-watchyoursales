@@ -21,7 +21,7 @@ try {
 	println sessionUser
 
 	List<Stock> stocks = employeeService.getStocks(sessionUser)
-
+	
 	OrderReceipt orderReceipt = new OrderReceipt()
 	orderReceipt.orders = []
 	stocks.each { stock ->

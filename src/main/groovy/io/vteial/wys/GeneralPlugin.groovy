@@ -57,7 +57,7 @@ class GeneralPlugin extends PluginBaseScript {
 
 		DefaultAgencyService agnS = new DefaultAgencyService()
 		agnS.autoNumberService = anS
-		agnS.accountService = accS
+		agnS.productService = prdS
 		agnS.employeeService = empS
 		agnS.dealerService = dlrS
 		agnS.customerService = cusS

@@ -2,6 +2,8 @@ package io.vteial.wys.service.impl
 
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
+import io.vteial.wys.model.Agency
+import io.vteial.wys.model.Employee
 import io.vteial.wys.model.Product
 import io.vteial.wys.model.constants.ProductStatus
 import io.vteial.wys.service.ProductService
@@ -25,5 +27,38 @@ class DefaultProductService extends AbstractService implements ProductService {
 		model.save()
 
 		stockService.onProductCreate(sessionUser, model)
+	}
+
+	@Override
+	public void onAgencyCreate(SessionUserDto sessionUser, Agency agency) {
+		Product model = new Product()
+
+		model.with {
+			code = 'CIH'
+			name = 'Cash'
+			baseUnit = 1
+			denominator = 1
+			buyRate = 1
+			buyPercent = 1
+			sellRate = 1
+			sellPercent = 1
+			agencyId = agency.id
+		}
+
+		this.add(sessionUser, model)
+
+		model.with {
+			code = 'PFT'
+			name = 'Profit'
+			baseUnit = 1
+			denominator = 1
+			buyRate = 1
+			buyPercent = 1
+			sellRate = 1
+			sellPercent = 1
+			agencyId = agency.id
+		}
+
+		this.add(sessionUser, model)
 	}
 }

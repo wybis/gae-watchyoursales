@@ -8,6 +8,16 @@ import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
 interface StockService {
 
+	List<Stock> findByEmployeeId(String employeeId)
+
+	List<Stock> findByEmployeeIdAndType(String employeeId, String type)
+
+	Stock findOneByEmployeeIdAndType(String employeeId, String type)
+
+	Stock findOneByEmployeeIdAndProductId(String employeeId, long productId)
+
+	Stock findOneByAgencyIdAndEmployeeIdAndProductCode(long agencyId, String employeeId, String productCode)
+
 	void add(SessionUserDto sessionUser, Stock stock) throws ModelAlreadyExistException
 
 	void onProductCreate(SessionUserDto sessionUser, Product item)

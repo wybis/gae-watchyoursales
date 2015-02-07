@@ -14,7 +14,126 @@ class DefaultStockService extends AbstractService implements StockService {
 
 	GroovyLogger log = new GroovyLogger(DefaultStockService.class.getName())
 
-	boolean initMode
+	@Override
+	public List<Stock> findByEmployeeId(String employeeId) {
+		List<Stock> models = []
+
+		def entitys = datastore.execute {
+			from Stock.class.simpleName
+			where employeeId == employeeId
+		}
+
+		entitys.each { entity ->
+			Stock model = entity as Stock
+			model.product = Product.get(model.productId)
+			models <<  model
+		}
+
+		return models;
+	}
+
+	@Override
+	public List<Stock> findByEmployeeIdAndType(String employeeId, String stockType) {
+		List<Stock> models = []
+
+		def entitys = datastore.execute {
+			from Stock.class.simpleName
+			where employeeId == employeeId
+			and type == stockType
+		}
+
+		entitys.each { entity ->
+			Stock model = entity as Stock
+			model.product = Product.get(model.productId)
+			models <<  model
+		}
+
+		return models;
+	}
+
+	@Override
+	public Stock findOneByEmployeeIdAndType(String employeeId, String stockType) {
+		List<Stock> models = []
+
+		def entitys = datastore.execute {
+			from Stock.class.simpleName
+			where employeeId == employeeId
+			and type == stockType
+			limit 1
+		}
+
+		entitys.each { entity ->
+			Stock model = entity as Stock
+			model.product = Product.get(model.productId)
+			models <<  model
+		}
+
+		return models.size > 0 ? models[0] : null;
+	}
+
+	private Product findOneByAgencyIdAndProductCode(long productAgencyId, String productCode) {
+		List<Product> models = []
+
+		def entitys = datastore.execute {
+			from Product.class.simpleName
+			where agencyId == productAgencyId
+			and code == productCode
+			limit 1
+		}
+
+		entitys.each { entity ->
+			Product model = entity as Product
+			models <<  model
+		}
+
+		return models.size > 0 ? models[0] : null;
+	}
+
+	@Override
+	Stock findOneByAgencyIdAndEmployeeIdAndProductCode(long stockAgencyId, String stockEmployeeId, String stockProductCode) {
+
+		Product product = this.findOneByAgencyIdAndProductCode(stockAgencyId, stockProductCode)
+		if(product == null) {
+			return null
+		}
+
+		List<Stock> models = []
+
+		def entitys = datastore.execute {
+			from Stock.class.simpleName
+			where employeeId == stockEmployeeId
+			and productId == product.id
+			limit 1
+		}
+
+		entitys.each { entity ->
+			Stock model = entity as Stock
+			model.product = product
+			models <<  model
+		}
+
+		return models.size > 0 ? models[0] : null;
+	}
+
+	@Override
+	Stock findOneByEmployeeIdAndProductId(String stockEmployeeId, long stockProductId) {
+		List<Stock> models = []
+
+		def entitys = datastore.execute {
+			from Stock.class.simpleName
+			where employeeId == stockEmployeeId
+			and productId == stockProductId
+			limit 1
+		}
+
+		entitys.each { entity ->
+			Stock model = entity as Stock
+			model.product = Product.get(model.productId)
+			models <<  model
+		}
+
+		return models.size > 0 ? models[0] : null;
+	}
 
 	@Override
 	public void add(SessionUserDto sessionUser, Stock model)
