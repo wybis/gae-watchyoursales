@@ -4,7 +4,7 @@ function agencyController($rootScope, $scope, $log, agencyService) {
 	$scope.items = agencyService.items;
 
 	$scope.refresh = function() {
-		agencyService.all();
+		agencyService.getAgencys();
 	};
 
 	$scope.refresh();
@@ -102,6 +102,21 @@ function agencyEmployeeController($rootScope, $scope, $log, agencyService,
 	$log.debug('agencyEmployeesController...');
 }
 appControllers.controller('agencyEmployeeController', agencyEmployeeController);
+
+function agencyEmployeeProductController($rootScope, $scope, $log,
+		agencyService, $routeParams, $filter) {
+	$rootScope.viewName = 'Employee Products';
+
+	var agency = agencyService.itemsMap[$routeParams.id];
+	$scope.productsMap = agency.productsMap;
+	$scope.items = $filter('filter')(agency.products, {
+		employeeId : $routeParams.employeeId
+	});
+
+	$log.debug('agencyEmployeeProductController...');
+}
+appControllers.controller('agencyEmployeeProductController',
+		agencyEmployeeProductController);
 
 function agencyEmployeeStockController($rootScope, $scope, $log, agencyService,
 		$routeParams, $filter) {

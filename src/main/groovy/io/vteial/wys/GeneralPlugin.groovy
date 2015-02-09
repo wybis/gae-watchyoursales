@@ -70,6 +70,7 @@ class GeneralPlugin extends PluginBaseScript {
 		trnS.orderService      = ordS
 
 		binding {
+			console           = System.out
 			jsonCategory      = JacksonCategory
 			jsonObjectMapper  = JacksonCategory.jsonObjectMapper
 			sessionService    = sesS

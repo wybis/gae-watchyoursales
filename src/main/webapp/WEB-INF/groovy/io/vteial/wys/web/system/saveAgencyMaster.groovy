@@ -4,6 +4,7 @@ import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Agency
 import io.vteial.wys.model.Product
 import io.vteial.wys.model.Role
+import io.vteial.wys.model.constants.ProductType
 
 println 'saving agency master started...'
 
@@ -38,6 +39,7 @@ try {
 
 	Product model = new Product()
 	model.with {
+		type = ProductType.CASH
 		code = 'CIH'
 		name = 'Cash'
 		baseUnit = 1
@@ -51,6 +53,7 @@ try {
 	agency.products << model
 	model = new Product()
 	model.with {
+		type = ProductType.PROFIT
 		code = 'PFT'
 		name = 'Profit'
 		baseUnit = 1

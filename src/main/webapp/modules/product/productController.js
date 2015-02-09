@@ -1,13 +1,10 @@
-function productController($rootScope, $scope, $log, agencyService) {
+function productController($rootScope, $scope, $log, employeeService) {
 	$rootScope.viewName = 'Products';
 
-	var agencyId = $rootScope.sessionContext.sessionUser.agencyId;
+	$scope.items = employeeService.products;
 
 	$scope.refresh = function() {
-		agencyService.getProducts(agencyId).then(function(response) {
-			var agency = agencyService.itemsMap[agencyId];
-			$scope.items = agency.products;
-		});
+		$log.info('yet to implement...');
 	};
 
 	$scope.refresh();

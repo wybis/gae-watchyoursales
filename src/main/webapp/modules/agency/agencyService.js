@@ -4,7 +4,7 @@ function agencyService($log, $http, $q) {
 	var service = {
 		items : [],
 		itemsMap : {}
-	}, omitProps = [ 'accounts', 'products', 'employees', 'dealers',
+	}, omitProps = [ 'accounts', 'products', 'stocks', 'employees', 'dealers',
 			'customers' ];
 
 	function addOrUdpateCacheX(agency, propName, objectx) {
@@ -49,7 +49,7 @@ function agencyService($log, $http, $q) {
 	}
 	service.addOrUpdateCache = addOrUpdateCache;
 
-	service.all = function() {
+	service.getAgencys = function() {
 		var path = basePath;
 
 		var deferred = $q.defer();

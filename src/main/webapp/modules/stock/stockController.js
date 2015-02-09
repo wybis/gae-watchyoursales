@@ -1,14 +1,11 @@
-function stockController($rootScope, $scope, $log, agencyService) {
+function stockController($rootScope, $scope, $log, employeeService, $filter) {
 	$rootScope.viewName = 'Stocks';
 
-	var agencyId = $rootScope.sessionContext.sessionUser.agencyId;
+	$scope.productsMap = employeeService.productsMap;
+	$scope.items = employeeService.stocks;
 
 	$scope.refresh = function() {
-		agencyService.getStocks(agencyId).then(function(response) {
-			var agency = agencyService.itemsMap[agencyId];
-			$scope.productsMap = agency.productsMap;
-			$scope.items = agency.stocks;
-		});
+		$log.info('yet to implement...');
 	};
 
 	$scope.refresh();

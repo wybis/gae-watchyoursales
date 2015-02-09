@@ -16,6 +16,8 @@ class Product implements Serializable {
 	@Key
 	long id
 
+	String type
+
 	String code
 
 	String name
@@ -35,6 +37,9 @@ class Product implements Serializable {
 	double handStock
 
 	double handStockAverage
+
+	@Ignore
+	double handStockValue
 
 	double virtualStockBuy
 
@@ -153,6 +158,10 @@ class Product implements Serializable {
 
 	void depositVirtualStockSell(double unit) {
 		this.virtualStockSell += unit
+	}
+
+	void computeHandStockValue() {
+		this.handStockValue = this.handStock * (this.handStockAverage / this.baseUnit)
 	}
 
 	void computeAvailableStock() {

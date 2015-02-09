@@ -33,12 +33,12 @@ class DefaultStockService extends AbstractService implements StockService {
 	}
 
 	@Override
-	public List<Stock> findByEmployeeIdAndType(String employeeId, String stockType) {
+	public List<Stock> findByEmployeeIdAndType(String stockEmployeeId, String stockType) {
 		List<Stock> models = []
 
 		def entitys = datastore.execute {
 			from Stock.class.simpleName
-			where employeeId == employeeId
+			where employeeId == stockEmployeeId
 			and type == stockType
 		}
 
@@ -52,12 +52,12 @@ class DefaultStockService extends AbstractService implements StockService {
 	}
 
 	@Override
-	public Stock findOneByEmployeeIdAndType(String employeeId, String stockType) {
+	public Stock findOneByEmployeeIdAndType(String stockEmployeeId, String stockType) {
 		List<Stock> models = []
 
 		def entitys = datastore.execute {
 			from Stock.class.simpleName
-			where employeeId == employeeId
+			where employeeId == stockEmployeeId
 			and type == stockType
 			limit 1
 		}
@@ -156,6 +156,7 @@ class DefaultStockService extends AbstractService implements StockService {
 		entitys.each { entity ->
 			Employee employee = entity as Employee
 			Stock model = new Stock()
+			model.type = product.type
 			model.productId = product.id
 			model.employeeId = employee.id
 			model.agencyId = product.agencyId
@@ -173,6 +174,7 @@ class DefaultStockService extends AbstractService implements StockService {
 		entitys.each { entity ->
 			Product product = entity as Product
 			Stock model = new Stock()
+			model.type = product.type
 			model.productId = product.id
 			model.employeeId = employee.id
 			model.agencyId = employee.agencyId

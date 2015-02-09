@@ -1,7 +1,9 @@
 function rootController($scope, $log, $window, $rootScope, sessionService,
-		$aside) {
+		employeeService, $aside) {
 
 	$rootScope.sessionContext = sessionService.context;
+
+	$scope.empS = employeeService;
 
 	sessionService.properties();
 
@@ -197,6 +199,12 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/agencys/:id/employees', {
 		templateUrl : 'modules/agency/d-employees.html',
 		controller : 'agencyEmployeeController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/agencys/:id/employees/:employeeId/products', {
+		templateUrl : 'modules/agency/d-products.html',
+		controller : 'agencyEmployeeProductController',
 		reloadOnSearch : false
 	});
 

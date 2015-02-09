@@ -1,4 +1,4 @@
-function sessionService($log, $http, $q, employeeService) {
+function sessionService($log, $http, $q, agencyService) {
 	var basePath = 'sessions';
 
 	var service = {
@@ -13,9 +13,13 @@ function sessionService($log, $http, $q, employeeService) {
 			if (response.type === 0) {
 				_.assign(service.context, response.data);
 				identifyUserOrEmployee();
+				if (_.has(service.context.sessionUser, 'agency')) {
+					var agency = response.data.sessionUser.agency;
+					agencyService.addOrUpdateCache(agency);
+				}
 				deferred.resolve(response);
 			}
-			// $log.info(response);
+			$log.info(response);
 		}).error(function() {
 			deferred.reject("unable to authenticate...");
 		});
@@ -27,17 +31,32 @@ function sessionService($log, $http, $q, employeeService) {
 		var path = basePath + '/login';
 
 		var deferred = $q.defer();
-		$http.post(path, user).success(function(response) {
-			if (response.type >= 0) {
-				if (response.type === 0) {
-					_.assign(service.context, response.data);
-					identifyUserOrEmployee();
-					employeeService.init()
-				}
-				deferred.resolve(response);
-			}
-			// $log.info(response);
-		}).error(function() {
+		$http.post(path, user).success(
+				function(response) {
+					if (response.type >= 0) {
+						if (response.type === 0) {
+							_.assign(service.context, response.data);
+
+							var sesUser = service.context.sessionUser;
+							//agencyService.sessionUser = sesUser;
+
+							sesUser.cashInHand = 10;
+							sesUser.stockWorth = 10;
+							sesUser.totalWorth = sesUser.cashInHand
+									+ sesUser.stockWorth;
+							identifyUserOrEmployee();
+
+							var agency = service.context.sessionUser.agency;
+							agency.cashInHand = 10;
+							agency.stockWorth = 10;
+							agency.totalWorth = agency.cashInHand
+									+ agency.stockWorth;
+							agencyService.addOrUpdateCache(agency);
+						}
+						deferred.resolve(response);
+					}
+					$log.info(response);
+				}).error(function() {
 			deferred.reject("unable to authenticate...");
 		});
 
