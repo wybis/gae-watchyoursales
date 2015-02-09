@@ -1,14 +1,15 @@
-function dealerController($rootScope, $scope, $log, agencyService) {
+function dealerController($rootScope, $scope, $log, employeeService) {
 	$rootScope.viewName = 'Dealers';
 
-	var agencyId = $rootScope.sessionContext.sessionUser.agencyId;
+	$scope.items = employeeService.dealers;
 
 	$scope.refresh = function() {
-		agencyService.getDealers(agencyId).then(function(response) {
-			var agency = agencyService.itemsMap[agencyId];
-			$scope.items = agency.dealers;
-		});
+		employeeService.getMyDealers();
 	};
+
+	$scope.bottomReached = function() {
+		$log.info('bottom reached...');
+	}
 
 	$scope.refresh();
 

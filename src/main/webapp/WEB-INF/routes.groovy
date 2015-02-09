@@ -30,8 +30,10 @@ get  	'/sessions/logout',    			forward : '/io/vteial/wys/web/session/logout.gro
 
 get		'/products',    				forward : '/io/vteial/wys/web/employee/products.groovy'
 get		'/stocks',    					forward : '/io/vteial/wys/web/employee/stocks.groovy'
-
-
+get		'/customers',    				forward : '/io/vteial/wys/web/employee/customers.groovy'
+get		'/dealers',    					forward : '/io/vteial/wys/web/employee/dealers.groovy'
+get		'/employees',    				forward : '/io/vteial/wys/web/employee/employees.groovy'
+get		'/accounts',    				forward : '/io/vteial/wys/web/employee/accounts.groovy'
 
 // user
 get      '/users',          			forward : '/io/vteial/wys/web/user/list.groovy'

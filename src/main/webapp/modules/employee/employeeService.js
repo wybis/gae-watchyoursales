@@ -14,6 +14,14 @@ function employeeService($log, $http, $q) {
 		productsMap : {},
 		stocks : [],
 		stocksMap : {},
+		dealers : [],
+		dealersMap : {},
+		customers : [],
+		customersMap : {},
+		employees : [],
+		employeesMap : {},
+		accounts : [],
+		accountsMap : {}
 	};
 
 	function addOrUpdateCacheX(objectx) {
@@ -55,7 +63,7 @@ function employeeService($log, $http, $q) {
 		});
 	}
 
-	service.getProducts = function() {
+	service.getMyProducts = function() {
 		var path = basePath + '/products';
 
 		var deferred = $q.defer();
@@ -80,7 +88,7 @@ function employeeService($log, $http, $q) {
 		});
 	}
 
-	service.getStocks = function() {
+	service.getMyStocks = function() {
 		var path = basePath + '/stocks';
 
 		var deferred = $q.defer();
@@ -121,12 +129,96 @@ function employeeService($log, $http, $q) {
 		// $log.info('agencyStockWorth' + service.agencyStockWorth);
 	}
 
+	function processCustomers(stocks) {
+		_.forEach(stocks, function(objectx) {
+			addOrUdpateCacheY('customers', objectx);
+		});
+	}
+
+	service.getMyCustomers = function() {
+		var path = basePath + '/customers';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				processCustomers(response.data);
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
+	};
+
+	function processDealers(stocks) {
+		_.forEach(stocks, function(objectx) {
+			addOrUdpateCacheY('dealers', objectx);
+		});
+	}
+
+	service.getMyDealers = function() {
+		var path = basePath + '/dealers';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				processDealers(response.data);
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
+	};
+
+	function processEmployees(stocks) {
+		_.forEach(stocks, function(objectx) {
+			addOrUdpateCacheY('employees', objectx);
+		});
+	}
+
+	service.getMyEmployees = function() {
+		var path = basePath + '/employees';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				processEmployees(response.data);
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
+	};
+
 	service.init = function() {
-		service.getProducts().then(function(response) {
-			service.getStocks().then(function(response) {
+		service.getMyProducts().then(function(response) {
+			service.getMyStocks().then(function(response) {
 				service.computeStockWorth();
 			});
 		});
+	};
+
+	function processAccounts(stocks) {
+		_.forEach(stocks, function(objectx) {
+			addOrUdpateCacheY('accounts', objectx);
+		});
+	}
+
+	service.getMyAccounts = function() {
+		var path = basePath + '/accounts';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				processAccounts(response.data);
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
 	};
 
 	return service;

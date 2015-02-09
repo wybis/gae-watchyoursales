@@ -1,14 +1,15 @@
-function accountController($rootScope, $scope, $log, agencyService) {
+function accountController($rootScope, $scope, $log, employeeService) {
 	$rootScope.viewName = 'Accounts';
 
-	var agencyId = $rootScope.sessionContext.sessionUser.agencyId;
+	$scope.items = employeeService.accounts;
 
 	$scope.refresh = function() {
-		agencyService.getAccounts(agencyId).then(function(response) {
-			var agency = agencyService.itemsMap[agencyId];
-			$scope.items = agency.accounts;
-		});
+		employeeService.getMyAccounts();
 	};
+
+	$scope.bottomReached = function() {
+		$log.info('bottom reached...');
+	}
 
 	$scope.refresh();
 

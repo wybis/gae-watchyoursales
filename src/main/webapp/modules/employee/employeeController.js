@@ -1,18 +1,18 @@
-function employeeController($rootScope, $scope, $log, agencyService) {
+function employeeController($rootScope, $scope, $log, employeeService) {
 	$rootScope.viewName = 'Employees';
 
-	var agencyId = $rootScope.sessionContext.sessionUser.agencyId;
+	$scope.items = employeeService.employees;
 
 	$scope.refresh = function() {
-		agencyService.getEmployees(agencyId).then(function(response) {
-			var agency = agencyService.itemsMap[agencyId];
-			$scope.items = agency.employees;
-		});
+		employeeService.getMyEmployees();
 	};
+
+	$scope.bottomReached = function() {
+		$log.info('bottom reached...');
+	}
 
 	$scope.refresh();
 
 	$log.debug('employeeController...');
 }
 appControllers.controller('employeeController', employeeController);
-

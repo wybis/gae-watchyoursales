@@ -161,7 +161,9 @@ class Product implements Serializable {
 	}
 
 	void computeHandStockValue() {
-		this.handStockValue = this.handStock * (this.handStockAverage / this.baseUnit)
+		if(this.handStockAverage > 0) {
+			this.handStockValue = this.handStock * (this.handStockAverage / this.baseUnit)
+		}
 	}
 
 	void computeAvailableStock() {

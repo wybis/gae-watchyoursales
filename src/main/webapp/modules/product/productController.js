@@ -7,8 +7,6 @@ function productController($rootScope, $scope, $log, employeeService) {
 		$log.info('yet to implement...');
 	};
 
-	$scope.refresh();
-
 	$scope.bottomReached = function() {
 		$log.info('bottom reached...');
 	}
