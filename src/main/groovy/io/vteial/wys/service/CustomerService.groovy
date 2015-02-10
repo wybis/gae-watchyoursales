@@ -7,6 +7,8 @@ import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
 interface CustomerService {
 
+	List<Customer> findByAgencyIdAndType(long agencyId, String type);
+
 	void add(SessionUserDto sessionUser, Customer customer) throws ModelAlreadyExistException
 
 	void onAgencyCreate(SessionUserDto sessionUser, Agency agency)

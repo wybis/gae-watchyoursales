@@ -76,7 +76,7 @@ try {
 		UserDto user = new UserDto()
 		user.id = e.id
 		sessionUser = sessionService.login(session, user)
-		Stock stock = employeeService.getCashStock(sessionUser)
+		Stock stock = employeeService.getMyCashStock(sessionUser)
 		stock.product = Product.get(stock.productId)
 		stock.depositHandStock(50000)
 		stock.save()

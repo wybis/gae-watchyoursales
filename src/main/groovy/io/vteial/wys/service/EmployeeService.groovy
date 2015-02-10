@@ -2,23 +2,28 @@ package io.vteial.wys.service;
 
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Agency
+import io.vteial.wys.model.Customer
 import io.vteial.wys.model.Employee
 import io.vteial.wys.model.Stock
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
 interface EmployeeService {
 
-	Stock getCashStock(SessionUserDto sessionUser)
+	List<Customer> getMyCustomers(SessionUserDto sessionUser)
 
-	Stock getProfitStock(SessionUserDto sessionUser)
+	List<Customer> getMyDealers(SessionUserDto sessionUser)
 
-	Stock getProductStockByProductCode(SessionUserDto sessionUser, String productCode)
+	Stock getMyCashStock(SessionUserDto sessionUser)
 
-	Stock getProductStockByProductId(SessionUserDto sessionUser, long productId)
+	Stock getMyProfitStock(SessionUserDto sessionUser)
 
-	List<Stock> getProductStocks(SessionUserDto sessionUser)
+	Stock getMyProductStockByProductCode(SessionUserDto sessionUser, String productCode)
 
-	//List<Stock> getStocks(SessionUserDto sessionUser)
+	Stock getMyProductStockByProductId(SessionUserDto sessionUser, long productId)
+
+	List<Stock> getMyProductStocks(SessionUserDto sessionUser)
+
+	//List<Stock> getMyStocks(SessionUserDto sessionUser)
 
 	void add(SessionUserDto sessionUser, Employee employee) throws ModelAlreadyExistException
 

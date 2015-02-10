@@ -2,6 +2,7 @@ package io.vteial.wys.service;
 
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.dto.UserDto
+import io.vteial.wys.model.Customer
 import io.vteial.wys.service.exceptions.InvalidCredentialException
 import io.vteial.wys.service.exceptions.ModelNotFoundException
 

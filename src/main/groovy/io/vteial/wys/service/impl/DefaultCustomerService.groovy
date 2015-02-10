@@ -1,5 +1,6 @@
 package io.vteial.wys.service.impl
 
+import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Account
@@ -13,11 +14,31 @@ import io.vteial.wys.service.AccountService
 import io.vteial.wys.service.CustomerService
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
+@GaelykBindings
 class DefaultCustomerService extends AbstractService implements CustomerService {
 
 	GroovyLogger log = new GroovyLogger(DefaultCustomerService.class.getName())
 
 	AccountService accountService
+
+	@Override
+	public List<Customer> findByAgencyIdAndType(long customerAgencyId, String customerType) {
+		List<Customer> models = []
+
+		def entitys = datastore.execute {
+			from Customer.class.simpleName
+			where agencyId == customerAgencyId
+			and type == customerType
+		}
+
+		entitys.each { entity ->
+			Customer model = entity as Customer
+			model.account = Account.get(model.accountId)
+			models <<  model
+		}
+
+		return models;
+	}
 
 	@Override
 	public void add(SessionUserDto sessionUser, Customer model)

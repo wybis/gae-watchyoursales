@@ -4,9 +4,12 @@ import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.dto.UserDto
 import io.vteial.wys.model.Agency
+import io.vteial.wys.model.Customer
 import io.vteial.wys.model.Employee
 import io.vteial.wys.model.Role
 import io.vteial.wys.model.User
+import io.vteial.wys.model.constants.CustomerType
+import io.vteial.wys.service.CustomerService
 import io.vteial.wys.service.SessionService
 import io.vteial.wys.service.exceptions.InvalidCredentialException
 import io.vteial.wys.service.exceptions.ModelNotFoundException

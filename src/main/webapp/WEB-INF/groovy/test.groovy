@@ -1,5 +1,6 @@
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.dto.UserDto
+import io.vteial.wys.model.Customer
 import io.vteial.wys.model.Order
 import io.vteial.wys.model.OrderReceipt
 import io.vteial.wys.model.Stock
@@ -18,13 +19,19 @@ try {
 	user.id = 'munmin2000@maxmoney'
 
 	SessionUserDto sessionUser = sessionService.login(session, user)
-	println sessionUser
+	println "logged in as $sessionUser.id"
 
-	List<Stock> stocks = employeeService.getProductStocks(sessionUser)
+	println '-----------------------------------------------------------------'
+	println 'placing dealer order started...'
+	List<Stock> stocks = employeeService.getMyProductStocks(sessionUser)
+
+	List<Customer> dealers = employeeService.getMyDealers(sessionUser)
 
 	OrderReceipt orderReceipt = new OrderReceipt()
+	orderReceipt.customerId = dealers[0].id
 	orderReceipt.orders = []
-	stocks.each { stock ->
+
+	stocks.each { Stock stock ->
 		println stock
 
 		Order order = new Order()
@@ -34,17 +41,17 @@ try {
 		order.rate = stock.product.buyRate
 
 		orderReceipt.orders << order
-
 		println order
 	}
 
 	orderService.add(sessionUser, orderReceipt)
 
+	println 'placing dealer order finished...'
 	println '-----------------------------------------------------------------'
-
-	Stock stock = employeeService.getCashStock(sessionUser)
+	println 'processing dealer order started...'
 
 	TranReceipt tranReceipt = new TranReceipt()
+	tranReceipt.customerId = dealers[0].id
 	tranReceipt.trans = []
 
 	def amount = 0
@@ -59,28 +66,101 @@ try {
 		tran.rate = order.rate
 
 		tranReceipt.trans << tran
-
 		println tran
 
 		amount += tran.unit * tran.rate
 	}
-	println stock
+
+	Stock cashStock = employeeService.getMyCashStock(sessionUser)
+	println cashStock
+
 	tran = new Tran()
-	tran.stockId = stock.id
+	tran.stockId = cashStock.id
 	tran.type = TransactionType.SELL
 	tran.unit = amount
 	tran.rate = 1
 	//tran.rate = stock.product.sellRate
 
 	tranReceipt.trans << tran
-
 	println tran
 
 	tranService.add(sessionUser, tranReceipt)
 
+	tranReceipt.trans.each { tran -> println tran }
+
+	println 'processing dealer order finished...'
 	println '-----------------------------------------------------------------'
+	println 'placing customer order started...'
+
+	List<Customer> customers = employeeService.getMyCustomers(sessionUser)
+
+	orderReceipt = new OrderReceipt()
+	orderReceipt.customerId = dealers[0].id
+	orderReceipt.orders = []
+
+	stocks.each { Stock stock ->
+		println stock
+
+		Order order = new Order()
+		order.stockId = stock.id
+		order.type = OrderType.SELL
+		order.unit = 7
+		order.rate = stock.product.sellRate
+
+		orderReceipt.orders << order
+
+		println order
+	}
+
+	orderService.add(sessionUser, orderReceipt)
+
+	println 'placing customer order finished...'
+	println '-----------------------------------------------------------------'
+	println 'processing customer order started...'
+
+	tranReceipt = new TranReceipt()
+	tranReceipt.customerId = dealers[0].id
+	tranReceipt.trans = []
+
+	amount = 0
+	orderReceipt.orders.each { order ->
+		println order
+
+		Tran tran = new Tran()
+		tran.orderId = order.id
+		tran.stockId = order.stockId
+		tran.type = TransactionType.SELL
+		tran.unit = order.unit - 1
+		tran.rate = order.rate
+
+		tranReceipt.trans << tran
+		println tran
+
+		amount += tran.unit * tran.rate
+	}
+	
+//	Stock stock = employeeService.getMyCashStock(sessionUser)
+//	println stock
+	
+	tran = new Tran()
+	tran.stockId = cashStock.id
+	tran.type = TransactionType.BUY
+	tran.unit = amount
+	tran.rate = 1
+	//tran.rate = stock.product.sellRate
+
+	tranReceipt.trans << tran
+	println tran
+
+	tranService.add(sessionUser, tranReceipt)
 
 	tranReceipt.trans.each { tran -> println tran }
+
+	println 'processing customer order finished...'
+	println '-----------------------------------------------------------------'
+
+	//sessionService.logout()
+	println "logged out as $sessionUser.id"
 }
 catch(Throwable t) {
 	t.printStackTrace(out)

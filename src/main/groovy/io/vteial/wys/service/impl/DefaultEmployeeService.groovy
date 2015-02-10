@@ -5,13 +5,16 @@ import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Account
 import io.vteial.wys.model.Agency
+import io.vteial.wys.model.Customer
 import io.vteial.wys.model.Employee
 import io.vteial.wys.model.Stock
 import io.vteial.wys.model.constants.AccountStatus
 import io.vteial.wys.model.constants.AccountType
+import io.vteial.wys.model.constants.CustomerType
 import io.vteial.wys.model.constants.EmployeeStatus
 import io.vteial.wys.model.constants.StockType
 import io.vteial.wys.service.AccountService
+import io.vteial.wys.service.CustomerService
 import io.vteial.wys.service.EmployeeService
 import io.vteial.wys.service.StockService
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
@@ -25,8 +28,28 @@ class DefaultEmployeeService extends AbstractService implements EmployeeService 
 
 	StockService stockService
 
+	CustomerService customerService
+
 	@Override
-	public Stock getCashStock(SessionUserDto sessionUser) {
+	public List<Customer> getMyCustomers(SessionUserDto sessionUser) {
+		List<Customer> models = null
+
+		models = customerService.findByAgencyIdAndType(sessionUser.agencyId, CustomerType.CUSTOMER)
+
+		return models;
+	}
+
+	@Override
+	public List<Customer> getMyDealers(SessionUserDto sessionUser) {
+		List<Customer> models = null
+
+		models = customerService.findByAgencyIdAndType(sessionUser.agencyId, CustomerType.DEALER)
+
+		return models;
+	}
+
+	@Override
+	public Stock getMyCashStock(SessionUserDto sessionUser) {
 		Stock model = null
 
 		model = stockService.findOneByEmployeeIdAndType(sessionUser.id, StockType.CASH)
@@ -35,7 +58,7 @@ class DefaultEmployeeService extends AbstractService implements EmployeeService 
 	}
 
 	@Override
-	public Stock getProfitStock(SessionUserDto sessionUser) {
+	public Stock getMyProfitStock(SessionUserDto sessionUser) {
 		Stock model = null
 
 		model = stockService.findOneByEmployeeIdAndType(sessionUser.id, StockType.PROFIT)
@@ -44,7 +67,7 @@ class DefaultEmployeeService extends AbstractService implements EmployeeService 
 	}
 
 	@Override
-	public Stock getProductStockByProductCode(SessionUserDto sessionUser,
+	public Stock getMyProductStockByProductCode(SessionUserDto sessionUser,
 			String productCode) {
 		Stock model = null
 
@@ -55,7 +78,7 @@ class DefaultEmployeeService extends AbstractService implements EmployeeService 
 
 
 	@Override
-	public Stock getProductStockByProductId(SessionUserDto sessionUser,
+	public Stock getMyProductStockByProductId(SessionUserDto sessionUser,
 			long productId) {
 		Stock model = null
 
@@ -65,7 +88,7 @@ class DefaultEmployeeService extends AbstractService implements EmployeeService 
 	}
 
 	@Override
-	public List<Stock> getProductStocks(SessionUserDto sessionUser) {
+	public List<Stock> getMyProductStocks(SessionUserDto sessionUser) {
 		List<Stock> models = null
 
 		models = stockService.findByEmployeeIdAndType(sessionUser.id, StockType.PRODUCT)

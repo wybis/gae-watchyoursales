@@ -42,11 +42,6 @@ class GeneralPlugin extends PluginBaseScript {
 		usrS.autoNumberService = anS
 		usrS.accountService = accS
 
-		DefaultEmployeeService empS = new DefaultEmployeeService()
-		empS.autoNumberService = anS
-		empS.accountService = accS
-		empS.stockService = stkS
-
 		DefaultDealerService dlrS = new DefaultDealerService()
 		dlrS.autoNumberService = anS
 		dlrS.accountService = accS
@@ -54,6 +49,12 @@ class GeneralPlugin extends PluginBaseScript {
 		DefaultCustomerService cusS = new DefaultCustomerService()
 		cusS.autoNumberService = anS
 		cusS.accountService = accS
+
+		DefaultEmployeeService empS = new DefaultEmployeeService()
+		empS.autoNumberService = anS
+		empS.accountService = accS
+		empS.stockService = stkS
+		empS.customerService = cusS
 
 		DefaultAgencyService agnS = new DefaultAgencyService()
 		agnS.autoNumberService = anS
