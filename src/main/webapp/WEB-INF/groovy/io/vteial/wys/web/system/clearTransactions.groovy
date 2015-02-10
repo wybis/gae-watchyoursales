@@ -25,7 +25,7 @@ try {
 	entities.each { entity ->
 		entity.delete()
 	}
-	println entities.size() + ' transs deleted'
+	println entities.size() + ' trans deleted'
 
 	entities = TranReceipt.findAll()
 	entities.each { entity ->

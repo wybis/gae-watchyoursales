@@ -29,6 +29,22 @@ function breadCrumbDirective() {
 }
 appDirectives.directive('breadCrumbDirective', [ breadCrumbDirective ]);
 
+function netCashAndStockDirective() {
+	return {
+
+		restrict : 'E',
+
+		replace : true,
+
+		templateUrl : 'modules/zgeneral/netCashAndStockDirective-d.html',
+
+		link : function($scope) {
+		}
+	};
+}
+appDirectives.directive('netCashAndStockDirective',
+		[ netCashAndStockDirective ]);
+
 function footerBarDirective() {
 	return {
 

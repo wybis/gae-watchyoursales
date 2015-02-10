@@ -1,9 +1,11 @@
 package io.vteial.wys.web.system;
 
 import io.vteial.wys.dto.SessionUserDto
+import io.vteial.wys.dto.UserDto
 import io.vteial.wys.model.Agency
 import io.vteial.wys.model.Product
 import io.vteial.wys.model.Role
+import io.vteial.wys.model.Stock
 import io.vteial.wys.model.constants.ProductType
 
 println 'saving agency master started...'
@@ -68,6 +70,17 @@ try {
 	agency.products.each { t ->
 		t.agencyId = agency.id
 		productService.add(sessionUser, t)
+	}
+
+	agency.employees.each { e ->
+		UserDto user = new UserDto()
+		user.id = e.id
+		sessionUser = sessionService.login(session, user)
+		Stock stock = employeeService.getCashStock(sessionUser)
+		stock.product = Product.get(stock.productId)
+		stock.depositHandStock(50000)
+		stock.save()
+		stock.product.save();
 	}
 }
 catch(Throwable t) {

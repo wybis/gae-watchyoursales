@@ -64,8 +64,10 @@ class DefaultTranService extends AbstractService implements TranService {
 
 		tran.baseUnit = product.baseUnit
 		//tran.computeAmount()
-		tran.order.baseUnit = product.baseUnit
-		//tran.order.computeAmount()
+		if(tran.orderId > 0) {
+			tran.order.baseUnit = product.baseUnit
+			//tran.order.computeAmount()
+		}
 
 		if(tran.type == TransactionType.BUY) {
 			product.computeHandStockAverage(tran.unit, tran.rate)

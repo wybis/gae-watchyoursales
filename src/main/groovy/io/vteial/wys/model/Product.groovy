@@ -79,7 +79,7 @@ class Product implements Serializable {
 		sb.append("virtualStockSell:${this.virtualStockSell}, ")
 		sb.append("availableStock:${this.availableStock}, ")
 		sb.append("availableStockAverage:${this.availableStockAverage}, ")
-		sb.append("agencyId:${this.agencyId}, ")
+		sb.append("agencyId:${this.agencyId} ")
 
 		sb.append(']')
 		return sb.toString()

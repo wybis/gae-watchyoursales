@@ -27,6 +27,8 @@
 <header class="navbar navbar-default navbar-fixed-top" x-role="navigation">
 	<x-header-navigator-directive></x-header-navigator-directive>
 	<hr style="margin : 3px 0"/>
+	<x-net-cash-and-stock-directive></x-net-cash-and-stock-directive>
+	<hr style="margin : 3px 0"/>
 	<x-bread-crumb-directive></x-bread-crumb-directive>
 </header>
 
@@ -34,16 +36,12 @@
 
 <section class="container-fluid">
 	<div class="container-fluid" x-ng-view></div>
-	<br/><br/><br/>
 </section>
-<div class="navbar navbar-default navbar-fixed-bottom" x-role="navigation">
-	<!-- 
-	<x-footer-bar-directive></x-footer-bar-directive>
-	<hr style="margin : 5px 0">
-	-->
+
+<footer class="navbar navbar-default navbar-fixed-bottom" x-role="navigation">
 	<br/>
 	<x-footer-navigator-directive></x-footer-navigator-directive>
-</div>
+</footer>
 
 <script type="text/javascript"
 	src="assets/lib/lodash.min.js"></script>

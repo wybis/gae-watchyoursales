@@ -21,14 +21,14 @@
 		</ul>
 		<div class="nav navbar-nav" x-ng-show="isLoggedIn">
 			<div style="margin : 5px 0">
-				Agency Cash In Hand : <code>{{0 | number : 2}}</code>
-				Stock Worth : <code>{{0 | number : 2}}</code>
-				Total : <code>{{0 | number : 2}}</code>
+				Agency Cash In Hand : <code>{{empS.agencyHandCash | number : 2}}</code>
+				Stock Worth : <code>{{empS.agencyStockWorth | number : 2}}</code>
+				Total : <code>{{empS.agencyHandCash + emps.agencyStockWorth | number : 2}}</code>
 			</div>
 			<div>
-				Mine Cash In Hand&nbsp;&nbsp;&nbsp;&nbsp; : <code>{{0 | number : 2}}</code>
-				Stock Worth : <code>{{0 | number : 2}}</code>
-				Total : <code>{{0 | number : 2}}</code>
+				Mine Cash In Hand&nbsp;&nbsp;&nbsp;&nbsp; : <code>{{empS.myHandCash | number : 2}}</code>
+				Stock Worth : <code>{{empS.myStockWorth | number : 2}}</code>
+				Total : <code>{{empS.myHandCash + emps.myStockWorth | number : 2}}</code>
 			</div>
 		</div>
 		<ul class="nav navbar-nav navbar-right" x-ng-hide="isLoggedIn">

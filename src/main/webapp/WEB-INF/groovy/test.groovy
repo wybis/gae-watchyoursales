@@ -1,6 +1,12 @@
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.dto.UserDto
+import io.vteial.wys.model.Order
+import io.vteial.wys.model.OrderReceipt
 import io.vteial.wys.model.Stock
+import io.vteial.wys.model.Tran
+import io.vteial.wys.model.TranReceipt
+import io.vteial.wys.model.constants.OrderType
+import io.vteial.wys.model.constants.TransactionType
 
 
 println '''
@@ -15,51 +21,66 @@ try {
 	println sessionUser
 
 	List<Stock> stocks = employeeService.getProductStocks(sessionUser)
-	println stocks
 
-	//	OrderReceipt orderReceipt = new OrderReceipt()
-	//	orderReceipt.orders = []
-	//	stocks.each { stock ->
-	//		println stock
-	//
-	//		Order order = new Order()
-	//		order.stockId = stock.id
-	//		order.type = OrderType.BUY
-	//		order.unit = 12
-	//		order.rate = stock.product.buyRate
-	//
-	//		orderReceipt.orders << order
-	//
-	//		println order
-	//	}
-	//
-	//	orderService.add(sessionUser, orderReceipt)
-	//
-	//	println '-----------------------------------------------------------------'
-	//
-	//	TranReceipt tranReceipt = new TranReceipt()
-	//	tranReceipt.trans = []
-	//
-	//	orderReceipt.orders.each { order ->
-	//		println order
-	//
-	//		Tran tran = new Tran()
-	//		tran.orderId = order.id
-	//		tran.stockId = order.stockId
-	//		tran.type = TransactionType.BUY
-	//		tran.unit = order.unit - 4
-	//		tran.rate = order.rate
-	//
-	//		tranReceipt.trans << tran
-	//
-	//		println tran
-	//	}
-	//
-	//	tranService.add(sessionUser, tranReceipt)
-	//
-	//	println '-----------------------------------------------------------------'
-	//
-	//	tranReceipt.trans.each { tran -> println tran }
+	OrderReceipt orderReceipt = new OrderReceipt()
+	orderReceipt.orders = []
+	stocks.each { stock ->
+		println stock
+
+		Order order = new Order()
+		order.stockId = stock.id
+		order.type = OrderType.BUY
+		order.unit = 12
+		order.rate = stock.product.buyRate
+
+		orderReceipt.orders << order
+
+		println order
+	}
+
+	orderService.add(sessionUser, orderReceipt)
+
+	println '-----------------------------------------------------------------'
+
+	Stock stock = employeeService.getCashStock(sessionUser)
+
+	TranReceipt tranReceipt = new TranReceipt()
+	tranReceipt.trans = []
+
+	def amount = 0
+	orderReceipt.orders.each { order ->
+		println order
+
+		Tran tran = new Tran()
+		tran.orderId = order.id
+		tran.stockId = order.stockId
+		tran.type = TransactionType.BUY
+		tran.unit = order.unit - 4
+		tran.rate = order.rate
+
+		tranReceipt.trans << tran
+
+		println tran
+
+		amount += tran.unit * tran.rate
+	}
+	println stock
+	tran = new Tran()
+	tran.stockId = stock.id
+	tran.type = TransactionType.SELL
+	tran.unit = amount
+	tran.rate = 1
+	//tran.rate = stock.product.sellRate
+
+	tranReceipt.trans << tran
+
+	println tran
+
+	tranService.add(sessionUser, tranReceipt)
+
+	println '-----------------------------------------------------------------'
+
+	tranReceipt.trans.each { tran -> println tran }
 }
 catch(Throwable t) {
 	t.printStackTrace(out)
