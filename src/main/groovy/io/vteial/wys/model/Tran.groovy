@@ -18,6 +18,13 @@ public class Tran implements Serializable {
 
 	long receiptId
 
+	@Ignore
+	TranReceipt tranReceipt
+
+	String category
+
+	String productCode
+
 	long stockId
 
 	@Ignore
@@ -68,15 +75,15 @@ public class Tran implements Serializable {
 
 	Date updateTime
 
-//	String toString() {
-//		StringBuilder sb = new StringBuilder(Tran.class.getSimpleName())
-//		sb.append('[')
-//
-//		sb.append("id:${this.id}, ")
-//
-//		sb.append(']')
-//		return sb.toString()
-//	}
+	//	String toString() {
+	//		StringBuilder sb = new StringBuilder(Tran.class.getSimpleName())
+	//		sb.append('[')
+	//
+	//		sb.append("id:${this.id}, ")
+	//
+	//		sb.append(']')
+	//		return sb.toString()
+	//	}
 
 	void preUpdate(String updateBy) {
 		this.updateBy = updateBy

@@ -21,6 +21,10 @@ public class Order implements Serializable {
 	@Ignore
 	OrderReceipt orderReceipt
 
+	String category
+	
+	String productCode
+	
 	long stockId
 
 	@Ignore
@@ -63,15 +67,15 @@ public class Order implements Serializable {
 
 	Date updateTime
 
-//	String toString() {
-//		StringBuilder sb = new StringBuilder(Order.class.getSimpleName())
-//		sb.append('[')
-//
-//		sb.append("id:${this.id}, ")
-//
-//		sb.append(']')
-//		return sb.toString()
-//	}
+	//	String toString() {
+	//		StringBuilder sb = new StringBuilder(Order.class.getSimpleName())
+	//		sb.append('[')
+	//
+	//		sb.append("id:${this.id}, ")
+	//
+	//		sb.append(']')
+	//		return sb.toString()
+	//	}
 
 	void preUpdate(String updateBy) {
 		this.updateBy = updateBy

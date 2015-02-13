@@ -49,7 +49,8 @@ class DefaultOrderService extends AbstractService implements OrderService {
 
 		Product product = Product.get(stock.productId)
 		stock.product = product
-
+		
+		order.productCode = product.code
 		order.baseUnit = product.baseUnit
 		//order.computeAmount()
 		

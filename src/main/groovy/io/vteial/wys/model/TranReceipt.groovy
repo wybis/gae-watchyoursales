@@ -16,6 +16,8 @@ public class TranReceipt implements Serializable {
 	@Key
 	long id
 
+	String category
+
 	Date date
 
 	@Ignore
@@ -60,15 +62,15 @@ public class TranReceipt implements Serializable {
 
 	Date updateTime
 
-//	String toString() {
-//		StringBuilder sb = new StringBuilder(TranReceipt.class.getSimpleName())
-//		sb.append('[')
-//
-//		sb.append("id:${this.id}, ")
-//
-//		sb.append(']')
-//		return sb.toString()
-//	}
+	//	String toString() {
+	//		StringBuilder sb = new StringBuilder(TranReceipt.class.getSimpleName())
+	//		sb.append('[')
+	//
+	//		sb.append("id:${this.id}, ")
+	//
+	//		sb.append(']')
+	//		return sb.toString()
+	//	}
 
 	void preUpdate(String updateBy) {
 		this.updateBy = updateBy

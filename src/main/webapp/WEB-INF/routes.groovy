@@ -31,7 +31,11 @@ get  	'/sessions/logout',    			forward : '/io/vteial/wys/web/session/logout.gro
 get		'/products',    				forward : '/io/vteial/wys/web/employee/products.groovy'
 get		'/stocks',    					forward : '/io/vteial/wys/web/employee/stocks.groovy'
 get		'/customers',    				forward : '/io/vteial/wys/web/employee/customers.groovy'
+get		'/pendingCustomerOrders',		forward : '/io/vteial/wys/web/employee/pendingCustomerOrders.groovy'
+get		'/customerTransactions',		forward : '/io/vteial/wys/web/employee/customerTransactions.groovy'
 get		'/dealers',    					forward : '/io/vteial/wys/web/employee/dealers.groovy'
+get		'/pendingDealerOrders',			forward : '/io/vteial/wys/web/employee/pendingDealerOrders.groovy'
+get		'/dealerTransactions',			forward : '/io/vteial/wys/web/employee/dealerTransactions.groovy'
 get		'/employees',    				forward : '/io/vteial/wys/web/employee/employees.groovy'
 get		'/accounts',    				forward : '/io/vteial/wys/web/employee/accounts.groovy'
 

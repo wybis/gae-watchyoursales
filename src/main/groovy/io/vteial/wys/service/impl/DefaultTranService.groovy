@@ -62,6 +62,7 @@ class DefaultTranService extends AbstractService implements TranService {
 		Product product = Product.get(stock.productId)
 		stock.product = product
 
+		tran.productCode = product.code
 		tran.baseUnit = product.baseUnit
 		//tran.computeAmount()
 		if(tran.orderId > 0) {

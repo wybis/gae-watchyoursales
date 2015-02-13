@@ -150,6 +150,34 @@ function employeeService($log, $http, $q) {
 		return deferred.promise;
 	};
 
+	service.getMyPendingCustomerOrders = function() {
+		var path = basePath + '/pendingCustomerOrders';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
+	};
+
+	service.getMyCustomerTransactions = function() {
+		var path = basePath + '/customerTransactions';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
+	};
+
 	function processDealers(stocks) {
 		_.forEach(stocks, function(objectx) {
 			addOrUdpateCacheY('dealers', objectx);
@@ -176,6 +204,34 @@ function employeeService($log, $http, $q) {
 			addOrUdpateCacheY('employees', objectx);
 		});
 	}
+
+	service.getMyPendingDealerOrders = function() {
+		var path = basePath + '/pendingDealerOrders';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				deferred.resolve(response);
+			}
+			$log.info(response);
+		})
+
+		return deferred.promise;
+	};
+
+	service.getMyDealerTransactions = function() {
+		var path = basePath + '/dealerTransactions';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
+	};
 
 	service.getMyEmployees = function() {
 		var path = basePath + '/employees';

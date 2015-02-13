@@ -15,6 +15,8 @@ public class OrderReceipt implements Serializable {
 
 	@Key
 	long id
+	
+	String category
 
 	Date date
 

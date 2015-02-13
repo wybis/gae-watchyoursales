@@ -6,7 +6,9 @@ import io.vteial.wys.model.OrderReceipt
 import io.vteial.wys.model.Stock
 import io.vteial.wys.model.Tran
 import io.vteial.wys.model.TranReceipt
+import io.vteial.wys.model.constants.OrderCategory
 import io.vteial.wys.model.constants.OrderType
+import io.vteial.wys.model.constants.TransactionCategory
 import io.vteial.wys.model.constants.TransactionType
 
 
@@ -28,13 +30,15 @@ try {
 	List<Customer> dealers = employeeService.getMyDealers(sessionUser)
 
 	OrderReceipt orderReceipt = new OrderReceipt()
-	orderReceipt.customerId = dealers[0].id
+	orderReceipt.category = OrderCategory.DEALER
+	orderReceipt.customerId = dealers[1].id
 	orderReceipt.orders = []
 
 	stocks.each { Stock stock ->
 		println stock
 
 		Order order = new Order()
+		order.category = orderReceipt.category
 		order.stockId = stock.id
 		order.type = OrderType.BUY
 		order.unit = 12
@@ -51,7 +55,8 @@ try {
 	println 'processing dealer order started...'
 
 	TranReceipt tranReceipt = new TranReceipt()
-	tranReceipt.customerId = dealers[0].id
+	tranReceipt.category = TransactionCategory.DEALER
+	tranReceipt.customerId = dealers[1].id
 	tranReceipt.trans = []
 
 	def amount = 0
@@ -59,6 +64,7 @@ try {
 		println order
 
 		Tran tran = new Tran()
+		tran.category = tranReceipt.category
 		tran.orderId = order.id
 		tran.stockId = order.stockId
 		tran.type = TransactionType.BUY
@@ -75,6 +81,7 @@ try {
 	println cashStock
 
 	tran = new Tran()
+	tran.category = tranReceipt.category
 	tran.stockId = cashStock.id
 	tran.type = TransactionType.SELL
 	tran.unit = amount
@@ -95,13 +102,15 @@ try {
 	List<Customer> customers = employeeService.getMyCustomers(sessionUser)
 
 	orderReceipt = new OrderReceipt()
-	orderReceipt.customerId = dealers[0].id
+	orderReceipt.category = OrderCategory.CUSTOMER
+	orderReceipt.customerId = customers[1].id
 	orderReceipt.orders = []
 
 	stocks.each { Stock stock ->
 		println stock
 
 		Order order = new Order()
+		order.category = orderReceipt.category
 		order.stockId = stock.id
 		order.type = OrderType.SELL
 		order.unit = 7
@@ -119,7 +128,8 @@ try {
 	println 'processing customer order started...'
 
 	tranReceipt = new TranReceipt()
-	tranReceipt.customerId = dealers[0].id
+	tranReceipt.category = TransactionCategory.CUSTOMER
+	tranReceipt.customerId = customers[1].id
 	tranReceipt.trans = []
 
 	amount = 0
@@ -127,6 +137,7 @@ try {
 		println order
 
 		Tran tran = new Tran()
+		tran.category = tranReceipt.category
 		tran.orderId = order.id
 		tran.stockId = order.stockId
 		tran.type = TransactionType.SELL
@@ -138,11 +149,12 @@ try {
 
 		amount += tran.unit * tran.rate
 	}
-	
-//	Stock stock = employeeService.getMyCashStock(sessionUser)
-//	println stock
-	
+
+	//	Stock stock = employeeService.getMyCashStock(sessionUser)
+	//	println stock
+
 	tran = new Tran()
+	tran.category = tranReceipt.category
 	tran.stockId = cashStock.id
 	tran.type = TransactionType.BUY
 	tran.unit = amount
