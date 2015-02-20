@@ -33,18 +33,12 @@ public class TranReceipt implements Serializable {
 	long customerId
 
 	@Ignore
-	Customer customer
+	User customer
+
+	long employeeId
 
 	@Ignore
-	long customerAccountId
-
-	@Ignore
-	Account customerAccount
-
-	String employeeId
-
-	@Ignore
-	Employee employee
+	User employee
 
 	long agencyId
 
@@ -54,30 +48,20 @@ public class TranReceipt implements Serializable {
 	@Ignore
 	List<Tran> trans
 
-	String createBy
+	long createBy
 
-	String updateBy
+	long updateBy
 
 	Date createTime
 
 	Date updateTime
 
-	//	String toString() {
-	//		StringBuilder sb = new StringBuilder(TranReceipt.class.getSimpleName())
-	//		sb.append('[')
-	//
-	//		sb.append("id:${this.id}, ")
-	//
-	//		sb.append(']')
-	//		return sb.toString()
-	//	}
-
-	void preUpdate(String updateBy) {
+	void preUpdate(long updateBy) {
 		this.updateBy = updateBy
 		this.updateTime = new Date()
 	}
 
-	void prePersist(String createAndUpdateBy) {
+	void prePersist(long createAndUpdateBy) {
 		this.createBy = createAndUpdateBy
 		this.updateBy = createAndUpdateBy
 		Date now = new Date()

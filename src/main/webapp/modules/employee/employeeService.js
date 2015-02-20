@@ -277,6 +277,20 @@ function employeeService($log, $http, $q) {
 		return deferred.promise;
 	};
 
+	service.getMyAccountTransactions = function() {
+		var path = basePath + '/accountTransactions';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
+	};
+
 	return service;
 }
 appServices.factory('employeeService', employeeService);

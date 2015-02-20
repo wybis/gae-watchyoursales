@@ -15,7 +15,7 @@ public class OrderReceipt implements Serializable {
 
 	@Key
 	long id
-	
+
 	String category
 
 	Date date
@@ -33,18 +33,12 @@ public class OrderReceipt implements Serializable {
 	long customerId
 
 	@Ignore
-	Customer customer
+	User customer
+
+	long employeeId
 
 	@Ignore
-	long customerAccountId
-
-	@Ignore
-	Account customerAccount
-
-	String employeeId
-
-	@Ignore
-	Employee employee
+	User employee
 
 	long agencyId
 
@@ -54,9 +48,9 @@ public class OrderReceipt implements Serializable {
 	@Ignore
 	List<Order> orders
 
-	String createBy
+	long createBy
 
-	String updateBy
+	long updateBy
 
 	Date createTime
 
@@ -72,12 +66,12 @@ public class OrderReceipt implements Serializable {
 		return sb.toString()
 	}
 
-	void preUpdate(String updateBy) {
+	void preUpdate(long updateBy) {
 		this.updateBy = updateBy
 		this.updateTime = new Date()
 	}
 
-	void prePersist(String createAndUpdateBy) {
+	void prePersist(long createAndUpdateBy) {
 		this.createBy = createAndUpdateBy
 		this.updateBy = createAndUpdateBy
 		Date now = new Date()

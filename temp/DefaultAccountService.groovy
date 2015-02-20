@@ -3,7 +3,7 @@ package io.vteial.wys.service.impl
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Account
-import io.vteial.wys.model.AccountTransaction
+import io.vteial.wys.model.TranAccount
 import io.vteial.wys.model.constants.AccountTransactionStatus
 import io.vteial.wys.model.constants.AccountTransactionType
 import io.vteial.wys.service.AccountService
@@ -28,7 +28,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 	}
 
 	@Override
-	public void addTransaction(SessionUserDto sessionUser, AccountTransaction accountTran) throws InSufficientFundException {
+	public void addTransaction(SessionUserDto sessionUser, TranAccount accountTran) throws InSufficientFundException {
 		//log.info "Pre-" + accountTran.toString()
 
 		Account account = Account.get(accountTran.accountId)
@@ -59,9 +59,9 @@ class DefaultAccountService extends AbstractService implements AccountService {
 
 		accountTran.status = AccountTransactionStatus.COMPLETE
 
-		accountTran.userId = sessionUser.id
+		accountTran.employeeId = sessionUser.id
 
-		accountTran.id = autoNumberService.getNextNumber(sessionUser, AccountTransaction.ID_KEY)
+		accountTran.id = autoNumberService.getNextNumber(sessionUser, TranAccount.ID_KEY)
 
 		accountTran.prePersist(sessionUser.id)
 		accountTran.save()

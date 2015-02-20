@@ -6,14 +6,13 @@ import io.vteial.wys.model.Agency
 import io.vteial.wys.model.Product
 import io.vteial.wys.model.Role
 import io.vteial.wys.model.Stock
-import io.vteial.wys.model.constants.ProductType
 
 println 'saving agency master started...'
 
 try {
 
 	SessionUserDto sessionUser = new SessionUserDto()
-	sessionUser.id = 'vteial'
+	sessionUser.userId = 'sadmin'
 	sessionUser.roleId = Role.SYS_ADMIN
 
 	Agency agency = jsonCategory.parseJson(request, Agency.class)
@@ -23,6 +22,11 @@ try {
 	sessionUser = new SessionUserDto()
 	sessionUser.id = agency.employees[0].id
 	sessionUser.roleId = agency.employees[0].roleId
+
+	agency.products.each { t ->
+		t.agencyId = agency.id
+		productService.add(sessionUser, t)
+	}
 
 	agency.employees.each { t ->
 		t.agencyId = agency.id
@@ -39,42 +43,9 @@ try {
 		customerService.add(sessionUser, t)
 	}
 
-	Product model = new Product()
-	model.with {
-		type = ProductType.CASH
-		code = 'CIH'
-		name = 'Cash'
-		baseUnit = 1
-		denominator = 1
-		buyRate = 1
-		buyPercent = 1
-		sellRate = 1
-		sellPercent = 1
-		agencyId = agency.id
-	}
-	agency.products << model
-	model = new Product()
-	model.with {
-		type = ProductType.PROFIT
-		code = 'PFT'
-		name = 'Profit'
-		baseUnit = 1
-		denominator = 1
-		buyRate = 1
-		buyPercent = 1
-		sellRate = 1
-		sellPercent = 1
-		agencyId = agency.id
-	}
-	agency.products << model
-	agency.products.each { t ->
-		t.agencyId = agency.id
-		productService.add(sessionUser, t)
-	}
-
 	agency.employees.each { e ->
 		UserDto user = new UserDto()
-		user.id = e.id
+		user.userId = e.userId
 		sessionUser = sessionService.login(session, user)
 		Stock stock = employeeService.getMyCashStock(sessionUser)
 		stock.product = Product.get(stock.productId)

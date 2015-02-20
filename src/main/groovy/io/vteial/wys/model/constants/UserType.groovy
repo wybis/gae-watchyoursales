@@ -1,6 +1,8 @@
 package io.vteial.wys.model.constants;
 
-interface CustomerType {
+interface UserType {
+
+	static final String EMPLOYEE = 'employee'
 
 	static final String DEALER = 'dealer'
 

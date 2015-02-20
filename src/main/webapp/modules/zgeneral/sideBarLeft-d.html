@@ -31,6 +31,12 @@
 			<a href="" x-ng-click="routeTo($event, '/customerOrders')"> 
 				Orders
 			</a>
+			<a href="" x-ng-click="routeTo($event, '/customerOrderHistory')" class="pull-right"> 
+				Order History
+			</a>
+		</li>
+		<li class="list-group-item" x-ng-hide="sessionContext.sessionUser.isAppUser">
+				Customer &nbsp;&nbsp;
 			<a href="" x-ng-click="routeTo($event, '/customerTrans')" class="pull-right"> 
 				Transactions
 			</a>
@@ -41,28 +47,35 @@
 			</a>
 		</li>	
 		<li class="list-group-item" x-ng-hide="sessionContext.sessionUser.isAppUser">
-				Dealer &nbsp;&nbsp;
+				Dealer &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="" x-ng-click="routeTo($event, '/dealerOrders')"> 
 			 	Orders
 			</a>
-			<a href="" x-ng-click="routeTo($event, '/dealerTrans')" class="pull-right"> 
-				Transactions
+			<a href="" x-ng-click="routeTo($event, '/dealerOrderHistory')" class="pull-right"> 
+				Order History
 			</a>
 		</li>
 		<li class="list-group-item" x-ng-hide="sessionContext.sessionUser.isAppUser">
-			<a href="" x-ng-click="routeTo($event, '/employees')"> 
-				Employees
+				Dealer
+			<a href="" x-ng-click="routeTo($event, '/dealerTrans')" class="pull-right"> 
+			 	Transactions
 			</a>
-		</li>	
+		</li>
 		<li class="list-group-item">
 			<a href="" x-ng-click="routeTo($event, '/accounts')"> 
 				Accounts
 			</a>
-			<!-- 
+		</li>	
+		<li class="list-group-item">
+				Accounts
 			<a href="" x-ng-click="routeTo($event, '/accountTrans')" class="pull-right"> 
 				Transactions
 			</a>
-			-->
+		</li>	
+		<li class="list-group-item" x-ng-hide="sessionContext.sessionUser.isAppUser">
+			<a href="" x-ng-click="routeTo($event, '/employees')"> 
+				Employees
+			</a>
 		</li>	
 		<li class="list-group-item" x-ng-show="sessionContext.sessionUser.isAppUser">
 			<a href="" x-ng-click="routeTo($event, '/users')">

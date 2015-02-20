@@ -41,17 +41,17 @@ public class Agency implements Serializable {
 	List<Product> products
 
 	@Ignore
-	List<Employee> employees
+	List<User> employees
 
 	@Ignore
-	List<Customer> dealers
+	List<User> dealers
 
 	@Ignore
-	List<Customer> customers
+	List<User> customers
 
-	String createBy
+	long createBy
 
-	String updateBy
+	long updateBy
 
 	Date createTime
 
@@ -69,12 +69,12 @@ public class Agency implements Serializable {
 		return sb.toString()
 	}
 
-	void preUpdate(String updateBy) {
+	void preUpdate(long updateBy) {
 		this.updateBy = updateBy
 		this.updateTime = new Date()
 	}
 
-	void prePersist(String createAndUpdateBy) {
+	void prePersist(long createAndUpdateBy) {
 		this.createBy = createAndUpdateBy
 		this.updateBy = createAndUpdateBy
 		Date now = new Date()

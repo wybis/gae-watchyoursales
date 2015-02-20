@@ -21,9 +21,9 @@ public class Country implements Serializable {
 
 	String name
 
-	String createBy
+	long createBy
 
-	String updateBy
+	long updateBy
 
 	Date createTime
 
@@ -39,12 +39,12 @@ public class Country implements Serializable {
 		return sb.toString()
 	}
 
-	void preUpdate(String updateBy) {
+	void preUpdate(long updateBy) {
 		this.updateBy = updateBy
 		this.updateTime = new Date()
 	}
 
-	void prePersist(String createAndUpdateBy) {
+	void prePersist(long createAndUpdateBy) {
 		this.createBy = createAndUpdateBy
 		this.updateBy = createAndUpdateBy
 		Date now = new Date()

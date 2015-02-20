@@ -36,8 +36,9 @@ get		'/customerTransactions',		forward : '/io/vteial/wys/web/employee/customerTr
 get		'/dealers',    					forward : '/io/vteial/wys/web/employee/dealers.groovy'
 get		'/pendingDealerOrders',			forward : '/io/vteial/wys/web/employee/pendingDealerOrders.groovy'
 get		'/dealerTransactions',			forward : '/io/vteial/wys/web/employee/dealerTransactions.groovy'
-get		'/employees',    				forward : '/io/vteial/wys/web/employee/employees.groovy'
 get		'/accounts',    				forward : '/io/vteial/wys/web/employee/accounts.groovy'
+get		'/accountTransactions',			forward : '/io/vteial/wys/web/employee/accountTransactions.groovy'
+get		'/employees',    				forward : '/io/vteial/wys/web/employee/employees.groovy'
 
 // user
 get      '/users',          			forward : '/io/vteial/wys/web/user/list.groovy'

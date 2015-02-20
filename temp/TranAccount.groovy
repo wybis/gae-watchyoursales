@@ -9,9 +9,9 @@ import groovyx.gaelyk.datastore.Key
 @Entity(unindexed=false)
 @Canonical
 @ToString(includeNames=true)
-public class AccountTransaction implements Serializable {
+public class TranAccount implements Serializable {
 
-	static final String ID_KEY = "accountTranId"
+	static final String ID_KEY = "tranAccountId"
 
 	@Key
 	long id
@@ -22,9 +22,9 @@ public class AccountTransaction implements Serializable {
 
 	String description
 
-	Date date
-
 	double balance
+
+	Date date
 
 	String status
 
@@ -33,10 +33,15 @@ public class AccountTransaction implements Serializable {
 	@Ignore
 	Account account
 
-	String userId
+	String employeeId
 
 	@Ignore
-	User user
+	Employee employee
+
+	long agencyId
+
+	@Ignore
+	Agency agency
 
 	String createBy
 
@@ -47,7 +52,7 @@ public class AccountTransaction implements Serializable {
 	Date updateTime
 
 	String toString() {
-		StringBuilder sb = new StringBuilder(AccountTransaction.class.getSimpleName())
+		StringBuilder sb = new StringBuilder(TranAccount.class.getSimpleName())
 		sb.append('[')
 
 		sb.append("id:${this.id}, ")
@@ -58,7 +63,7 @@ public class AccountTransaction implements Serializable {
 		sb.append("description:${this.description}, ")
 		sb.append("date:${this.date}, ")
 		sb.append("status:${this.status}, ")
-		sb.append("userId:${this.userId}, ")
+		sb.append("employeeId:${this.employeeId}, ")
 
 		sb.append(']')
 		return sb.toString()

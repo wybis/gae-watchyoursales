@@ -2,7 +2,6 @@ package io.vteial.wys.service;
 
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.dto.UserDto
-import io.vteial.wys.model.Customer
 import io.vteial.wys.service.exceptions.InvalidCredentialException
 import io.vteial.wys.service.exceptions.ModelNotFoundException
 
@@ -12,7 +11,7 @@ public interface SessionService {
 
 	static String SESSION_USER_KEY = 'user'
 
-	Map<String, Object> properties(HttpSession session, com.google.appengine.api.users.User appUser)
+	Map<String, Object> properties(HttpSession session)
 
 	void resetPassword(String userId) throws ModelNotFoundException
 

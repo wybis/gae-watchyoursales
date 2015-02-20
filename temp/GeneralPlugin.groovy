@@ -1,6 +1,7 @@
 package io.vteial.wys
 
 import groovyx.gaelyk.plugins.PluginBaseScript
+import io.vteial.wys.service.impl.DefaultAccountService
 import io.vteial.wys.service.impl.DefaultAgencyService
 import io.vteial.wys.service.impl.DefaultAutoNumberService
 import io.vteial.wys.service.impl.DefaultCustomerService
@@ -23,10 +24,12 @@ class GeneralPlugin extends PluginBaseScript {
 
 		DefaultSessionService sesS = new DefaultSessionService()
 		sesS.autoNumberService = anS
+		sesS.app = app
+		sesS.localMode = localMode
 		sesS.appUserService = users
 
-		DefaultUserService usrS = new DefaultUserService()
-		usrS.autoNumberService = anS
+		DefaultAccountService accS = new DefaultAccountService()
+		accS.autoNumberService = anS
 
 		DefaultStockService stkS = new DefaultStockService()
 		stkS.autoNumberService = anS
@@ -35,21 +38,23 @@ class GeneralPlugin extends PluginBaseScript {
 		prdS.autoNumberService = anS
 		prdS.stockService = stkS
 
+		DefaultUserService usrS = new DefaultUserService()
+		usrS.autoNumberService = anS
+		usrS.accountService = accS
+
 		DefaultDealerService dlrS = new DefaultDealerService()
 		dlrS.autoNumberService = anS
-		dlrS.userService = usrS
 		dlrS.stockService = stkS
 
 		DefaultCustomerService cusS = new DefaultCustomerService()
 		cusS.autoNumberService = anS
-		cusS.userService = usrS
 		cusS.stockService = stkS
 
 		DefaultEmployeeService empS = new DefaultEmployeeService()
 		empS.autoNumberService = anS
-		empS.userService = usrS
-		empS.customerService = cusS
+		empS.accountService = accS
 		empS.stockService = stkS
+		empS.customerService = cusS
 
 		DefaultAgencyService agnS = new DefaultAgencyService()
 		agnS.autoNumberService = anS
@@ -71,8 +76,9 @@ class GeneralPlugin extends PluginBaseScript {
 			jsonObjectMapper  = JacksonCategory.jsonObjectMapper
 			sessionService    = sesS
 			autoNumberService = anS
-			agencyService     = agnS
+			accountService    = accS
 			usrService        = usrS
+			agencyService     = agnS
 			productService    = prdS
 			stockService      = stkS
 			employeeService   = empS

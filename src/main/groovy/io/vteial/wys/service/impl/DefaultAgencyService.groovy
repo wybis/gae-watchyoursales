@@ -33,8 +33,9 @@ class DefaultAgencyService extends AbstractService implements AgencyService {
 		model.prePersist(sessionUser.id)
 		model.save()
 
-		//productService.onAgencyCreate(sessionUser, model)
+		productService.onAgencyCreate(sessionUser, model)
 		employeeService.onAgencyCreate(sessionUser, model)
+
 		dealerService.onAgencyCreate(sessionUser, model)
 		customerService.onAgencyCreate(sessionUser, model)
 	}

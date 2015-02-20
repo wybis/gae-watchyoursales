@@ -31,30 +31,30 @@ class Stock implements Serializable {
 	@Ignore
 	Product product
 
-	String employeeId
+	long userId
 
 	@Ignore
-	Employee employee
+	User user
 
 	long agencyId
 
 	@Ignore
 	Agency agency
 
+	long createBy
+
+	long updateBy
+
 	Date createTime
 
 	Date updateTime
 
-	String createBy
-
-	String updateBy
-
-	void preUpdate(String updateBy) {
+	void preUpdate(long updateBy) {
 		this.updateBy = updateBy
 		this.updateTime = new Date()
 	}
 
-	void prePersist(String createAndUpdateBy) {
+	void prePersist(long createAndUpdateBy) {
 		this.createBy = createAndUpdateBy
 		this.updateBy = createAndUpdateBy
 		Date now = new Date()

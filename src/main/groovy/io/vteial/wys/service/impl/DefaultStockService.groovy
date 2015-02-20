@@ -3,9 +3,11 @@ package io.vteial.wys.service.impl
 import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
-import io.vteial.wys.model.Employee
 import io.vteial.wys.model.Product
 import io.vteial.wys.model.Stock
+import io.vteial.wys.model.User
+import io.vteial.wys.model.constants.ProductType
+import io.vteial.wys.model.constants.UserType
 import io.vteial.wys.service.StockService
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
@@ -15,12 +17,12 @@ class DefaultStockService extends AbstractService implements StockService {
 	GroovyLogger log = new GroovyLogger(DefaultStockService.class.getName())
 
 	@Override
-	public List<Stock> findByEmployeeId(String employeeId) {
+	public List<Stock> findByEmployeeId(long stockEmployeeId) {
 		List<Stock> models = []
 
 		def entitys = datastore.execute {
 			from Stock.class.simpleName
-			where employeeId == employeeId
+			where userId == stockEmployeeId
 		}
 
 		entitys.each { entity ->
@@ -33,12 +35,12 @@ class DefaultStockService extends AbstractService implements StockService {
 	}
 
 	@Override
-	public List<Stock> findByEmployeeIdAndType(String stockEmployeeId, String stockType) {
+	public List<Stock> findByEmployeeIdAndType(long stockEmployeeId, String stockType) {
 		List<Stock> models = []
 
 		def entitys = datastore.execute {
 			from Stock.class.simpleName
-			where employeeId == stockEmployeeId
+			where userId == stockEmployeeId
 			and type == stockType
 		}
 
@@ -52,12 +54,12 @@ class DefaultStockService extends AbstractService implements StockService {
 	}
 
 	@Override
-	public Stock findOneByEmployeeIdAndType(String stockEmployeeId, String stockType) {
+	public Stock findOneByEmployeeIdAndType(long stockEmployeeId, String stockType) {
 		List<Stock> models = []
 
 		def entitys = datastore.execute {
 			from Stock.class.simpleName
-			where employeeId == stockEmployeeId
+			where userId == stockEmployeeId
 			and type == stockType
 			limit 1
 		}
@@ -90,7 +92,7 @@ class DefaultStockService extends AbstractService implements StockService {
 	}
 
 	@Override
-	Stock findOneByAgencyIdAndEmployeeIdAndProductCode(long stockAgencyId, String stockEmployeeId, String stockProductCode) {
+	Stock findOneByAgencyIdAndEmployeeIdAndProductCode(long stockAgencyId, long stockEmployeeId, String stockProductCode) {
 
 		Product product = this.findOneByAgencyIdAndProductCode(stockAgencyId, stockProductCode)
 		if(product == null) {
@@ -101,7 +103,7 @@ class DefaultStockService extends AbstractService implements StockService {
 
 		def entitys = datastore.execute {
 			from Stock.class.simpleName
-			where employeeId == stockEmployeeId
+			where userId == stockEmployeeId
 			and productId == product.id
 			limit 1
 		}
@@ -116,12 +118,12 @@ class DefaultStockService extends AbstractService implements StockService {
 	}
 
 	@Override
-	Stock findOneByEmployeeIdAndProductId(String stockEmployeeId, long stockProductId) {
+	Stock findOneByEmployeeIdAndProductId(long stockEmployeeId, long stockProductId) {
 		List<Stock> models = []
 
 		def entitys = datastore.execute {
 			from Stock.class.simpleName
-			where employeeId == stockEmployeeId
+			where userId == stockEmployeeId
 			and productId == stockProductId
 			limit 1
 		}
@@ -149,26 +151,29 @@ class DefaultStockService extends AbstractService implements StockService {
 	@Override
 	public void onProductCreate(SessionUserDto sessionUser, Product product) {
 		def entitys = datastore.execute {
-			from Employee.class.getSimpleName()
+			from User.class.getSimpleName()
 			where agencyId == product.agencyId
+			and type == UserType.EMPLOYEE
 		}
 
 		entitys.each { entity ->
-			Employee employee = entity as Employee
+			User employee = entity as User
 			Stock model = new Stock()
 			model.type = product.type
 			model.productId = product.id
-			model.employeeId = employee.id
+			model.userId = employee.id
 			model.agencyId = product.agencyId
 			this.add(sessionUser, model)
 		}
 	}
 
 	@Override
-	public void onEmployeeCreate(SessionUserDto sessionUser, Employee employee) {
+	public void onEmployeeCreate(SessionUserDto sessionUser, User employee) {
+		def prdTypes = [ProductType.CASH_EMPLOYEE, ProductType.PRODUCT]
 		def entitys = datastore.execute {
 			from Product.class.simpleName
 			where agencyId == employee.agencyId
+			and type in prdTypes
 		}
 
 		entitys.each { entity ->
@@ -176,8 +181,48 @@ class DefaultStockService extends AbstractService implements StockService {
 			Stock model = new Stock()
 			model.type = product.type
 			model.productId = product.id
-			model.employeeId = employee.id
+			model.userId = employee.id
 			model.agencyId = employee.agencyId
+			this.add(sessionUser, model)
+		}
+	}
+
+	@Override
+	public void onDealerCreate(SessionUserDto sessionUser, User customer) {
+		def entitys = datastore.execute {
+			from Product.class.simpleName
+			where agencyId == customer.agencyId
+			and type == ProductType.CASH_DEALER
+			limit 1
+		}
+
+		entitys.each { entity ->
+			Product product = entity as Product
+			Stock model = new Stock()
+			model.type = product.type
+			model.productId = product.id
+			model.userId = customer.id
+			model.agencyId = customer.agencyId
+			this.add(sessionUser, model)
+		}
+	}
+
+	@Override
+	public void onCustomerCreate(SessionUserDto sessionUser, User customer) {
+		def entitys = datastore.execute {
+			from Product.class.simpleName
+			where agencyId == customer.agencyId
+			and type == ProductType.CASH_CUSTOMER
+			limit 1
+		}
+
+		entitys.each { entity ->
+			Product product = entity as Product
+			Stock model = new Stock()
+			model.type = product.type
+			model.productId = product.id
+			model.userId = customer.id
+			model.agencyId = customer.agencyId
 			this.add(sessionUser, model)
 		}
 	}

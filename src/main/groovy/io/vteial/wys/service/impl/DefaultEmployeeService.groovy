@@ -3,20 +3,15 @@ package io.vteial.wys.service.impl
 import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
-import io.vteial.wys.model.Account
 import io.vteial.wys.model.Agency
-import io.vteial.wys.model.Customer
-import io.vteial.wys.model.Employee
 import io.vteial.wys.model.Stock
-import io.vteial.wys.model.constants.AccountStatus
-import io.vteial.wys.model.constants.AccountType
-import io.vteial.wys.model.constants.CustomerType
-import io.vteial.wys.model.constants.EmployeeStatus
+import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.StockType
-import io.vteial.wys.service.AccountService
+import io.vteial.wys.model.constants.UserType
 import io.vteial.wys.service.CustomerService
 import io.vteial.wys.service.EmployeeService
 import io.vteial.wys.service.StockService
+import io.vteial.wys.service.UserService
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
 @GaelykBindings
@@ -24,26 +19,26 @@ class DefaultEmployeeService extends AbstractService implements EmployeeService 
 
 	GroovyLogger log = new GroovyLogger(DefaultEmployeeService.class.getName())
 
-	AccountService accountService
-
-	StockService stockService
+	UserService userService
 
 	CustomerService customerService
 
-	@Override
-	public List<Customer> getMyCustomers(SessionUserDto sessionUser) {
-		List<Customer> models = null
+	StockService stockService
 
-		models = customerService.findByAgencyIdAndType(sessionUser.agencyId, CustomerType.CUSTOMER)
+	@Override
+	public List<User> getMyCustomers(SessionUserDto sessionUser) {
+		List<User> models = null
+
+		models = customerService.findByAgencyIdAndType(sessionUser.agencyId, UserType.CUSTOMER)
 
 		return models;
 	}
 
 	@Override
-	public List<Customer> getMyDealers(SessionUserDto sessionUser) {
-		List<Customer> models = null
+	public List<User> getMyDealers(SessionUserDto sessionUser) {
+		List<User> models = null
 
-		models = customerService.findByAgencyIdAndType(sessionUser.agencyId, CustomerType.DEALER)
+		models = customerService.findByAgencyIdAndType(sessionUser.agencyId, UserType.DEALER)
 
 		return models;
 	}
@@ -52,7 +47,7 @@ class DefaultEmployeeService extends AbstractService implements EmployeeService 
 	public Stock getMyCashStock(SessionUserDto sessionUser) {
 		Stock model = null
 
-		model = stockService.findOneByEmployeeIdAndType(sessionUser.id, StockType.CASH)
+		model = stockService.findOneByEmployeeIdAndType(sessionUser.id, StockType.CASH_EMPLOYEE)
 
 		return model
 	}
@@ -61,7 +56,7 @@ class DefaultEmployeeService extends AbstractService implements EmployeeService 
 	public Stock getMyProfitStock(SessionUserDto sessionUser) {
 		Stock model = null
 
-		model = stockService.findOneByEmployeeIdAndType(sessionUser.id, StockType.PROFIT)
+		model = stockService.findOneByEmployeeIdAndType(sessionUser.id, StockType.PROFIT_EMPLOYEE)
 
 		return model
 	}
@@ -97,35 +92,22 @@ class DefaultEmployeeService extends AbstractService implements EmployeeService 
 	}
 
 	@Override
-	public void add(SessionUserDto sessionUser, Employee model)
+	public void add(SessionUserDto sessionUser, User model)
 	throws ModelAlreadyExistException {
 
-		Account account = new Account()
-		account.name = "Employee-${model.firstName}"
-		account.aliasName = "Employee-${model.lastName}"
-		account.type = AccountType.EMPLOYEE
-		account.isMinus = false
-		account.status = AccountStatus.ACTIVE
-		account.agencyId = model.agencyId
+		model.type = UserType.EMPLOYEE
+		//model.agencyId = sessionUser.agencyId
 
-		accountService.add(sessionUser, account)
+		userService.add(sessionUser, model)
 
-		model.account = account
-		model.accountId = account.id
-
-		model.status = EmployeeStatus.ACTIVE
-
-		model.prePersist(sessionUser.id)
-		model.save()
-
-		//stockService.onEmployeeCreate(sessionUser, model)
+		stockService.onEmployeeCreate(sessionUser, model)
 	}
 
 	@Override
 	public void onAgencyCreate(SessionUserDto sessionUser, Agency agency) {
-		Employee model = new Employee()
+		User model = new User()
 
-		model.id = agency.id + '@' + agency.name
+		model.userId = agency.id + '@' + agency.name
 		model.with {
 			firstName = agency.name
 			lastName = agency.id as String

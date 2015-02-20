@@ -35,15 +35,15 @@ public class Customer implements Serializable {
 	Address address
 
 	String status
-	
+
 	String type = CustomerType.CUSTOMER
 
 	String roleId = Role.AGNECY_CUSTOMER
 
-	long accountId
+	long stockId
 
 	@Ignore
-	Account account
+	Stock stock
 
 	long agencyId
 

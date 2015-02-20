@@ -1,22 +1,23 @@
 package io.vteial.wys.web.employee
 
 import io.vteial.wys.dto.ResponseDto
-import io.vteial.wys.model.Employee
+import io.vteial.wys.model.User
+import io.vteial.wys.model.constants.UserType
 
 ResponseDto responseDto = new ResponseDto()
 
-//def entitys = datastore.execute {
-//	from Employee.class.simpleName
-//	where agencyId == params.agencyId as long
-//}
-//def models = []
-//entitys.each { entity ->
-//	Employee model = entity as Employee
-//	models <<  model
-//}
+def models = []
 
-def entitys = Employee.findAll()
-def models = entitys.findAll{ it.agencyId == params.agencyId as long }
+def entitys = datastore.execute {
+	from User.class.simpleName
+	where agencyId == sessionUserDto.agencyId
+	and type == UserType.EMPLOYEE
+}
+
+entitys.each { entity ->
+	User model = entity as User
+	models <<  model
+}
 
 responseDto.data = models
 

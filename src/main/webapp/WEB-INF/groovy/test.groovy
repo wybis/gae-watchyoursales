@@ -1,11 +1,11 @@
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.dto.UserDto
-import io.vteial.wys.model.Customer
 import io.vteial.wys.model.Order
 import io.vteial.wys.model.OrderReceipt
 import io.vteial.wys.model.Stock
 import io.vteial.wys.model.Tran
 import io.vteial.wys.model.TranReceipt
+import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.OrderCategory
 import io.vteial.wys.model.constants.OrderType
 import io.vteial.wys.model.constants.TransactionCategory
@@ -27,7 +27,7 @@ try {
 	println 'placing dealer order started...'
 	List<Stock> stocks = employeeService.getMyProductStocks(sessionUser)
 
-	List<Customer> dealers = employeeService.getMyDealers(sessionUser)
+	List<User> dealers = employeeService.getMyDealers(sessionUser)
 
 	OrderReceipt orderReceipt = new OrderReceipt()
 	orderReceipt.category = OrderCategory.DEALER
@@ -99,7 +99,7 @@ try {
 	println '-----------------------------------------------------------------'
 	println 'placing customer order started...'
 
-	List<Customer> customers = employeeService.getMyCustomers(sessionUser)
+	List<User> customers = employeeService.getMyCustomers(sessionUser)
 
 	orderReceipt = new OrderReceipt()
 	orderReceipt.category = OrderCategory.CUSTOMER

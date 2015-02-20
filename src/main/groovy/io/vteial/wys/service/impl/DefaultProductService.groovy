@@ -38,9 +38,9 @@ class DefaultProductService extends AbstractService implements ProductService {
 		Product model = new Product()
 
 		model.with {
-			type = ProductType.CASH
-			code = 'CIH'
-			name = 'Cash'
+			type = ProductType.CASH_EMPLOYEE
+			code = 'CIE'
+			name = 'CASH IN EMPLOYEE'
 			baseUnit = 1
 			denominator = 1
 			buyRate = 1
@@ -49,13 +49,12 @@ class DefaultProductService extends AbstractService implements ProductService {
 			sellPercent = 1
 			agencyId = agency.id
 		}
-
 		this.add(sessionUser, model)
 
 		model.with {
-			type = ProductType.PROFIT
-			code = 'PFT'
-			name = 'Profit'
+			type = ProductType.PROFIT_EMPLOYEE
+			code = 'PIE'
+			name = 'PROFIT IN EMPLOYEE'
 			baseUnit = 1
 			denominator = 1
 			buyRate = 1
@@ -64,7 +63,34 @@ class DefaultProductService extends AbstractService implements ProductService {
 			sellPercent = 1
 			agencyId = agency.id
 		}
+		this.add(sessionUser, model)
 
+		model.with {
+			type = ProductType.CASH_DEALER
+			code = 'CID'
+			name = 'CASH IN DEALER'
+			baseUnit = 1
+			denominator = 1
+			buyRate = 1
+			buyPercent = 1
+			sellRate = 1
+			sellPercent = 1
+			agencyId = agency.id
+		}
+		this.add(sessionUser, model)
+
+		model.with {
+			type = ProductType.CASH_CUSTOMER
+			code = 'CIC'
+			name = 'CASH IN CUSTOMER'
+			baseUnit = 1
+			denominator = 1
+			buyRate = 1
+			buyPercent = 1
+			sellRate = 1
+			sellPercent = 1
+			agencyId = agency.id
+		}
 		this.add(sessionUser, model)
 	}
 }

@@ -1,12 +1,9 @@
 package io.vteial.wys.web.system;
 
-import io.vteial.wys.model.Account
 import io.vteial.wys.model.Address
 import io.vteial.wys.model.Agency
 import io.vteial.wys.model.AutoNumber
 import io.vteial.wys.model.Country
-import io.vteial.wys.model.Customer
-import io.vteial.wys.model.Employee
 import io.vteial.wys.model.Product
 import io.vteial.wys.model.Stock
 import io.vteial.wys.model.User
@@ -51,29 +48,11 @@ try {
 	}
 	println entities.size() + ' stocks deleted'
 
-	entities = Employee.findAll()
-	entities.each { entity ->
-		entity.delete()
-	}
-	println entities.size() + ' employees deleted'
-
-	entities = Customer.findAll()
-	entities.each { entity ->
-		entity.delete()
-	}
-	println entities.size() + ' customers deleted'
-
 	entities = Agency.findAll()
 	entities.each { entity ->
 		entity.delete()
 	}
 	println entities.size() + ' agencys deleted'
-
-	entities = Account.findAll()
-	entities.each { entity ->
-		entity.delete()
-	}
-	println entities.size() + ' accounts deleted'
 }
 catch(Throwable t) {
 	t.printStackTrace(out)
