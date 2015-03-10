@@ -1,12 +1,14 @@
-<div class="container-fluid">
+<div id="breadCrumb" class="container-fluid">
 
-	<div class="col-md-3">
-		<strong><small>{{viewName | capitalizeFilter}}</small></strong>
-	</div>
-	<div class="col-md-9 text-right" x-ng-show="isLoggedIn">
-		<span class="text-primary"><strong><small>
-		{{sessionContext.sessionUser.firstName}} / {{sessionContext.sessionUser.userId}} / {{sessionContext.sessionUser.roleId}}
-		</small></strong></span>
+	<div class="container">
+		<div class="col-md-3">
+			<strong><small>{{viewName | capitalizeFilter}}</small></strong>
+		</div>
+		<div class="col-md-9 text-right">
+			<strong><small>
+			{{sessionContext.sessionUser.firstName}} / {{sessionContext.sessionUser.userId}} / {{sessionContext.sessionUser.roleId}}
+			</small></strong>
+		</div>
 	</div>
 
 </div>

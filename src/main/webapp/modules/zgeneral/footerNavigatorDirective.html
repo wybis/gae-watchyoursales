@@ -1,31 +1,26 @@
-<div class="container-fluid">
-	<div class="navbar-left">
-		<small>
-			&copy; 2015, 
-			<a href="http://www.wybis.com" class="navbar-link">
-				<i class="icon-external-link"></i> Wybis India Pvt. Ltd.
-			</a> 
-			<b>|</b>
-			<a href="#/privacy" class="navbar-link">Privacy</a>
-			<b>|</b>
-			<a href="#/security" class="navbar-link">Security</a>
-			<b>|</b>
-			<a href="#/terms" class="navbar-link">Terms</a>
-			<b>|</b>
-			<a href="#/contact" class="navbar-link">Contact</a>
-			<b>|</b>
-			<a href="#/about" class="navbar-link">About</a>
-		</small>
-	</div>
-	<div class="navbar-right">
-		<small>
-			<span x-ng-show="sessionContext.localMode">
-			<a class="navbar-link" href="" x-ng-click="viewSource()">Source</a>
-			<b>|</b>
-			</span>
-			Version : 
-			<strong><small>0.0.1</small></strong>
-			&nbsp;&nbsp;&nbsp;&nbsp;
-		</small>
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<small>
+				&copy; 2015, 
+				<a href="http://www.wybis.com">
+					<i class="icon-external-link"></i> Wybis India Pvt. Ltd.
+				</a>
+				<b>|</b> 
+				<a href="#/terms">Terms</a>
+				<b>|</b>
+				<a href="#/about">About</a>
+			</small>
+		</div>
+		<div class="col-md-4 text-right">
+			<small>
+				<span x-ng-show="sessionContext.localMode">
+				<a class="navbar-link" href="" x-ng-click="viewSource()">Source</a>
+				<b>|</b>
+				</span>
+				Version : <strong><small>0.0.1</small></strong>
+			</small>
+		</div>
 	</div>
 </div>
+	

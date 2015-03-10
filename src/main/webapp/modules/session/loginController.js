@@ -1,5 +1,5 @@
-function loginController($rootScope, $scope, $log, $location, $sessionStorage,
-		wydNotifyService, sessionService, $timeout) {
+function loginController($rootScope, $scope, $log, $window, $sessionStorage,
+		wydNotifyService, $http, $timeout) {
 	$rootScope.viewName = 'SignIn';
 
 	$scope.message = null
@@ -14,33 +14,27 @@ function loginController($rootScope, $scope, $log, $location, $sessionStorage,
 		$log.info('singing in...');
 		$scope.message = null;
 
-		sessionService.login($scope.user).then(function(response) {
+		var path = 'sessions/login';
+		$http.post(path, $scope.user).success(function(response) {
 			if (response.type === 1) {
 				$scope.message = response.message;
 				wydNotifyService.addError($scope.message, true);
 			} else {
-				$scope.user.password = '';
-				$rootScope.isLoggedIn = true;
-				$rootScope.homeView = '/home';
-				var locPath = $sessionStorage.wysCLP;
-				$log.info('Last Stored Location : ', locPath);
-				if (!locPath) {
-					locPath = $rootScope.homeView;
-				}
-				$location.path(locPath);
+				$window.location = 'home-d.html';
 			}
-		})
+			// $log.info(response);
+		}).error(function() {
+			deferred.reject("unable to authenticate...");
+		});
 	}
 	$scope.signin = signin;
 
-	if (sessionService.context.localMode) {
-		$timeout(function() {
-			$log.info('Before signin...');
-			$scope.user.userId = 'munmin2000@maxmoney';
-			$scope.signin();
-			$log.info('After signin...');
-		}, 1000);
-	}
+	$timeout(function() {
+		$log.info('Before signin...');
+		$scope.user.userId = 'munmin2000@maxmoney';
+		$scope.signin();
+		$log.info('After signin...');
+	}, 1000);
 
 	$log.debug('loginController...');
 }

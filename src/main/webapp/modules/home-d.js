@@ -279,11 +279,11 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 	});
 
 	$rootScope.isLoggedIn = false;
-	$rootScope.homeView = '/index';
+	$rootScope.homeView = '/home';
 
 	var path = $sessionStorage.seetuCLP;
 	if (!path) {
-		path = '/index';
+		path = '/home';
 	}
 	$location.path(path);
 

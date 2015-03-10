@@ -7,13 +7,15 @@
 
 <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" >
 <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
-
+<link rel="stylesheet" href="modules/wydNotify/wydNotifyByBootstrap.css">
+<!-- 
+<link rel="stylesheet" href="assets/ngNotify/ng-notify.min.css" />
+-->
 <link rel="stylesheet" href="assets/ui-select/selectize.bootstrap3.css" />
 <link rel="stylesheet" href="assets/ui-select/select.min.css" />
 <link rel="stylesheet" href="assets/angular-aside/css/angular-aside.min.css" />
 
-<link rel="stylesheet" href="assets/style-1.css" />
-<link rel="stylesheet" href="assets/style-0.css" />
+<link rel="stylesheet" href="assets/index.css" />
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -24,44 +26,76 @@
 </head>
 <body x-ng-clock>
 
-<header class="navbar navbar-default navbar-fixed-top" x-role="navigation">
-	<x-header-navigator-directive></x-header-navigator-directive>
-	<hr style="margin : 3px 0"/>
-	<x-net-cash-and-stock-directive></x-net-cash-and-stock-directive>
-	<hr style="margin : 3px 0"/>
-	<x-bread-crumb-directive></x-bread-crumb-directive>
-</header>
+<div id="header">
+	<nav class="navbar navbar-default navbar-fixed-top" x-role="navigation">
+		<!-- 
+		<x-header-navigator-directive></x-header-navigator-directive>
+		-->
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" 
+					x-toggle="collapse" x-target=".navbar-inverse-collapse"">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index-d.html">Watch Your Sales</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li>
+						<a x-ng-href="#{{homeView}}"><i class="fa fa-home"></i> Home</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right" x-ng-hide="isLoggedIn">
+					<li>
+						<a href="#/signin"><i class="fa fa-sign-in"></i> Login</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div id="breadCrumb" class="container-fluid">
 
-<bootstrap-notify-directive></bootstrap-notify-directive>
+			<div class="container">
+				<strong><small>{{viewName | capitalizeFilter}}</small></strong>
+			</div>
+
+		</div>
+
+	</nav>
+</div>
+
+<wyd-notify-by-bootstrap-directive></wyd-notify-by-bootstrap-directive>
 
 <section class="container-fluid">
 	<div class="container-fluid" x-ng-view></div>
 </section>
 
-<footer class="navbar navbar-default navbar-fixed-bottom" x-role="navigation">
-	<br/>
+<div id="footer">
 	<x-footer-navigator-directive></x-footer-navigator-directive>
-</footer>
+</div>
 
 <script type="text/javascript"
-	src="assets/lib/lodash.min.js"></script>
+	src="assets/lodash.min.js"></script>
 <script type="text/javascript" 
-	src="assets/lib/moment.min.js"></script>
+	src="assets/moment.min.js"></script>
 <script type="text/javascript" 
-	src="assets/lib/jquery.min.js"></script>
+	src="assets/jquery.min.js"></script>
 <script type="text/javascript" 
-	src="assets/lib/holder.js"></script>
+	src="assets/holder.js"></script>
 	
 <script type="text/javascript"
-	src="assets/angular/13x/angular.js"></script>
+	src="assets/angularjs/angular.js"></script>
 <script type="text/javascript"
-	src="assets/angular/13x/angular-route.min.js"></script>
+	src="assets/angularjs/angular-route.js"></script>
 <script type="text/javascript"
-	src="assets/angular/13x/angular-sanitize.min.js"></script>
+	src="assets/angularjs/angular-sanitize.js"></script>
 
 <script type="text/javascript" 
-	src="assets/lib/ngStorage.min.js"></script>
-
+	src="assets/ngStorage.min.js"></script>
+	
 <script type="text/javascript" 
 	src="assets/ui-bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
 <script type="text/javascript"
@@ -74,52 +108,18 @@
 	src="assets/angular-aside/js/angular-aside.min.js"></script>
 
 <script type="text/javascript" src="modules/init.js"></script>
-<script type="text/javascript" src="modules/zgeneral/wydNotifyByBootstrap.js"></script>
+<script type="text/javascript" src="modules/wydNotify/wydNotifyByBootstrap.js"></script>
+<!-- 
+<script type="text/javascript" src="modules/wydNotify/wydNotifyByNgNotify.js"></script>
+-->
 
-<script type="text/javascript" src="modules/session/sessionService.js"></script>
-
-<script type="text/javascript" src="modules/agency/agencyService.js"></script>
-<script type="text/javascript" src="modules/agency/agencyController.js"></script>
-
-<script type="text/javascript" src="modules/account/accountController.js"></script>
-
-<script type="text/javascript" src="modules/product/productService.js"></script>
-<script type="text/javascript" src="modules/product/productController.js"></script>
-
-<script type="text/javascript" src="modules/stock/stockService.js"></script>
-<script type="text/javascript" src="modules/stock/stockController.js"></script>
-
-<script type="text/javascript" src="modules/employee/employeeService.js"></script>
-<script type="text/javascript" src="modules/employee/employeeController.js"></script>
-
-<script type="text/javascript" src="modules/dealer/dealerController.js"></script>
-
-<script type="text/javascript" src="modules/dealerOrder/dealerOrderController.js"></script>
-
-<script type="text/javascript" src="modules/dealerTran/dealerTranController.js"></script>
-
-<script type="text/javascript" src="modules/customer/customerController.js"></script>
-
-<script type="text/javascript" src="modules/customerOrder/customerOrderController.js"></script>
-
-<script type="text/javascript" src="modules/customerTran/customerTranController.js"></script>
-
-<script type="text/javascript" src="modules/counter/counterController.js"></script>
-
-<script type="text/javascript" src="modules/user/userService.js"></script>
-<script type="text/javascript" src="modules/user/userController.js"></script>
-
-<script type="text/javascript" src="modules/home/homeController.js"></script>
 <script type="text/javascript" src="modules/home/indexController.js"></script>
 
-<script type="text/javascript" src="modules/session/settingController.js"></script>
-
 <script type="text/javascript" src="modules/session/loginController.js"></script>
-<script type="text/javascript" src="modules/session/logoutController.js"></script>
 
 <script type="text/javascript" src="modules/common.js"></script>
 <script type="text/javascript" src="modules/directives.js"></script>
-<script type="text/javascript" src="modules/main-d.js"></script>
+<script type="text/javascript" src="modules/index-d.js"></script>
 
 </body>
 </html>
