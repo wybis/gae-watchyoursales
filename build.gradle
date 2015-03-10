@@ -34,7 +34,7 @@ targetCompatibility = compatibilityVersion
 appengine {
 	//httpAddress = '192.168.1.104'
 	httpPort = 1111
-	disableUpdateCheck = true
+	disableUpdateCheck = false
 	
 	appcfg {
 		email = 'vteial@wybis.com'

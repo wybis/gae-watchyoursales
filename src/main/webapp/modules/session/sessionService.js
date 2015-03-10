@@ -25,7 +25,7 @@ function sessionService($log, $http, $q, employeeService) {
 
 	service.login = function(user) {
 		var path = basePath + '/login';
-
+		
 		var deferred = $q.defer();
 		$http.post(path, user).success(function(response) {
 			if (response.type >= 0) {

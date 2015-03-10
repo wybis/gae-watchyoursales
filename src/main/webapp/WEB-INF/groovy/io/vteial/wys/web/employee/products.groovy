@@ -13,7 +13,7 @@ SessionUserDto sessionUserDto = session[SessionService.SESSION_USER_KEY]
 def entitys = datastore.execute {
 	from Product.class.simpleName
 	where agencyId == sessionUserDto.agencyId
-	and type != ProductType.PROFIT
+	and type != ProductType.PROFIT_EMPLOYEE
 }
 
 def models = []

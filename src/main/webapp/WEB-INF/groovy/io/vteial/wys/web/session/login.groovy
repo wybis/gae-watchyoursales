@@ -11,7 +11,7 @@ request.responseDto = responseDto
 UserDto userDto = jsonCategory.parseJson(request, UserDto.class)
 try {
 	SessionUserDto sessionUserDto = sessionService.login(session, userDto)
-	responseDto.data = sessionService.properties(session, user)
+	responseDto.data = sessionService.properties(session)
 	responseDto.type = 0
 	responseDto.message = 'Successfully logged in...'
 }

@@ -1,18 +1,18 @@
 <div class="container-fluid" x-ng-show="isLoggedIn">
 
 	<div class="col-md-6">
-		<strong><small>Agency :</small></strong> Cash : <span class="badge badge-info">{{ empS.agencyHandCash | number : 2 }}</span>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		Stock : <span class="badge badge-info">{{ empS.agencyStockWorth | number : 2 }}</span>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		Total : <span class="badge badge-info">{{ empS.agencyHandCash + emps.agencyStockWort | number : 2 }}</span>
+		<strong><small>Agency :</small></strong> Cash : <span class="badge badge-info">{{ empS.cashAgency | number : 2 }}</span>
+		&nbsp;&nbsp;&nbsp;
+		Stock : <span class="badge badge-info">{{ empS.stockAgency | number : 2 }}</span>
+		&nbsp;&nbsp;&nbsp;
+		Total : <span class="badge badge-info">{{ empS.cashAgency + empS.stockAgency | number : 2 }}</span>
 	</div>
 	<div class="col-md-6 text-right">
-		<strong><small>Mine :</small></strong> Cash : <span class="badge badge-info">{{ empS.myHandCash | number : 2 }}</span>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		Stock : <span class="badge badge-info">{{ empS.myStockWorth | number : 2 }}</span>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		Total : <span class="badge badge-info">{{ empS.myHandCash + emps.myStockWorth | number : 2 }}</span>
+		<strong><small>Mine :</small></strong> Cash : <span class="badge badge-info">{{ empS.cashMine | number : 2 }}</span>
+		&nbsp;&nbsp;&nbsp;
+		Stock : <span class="badge badge-info">{{ empS.stockMine | number : 2 }}</span>
+		&nbsp;&nbsp;&nbsp;
+		Total : <span class="badge badge-info">{{ empS.cashMine + empS.stockMine | number : 2 }}</span>
 	</div>
 
 </div>

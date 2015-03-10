@@ -1,4 +1,36 @@
-<div x-ui-content-for="title">
-	<span>{{viewName}}</span>
+<br/><br/>
+
+<div class="col-md-6">
+
+	<div class="panel panel-default">
+		<div class="panel-heading text-center">
+			<span class="pull-left">
+				<button	class="btn btn-default"
+					x-ng-click="refresh()">
+					<i class="fa fa-refresh"></i>
+				</button>
+			</span>
+			&nbsp;Agency Summary
+		</div>
+		<table class="table table-condensed table-bordered">
+			<tr>
+				<td>Stock Worth</td>
+				<td class="text-right">{{ empS.stockAgency | number : 2 }}</td>
+			</tr>
+			<tr>
+				<td>Cash In Hand</td>
+				<td class="text-right">{{ empS.cashAgency | number : 2 }}</td>
+			</tr>
+			<tr>
+				<td>Dealer Balance</td>
+				<td class="text-right">{{ empS.cashDealer.handStock | number : 2 }}</td>
+			</tr>
+			<tr>
+				<td>Customer Balance</td>
+				<td class="text-right">{{ empS.cashCustomer.handStock | number : 2 }}</td>
+			</tr>
+		</table>
+	</div>
+
 </div>
-comming soon...
+	

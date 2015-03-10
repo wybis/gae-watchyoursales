@@ -19,6 +19,12 @@
 		<ul class="nav navbar-nav">
 			<li><a x-ng-href="#{{homeView}}"><i class="fa fa-home"></i> Home</a></li>
 		</ul>
+		<form class="navbar-form navbar-left" x-ng-show="isLoggedIn">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<strong><small>Dealer :</small></strong> <span class="badge badge-info">{{ empS.cashDealer.handStock | number : 2 }}</span>
+		&nbsp;&nbsp;&nbsp;
+<strong><small>Customer :</small></strong> <span class="badge badge-info">{{ empS.cashCustomer.handStock | number : 2 }}</span>
+		</form>
 		<ul class="nav navbar-nav navbar-right" x-ng-hide="isLoggedIn">
 			<li><a href="#/signin"><i class="fa fa-sign-in"></i> Login</a></li>
 		</ul>

@@ -14,6 +14,11 @@
 			</a>
 		</li>	
 		<li class="list-group-item" x-ng-hide="sessionContext.sessionUser.isAppUser">
+			<a href="" x-ng-click="routeTo($event, '/counter')">
+				Counter
+			</a>
+		</li>	
+		<li class="list-group-item" x-ng-hide="sessionContext.sessionUser.isAppUser">
 			<a href="" x-ng-click="routeTo($event, '/products')">
 				Products
 			</a>
@@ -61,17 +66,6 @@
 			 	Transactions
 			</a>
 		</li>
-		<li class="list-group-item">
-			<a href="" x-ng-click="routeTo($event, '/accounts')"> 
-				Accounts
-			</a>
-		</li>	
-		<li class="list-group-item">
-				Accounts
-			<a href="" x-ng-click="routeTo($event, '/accountTrans')" class="pull-right"> 
-				Transactions
-			</a>
-		</li>	
 		<li class="list-group-item" x-ng-hide="sessionContext.sessionUser.isAppUser">
 			<a href="" x-ng-click="routeTo($event, '/employees')"> 
 				Employees

@@ -100,9 +100,9 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/accounts', {
-		templateUrl : 'modules/account/d.html',
-		controller : 'accountController',
+	$routeProvider.when('/counter', {
+		templateUrl : 'modules/counter/d.html',
+		controller : 'counterController',
 		reloadOnSearch : false
 	});
 

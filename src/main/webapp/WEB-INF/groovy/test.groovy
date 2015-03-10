@@ -17,10 +17,10 @@ println '''
 '''
 println '-----------------------------------------------------------------'
 try {
-	UserDto user = new UserDto()
-	user.id = 'munmin2000@maxmoney'
+	UserDto auser = new UserDto()
+	auser.userId = 'munmin2000@maxmoney'
 
-	SessionUserDto sessionUser = sessionService.login(session, user)
+	SessionUserDto sessionUser = sessionService.login(session, auser)
 	println "logged in as $sessionUser.id"
 
 	println '-----------------------------------------------------------------'
@@ -28,10 +28,12 @@ try {
 	List<Stock> stocks = employeeService.getMyProductStocks(sessionUser)
 
 	List<User> dealers = employeeService.getMyDealers(sessionUser)
+	User dealer = dealers[1]
+	dealer.stock = Stock.get(dealer.stockId)
 
 	OrderReceipt orderReceipt = new OrderReceipt()
 	orderReceipt.category = OrderCategory.DEALER
-	orderReceipt.customerId = dealers[1].id
+	orderReceipt.customerId = dealer.id
 	orderReceipt.orders = []
 
 	stocks.each { Stock stock ->
@@ -56,7 +58,7 @@ try {
 
 	TranReceipt tranReceipt = new TranReceipt()
 	tranReceipt.category = TransactionCategory.DEALER
-	tranReceipt.customerId = dealers[1].id
+	tranReceipt.customerId = dealer.id
 	tranReceipt.trans = []
 
 	def amount = 0
@@ -91,6 +93,17 @@ try {
 	tranReceipt.trans << tran
 	println tran
 
+	tran = new Tran()
+	tran.category = tranReceipt.category
+	tran.stockId = dealer.stock.id
+	tran.type = TransactionType.BUY
+	tran.unit = amount
+	tran.rate = 1
+	//tran.rate = stock.product.sellRate
+
+	tranReceipt.trans << tran
+	println tran
+
 	tranService.add(sessionUser, tranReceipt)
 
 	tranReceipt.trans.each { tran -> println tran }
@@ -100,10 +113,12 @@ try {
 	println 'placing customer order started...'
 
 	List<User> customers = employeeService.getMyCustomers(sessionUser)
+	User customer = customers[1]
+	customer.stock = Stock.get(customer.stockId)
 
 	orderReceipt = new OrderReceipt()
 	orderReceipt.category = OrderCategory.CUSTOMER
-	orderReceipt.customerId = customers[1].id
+	orderReceipt.customerId = customer.id
 	orderReceipt.orders = []
 
 	stocks.each { Stock stock ->
@@ -129,7 +144,7 @@ try {
 
 	tranReceipt = new TranReceipt()
 	tranReceipt.category = TransactionCategory.CUSTOMER
-	tranReceipt.customerId = customers[1].id
+	tranReceipt.customerId = customer.id
 	tranReceipt.trans = []
 
 	amount = 0
@@ -150,13 +165,21 @@ try {
 		amount += tran.unit * tran.rate
 	}
 
-	//	Stock stock = employeeService.getMyCashStock(sessionUser)
-	//	println stock
-
 	tran = new Tran()
 	tran.category = tranReceipt.category
 	tran.stockId = cashStock.id
 	tran.type = TransactionType.BUY
+	tran.unit = amount
+	tran.rate = 1
+	//tran.rate = stock.product.sellRate
+
+	tranReceipt.trans << tran
+	println tran
+
+	tran = new Tran()
+	tran.category = tranReceipt.category
+	tran.stockId = customer.stock.id
+	tran.type = TransactionType.SELL
 	tran.unit = amount
 	tran.rate = 1
 	//tran.rate = stock.product.sellRate

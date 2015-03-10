@@ -184,14 +184,16 @@ class DefaultStockService extends AbstractService implements StockService {
 			model.userId = employee.id
 			model.agencyId = employee.agencyId
 			this.add(sessionUser, model)
+			employee.stockId = model.id
+			employee.save()
 		}
 	}
 
 	@Override
-	public void onDealerCreate(SessionUserDto sessionUser, User customer) {
+	public void onDealerCreate(SessionUserDto sessionUser, User dealer) {
 		def entitys = datastore.execute {
 			from Product.class.simpleName
-			where agencyId == customer.agencyId
+			where agencyId == dealer.agencyId
 			and type == ProductType.CASH_DEALER
 			limit 1
 		}
@@ -201,9 +203,11 @@ class DefaultStockService extends AbstractService implements StockService {
 			Stock model = new Stock()
 			model.type = product.type
 			model.productId = product.id
-			model.userId = customer.id
-			model.agencyId = customer.agencyId
+			model.userId = dealer.id
+			model.agencyId = dealer.agencyId
 			this.add(sessionUser, model)
+			dealer.stockId = model.id
+			dealer.save()
 		}
 	}
 
@@ -224,6 +228,8 @@ class DefaultStockService extends AbstractService implements StockService {
 			model.userId = customer.id
 			model.agencyId = customer.agencyId
 			this.add(sessionUser, model)
+			customer.stockId = model.id
+			customer.save()
 		}
 	}
 }

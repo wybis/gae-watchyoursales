@@ -2,14 +2,19 @@ function employeeService($log, $http, $q) {
 	var basePath = '';
 
 	var service = {
-		agencyHandCash : 0,
-		agencyStockWorth : 0,
-		myHandCash : 0,
-		myStockWorth : 0,
-		productCash : null,
-		productProfit : null,
-		stockCash : null,
-		stockProfit : null,
+		cashAgency : 0,
+		cashMine : 0,
+		stockAgency : 0,
+		stockMine : 0,
+		cashCustomer : {
+			handStock : 0
+		},
+		cashDealer : {
+			handStock : 0
+		},
+		cashEmployee : {
+			handStock : 0
+		},
 		products : [],
 		productsMap : {},
 		stocks : [],
@@ -25,20 +30,14 @@ function employeeService($log, $http, $q) {
 	};
 
 	function addOrUpdateCacheX(objectx) {
-		var propName = objectx.type === 'cash' ? 'Cash' : 'Profit'
-		if (_.has(objectx, 'code')) {
-			propName = 'product' + propName;
-		} else {
-			propName = 'stock' + propName;
-		}
-		var object = service[propName]
+		var object = service[objectx.type]
 		if (object) {
 			_.assign(object, objectx);
 		} else {
-			service[propName] = objectx;
+			service[objectx.type] = objectx;
 		}
-		// $log.info(propName);
-		// $log.info(service[propName]);
+		// $log.info(objectx.type);
+		// $log.info(service[objectx.type]);
 	}
 
 	function addOrUdpateCacheY(propName, objectx) {
@@ -52,6 +51,23 @@ function employeeService($log, $http, $q) {
 			objectsMap[objectx.id] = objectx;
 		}
 	}
+
+	service.getMyCash = function() {
+		var path = basePath + '/cash';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				addOrUpdateCacheX(response.data);
+				service.cashMine = response.data.handStock;
+				service.cashAgency = response.data.product.handStock;
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
+	};
 
 	function processProducts(products) {
 		_.forEach(products, function(objectx) {
@@ -95,6 +111,7 @@ function employeeService($log, $http, $q) {
 		$http.get(path).success(function(response) {
 			if (response.type === 0) {
 				processStocks(response.data);
+				service.computeStockWorth();
 				deferred.resolve(response);
 			}
 			// $log.info(response);
@@ -104,13 +121,7 @@ function employeeService($log, $http, $q) {
 	};
 
 	service.computeStockWorth = function() {
-		service.myHandCash = service.stockCash.handStock;
-		// $log.info('myHandCash = ' + service.myHandCash);
-
-		service.agencyHandCash = service.productCash.handStock;
-		// $log.info('agencyHandCash = ' + service.agencyHandCash);
-
-		var agStockWorth = 0, myStockWorth = 0, product, tvalue;
+		var stockAgency = 0, stockMine = 0, product, tvalue;
 		_.forEach(service.stocks, function(stock) {
 			product = service.productsMap[stock.productId];
 
@@ -118,15 +129,12 @@ function employeeService($log, $http, $q) {
 			if (product.handStockAverage > 0) {
 				tvalue = product.handStockAverage / product.baseUnit;
 			}
-			myStockWorth += stock.handStock * tvalue;
+			stockMine += stock.handStock * tvalue;
 
-			agStockWorth += product.handStock * tvalue;
+			stockAgency += product.handStock * tvalue;
 		});
-		service.myStockWorth = myStockWorth;
-		// $log.info('myStockWorth' + service.myStockWorth);
-
-		service.agencyStockWorth = agStockWorth;
-		// $log.info('agencyStockWorth' + service.agencyStockWorth);
+		service.stockMine = stockMine;
+		service.stockAgency = stockAgency;
 	}
 
 	function processCustomers(stocks) {
@@ -251,44 +259,11 @@ function employeeService($log, $http, $q) {
 	service.init = function() {
 		service.getMyProducts().then(function(response) {
 			service.getMyStocks().then(function(response) {
-				service.computeStockWorth();
+				service.getMyCash().then(function(response) {
+					$log.info(service);
+				});
 			});
 		});
-	};
-
-	function processAccounts(stocks) {
-		_.forEach(stocks, function(objectx) {
-			addOrUdpateCacheY('accounts', objectx);
-		});
-	}
-
-	service.getMyAccounts = function() {
-		var path = basePath + '/accounts';
-
-		var deferred = $q.defer();
-		$http.get(path).success(function(response) {
-			if (response.type === 0) {
-				processAccounts(response.data);
-				deferred.resolve(response);
-			}
-			// $log.info(response);
-		})
-
-		return deferred.promise;
-	};
-
-	service.getMyAccountTransactions = function() {
-		var path = basePath + '/accountTransactions';
-
-		var deferred = $q.defer();
-		$http.get(path).success(function(response) {
-			if (response.type === 0) {
-				deferred.resolve(response);
-			}
-			// $log.info(response);
-		})
-
-		return deferred.promise;
 	};
 
 	return service;

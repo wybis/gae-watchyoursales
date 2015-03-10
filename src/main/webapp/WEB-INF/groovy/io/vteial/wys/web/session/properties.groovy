@@ -2,7 +2,7 @@ package io.vteial.wys.web.session;
 
 import io.vteial.wys.dto.ResponseDto
 
-def props = sessionService.properties(session, user)
+def props = sessionService.properties(session)
 
 ResponseDto responseDto = request.responseDto
 if(responseDto) {

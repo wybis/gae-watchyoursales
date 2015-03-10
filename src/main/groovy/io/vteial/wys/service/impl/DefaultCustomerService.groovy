@@ -4,6 +4,7 @@ import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Agency
+import io.vteial.wys.model.Stock
 import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.UserType
 import io.vteial.wys.service.CustomerService
@@ -32,6 +33,7 @@ class DefaultCustomerService extends AbstractService implements CustomerService 
 
 		entitys.each { entity ->
 			User model = entity as User
+			model.stock = Stock.get(model.stockId)
 			models <<  model
 		}
 
