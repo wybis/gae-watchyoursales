@@ -7,6 +7,8 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 
 	sessionService.properties();
 
+	$scope.showMenu = false;
+	
 	$scope.viewSource = function() {
 		var s = 'view-source:' + $rootScope.currentViewSrcUrl;
 		$log.info(s);
@@ -14,6 +16,8 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 	};
 
 	$scope.showLeftMenu = function() {
+		$scope.showMenu = !$scope.showMenu;
+		$log.info($scope.showMenu);
 		$aside.open({
 			templateUrl : 'modules/zgeneral/sideBarLeft-d.html',
 			placement : 'left',
@@ -45,6 +49,7 @@ dependents.push('green.inputmask4angular');
 // dependents.push('ngInputDate');
 // dependents.push('ngNotify');
 dependents.push('ngAside');
+//dependents.push('pageslide-directive');
 dependents.push('ui.select');
 dependents.push('ui.bootstrap');
 dependents.push('app.filters');

@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="assets/ui-select/select.min.css" />
 <link rel="stylesheet" href="assets/angular-aside/css/angular-aside.min.css" />
 
-<link rel="stylesheet" href="assets/home.css" />
+<link rel="stylesheet" href="assets/modern.css" />
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
@@ -26,81 +26,79 @@
 </head>
 <body x-ng-clock>
 
-<div id="header">
-	<nav class="navbar navbar-default navbar-fixed-top" x-role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" x-role="navigation">
+	<div id="header" class="container-fluid">	
 		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" 
-					x-toggle="collapse" x-target=".navbar-inverse-collapse"">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="index-d.html">Watch Your Sales</a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<form class="navbar-form navbar-left">
-					<button class="btn btn-default" x-ng-click="showLeftMenu()">
+			<div class="col-md-3">
+				<span class="col-md-9"><h4>Watch Your Sales</h4></span>
+				<span class="col-md-3">
+					<button class="btn btn-default btn-sm" x-ng-click="showLeftMenu()">
 						<i class="fa fa-bars"></i>&nbsp;
 					</button>
-				</form>
-				<ul class="nav navbar-nav">
-					<li>
-						<a x-ng-href="#{{homeView}}"><i class="fa fa-home"></i> Home</a>
-					</li>
-				</ul>
-				<form class="navbar-form navbar-left">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<strong><small>Dealer :</small></strong> <span class="badge badge-info">{{ empS.cashDealer.handStock | number : 2 }}</span>
-&nbsp;&nbsp;&nbsp;
-<strong><small>Customer :</small></strong> <span class="badge badge-info">{{ empS.cashCustomer.handStock | number : 2 }}</span>
-				</form>
-				<ul class="nav navbar-nav navbar-right" x-ng-hide="isLoggedIn">
-					<li>
-						<a href="#/settings"><i class="fa fa-cog"></i> Settings</a>
-					</li>
-					<li>
-						<a href="#/signout"><i class="fa fa-sign-out"></i> Logout</a>
-					</li>
-				</ul>
+				</span>
 			</div>
-		</div>
-		
-		<div id="breadCrumb" class="container-fluid">
-			<div class="container">
-				<div class="col-md-3">
-					<strong><small>{{viewName | capitalizeFilter}}</small></strong>
-				</div>
-				<div class="col-md-9 text-right">
-					<strong><small>
-					{{sessionContext.sessionUser.firstName}} / {{sessionContext.sessionUser.userId}} / {{sessionContext.sessionUser.roleId}}
-					</small></strong>
+			<div class="col-md-1">
+				<div class="row">
+					<a x-ng-href="#{{homeView}}"><i class="fa fa-home"></i> Home</a>
+				</div>	
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<span class="col-md-4">
+						My Cash : <span class="badge badge-info">{{ empS.cashMine | number : 2 }}</span>
+					</span>
+					<span class="col-md-4">
+						My Stock : <span class="badge badge-info">{{ empS.stockMine | number : 2 }}</span>
+					</span>
+					<span class="col-md-4">
+						My Total : <span class="badge badge-info">{{ empS.cashMine + empS.stockMine | number : 2 }}</span>
+					</span>
+				</div>				
+			</div>
+			<div class="col-md-2 text-right">
+				<div class="row">
+					<a href="#/settings"><i class="fa fa-cog"></i> Settings</a>
+					&nbsp;&nbsp;
+					<a href="#/signout"><i class="fa fa-sign-out"></i> Logout&nbsp;&nbsp;</a>
 				</div>
 			</div>
 		</div>
+	</div>		
+	<div id="breadCrumb" class="container-fluid">
+		<div class="container">
+			<div class="col-md-3">
+				<strong><small>{{viewName | capitalizeFilter}}</small></strong>
+			</div>
+			<div class="col-md-9 text-right">
+				<strong><small>
+				{{sessionContext.sessionUser.firstName}} / {{sessionContext.sessionUser.userId}} / {{sessionContext.sessionUser.roleId}}
+				</small></strong>
+			</div>
+		</div>
+	</div>
 
-		<div id="netCashAndStock" class="container-fluid">
-			<div class="container">
-				<div class="col-md-6">
-					<strong><small>Agency :</small></strong> Cash : <span class="badge badge-info">{{ empS.cashAgency | number : 2 }}</span>
-					&nbsp;&nbsp;&nbsp;
-					Stock : <span class="badge badge-info">{{ empS.stockAgency | number : 2 }}</span>
-					&nbsp;&nbsp;&nbsp;
-					Total : <span class="badge badge-info">{{ empS.cashAgency + empS.stockAgency | number : 2 }}</span>
-				</div>
-				<div class="col-md-6 text-right">
-					<strong><small>Mine :</small></strong> Cash : <span class="badge badge-info">{{ empS.cashMine | number : 2 }}</span>
-					&nbsp;&nbsp;&nbsp;
-					Stock : <span class="badge badge-info">{{ empS.stockMine | number : 2 }}</span>
-					&nbsp;&nbsp;&nbsp;
-					Total : <span class="badge badge-info">{{ empS.cashMine + empS.stockMine | number : 2 }}</span>
-				</div>
+	<div id="netCashAndStock" class="container-fluid">
+		<div class="container">
+			<div class="col-md-3">
+				<strong><small>Agency :</small></strong> 
+				Cash : <span class="badge badge-info">{{ empS.cashAgency | number : 2 }}</span>
+			</div>	
+			<div class="col-md-2">
+				Stock : <span class="badge badge-info">{{ empS.stockAgency | number : 2 }}</span>
+			</div>
+			<div class="col-md-3">
+				Total : <span class="badge badge-info">{{ empS.cashAgency + empS.stockAgency | number : 2 }}</span>
+			</div>
+			<div class="col-md-2">
+				<strong><small>Dealer :</small></strong> <span class="badge badge-info">{{ empS.cashDealer.handStock | number : 2 }}</span>
+			</div>
+			<div class="col-md-2">	
+				<strong><small>Customer :</small></strong> <span class="badge badge-info">{{ empS.cashCustomer.handStock | number : 2 }}</span>
 			</div>
 		</div>
+	</div>
 
-	</nav>
-</div>
+</nav>
 
 <wyd-notify-by-bootstrap-directive></wyd-notify-by-bootstrap-directive>
 
@@ -112,13 +110,6 @@
 	<x-footer-navigator-directive></x-footer-navigator-directive>
 </div>
 
-<div style="padding:20px" id="demo-left">
-	<h2>Hello Pageslide</h2>
-	<p>Put here whatever you want</p>
-	<a id="demo-left-close" class="button" >Close</a>
-</div>
-
-    
 <script type="text/javascript"
 	src="assets/lodash.min.js"></script>
 <script type="text/javascript" 
@@ -148,8 +139,6 @@
 	src="assets/inputmask/green.inputmask4angular.js"></script>
 <script type="text/javascript" 
 	src="assets/angular-aside/js/angular-aside.min.js"></script>
-<script type="text/javascript" 
-	src="assets/angular-pageslide/angular-pageslide-directive.min.js"></script>
 
 <script type="text/javascript" src="modules/init.js"></script>
 <script type="text/javascript" src="modules/wydNotify/wydNotifyByBootstrap.js"></script>

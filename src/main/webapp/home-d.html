@@ -28,6 +28,7 @@
 
 <div id="header">
 	<nav class="navbar navbar-default navbar-fixed-top" x-role="navigation">
+	
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" 
@@ -51,10 +52,11 @@
 					</li>
 				</ul>
 				<form class="navbar-form navbar-left">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<strong><small>Dealer :</small></strong> <span class="badge badge-info">{{ empS.cashDealer.handStock | number : 2 }}</span>
-&nbsp;&nbsp;&nbsp;
-<strong><small>Customer :</small></strong> <span class="badge badge-info">{{ empS.cashCustomer.handStock | number : 2 }}</span>
+					My Cash : <span class="badge badge-info">{{ empS.cashMine | number : 2 }}</span>
+					&nbsp;&nbsp;
+					My Stock : <span class="badge badge-info">{{ empS.stockMine | number : 2 }}</span>
+					&nbsp;&nbsp;
+					My Total : <span class="badge badge-info">{{ empS.cashMine + empS.stockMine | number : 2 }}</span>
 				</form>
 				<ul class="nav navbar-nav navbar-right" x-ng-hide="isLoggedIn">
 					<li>
@@ -82,19 +84,21 @@
 
 		<div id="netCashAndStock" class="container-fluid">
 			<div class="container">
-				<div class="col-md-6">
-					<strong><small>Agency :</small></strong> Cash : <span class="badge badge-info">{{ empS.cashAgency | number : 2 }}</span>
-					&nbsp;&nbsp;&nbsp;
+				<div class="col-md-3">
+					<strong><small>Agency :</small></strong> 
+					Cash : <span class="badge badge-info">{{ empS.cashAgency | number : 2 }}</span>
+				</div>	
+				<div class="col-md-2">
 					Stock : <span class="badge badge-info">{{ empS.stockAgency | number : 2 }}</span>
-					&nbsp;&nbsp;&nbsp;
+				</div>
+				<div class="col-md-3">
 					Total : <span class="badge badge-info">{{ empS.cashAgency + empS.stockAgency | number : 2 }}</span>
 				</div>
-				<div class="col-md-6 text-right">
-					<strong><small>Mine :</small></strong> Cash : <span class="badge badge-info">{{ empS.cashMine | number : 2 }}</span>
-					&nbsp;&nbsp;&nbsp;
-					Stock : <span class="badge badge-info">{{ empS.stockMine | number : 2 }}</span>
-					&nbsp;&nbsp;&nbsp;
-					Total : <span class="badge badge-info">{{ empS.cashMine + empS.stockMine | number : 2 }}</span>
+				<div class="col-md-2">
+					<strong><small>Dealer :</small></strong> <span class="badge badge-info">{{ empS.cashDealer.handStock | number : 2 }}</span>
+				</div>
+				<div class="col-md-2">	
+					<strong><small>Customer :</small></strong> <span class="badge badge-info">{{ empS.cashCustomer.handStock | number : 2 }}</span>
 				</div>
 			</div>
 		</div>
