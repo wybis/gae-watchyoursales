@@ -12,20 +12,34 @@
 		</div>
 		<table class="table table-condensed table-bordered">
 			<tr>
+				<td class="text-right">1</td>
 				<td>Stock Worth</td>
 				<td class="text-right">{{ empS.stockAgency | number : 2 }}</td>
 			</tr>
 			<tr>
+				<td class="text-right">2</td>
 				<td>Cash In Hand</td>
 				<td class="text-right">{{ empS.cashAgency | number : 2 }}</td>
 			</tr>
 			<tr>
+				<td class="text-right">3</td>
 				<td>Dealer Balance</td>
 				<td class="text-right">{{ empS.cashDealer.handStock | number : 2 }}</td>
 			</tr>
 			<tr>
+				<td class="text-right">4</td>
 				<td>Customer Balance</td>
 				<td class="text-right">{{ empS.cashCustomer.handStock | number : 2 }}</td>
+			</tr>
+			<tr>
+				<td class="text-right">5</td>
+				<td>Total Cash (2 + 3 + 4)</td>
+				<td class="text-right">{{ empS.cashAgency + empS.cashDealer.handStock + empS.cashCustomer.handStock  | number : 2 }}</td>
+			</tr>
+			<tr>
+				<td class="text-right">6</td>
+				<td>Total Worth (1 + 5)</td>
+				<td class="text-right">{{ empS.stockAgency + empS.cashAgency + empS.cashDealer.handStock + empS.cashCustomer.handStock | number : 2 }}</td>
 			</tr>
 		</table>
 	</div>

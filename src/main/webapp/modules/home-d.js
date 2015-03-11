@@ -6,11 +6,12 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 	$scope.empS = employeeService;
 
 	sessionService.properties();
-
+	employeeService.init()
+	
 	$scope.showMenu = false;
 	
 	$scope.viewSource = function() {
-		var s = 'view-source:' + $rootScope.currentViewSrcUrl;
+		var s = 'view-source:localhost:1111/' + $rootScope.currentViewSrcUrl;
 		$log.info(s);
 		$window.open(s);
 	};

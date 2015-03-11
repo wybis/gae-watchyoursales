@@ -24,7 +24,7 @@ function loginController($rootScope, $scope, $log, $window, $sessionStorage,
 			}
 			// $log.info(response);
 		}).error(function() {
-			deferred.reject("unable to authenticate...");
+			deferred.reject("unable to login...");
 		});
 	}
 	$scope.signin = signin;
