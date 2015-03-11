@@ -71,35 +71,39 @@
 		
 		<div id="breadCrumb" class="container-fluid">
 			<div class="container">
-				<div class="col-md-3">
-					<strong><small>{{viewName | capitalizeFilter}}</small></strong>
-				</div>
-				<div class="col-md-9 text-right">
-					<strong><small>
-					{{sessionContext.sessionUser.firstName}} / {{sessionContext.sessionUser.userId}} / {{sessionContext.sessionUser.roleId}}
-					</small></strong>
+				<div class="row">
+					<div class="col-md-3">
+						<strong><small>{{viewName | capitalizeFilter}}</small></strong>
+					</div>
+					<div class="col-md-9 text-right">
+						<strong><small>
+						{{sessionContext.sessionUser.firstName}} / {{sessionContext.sessionUser.userId}} / {{sessionContext.sessionUser.roleId}}
+						</small></strong>
+					</div>
 				</div>
 			</div>
 		</div>
 
 		<div id="netCashAndStock" class="container-fluid">
 			<div class="container">
-				<div class="col-md-3">
-					<strong><small>Agency :</small></strong> 
-					Cash : <span class="badge badge-info">{{ empS.cashAgency | number : 2 }}</span>
+				<div class="row">
+					<div class="col-md-3">
+						<strong><small>Agency :</small></strong> 
+						Cash : <span class="badge badge-info">{{ empS.cashAgency | number : 2 }}</span>
+					</div>	
+					<div class="col-md-2">
+						Stock : <span class="badge badge-info">{{ empS.stockAgency | number : 2 }}</span>
+					</div>
+					<div class="col-md-3">
+						Total : <span class="badge badge-info">{{ empS.cashAgency + empS.stockAgency | number : 2 }}</span>
+					</div>
+					<div class="col-md-2">
+						<strong><small>Dealer :</small></strong> <span class="badge badge-info">{{ empS.cashDealer.handStock | number : 2 }}</span>
+					</div>
+					<div class="col-md-2">	
+						<strong><small>Customer :</small></strong> <span class="badge badge-info">{{ empS.cashCustomer.handStock | number : 2 }}</span>
+					</div>
 				</div>	
-				<div class="col-md-2">
-					Stock : <span class="badge badge-info">{{ empS.stockAgency | number : 2 }}</span>
-				</div>
-				<div class="col-md-3">
-					Total : <span class="badge badge-info">{{ empS.cashAgency + empS.stockAgency | number : 2 }}</span>
-				</div>
-				<div class="col-md-2">
-					<strong><small>Dealer :</small></strong> <span class="badge badge-info">{{ empS.cashDealer.handStock | number : 2 }}</span>
-				</div>
-				<div class="col-md-2">	
-					<strong><small>Customer :</small></strong> <span class="badge badge-info">{{ empS.cashCustomer.handStock | number : 2 }}</span>
-				</div>
 			</div>
 		</div>
 
@@ -109,7 +113,7 @@
 <wyd-notify-by-bootstrap-directive></wyd-notify-by-bootstrap-directive>
 
 <section class="container-fluid">
-	<div class="container-fluid" x-ng-view></div>
+	<div class="container" x-ng-view></div>
 </section>
 
 <div id="footer">
