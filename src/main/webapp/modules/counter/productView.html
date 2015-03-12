@@ -1,0 +1,97 @@
+	<div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<small>Code : </small><strong>{{receipt.curTran.item.code}}</strong>
+		</div>
+		<table class="table table-condensed table-bordered">
+		<tbody>
+		<tr>
+			<td>
+				<small>Name : </small><strong><small>{{receipt.curTran.item.name}}</small></strong>
+			</td>
+		</tr>
+		<!-- 
+		<tr>
+			<td>
+				<strong><small>{{receipt.curTran.item.name}}</small></strong>
+			</td>
+		</tr>
+		-->
+		<tr>
+			<td>
+				<small>Buy Rate</small>
+				<span class="pull-right">
+					<small>
+						&gt;= <span class="text-primary">{{receipt.curTran.item.buyRate | number : 5}}</span>
+						&nbsp;&nbsp;
+						&lt;= <span class="text-primary">{{receipt.curTran.item.buyPercent | number : 5}}</span>
+					</small>
+				</span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<small>Sell Rate</small>
+				<span class="pull-right">
+					<small>
+						&gt;= <span class="text-primary">{{receipt.curTran.item.sellRate | number : 5}}</span>
+						&nbsp;&nbsp;
+						&lt;= <span class="text-primary">{{receipt.curTran.item.sellPercent | number : 5}}</span>
+					</small>
+				</span>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<small>Stock In Hand</small>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right text-primary">
+				<strong>{{receipt.curTran.item.handStock | number}}</strong>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<small>Stock Average</small>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right text-primary">
+				<strong>{{receipt.curTran.item.handStockAverage | number : 5}}</strong>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<small>Stock In Tellers</small>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right text-primary">
+				<strong><small>{{receipt.curTran.item.handStockTellers | number}}</small></strong>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<small>Stock In Branch</small>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right text-primary">
+				<strong><small>{{receipt.curTran.item.handStockBranch | number}}</small></strong>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<small>Total Stock In Branch</small>
+			</td>
+		</tr>
+		<tr>
+			<td class="text-right text-primary">
+				<strong><small>{{receipt.curTran.item.handStockTotal | number}}</small></strong>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+	</div>
+</div>

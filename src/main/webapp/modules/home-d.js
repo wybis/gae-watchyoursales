@@ -7,9 +7,9 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 
 	sessionService.properties();
 	employeeService.init()
-	
+
 	$scope.showMenu = false;
-	
+
 	$scope.viewSource = function() {
 		var s = 'view-source:localhost:1111/' + $rootScope.currentViewSrcUrl;
 		$log.info(s);
@@ -18,7 +18,6 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 
 	$scope.showLeftMenu = function() {
 		$scope.showMenu = !$scope.showMenu;
-		$log.info($scope.showMenu);
 		$aside.open({
 			templateUrl : 'modules/zgeneral/sideBarLeft-d.html',
 			placement : 'left',
@@ -50,7 +49,7 @@ dependents.push('green.inputmask4angular');
 // dependents.push('ngInputDate');
 // dependents.push('ngNotify');
 dependents.push('ngAside');
-//dependents.push('pageslide-directive');
+// dependents.push('pageslide-directive');
 dependents.push('ui.select');
 dependents.push('ui.bootstrap');
 dependents.push('app.filters');
@@ -148,6 +147,30 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/customers/customer', {
+		templateUrl : 'modules/customer/d-edit.html',
+		controller : 'customerEditController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/customers/customer/:id', {
+		templateUrl : 'modules/customer/d-view.html',
+		controller : 'customerViewController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/customers/customer/:id/edit', {
+		templateUrl : 'modules/customer/d-edit.html',
+		controller : 'customerEditController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/customers/search', {
+		templateUrl : 'modules/customer/d-search.html',
+		controller : 'customerSearchController',
+		reloadOnSearch : false
+	});
+
 	$routeProvider.when('/dealerOrders', {
 		templateUrl : 'modules/dealerOrder/d.html',
 		controller : 'dealerOrderController',
@@ -172,6 +195,7 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
+	// -----------------------------------------------------------------------//
 	$routeProvider.when('/agencys', {
 		templateUrl : 'modules/agency/d.html',
 		controller : 'agencyController',
@@ -263,7 +287,7 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 	$rootScope.$on("$routeChangeStart", function(event, next, current) {
 		// $log.info('Location : ', $location.path());
 		var curLocPath = $location.path();
-		$log.info('Before Current Location : ', curLocPath);
+		// $log.info('Before Current Location : ', curLocPath);
 		if (curLocPath == '/notFound' || curLocPath == '/signin'
 				|| curLocPath == '/signout') {
 			return;
@@ -275,7 +299,7 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 		srcUrl = $location.absUrl().substring(0, srcUrl);
 		srcUrl = srcUrl + next.templateUrl
 		$rootScope.currentViewSrcUrl = srcUrl;
-		$log.info('srcUrl = ' + srcUrl);
+		// $log.info('srcUrl = ' + srcUrl);
 	});
 
 	$rootScope.$on("$routeChangeSuccess", function(event, next, current) {
@@ -287,7 +311,7 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 	$rootScope.isLoggedIn = false;
 	$rootScope.homeView = '/home';
 
-	var path = $sessionStorage.seetuCLP;
+	var path = $sessionStorage.wysCLP;
 	if (!path) {
 		path = '/home';
 	}
