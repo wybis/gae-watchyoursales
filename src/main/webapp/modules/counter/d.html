@@ -1,6 +1,6 @@
 
 <div class="col-md-3">
-	1
+	<x-ng-include src="'modules/counter/productView.html'"/>
 </div>
 
 <div class="col-md-9">
@@ -75,32 +75,15 @@
 			<select class="form-control input-sm" x-ng-model="tran.item"
 				x-ng-disabled="receipt.id != 0"
 				x-ng-change="onTransactionItem(tran)"
-				x-ng-options="item.code + ' - ' + item.name for item in items">
+				x-ng-options="stock.product.code + ' - ' + stock.product.name for stock in items">
 	    	</select>
-	    	<!-- 
-			<x-ui-select x-ng-model="tran.item" 
-				on-select="onTransactionItem(tran)" theme="selectize">
-				<x-ui-select-match placeholder="Select Item">
-					{{$select.selected.name}}
-				</x-ui-select-match>
-				<x-ui-select-choices repeat="item in items | filter: $select.search">
-					<span x-ng-bind-html="item.code | highlight: $select.search"></span>
-					&nbsp;-&nbsp;
-					<span x-ng-bind-html="item.name | highlight: $select.search"></span>
-				</x-ui-select-choices>
-			</x-ui-select>	
-			-->
 		</td>
 		<td width="80" class="text-center">
 			<select class="form-control input-sm" x-ng-model="tran.type"
 				x-ng-disabled="receipt.id != 0"
 				x-ng-change="onTransactionType(tran)">
-	      		<option value="B">Buy</option>
-	      		<option value="S">Sell</option>
-	      		<!-- 
-	      		<option value="request">Request</option>
-	      		<option value="return">Return</option>
-	      		-->
+	      		<option value="buy">Buy</option>
+	      		<option value="sell">Sell</option>
 	    	</select>
 		</td>
 		<td width="150">

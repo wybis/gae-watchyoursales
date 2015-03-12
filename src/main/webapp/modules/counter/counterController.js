@@ -1,5 +1,8 @@
-function counterController($rootScope, $scope, $log, counterService) {
+function counterController($rootScope, $scope, $log, employeeService,
+		counterService) {
 	$rootScope.viewName = 'Counter';
+
+	$scope.items = employeeService.stocks;
 
 	$scope.receipt = counterService.receipt;
 

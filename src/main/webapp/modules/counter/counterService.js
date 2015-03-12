@@ -13,24 +13,25 @@ function counterService($log, $q, wydNotifyService, employeeService) {
 	};
 
 	service.receipt = receipt;
-	$log.info(service.receipt.customer);
+
 	function addTransaction(times) {
 		var trans = receipt.transactions;
 		for (var i = 0; i < times; i++) {
 			var tran = {
 				type : '',
 				item : {
-					code : '-',
-					name : '-',
-					buyRate : 0,
-					buyPercent : 0,
-					sellRate : 0,
-					sellPercent : 0,
+					product : {
+						code : '-',
+						name : '-',
+						buyRate : 0,
+						buyPercent : 0,
+						sellRate : 0,
+						sellPercent : 0,
+						handStock : 0,
+						handStockAverage : 0,
+					},
 					handStock : 0,
-					handStockAverage : 0,
-					handStockTellers : 0,
-					handStockBranch : 0,
-					handStockTotal : 0
+					handStockAverage : 0
 				},
 				unit : '',
 				unitRaw : 0,
@@ -105,18 +106,18 @@ function counterService($log, $q, wydNotifyService, employeeService) {
 			return;
 		}
 		if (tran.type === service.TRAN_TYPE_BUY) {
-			tran.rate = tran.item.buyRate;
+			tran.rate = tran.item.product.buyRate;
 		} else {
-			tran.rate = tran.item.sellRate;
+			tran.rate = tran.item.product.sellRate;
 		}
 		service.computeTransactionAmount(tran);
 	}
 
 	service.onTransactionItem = function(tran) {
 		if (tran.type === service.TRAN_TYPE_BUY) {
-			tran.rate = tran.item.buyRate;
+			tran.rate = tran.item.product.buyRate;
 		} else {
-			tran.rate = tran.item.sellRate;
+			tran.rate = tran.item.product.sellRate;
 		}
 		service.computeTransactionAmount(tran);
 	}
@@ -150,7 +151,7 @@ function counterService($log, $q, wydNotifyService, employeeService) {
 		}
 		tran.rateRaw = rate;
 
-		var amount = tran.unitRaw * (tran.rateRaw / tran.item.baseUnit);
+		var amount = tran.unitRaw * (tran.rateRaw / tran.item.product.baseUnit);
 		if (tran.type === service.TRAN_TYPE_BUY) {
 			amount *= -1;
 		}
@@ -193,7 +194,7 @@ function counterService($log, $q, wydNotifyService, employeeService) {
 		}
 		revertAmount = revertAmount.split(',').join('')
 
-		var v0 = rate / tran.item.baseUnit;
+		var v0 = rate / tran.item.product.baseUnit;
 		var v1 = revertAmount / v0;
 		var v2 = v1 % tran.item.denominator;
 		var v3 = v1 - v2

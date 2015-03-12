@@ -260,7 +260,8 @@ function employeeService($log, $http, $q) {
 		service.getMyProducts().then(function(response) {
 			service.getMyStocks().then(function(response) {
 				service.getMyCash().then(function(response) {
-					$log.info(service);
+					// $log.info(service);
+					$log.debug('employeService initialized');
 				});
 			});
 		});
