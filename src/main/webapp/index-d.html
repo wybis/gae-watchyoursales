@@ -8,13 +8,9 @@
 <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" >
 <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="modules/wydNotify/wydNotifyByBootstrap.css">
-<!-- 
-<link rel="stylesheet" href="assets/ngNotify/ng-notify.min.css" />
--->
 <link rel="stylesheet" href="assets/ui-select/selectize.bootstrap3.css" />
 <link rel="stylesheet" href="assets/ui-select/select.min.css" />
 <link rel="stylesheet" href="assets/angular-aside/css/angular-aside.min.css" />
-
 <link rel="stylesheet" href="assets/index.css" />
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -25,6 +21,8 @@
 
 </head>
 <body x-ng-clock>
+
+<wyd-notify-by-bootstrap-directive></wyd-notify-by-bootstrap-directive>
 
 <div id="header">
 	<nav class="navbar navbar-default navbar-fixed-top" x-role="navigation">
@@ -64,10 +62,8 @@
 	</nav>
 </div>
 
-<wyd-notify-by-bootstrap-directive></wyd-notify-by-bootstrap-directive>
-
 <section class="container-fluid">
-	<div class="container-fluid" x-ng-view></div>
+	<div class="container" x-ng-view></div>
 </section>
 
 <div id="footer">

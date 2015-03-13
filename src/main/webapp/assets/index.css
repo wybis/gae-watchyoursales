@@ -58,7 +58,7 @@ a {
 	box-shadow: 0 10px 12px rgba(0, 0, 0, .05);
 }
 
-/*		BreadCrumb		*/
+/* breadCrumb */
 #breadCrumb {
 	background: #b84d45;
 	background-image: url(img/bg.png);
@@ -66,7 +66,7 @@ a {
 	padding: 5px
 }
 
-/* 		Footer		*/
+/* footer */
 #footer {
 	position: absolute;
 	background: #b84d45;

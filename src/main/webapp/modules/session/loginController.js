@@ -29,7 +29,7 @@ function loginController($rootScope, $scope, $log, $window, $sessionStorage,
 	}
 	$scope.signin = signin;
 
-	$timeout(function() {
+		$timeout(function() {
 		$log.info('Before signin...');
 		$scope.user.userId = 'munmin2000@maxmoney';
 		$scope.signin();
