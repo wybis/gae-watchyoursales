@@ -99,6 +99,7 @@ function counterService($log, $q, wydNotifyService, employeeService, $http) {
 		}
 		receipt.curTranIndex = index;
 		receipt.curTran = receipt.transactions[receipt.curTranIndex];
+		//$log.info(receipt.curTran);
 	}
 
 	service.onTransactionType = function(tran) {
@@ -309,7 +310,7 @@ function counterService($log, $q, wydNotifyService, employeeService, $http) {
 		$log.info("Receipt after post...")
 		$log.info(message);
 		$log.info(resReceipt);
-	
+
 		wydNotifyService.addSuccess(message, true);
 		receipt.id = resReceipt.id;
 

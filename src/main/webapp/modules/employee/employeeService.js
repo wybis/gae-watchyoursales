@@ -127,6 +127,7 @@ function employeeService($log, $http, $q) {
 		_.forEach(stocks, function(objectx) {
 			if (objectx.type == 'product') {
 				addOrUdpateCacheY('stocks', objectx);
+				addOrUdpateCacheY('products', objectx.product);
 			} else {
 				addOrUpdateCacheX(objectx);
 			}
@@ -286,14 +287,16 @@ function employeeService($log, $http, $q) {
 	};
 
 	service.init = function() {
-		service.getMyProducts().then(function(response) {
-			service.getMyStocks().then(function(response) {
-				service.getMyCash().then(function(response) {
-					// $log.info(service);
-					$log.debug('employeService initialized');
-				});
+		// service.getMyProducts().then(function(response) {
+		service.getMyStocks().then(function(response) {
+			service.getMyCash().then(function(response) {
+				//$log.info(service.products);
+				//$log.info(service.stocks);
+				// $log.info(service);
+				$log.debug('employeService initialized');
 			});
 		});
+		// });
 	};
 
 	return service;
