@@ -52,6 +52,35 @@ function employeeService($log, $http, $q) {
 		}
 	}
 
+	service.updateStockAndProduct = function(stock) {
+		var propName = 'stocks', objectx = null;
+		var objectsLst = service[propName]
+		var objectsMap = service[propName + 'Map'];
+		var object = objectsMap[stock.id];
+		if (object) {
+			objectx = _.pick(stock, [ 'availableStock', 'handStock',
+					'virtualStock', 'virtualStockBuy', 'virtualStockSell' ]);
+			_.assign(object, objectx);
+		} else {
+			objectsLst.push(stock);
+			objectsMap[stock.id] = stock;
+		}
+		propName = 'products';
+		var objectsLst = service[propName]
+		var objectsMap = service[propName + 'Map'];
+		var object = objectsMap[stock.product.id];
+		if (object) {
+			objectx = _.pick(stock, [ 'availableStock',
+					'availableStockAverage', 'handStock', 'handStockAverage',
+					'handStockValue', 'virtualStock', 'virtualStockAverage',
+					'virtualStockBuy', 'virtualStockSell' ]);
+			_.assign(object, objectx);
+		} else {
+			objectsLst.push(stock.product);
+			objectsMap[stock.product.id] = stock.product;
+		}
+	};
+
 	service.getMyCash = function() {
 		var path = basePath + '/cash';
 

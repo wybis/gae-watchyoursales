@@ -203,7 +203,7 @@
 	</div>
 	<div class="col-md-3 text-right">
 		<button class="btn btn-primary" 
-			x-ng-disabled="receipt.isSaveDisabled"
+			x-ng-disabled="receipt.id != 0"
 			x-ng-click="saveReceiptAsOrder()">
 			<i class="fa fa-save"></i> Save As Order
 		</button>

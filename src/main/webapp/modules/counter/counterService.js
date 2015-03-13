@@ -309,8 +309,13 @@ function counterService($log, $q, wydNotifyService, employeeService, $http) {
 		$log.info("Receipt after post...")
 		$log.info(message);
 		$log.info(resReceipt);
+	
 		wydNotifyService.addSuccess(message, true);
 		receipt.id = resReceipt.id;
+
+		_.forEach(resReceipt.trans, function(tran) {
+			employeeService.updateStockAndProduct(tran.stock);
+		});
 	}
 
 	function fail(resReceipt, message) {
