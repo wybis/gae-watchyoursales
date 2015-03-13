@@ -1,3 +1,4 @@
+<div class="row">
 
 <div class="col-md-3">
 	<x-ng-include src="'modules/counter/productView.html'"/>
@@ -201,12 +202,10 @@
 		</button>
 	</div>
 	<div class="col-md-3 text-right">
-		&nbsp;
-		 
 		<button class="btn btn-primary" 
 			x-ng-disabled="receipt.isSaveDisabled"
-			x-ng-click="saveReceiptAsTransfer()">
-			<i class="fa fa-save"></i> Save As Transfer
+			x-ng-click="saveReceiptAsOrder()">
+			<i class="fa fa-save"></i> Save As Order
 		</button>
 		
 	</div>
@@ -234,5 +233,7 @@
 <br/>
 -->		
 
+</div>
+	
 </div>
 	

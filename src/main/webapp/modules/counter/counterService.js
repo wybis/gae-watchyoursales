@@ -1,4 +1,4 @@
-function counterService($log, $q, wydNotifyService, employeeService) {
+function counterService($log, $q, wydNotifyService, employeeService, $http) {
 
 	var service = {}, receipt = {}, initSize = 2, defaultCustomer = {
 		id : 0,
@@ -230,7 +230,7 @@ function counterService($log, $q, wydNotifyService, employeeService) {
 	service.validateTransaction = function(tran) {
 		tran.message = '';
 		if (!tran.item) {
-			tran.message = 'Missing Currency! Please select currency...';
+			tran.message = 'Missing Product! Please select product...';
 			return;
 		}
 		if (tran.unitRaw <= 0) {
@@ -242,38 +242,30 @@ function counterService($log, $q, wydNotifyService, employeeService) {
 			return;
 		}
 		if (tran.type === service.TRAN_TYPE_BUY) {
-			if (tran.item.buyPercentageRate <= tran.rate) {
+			if (tran.item.product.buyPercentageRate <= tran.rate) {
 				var s = "Rate is more than ";
-				s += tran.item.buyPercentageRate;
+				s += tran.item.product.buyPercentageRate;
 				tran.message = s;
 			}
 		} else {
-			if (tran.item.sellPercentageRate >= tran.rate) {
+			if (tran.item.product.sellPercentageRate >= tran.rate) {
 				var s = "Rate is less than ";
-				s += tran.item.sellPercentageRate;
+				s += tran.item.product.sellPercentageRate;
 				tran.message = s;
 			}
 		}
 	};
 
-	service.validate = function() {
-		receipt.customerAmountRaw = 0;
-		if (receipt.customerAmount == '') {
-			return;
-		}
-		var rawValue = receipt.customerAmount.split(',').join('');
-		receipt.customerAmountRaw = parseFloat(rawValue);
-	};
-
 	service.saveReceiptAsTransaction = function() {
-		$log.info('saveReceiptAsTransaction...');
+		$log.debug('saveReceiptAsTransaction started...');
+
+		$log.info("Receipt before process...")
 		$log.info(receipt);
+
 		var reqReceipt = {
-			totalAmount : receipt.totalAmount,
-			customerAmount : receipt.customerAmountRaw,
-			balanceAmount : receipt.balanceAmount,
-			customerAccountId : receipt.customer.accountId || 0,
-			transactions : []
+			category : 'customer',
+			customerId : receipt.customer.id,
+			trans : []
 		}, reqTran = null, totalSaleAmount = 0, rowIds = [];
 
 		for (var i = 0; i < receipt.transactions.length; i++) {
@@ -284,35 +276,48 @@ function counterService($log, $q, wydNotifyService, employeeService) {
 				continue;
 			}
 			reqTran = {
-				itemId : tran.item.id,
-				itemCode : tran.item.code,
+				category : 'customer',
+				stockId : tran.item.id,
 				type : tran.type,
 				unit : tran.unitRaw,
 				rate : tran.rateRaw,
-				amount : tran.amount,
-				customerAccountId : reqReceipt.customerAccountId
 			};
-			if (tran.type === service.TRAN_TYPE_BUY) {
-				reqTran.amount *= -1;
-			}
-			reqReceipt.transactions.push(reqTran);
-			totalSaleAmount += reqTran.amount;
+			reqReceipt.trans.push(reqTran);
 		}
-		reqReceipt.totalSaleAmount = totalSaleAmount;
-		$log.info(reqReceipt);
-		tranSalesService.addAsTransaction(reqReceipt, success, fail);
+
+		if (rowIds.length > 0) {
+			var msg = "Row's " + rowIds.join(', ') + ' has issues...';
+			wydNotifyService.addError(msg, true);
+		} else {
+			$log.info("Receipt before post...")
+			$log.info(reqReceipt);
+
+			var path = '/counter.groovy'
+			$http.post(path, reqReceipt).success(function(response) {
+				// $log.debug(response);
+				if (response.type === 0) {
+					success(response.data, response.message)
+				} else {
+					fail(response.data, response.message)
+				}
+				$log.debug('saveReceiptAsTransaction finished...');
+			});
+		}
 	};
 
 	function success(resReceipt, message) {
-		$log.info('success...');
-		wydNotifyService.addSuccess(message);
+		$log.info("Receipt after post...")
+		$log.info(message);
+		$log.info(resReceipt);
+		wydNotifyService.addSuccess(message, true);
 		receipt.id = resReceipt.id;
-		$log.info(receipt.id);
 	}
 
 	function fail(resReceipt, message) {
-		$log.info('fail...');
-		wydNotifyService.addError(message);
+		$log.info("Receipt after post...")
+		$log.info(message);
+		$log.info(resReceipt);
+		wydNotifyService.addError(message, true);
 	}
 
 	service.init();
