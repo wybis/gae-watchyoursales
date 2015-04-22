@@ -176,6 +176,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			from Product.class.simpleName
 			where branchId == employee.branchId
 			and type == ProductType.CASH_EMPLOYEE
+			limit 1
 		}
 
 		entitys.each { entity ->
@@ -198,6 +199,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			from Product.class.simpleName
 			where branchId == employee.branchId
 			and type == ProductType.PROFIT_EMPLOYEE
+			limit 1
 		}
 
 		entitys.each { entity ->
@@ -239,7 +241,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 	public void onDealerCreate(User sessionUser, User dealer) {
 		def entitys = datastore.execute {
 			from Product.class.simpleName
-			where agencyId == dealer.branchId
+			where branchId == dealer.branchId
 			and type == ProductType.CASH_DEALER
 			limit 1
 		}
@@ -250,6 +252,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			account.with {
 				isMinus = true
 				type = product.type
+				productId = product.id
 				userId = dealer.id
 				branchId = dealer.branchId
 			}
@@ -265,7 +268,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 	public void onCustomerCreate(User sessionUser, User customer) {
 		def entitys = datastore.execute {
 			from Product.class.simpleName
-			where agencyId == customer.branchId
+			where branchId == customer.branchId
 			and type == ProductType.CASH_CUSTOMER
 			limit 1
 		}
@@ -276,6 +279,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			account.with {
 				isMinus = true
 				type = product.type
+				productId = product.id
 				userId = customer.id
 				branchId = customer.branchId
 			}

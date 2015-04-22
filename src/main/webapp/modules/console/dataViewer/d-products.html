@@ -1,0 +1,88 @@
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		<span class="pull-left">
+			<button	class="btn btn-default"	x-ng-disabled="items.length == 0"
+				x-ng-click="refresh()">
+				<i class="fa fa-refresh"></i>
+			</button>
+		</span>
+		&nbsp;
+	</div>
+	<table class="table table-condensed table-bordered table-striped">
+	<thead>
+	<tr>
+		<th class="text-right" width="30">#</th>
+		<th class="text-center"><small>Id</small></th>
+	   	<th class="text-center"><small>Code</small></th>
+	   	<th class="text-center"><small>Name</small></th>
+	   	<th class="text-center"><small>Balance</small></th>
+	   	<th class="text-center"><small>Hand Stock</small></th>
+	   	<th class="text-center"><small>Hand Average</small></th>
+	   	<th class="text-center"><small>Virtual Buy</small></th>
+	   	<th class="text-center"><small>Virtual Average</small></th>
+	   	<th class="text-center"><small>Virtual Sell</small></th>
+	   	<th class="text-center"><small>Avl Stock</small></th>
+	   	<th class="text-center"><small>Avl Average</small></th>
+	   	<th class="text-center"><small>&nbsp;</small></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr x-ng-repeat-start="item in items">
+		<td class="text-right" width="40" rowspan="2">
+			{{$index+1}}
+		</td>
+		<td>
+			{{item.id}}
+		</td>
+		<td>
+			{{item.code}}
+		</td>
+		<td>
+			{{item.name}}
+		</td>
+		<td class="text-right">
+			{{item.amount | number : 2}}
+		</td>
+		<td class="text-right">
+			{{item.handStock | number : 2}}
+		</td>	
+		<td class="text-right">
+			{{item.handStockAverage | number : 5}}
+		</td>
+		<td class="text-right">
+			{{item.virtualStockBuy | number : 2}}
+		</td>	
+		<td class="text-right">
+			{{item.virtualStockAverage | number : 5}}
+		</td>
+		<td class="text-right">
+			{{item.virtualStockSell | number : 2}}
+		</td>	
+		<td class="text-right">
+			{{item.availableStock | number : 2}}
+		</td>
+		<td class="text-right">
+			{{item.availableStockAverage | number : 5}}
+		</td>
+		<td class="text-center">
+			<div class="btn-group" dropdown>
+      			<button type="button" class="btn btn-default btn-sm dropdown-toggle" 
+      				dropdown-toggle>
+        			<i class="fa fa-bars"></i>
+      			</button>
+				<ul class="dropdown-menu" role="menu">
+					<li>
+			<a x-ng-href="#/dataViewer/branchs/branch/{{item.branchId}}/products/product/{{item.id}}/accounts">Accounts</a>
+					</li>
+				</ul>
+		    </div>
+		</td>	
+	</tr>
+	<tr x-ng-repeat-end>	
+		<td colspan="12" class="text-center">
+			Base Unit : {{item.baseUnit}} Denominator : {{item.denominator}} Buy Rate : {{item.buyRate}} Buy Percent : {{item.buyPercent}} Sell Rate : {{item.sellRate}} Sell Percent : {{item.sellPercent}}
+		</td>	
+	</tr>	
+	</tbody>
+	</table>
+</div>

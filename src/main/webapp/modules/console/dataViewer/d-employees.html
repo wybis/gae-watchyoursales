@@ -1,0 +1,63 @@
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		<span class="pull-left">
+			<button	class="btn btn-default"	x-ng-disabled="items.length == 0"
+				x-ng-click="refresh()">
+				<i class="fa fa-refresh"></i>
+			</button>
+		</span>
+		&nbsp;
+	</div>
+	<table class="table table-condensed table-bordered table-striped">
+	<thead>
+	<tr>
+		<th class="text-right" width="30">#</th>
+		<th class="text-center"><small>Id</small></th>
+	   	<th class="text-center"><small>User Id</small></th>
+	   	<th class="text-center"><small>Name</small></th>
+	   	<th class="text-center"><small>Cash Acct Id</small></th>
+	   	<th class="text-center"><small>Prof Acct Id</small></th>
+	   	<th class="text-center"><small>Role</small></th>
+	   	<th class="text-center"><small>&nbsp;</small></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr x-ng-repeat="item in items">
+		<td class="text-right" width="40">
+			{{$index+1}}
+		</td>
+		<td>
+			{{item.id}}
+		</td>
+		<td>
+			{{item.userId}}
+		</td>
+		<td>
+			{{item.firstName}} {{item.lastName}}  
+		</td>
+		<td>
+			{{item.cashAccountId}}
+		</td>
+		<td>
+			{{item.profitAccountId}}
+		</td>	
+		<td class="text-right">
+			{{item.roleId}}
+		</td>
+		<td class="text-center">
+			<div class="btn-group" dropdown>
+      			<button type="button" class="btn btn-default btn-sm dropdown-toggle" 
+      				dropdown-toggle>
+        			<i class="fa fa-bars"></i>
+      			</button>
+				<ul class="dropdown-menu" role="menu">
+					<li>
+			<a x-ng-href="#/dataViewer/branchs/branch/{{item.branchId}}/employees/employee/{{item.id}}/accounts">Accounts</a>
+					</li>
+				</ul>
+		    </div>
+		</td>	
+	</tr>
+	</tbody>
+	</table>
+</div>

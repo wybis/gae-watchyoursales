@@ -5,7 +5,7 @@ function dataService($log, $http, $q) {
 		branchs : [],
 		branchsMap : {},
 		accounts : [],
-		acountsMap : {},
+		accountsMap : {},
 		products : [],
 		productsMap : {},
 		employees : [],
@@ -101,6 +101,8 @@ function dataService($log, $http, $q) {
 
 		return deferred.promise;
 	};
+
+	service.getBranchs();
 
 	return service;
 }

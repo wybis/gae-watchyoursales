@@ -98,7 +98,7 @@ try {
 	pw.println entities.size() + ' trans deleted'
 }
 catch(Throwable t) {
-	F	t.printStackTrace(pw)
+	t.printStackTrace(pw)
 	responseDto.type = ResponseDto.ERROR
 }
 

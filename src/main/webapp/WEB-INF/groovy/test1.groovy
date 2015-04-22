@@ -1,6 +1,5 @@
-import io.vteial.wys.model.Account
-import io.vteial.wys.model.User
-import io.vteial.wys.model.constants.UserType
+import io.vteial.wys.model.Product
+import io.vteial.wys.model.constants.ProductType
 
 
 println '''
@@ -9,16 +8,12 @@ println '''
 println '-----------------------------------------------------------------'
 try {
 	def entitys = datastore.execute {
-		from User.class.simpleName
-		where agencyId == 1
-		and type == UserType.EMPLOYEE
+		from Product.class.simpleName
+		where branchId == 1
+		and type == ProductType.CASH_DEALER
 	}
 
-	entitys.each { entity ->
-		User model = entity as User
-		def stock = Account.get(model.stockId)
-		println "$model.id $model.userId $model.stockId $stock.type"
-	}
+	println("dsize = " + entitys.size())
 }
 catch(Throwable t) {
 	t.printStackTrace(out)

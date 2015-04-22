@@ -4,7 +4,6 @@ import groovy.transform.Canonical
 import groovy.transform.ToString
 import groovyx.gaelyk.datastore.Entity
 import groovyx.gaelyk.datastore.Ignore
-import groovyx.gaelyk.datastore.Key
 
 @Entity(unindexed=false)
 @Canonical
@@ -30,6 +29,8 @@ class Product extends AbstractModel {
 	double sellRate
 
 	double sellPercent
+
+	double amount;
 
 	double handStock
 
@@ -75,7 +76,7 @@ class Product extends AbstractModel {
 	}
 
 	// persistance operations
-	
+
 	void preUpdate(long updateBy) {
 		this.updateBy = updateBy
 		this.updateTime = new Date()
@@ -90,7 +91,7 @@ class Product extends AbstractModel {
 	}
 
 	// domain operations
-	
+
 	double getBuyPercentageRate() {
 		double value = this.buyRate * (this.buyPercent / 100)
 		value = this.buyRate + value
@@ -111,6 +112,18 @@ class Product extends AbstractModel {
 	boolean isRateIsAllowableForSell(double rate) {
 		double spr = this.getSellPercentageRate()
 		return rate >= spr
+	}
+
+	boolean hasSufficientAmount(double amount) {
+		return amount <= this.amount
+	}
+
+	void withdrawAmount(double amount) {
+		this.amount -= amount
+	}
+
+	void deposit(double amount) {
+		this.amount += amount
 	}
 
 	boolean hasSufficientHandStock(double unit) {

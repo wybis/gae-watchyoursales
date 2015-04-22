@@ -22,17 +22,17 @@ branch.products.each { t ->
 
 branch.employees.each { t ->
 	t.branchId = branch.id
-	this.employeeService.add(sessionUser, t)
+	employeeService.add(sessionUser, t)
 }
 
 branch.dealers.each { t ->
 	t.branchId = branch.id
-	this.dealerService.add(sessionUser, t)
+	dealerService.add(sessionUser, t)
 }
 
 branch.customers.each { t ->
 	t.branchId = branch.id
-	this.customerService.add(sessionUser, t)
+	customerService.add(sessionUser, t)
 }
 
 log.info("adding branch finished...")
