@@ -1,28 +1,24 @@
 package io.vteial.wys.service;
 
-import io.vteial.wys.dto.SessionUserDto
-import io.vteial.wys.model.Agency
-import io.vteial.wys.model.Stock
+import io.vteial.wys.model.Branch
 import io.vteial.wys.model.User
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
 interface EmployeeService {
 
-	List<User> getMyCustomers(SessionUserDto sessionUser)
+	//	List<User> getMyEmployees(SessionUserDto sessionUser)
+	//
+	//	List<User> getMyCustomers(SessionUserDto sessionUser)
+	//
+	//	List<User> getMyDealers(SessionUserDto sessionUser)
+	//
+	//	Account getMyProductStockByProductCode(SessionUserDto sessionUser, String productCode)
+	//
+	//	Account getMyProductStockByProductId(SessionUserDto sessionUser, long productId)
+	//
+	//	List<Account> getMyProductStocks(SessionUserDto sessionUser)
 
-	List<User> getMyDealers(SessionUserDto sessionUser)
+	void add(User sessionUser, User employee) throws ModelAlreadyExistException
 
-	Stock getMyCashStock(SessionUserDto sessionUser)
-
-	Stock getMyProfitStock(SessionUserDto sessionUser)
-
-	Stock getMyProductStockByProductCode(SessionUserDto sessionUser, String productCode)
-
-	Stock getMyProductStockByProductId(SessionUserDto sessionUser, long productId)
-
-	List<Stock> getMyProductStocks(SessionUserDto sessionUser)
-
-	void add(SessionUserDto sessionUser, User employee) throws ModelAlreadyExistException
-
-	void onAgencyCreate(SessionUserDto sessionUser, Agency agency)
+	void onBranchCreate(User sessionUser, Branch branch)
 }

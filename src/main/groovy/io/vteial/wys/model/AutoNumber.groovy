@@ -8,7 +8,7 @@ import groovyx.gaelyk.datastore.Key
 @Entity(unindexed=false)
 @Canonical
 @ToString(includeNames=true)
-public class AutoNumber implements Serializable {
+public class AutoNumber  implements Model {
 
 	@Key
 	String id

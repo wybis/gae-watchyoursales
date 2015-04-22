@@ -1,11 +1,11 @@
 package io.vteial.wys.web.system;
 
 import io.vteial.wys.model.Address
-import io.vteial.wys.model.Agency
+import io.vteial.wys.model.Branch
 import io.vteial.wys.model.AutoNumber
 import io.vteial.wys.model.Country
 import io.vteial.wys.model.Product
-import io.vteial.wys.model.Stock
+import io.vteial.wys.model.Account
 import io.vteial.wys.model.User
 
 println 'clear started...'
@@ -42,13 +42,13 @@ try {
 	}
 	println entities.size() + ' products deleted'
 
-	entities = Stock.findAll()
+	entities = Account.findAll()
 	entities.each { entity ->
 		entity.delete()
 	}
 	println entities.size() + ' stocks deleted'
 
-	entities = Agency.findAll()
+	entities = Branch.findAll()
 	entities.each { entity ->
 		entity.delete()
 	}

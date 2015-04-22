@@ -4,19 +4,25 @@ import groovy.transform.Canonical
 import groovy.transform.ToString
 import groovyx.gaelyk.datastore.Entity
 import groovyx.gaelyk.datastore.Ignore
-import groovyx.gaelyk.datastore.Key
 
 @Entity(unindexed=false)
 @Canonical
 @ToString(includeNames=true)
-class Stock implements Serializable {
+class Account extends AbstractModel {
 
-	static final String ID_KEY = "stockId"
+	static final String ID_KEY = "accountId"
 
-	@Key
-	long id
+	String name;
+
+	String aliasName;
 
 	String type
+
+	boolean isMinus;
+
+	double balance;
+
+	String status;
 
 	double handStock
 
@@ -36,18 +42,12 @@ class Stock implements Serializable {
 	@Ignore
 	User user
 
-	long agencyId
+	long branchId
 
 	@Ignore
-	Agency agency
+	Branch branch
 
-	long createBy
-
-	long updateBy
-
-	Date createTime
-
-	Date updateTime
+	// persistence operations
 
 	void preUpdate(long updateBy) {
 		this.updateBy = updateBy
@@ -60,6 +60,25 @@ class Stock implements Serializable {
 		Date now = new Date()
 		this.createTime = now
 		this.updateTime = now
+	}
+
+	// domain operations
+
+	boolean hasSufficientBalance(double amount) {
+
+		if (this.isMinus) {
+			return true
+		}
+
+		return this.balance >= amount
+	}
+
+	void withdraw(double amount) {
+		this.balance -= amount
+	}
+
+	void deposit(double amount) {
+		this.balance += amount
 	}
 
 	boolean hasSufficientHandStock(double unit) {

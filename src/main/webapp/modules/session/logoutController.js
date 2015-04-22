@@ -7,6 +7,7 @@ function logoutController($rootScope, $scope, $log, $http, $window) {
 		// $log.info(response);
 	}).error(function() {
 		deferred.reject("unable to logout...");
+		$window.location = 'index-d.html';
 	});
 
 	$log.debug('logoutContoller...');

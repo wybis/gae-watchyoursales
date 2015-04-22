@@ -1,18 +1,19 @@
 function employeeService($log, $http, $q) {
-	var basePath = '';
+	var basePath = '', isLoggingEnabled = false;
 
 	var service = {
-		cashAgency : 0,
-		cashMine : 0,
-		stockAgency : 0,
-		stockMine : 0,
-		cashCustomer : {
+		cashAgency : {
 			handStock : 0
 		},
+		cashMine : {
+			handStock : 0
+		},
+		stockAgency : 0,
+		stockMine : 0,
 		cashDealer : {
 			handStock : 0
 		},
-		cashEmployee : {
+		cashCustomer : {
 			handStock : 0
 		},
 		products : [],
@@ -29,18 +30,28 @@ function employeeService($log, $http, $q) {
 		accountsMap : {}
 	};
 
-	function addOrUpdateCacheX(objectx) {
-		var object = service[objectx.type]
-		if (object) {
-			_.assign(object, objectx);
-		} else {
-			service[objectx.type] = objectx;
+	function logProductsAndStocks() {
+		if (isLoggingEnabled) {
+			_.forEach(service.products, function(item) {
+				$log.info(item);
+			});
+			$log.info('--------------------------------');
+			_.forEach(service.stocks, function(item) {
+				$log.info(item);
+			});
 		}
-		// $log.info(objectx.type);
-		// $log.info(service[objectx.type]);
 	}
 
-	function addOrUdpateCacheY(propName, objectx) {
+	// function addOrUpdateCacheX(objectx) {
+	// var object = service[objectx.type]
+	// if (object) {
+	// _.assign(object, objectx);
+	// } else {
+	// service[objectx.type] = objectx;
+	// }
+	// }
+
+	function addOrUpdateCacheY(propName, objectx) {
 		var objectsLst = service[propName]
 		var objectsMap = service[propName + 'Map'];
 		var object = objectsMap[objectx.id];
@@ -53,6 +64,7 @@ function employeeService($log, $http, $q) {
 	}
 
 	service.updateStockAndProduct = function(stock) {
+		$log.info(stock);
 		var propName = 'stocks', objectx = null;
 		var objectsLst = service[propName]
 		var objectsMap = service[propName + 'Map'];
@@ -79,33 +91,36 @@ function employeeService($log, $http, $q) {
 			objectsLst.push(stock.product);
 			objectsMap[stock.product.id] = stock.product;
 		}
+
+		service.computeStockWorth();
 	};
 
-	service.getMyCash = function() {
-		var path = basePath + '/cash';
+	service.updateSessionProperties = function(sesProps) {
+		var objectx = sesProps.sessionUser.user.cashStock;
 
-		var deferred = $q.defer();
-		$http.get(path).success(function(response) {
-			if (response.type === 0) {
-				addOrUpdateCacheX(response.data);
-				service.cashMine = response.data.handStock;
-				service.cashAgency = response.data.product.handStock;
-				deferred.resolve(response);
-			}
-			// $log.info(response);
-		})
+		addOrUpdateCacheY('stocks', objectx);
+		addOrUpdateCacheY('products', objectx.product);
+		service.cashMine = objectx;
+		service.cashAgency = objectx.product;
 
-		return deferred.promise;
-	};
+		objectx = sesProps.sessionUser.user.profitStock;
+		addOrUpdateCacheY('stocks', objectx);
+		// addOrUpdateCacheY('products', objectx.product);
+
+		logProductsAndStocks();
+	}
 
 	function processProducts(products) {
+		$log.debug('processing products started...')
 		_.forEach(products, function(objectx) {
 			if (objectx.type == 'product') {
 				addOrUdpateCacheY('products', objectx);
 			} else {
-				addOrUpdateCacheX(objectx);
+				// addOrUpdateCacheX(objectx);
 			}
 		});
+		logProductsAndStocks();
+		$log.debug('processing products finished...')
 	}
 
 	service.getMyProducts = function() {
@@ -124,14 +139,17 @@ function employeeService($log, $http, $q) {
 	};
 
 	function processStocks(stocks) {
+		$log.debug('processing stocks started...')
 		_.forEach(stocks, function(objectx) {
 			if (objectx.type == 'product') {
-				addOrUdpateCacheY('stocks', objectx);
-				addOrUdpateCacheY('products', objectx.product);
+				addOrUpdateCacheY('stocks', objectx);
+				addOrUpdateCacheY('products', objectx.product);
 			} else {
-				addOrUpdateCacheX(objectx);
+				// addOrUpdateCacheX(objectx);
 			}
 		});
+		logProductsAndStocks();
+		$log.debug('processing stocks finished...')
 	}
 
 	service.getMyStocks = function() {
@@ -153,24 +171,31 @@ function employeeService($log, $http, $q) {
 	service.computeStockWorth = function() {
 		var stockAgency = 0, stockMine = 0, product, tvalue;
 		_.forEach(service.stocks, function(stock) {
-			product = service.productsMap[stock.productId];
+			if (stock.type === 'product') {
+				product = service.productsMap[stock.productId];
 
-			tvalue = 0;
-			if (product.handStockAverage > 0) {
-				tvalue = product.handStockAverage / product.baseUnit;
+				tvalue = 0;
+				if (product.handStockAverage > 0) {
+					tvalue = product.handStockAverage / product.baseUnit;
+				}
+				stockMine += stock.handStock * tvalue;
+
+				stockAgency += product.handStock * tvalue;
 			}
-			stockMine += stock.handStock * tvalue;
-
-			stockAgency += product.handStock * tvalue;
 		});
 		service.stockMine = stockMine;
 		service.stockAgency = stockAgency;
 	}
 
-	function processCustomers(stocks) {
-		_.forEach(stocks, function(objectx) {
-			addOrUdpateCacheY('customers', objectx);
+	function processCustomers(items) {
+		$log.debug('processing customers started...')
+		_.forEach(items, function(objectx) {
+			addOrUpdateCacheY('customers', objectx);
+			addOrUpdateCacheY('stocks', objectx.cashStock);
+			addOrUpdateCacheY('products', objectx.cashStock.product);
 		});
+		logProductsAndStocks();
+		$log.debug('processing customers finished...')
 	}
 
 	service.getMyCustomers = function() {
@@ -216,10 +241,15 @@ function employeeService($log, $http, $q) {
 		return deferred.promise;
 	};
 
-	function processDealers(stocks) {
-		_.forEach(stocks, function(objectx) {
-			addOrUdpateCacheY('dealers', objectx);
+	function processDealers(items) {
+		$log.debug('processing dealers started...')
+		_.forEach(items, function(objectx) {
+			addOrUpdateCacheY('dealers', objectx);
+			addOrUpdateCacheY('stocks', objectx.cashStock);
+			addOrUpdateCacheY('products', objectx.cashStock.product);
 		});
+		logProductsAndStocks();
+		$log.debug('processing dealers finished...')
 	}
 
 	service.getMyDealers = function() {
@@ -237,12 +267,6 @@ function employeeService($log, $http, $q) {
 		return deferred.promise;
 	};
 
-	function processEmployees(stocks) {
-		_.forEach(stocks, function(objectx) {
-			addOrUdpateCacheY('employees', objectx);
-		});
-	}
-
 	service.getMyPendingDealerOrders = function() {
 		var path = basePath + '/pendingDealerOrders';
 
@@ -251,7 +275,7 @@ function employeeService($log, $http, $q) {
 			if (response.type === 0) {
 				deferred.resolve(response);
 			}
-			$log.info(response);
+			// $log.info(response);
 		})
 
 		return deferred.promise;
@@ -271,6 +295,17 @@ function employeeService($log, $http, $q) {
 		return deferred.promise;
 	};
 
+	function processEmployees(items) {
+		$log.debug('processing employees started...')
+		_.forEach(items, function(objectx) {
+			addOrUpdateCacheY('employees', objectx);
+			addOrUpdateCacheY('stocks', objectx.cashStock);
+			addOrUpdateCacheY('stocks', objectx.profitStock);
+		});
+		logProductsAndStocks();
+		$log.debug('processing employees finished...')
+	}
+
 	service.getMyEmployees = function() {
 		var path = basePath + '/employees';
 
@@ -287,16 +322,9 @@ function employeeService($log, $http, $q) {
 	};
 
 	service.init = function() {
-		// service.getMyProducts().then(function(response) {
 		service.getMyStocks().then(function(response) {
-			service.getMyCash().then(function(response) {
-				//$log.info(service.products);
-				//$log.info(service.stocks);
-				// $log.info(service);
-				$log.debug('employeService initialized');
-			});
+			$log.debug('employeService initialized');
 		});
-		// });
 	};
 
 	return service;

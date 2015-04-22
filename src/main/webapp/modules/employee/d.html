@@ -16,10 +16,8 @@
 	   	<th class="text-center"><small>Name</small></th>
 	   	<th class="text-center"><small>Email Id</small></th>
 	   	<th class="text-center"><small>Mobile No</small></th>
-	   	<th class="text-center"><small>Status</small></th>
-	   	<th class="text-center"><small>Balance</small></th>
-	   	<th class="text-center"><small>Update Time</small></th>
 	   	<th class="text-center"><small>Role</small></th>
+	   	<th class="text-center"><small>Balance</small></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -40,17 +38,11 @@
 			{{item.handPhoneNumber}}
 		</td>
 		<td>
-			{{item.status}}
-		</td>	
-		<td class="text-right">
-			{{item.stock.handStock | number : 2}}
-		</td>
-		<td width="160">
-			{{item.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}
-		</td>
-		<td>
 			{{item.roleId}}
 		</td>	
+		<td class="text-right">
+			{{item.cashStock.handStock | number : 2}}
+		</td>
 	</tr>
 	</tbody>
 	<tfoot x-ng-show="searchResults.hasItems">

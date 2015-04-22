@@ -9,12 +9,9 @@ import groovyx.gaelyk.datastore.Key
 @Entity(unindexed=false)
 @Canonical
 @ToString(includeNames=true)
-public class TranReceipt implements Serializable {
+public class TranReceipt extends AbstractModel {
 
 	static final String ID_KEY = "tranReceiptId"
-
-	@Key
-	long id
 
 	String category
 
@@ -40,21 +37,15 @@ public class TranReceipt implements Serializable {
 	@Ignore
 	User employee
 
-	long agencyId
+	long branchId
 
 	@Ignore
-	Agency agency
+	Branch branch
 
 	@Ignore
 	List<Tran> trans
 
-	long createBy
-
-	long updateBy
-
-	Date createTime
-
-	Date updateTime
+	// persistence operations
 
 	void preUpdate(long updateBy) {
 		this.updateBy = updateBy
@@ -68,4 +59,6 @@ public class TranReceipt implements Serializable {
 		this.createTime = now;
 		this.updateTime = now;
 	}
+
+	// domain operations
 }

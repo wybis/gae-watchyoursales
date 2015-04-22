@@ -1,0 +1,25 @@
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	padding-top: 75px;
+	margin-bottom: 28px;
+}
+
+#breadCrumb {
+	background-color: ffffff;	
+}
+
+#pageBody {
+	min-height: 580px;
+}
+
+#respMessage {
+	min-height: 410px;
+}
+
+#branchJson {
+	min-height: 330px;
+}

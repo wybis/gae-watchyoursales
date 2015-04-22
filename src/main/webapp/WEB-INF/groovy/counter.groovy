@@ -1,6 +1,5 @@
 import io.vteial.wys.dto.ResponseDto
 import io.vteial.wys.dto.SessionUserDto
-import io.vteial.wys.model.Stock
 import io.vteial.wys.model.Tran
 import io.vteial.wys.model.TranReceipt
 import io.vteial.wys.model.User
@@ -14,7 +13,7 @@ SessionUserDto sessionUserDto = session[SessionService.SESSION_USER_KEY]
 try {
 	TranReceipt tranReceipt = jsonCategory.parseJson(request, TranReceipt.class)
 
-	double totalAmount = 0, amount = 0
+	double totalAmount = 0, actualTotalAmount = 0, amount = 0
 	tranReceipt.trans.each { tran ->
 		amount = tran.unit * tran.rate
 		if(tran.type == TransactionType.BUY) {
@@ -22,28 +21,31 @@ try {
 		}
 		totalAmount += amount
 	}
+	actualTotalAmount = totalAmount < 0 ? totalAmount * -1 : totalAmount
 
 	if(totalAmount != 0) {
-		Stock cashStock = employeeService.getMyCashStock(sessionUserDto)
+		User employee = User.get(sessionUserDto.id);
+		//employee.cashStock = Stock.get(employee.cashStockId);
+		//employee.profitStock = Stock.get(employee.profitStockId);
 
 		Tran tran = new Tran()
 		tran.category = tranReceipt.category
-		tran.stockId = cashStock.id
-		tran.type = totalAmount > 0 ? TransactionType.BUY : TransactionType.SELL
-		tran.unit = totalAmount
+		tran.stockId = employee.cashStockId
+		tran.type = totalAmount < 0 ? TransactionType.SELL : TransactionType.BUY
+		tran.unit = actualTotalAmount
 		tran.rate = 1
 		//tran.rate = stock.product.sellRate
 
 		tranReceipt.trans << tran
 
 		User customer = User.get(tranReceipt.customerId);
-		customer.stock = Stock.get(customer.stockId);
+		//customer.cashStock = Stock.get(customer.cashStockId);
 
 		tran = new Tran()
 		tran.category = tranReceipt.category
-		tran.stockId = customer.stock.id
-		tran.type = totalAmount < 0 ? TransactionType.BUY : TransactionType.SELL
-		tran.unit = totalAmount
+		tran.stockId = customer.cashStockId
+		tran.type = totalAmount < 0 ? TransactionType.BUY: TransactionType.SELL
+		tran.unit = actualTotalAmount
 		tran.rate = 1
 		//tran.rate = stock.product.sellRate
 
@@ -57,6 +59,10 @@ try {
 catch(Throwable t) {
 	responseDto.type = ResponseDto.UNKNOWN
 	responseDto.message = t.message
+	StringWriter sw = new StringWriter()
+	PrintWriter pw = new PrintWriter(sw)
+	t.printStackTrace(pw)
+	responseDto.data = sw.toString()
 }
 
 jsonCategory.respondWithJson(response, responseDto)

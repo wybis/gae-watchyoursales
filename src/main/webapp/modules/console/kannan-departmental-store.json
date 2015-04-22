@@ -1,0 +1,37 @@
+{
+  "name": "Kannan Deparmental Store",
+  "products": [],
+  "employees": [
+    {
+      "id": "ameerk@ramnadu_medicals",
+      "firstName": "Ameer Khan",
+      "roleId": "Manager"
+    },
+    {
+      "id": "arun@ramnadu_medicals",
+      "firstName": "Arun",
+      "roleId": "Employee"
+    },
+    {
+      "id": "senthil@ramnadu_medicals",
+      "firstName": "Ameer Khan",
+      "roleId": "Employee"
+    }
+  ],
+  "dealers": [
+    {
+      "name": "ABC Pharma"
+    },
+    {
+      "name": "Big Pharma"
+    }
+  ],
+  "customers": [
+    {
+      "firstName": "Dr. Govindaraj"
+    },
+    {
+      "firstName": "Dr. Paneerselvam"
+    }
+  ]
+}

@@ -15,6 +15,12 @@ all 	'/_ah/warmup',		forward  : '/ping.groovy'
 get 	'/cron/dailyBackup',			forward : '/cron/dailyBackup.groovy'
 
 // data
+get 	'/console/branchs',    			forward : '/io/vteial/wys/web/console/branchs.groovy'
+get 	'/console/reset',    			forward : '/io/vteial/wys/web/console/reset.groovy'
+get 	'/console/clear',    			forward : '/io/vteial/wys/web/console/clear.groovy'
+get 	'/console/clearTransactions', 	forward : '/io/vteial/wys/web/console/clearTransactions.groovy'
+post 	'/console/addBranch', 	        forward : '/io/vteial/wys/web/console/addBranch.groovy'
+
 get 	'/system/reset',    			forward : '/io/vteial/wys/web/system/reset.groovy'
 get 	'/system/init',	    			forward : '/io/vteial/wys/web/system/init.groovy'
 post 	'/system/saveAgencyMaster',		forward : '/io/vteial/wys/web/system/saveAgencyMaster.groovy'

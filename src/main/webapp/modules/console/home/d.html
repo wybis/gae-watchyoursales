@@ -1,0 +1,61 @@
+<div class="row text-center">
+
+	<button class="btn btn-default btn-sm" x-ng-click="execute('/ping')">Ping</button>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button class="btn btn-default btn-sm" x-ng-click="execute('/sessions/properties')">Session Properties</button>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button class="btn btn-default btn-sm" x-ng-click="execute('/console/reset')">Reset</button>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button class="btn btn-default btn-sm" x-ng-click="execute('/console/clear')">Clear All</button>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button class="btn btn-default btn-sm" x-ng-click="execute('/console/clearTransactions')">Clear Transactions</button>
+
+</div>
+<br/>
+<div class="row">
+
+    <div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading"">
+    			Create Branch Via JSON
+  			</div>
+			<div class="panel-body">
+		  		<div>
+		    		<div class="col-md-4">JSON File</div>
+				    <div class="col-md-8">	
+					    <select class="form-control" 
+					    	x-ng-model="branchJson" 
+							x-ng-change="onBranchChange()"
+							x-ng-options="item.name for item in branchsJson">
+		      			</select>
+	      			</div>	
+		  		</div>
+		  		<br/><br/>
+				<div>
+		    		<textarea id="branchJson" class="form-control" 
+		    			x-ng-model="branchJson.json"></textarea>
+		  		</div>
+				<br/>
+				<div>
+		    		<button class="btn btn-primary btn-block"
+		    			x-ng-click="saveMaster()">
+		    			Save
+		    		</button>
+		  		</div>
+			</div>
+		</div>
+    </div>
+    
+    <div class="col-md-6">
+    	<div class="panel panel-default">
+    		<div class="panel-heading">Response Message</div>
+	    	<div class="panel-body">
+	    		<div>
+	    			<pre id="respMessage">{{message | json}}</pre>
+	    		</div>
+	    	</div>
+    	</div>
+    </div>
+
+</div>
+ 

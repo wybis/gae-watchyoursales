@@ -49,11 +49,11 @@
 						</li>
 					</ul>
 					<form class="navbar-form navbar-left">
-						My Cash : <span class="badge badge-info">{{ empS.cashMine | number : 2 }}</span>
+						My Cash : <span class="badge badge-info">{{ empS.cashMine.handStock | number : 2 }}</span>
 						&nbsp;&nbsp;
 						My Stock : <span class="badge badge-info">{{ empS.stockMine | number : 2 }}</span>
 						&nbsp;&nbsp;
-						My Total : <span class="badge badge-info">{{ empS.cashMine + empS.stockMine | number : 2 }}</span>
+						My Total : <span class="badge badge-info">{{ empS.cashMine.handStock + empS.stockMine | number : 2 }}</span>
 					</form>
 					<ul class="nav navbar-nav navbar-right" x-ng-hide="isLoggedIn">
 						<li>
@@ -87,13 +87,13 @@
 				<div class="row">
 					<div class="col-md-3">
 						<strong><small>Agency :</small></strong> 
-						Cash : <span class="badge badge-info">{{ empS.cashAgency | number : 2 }}</span>
+						Cash : <span class="badge badge-info">{{ empS.cashAgency.handStock | number : 2 }}</span>
 					</div>	
 					<div class="col-md-2">
 						Stock : <span class="badge badge-info">{{ empS.stockAgency | number : 2 }}</span>
 					</div>
 					<div class="col-md-3">
-						Total : <span class="badge badge-info">{{ empS.cashAgency + empS.stockAgency | number : 2 }}</span>
+						Total : <span class="badge badge-info">{{ empS.cashAgency.handStock + empS.stockAgency | number : 2 }}</span>
 					</div>
 					<div class="col-md-2">
 						<strong><small>Dealer :</small></strong> <span class="badge badge-info">{{ empS.cashDealer.handStock | number : 2 }}</span>
@@ -136,7 +136,6 @@
 
 <script type="text/javascript" 
 	src="assets/ngStorage.min.js"></script>
-	
 <script type="text/javascript" 
 	src="assets/ui-bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
 <script type="text/javascript"
@@ -150,9 +149,6 @@
 
 <script type="text/javascript" src="modules/init.js"></script>
 <script type="text/javascript" src="modules/wydNotify/wydNotifyByBootstrap.js"></script>
-<!-- 
-<script type="text/javascript" src="modules/wydNotify/wydNotifyByNgNotify.js"></script>
--->
 
 <script type="text/javascript" src="modules/session/sessionService.js"></script>
 

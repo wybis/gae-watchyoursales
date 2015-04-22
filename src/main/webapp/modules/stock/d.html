@@ -24,12 +24,12 @@
 	</tr>
 	</thead>
 	<tbody>
-	<tr x-ng-repeat="item in items">
+	<tr x-ng-repeat="item in items | filter : { type : 'product'}">
 		<td class="text-right" width="40">
 			{{$index+1}}
 		</td>
 		<td>
-			{{productsMap[item.productId].code}}
+			{{item.id}} {{productsMap[item.productId].code}}
 		</td>
 		<td>
 			{{productsMap[item.productId].name}}

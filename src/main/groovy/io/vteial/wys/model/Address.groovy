@@ -5,17 +5,13 @@ import groovy.transform.Canonical
 import groovy.transform.Canonical
 import groovy.transform.ToString
 import groovyx.gaelyk.datastore.Entity
-import groovyx.gaelyk.datastore.Key
 
 @Entity(unindexed=false)
 @Canonical
 @ToString(includeNames=true)
-public class Address implements Serializable {
+public class Address extends AbstractModel {
 
 	final String ID_KEY = "addressId"
-
-	@Key
-	long id
 
 	String address
 

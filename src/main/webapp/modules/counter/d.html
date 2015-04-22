@@ -39,7 +39,7 @@
     	</div>				
 		<div>			
  			<strong><small>Balance&nbsp;&nbsp;&nbsp;</small></strong> 
- 			: {{receipt.customer.stock.handStock | number : 2}}
+ 			: {{receipt.customer.cashStock.handStock | number : 2}}
 		</div>
 	</div>	
 	<div class="col-md-2">
@@ -76,7 +76,7 @@
 			<select class="form-control input-sm" x-ng-model="tran.item"
 				x-ng-disabled="receipt.id != 0"
 				x-ng-change="onTransactionItem(tran)"
-				x-ng-options="stock.product.code + ' - ' + stock.product.name for stock in items">
+				x-ng-options="stock.product.code + ' - ' + stock.product.name for stock in items | filter : { type : 'product'}">
 	    	</select>
 		</td>
 		<td width="80" class="text-center">

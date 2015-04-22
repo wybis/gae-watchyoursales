@@ -15,18 +15,15 @@
 		<th class="text-center"><small>Id</small></th>
 	   	<th class="text-center"><small>Code</small></th>
 	   	<th class="text-center"><small>Name</small></th>
-	   	<th class="text-center"><small>Base Unit</small></th>
-	   	<th class="text-center"><small>Denominator</small></th>
 	   	<th class="text-center"><small>Buy Rate</small></th>
 	   	<th class="text-center"><small>Buy Percent</small></th>
 	   	<th class="text-center"><small>Sell Rate</small></th>
 	   	<th class="text-center"><small>Sell Percent</small></th>
-	   	<th class="text-center"><small>Status</small></th>
-	   	<th class="text-center"><small>Date</small></th>
+	   	<th class="text-center"><small>Hand Stock</small></th>
 	</tr>
 	</thead>
 	<tbody>
-	<tr x-ng-repeat="item in items">
+	<tr x-ng-repeat="item in items | filter : { type : 'product'}">
 		<td class="text-right" width="40">
 			{{$index+1}}
 		</td>
@@ -40,12 +37,6 @@
 			{{item.name}}
 		</td>
 		<td class="text-right">
-			{{item.baseUnit}}
-		</td>
-		<td class="text-right">
-			{{item.denominator}}
-		</td>	
-		<td class="text-right">
 			{{item.buyRate}}
 		</td>
 		<td class="text-right">
@@ -57,11 +48,8 @@
 		<td class="text-right">
 			{{item.sellPercent}}
 		</td>
-		<td>
-			{{item.status}}
-		</td>
-		<td width="160">
-			{{item.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}
+		<td class="text-right">
+			{{item.handStock | number : 2}}
 		</td>
 	</tr>
 	</tbody>

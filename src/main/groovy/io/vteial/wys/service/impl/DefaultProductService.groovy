@@ -1,23 +1,23 @@
 package io.vteial.wys.service.impl
 
 import groovyx.gaelyk.logging.GroovyLogger
-import io.vteial.wys.dto.SessionUserDto
-import io.vteial.wys.model.Agency
+import io.vteial.wys.model.Branch
 import io.vteial.wys.model.Product
+import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.ProductStatus
 import io.vteial.wys.model.constants.ProductType
+import io.vteial.wys.service.AccountService
 import io.vteial.wys.service.ProductService
-import io.vteial.wys.service.StockService
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
 class DefaultProductService extends AbstractService implements ProductService {
 
 	GroovyLogger log = new GroovyLogger(DefaultProductService.class.getName())
 
-	StockService stockService
+	AccountService accountService
 
 	@Override
-	public void add(SessionUserDto sessionUser, Product model)
+	public void add(User sessionUser, Product model)
 	throws ModelAlreadyExistException {
 
 		if(model.type == null) {
@@ -30,11 +30,11 @@ class DefaultProductService extends AbstractService implements ProductService {
 		model.prePersist(sessionUser.id)
 		model.save()
 
-		stockService.onProductCreate(sessionUser, model)
+		accountService.onProductCreate(sessionUser, model)
 	}
 
 	@Override
-	public void onAgencyCreate(SessionUserDto sessionUser, Agency agency) {
+	public void onBranchCreate(User sessionUser, Branch branch) {
 		Product model = new Product()
 
 		model.with {
@@ -47,7 +47,7 @@ class DefaultProductService extends AbstractService implements ProductService {
 			buyPercent = 1
 			sellRate = 1
 			sellPercent = 1
-			agencyId = agency.id
+			branchId = branch.id
 		}
 		this.add(sessionUser, model)
 
@@ -61,7 +61,7 @@ class DefaultProductService extends AbstractService implements ProductService {
 			buyPercent = 1
 			sellRate = 1
 			sellPercent = 1
-			agencyId = agency.id
+			branchId = branch.id
 		}
 		this.add(sessionUser, model)
 
@@ -75,7 +75,7 @@ class DefaultProductService extends AbstractService implements ProductService {
 			buyPercent = 1
 			sellRate = 1
 			sellPercent = 1
-			agencyId = agency.id
+			branchId = branch.id
 		}
 		this.add(sessionUser, model)
 
@@ -89,7 +89,7 @@ class DefaultProductService extends AbstractService implements ProductService {
 			buyPercent = 1
 			sellRate = 1
 			sellPercent = 1
-			agencyId = agency.id
+			branchId = branch.id
 		}
 		this.add(sessionUser, model)
 	}

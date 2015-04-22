@@ -9,12 +9,9 @@ import groovyx.gaelyk.datastore.Key
 @Entity(unindexed=false)
 @Canonical
 @ToString(includeNames=true)
-class Product implements Serializable {
+class Product extends AbstractModel {
 
 	static final String ID_KEY = "productId"
-
-	@Key
-	long id
 
 	String type
 
@@ -53,18 +50,10 @@ class Product implements Serializable {
 
 	String status
 
-	long agencyId
+	long branchId
 
 	@Ignore
-	Agency agency
-
-	long createBy
-
-	long updateBy
-
-	Date createTime
-
-	Date updateTime
+	Branch branch
 
 	String toString() {
 		StringBuilder sb = new StringBuilder(Product.class.getSimpleName())
@@ -79,12 +68,14 @@ class Product implements Serializable {
 		sb.append("virtualStockSell:${this.virtualStockSell}, ")
 		sb.append("availableStock:${this.availableStock}, ")
 		sb.append("availableStockAverage:${this.availableStockAverage}, ")
-		sb.append("agencyId:${this.agencyId} ")
+		sb.append("agencyId:${this.branchId} ")
 
 		sb.append(']')
 		return sb.toString()
 	}
 
+	// persistance operations
+	
 	void preUpdate(long updateBy) {
 		this.updateBy = updateBy
 		this.updateTime = new Date()
@@ -98,6 +89,8 @@ class Product implements Serializable {
 		this.updateTime = now
 	}
 
+	// domain operations
+	
 	double getBuyPercentageRate() {
 		double value = this.buyRate * (this.buyPercent / 100)
 		value = this.buyRate + value
@@ -207,7 +200,7 @@ class Product implements Serializable {
 		}
 	}
 
-	public void computeVirtualStockAverage(double unit, double rate) {
+	void computeVirtualStockAverage(double unit, double rate) {
 		// println("unit = " + unit)
 		// println("rate = " + rate)
 		// println("stockBuy = this.virtualStockBuy)
@@ -224,7 +217,7 @@ class Product implements Serializable {
 		this.virtualStockAverage = value5
 	}
 
-	public void revertVirtualStockAverage(double unit, double rate) {
+	void revertVirtualStockAverage(double unit, double rate) {
 		double vsb = this.virtualStockBuy - unit
 		if (vsb != 0) {
 			// println("unit = " + unit)

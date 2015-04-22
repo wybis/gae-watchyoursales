@@ -4,7 +4,9 @@ import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.dto.UserDto
-import io.vteial.wys.model.Agency
+import io.vteial.wys.model.Branch
+import io.vteial.wys.model.Product
+import io.vteial.wys.model.Account
 import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.UserStatus
 import io.vteial.wys.service.SessionService
@@ -61,16 +63,22 @@ SessionService {
 			throw new InvalidCredentialException()
 		}
 
+		aUser.cashStock = Account.get(aUser.cashStockId)
+		aUser.cashStock.product = Product.get(aUser.cashStock.productId)
+		aUser.profitStock = Account.get(aUser.profitStockId)
+		aUser.profitStock.product = Product.get(aUser.profitStock.productId)
+		aUser.agency = Branch.get(aUser.agencyId)
 		sessionUser = new SessionUserDto()
 		sessionUser.with {
-			id = aUser.id
 			userId = aUser.userId
 			firstName = aUser.firstName
 			lastName = aUser.lastName
 			roleId = aUser.roleId
 			type = aUser.type
+			id = aUser.id
+			user = aUser
 			agencyId = aUser.agencyId
-			agency = Agency.get(aUser.agencyId)
+			agency = aUser.agency
 		}
 
 		session.setAttribute(SESSION_USER_KEY, sessionUser)

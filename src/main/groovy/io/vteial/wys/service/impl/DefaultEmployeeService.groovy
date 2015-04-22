@@ -3,115 +3,117 @@ package io.vteial.wys.service.impl
 import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
-import io.vteial.wys.model.Agency
-import io.vteial.wys.model.Stock
+import io.vteial.wys.model.Branch
 import io.vteial.wys.model.User
-import io.vteial.wys.model.constants.StockType
 import io.vteial.wys.model.constants.UserType
-import io.vteial.wys.service.CustomerService
+import io.vteial.wys.service.AccountService
 import io.vteial.wys.service.EmployeeService
-import io.vteial.wys.service.StockService
-import io.vteial.wys.service.UserService
 import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
 @GaelykBindings
-class DefaultEmployeeService extends AbstractService implements EmployeeService {
+class DefaultEmployeeService extends DefaultUserService implements EmployeeService {
 
 	GroovyLogger log = new GroovyLogger(DefaultEmployeeService.class.getName())
 
-	UserService userService
+	AccountService accountService
 
-	CustomerService customerService
-
-	StockService stockService
+	//	@Override
+	//	public List<User> getMyEmployees(SessionUserDto sessionUser) {
+	//		List<User> models = []
+	//
+	//		if(sessionUser.roleId == Role.AGENCY_MANAGER) {
+	//			def entitys = datastore.execute {
+	//				from User.class.simpleName
+	//				where agencyId == sessionUser.agencyId
+	//				and type == UserType.EMPLOYEE
+	//			}
+	//
+	//			entitys.each { entity ->
+	//				User model = entity as User
+	//				model.cashStock = Account.get(model.cashStockId)
+	//				model.profitStock = Account.get(model.profitStockId)
+	//				models <<  model
+	//			}
+	//		}
+	//		else {
+	//			User model = User.get(sessionUserDto.id)
+	//			model.cashStock = Account.get(model.cashStockId)
+	//			model.profitStock = Account.get(model.profitStockId)
+	//			models << model
+	//		}
+	//
+	//		return models;
+	//	}
+	//
+	//	@Override
+	//	public List<User> getMyCustomers(SessionUserDto sessionUser) {
+	//		List<User> models = null
+	//
+	//		models = this.findByAgencyIdAndType(sessionUser.agencyId, UserType.CUSTOMER)
+	//
+	//		return models;
+	//	}
+	//
+	//	@Override
+	//	public List<User> getMyDealers(SessionUserDto sessionUser) {
+	//		List<User> models = null
+	//
+	//		models = this.findByAgencyIdAndType(sessionUser.agencyId, UserType.DEALER)
+	//
+	//		return models;
+	//	}
+	//
+	//	@Override
+	//	public Account getMyProductStockByProductCode(SessionUserDto sessionUser,
+	//			String productCode) {
+	//		Account model = null
+	//
+	//		model = accountService.findOneByAgencyIdAndEmployeeIdAndProductCode(sessionUser.agencyId, sessionUser.id, productCode)
+	//
+	//		return model
+	//	}
+	//
+	//
+	//	@Override
+	//	public Account getMyProductStockByProductId(SessionUserDto sessionUser,
+	//			long productId) {
+	//		Account model = null
+	//
+	//		model = accountService.findOneByEmployeeIdAndProductId(sessionUser.id, productId)
+	//
+	//		return model
+	//	}
+	//
+	//	@Override
+	//	public List<Account> getMyProductStocks(SessionUserDto sessionUser) {
+	//		List<Account> models = null
+	//
+	//		models = accountService.findByEmployeeIdAndType(sessionUser.id, AccountType.PRODUCT)
+	//
+	//		return models;
+	//	}
 
 	@Override
-	public List<User> getMyCustomers(SessionUserDto sessionUser) {
-		List<User> models = null
-
-		models = customerService.findByAgencyIdAndType(sessionUser.agencyId, UserType.CUSTOMER)
-
-		return models;
-	}
-
-	@Override
-	public List<User> getMyDealers(SessionUserDto sessionUser) {
-		List<User> models = null
-
-		models = customerService.findByAgencyIdAndType(sessionUser.agencyId, UserType.DEALER)
-
-		return models;
-	}
-
-	@Override
-	public Stock getMyCashStock(SessionUserDto sessionUser) {
-		Stock model = null
-
-		model = stockService.findOneByEmployeeIdAndType(sessionUser.id, StockType.CASH_EMPLOYEE)
-
-		return model
-	}
-
-	@Override
-	public Stock getMyProfitStock(SessionUserDto sessionUser) {
-		Stock model = null
-
-		model = stockService.findOneByEmployeeIdAndType(sessionUser.id, StockType.PROFIT_EMPLOYEE)
-
-		return model
-	}
-
-	@Override
-	public Stock getMyProductStockByProductCode(SessionUserDto sessionUser,
-			String productCode) {
-		Stock model = null
-
-		model = stockService.findOneByAgencyIdAndEmployeeIdAndProductCode(sessionUser.agencyId, sessionUser.id, productCode)
-
-		return model
-	}
-
-
-	@Override
-	public Stock getMyProductStockByProductId(SessionUserDto sessionUser,
-			long productId) {
-		Stock model = null
-
-		model = stockService.findOneByEmployeeIdAndProductId(sessionUser.id, productId)
-
-		return model
-	}
-
-	@Override
-	public List<Stock> getMyProductStocks(SessionUserDto sessionUser) {
-		List<Stock> models = null
-
-		models = stockService.findByEmployeeIdAndType(sessionUser.id, StockType.PRODUCT)
-
-		return models;
-	}
-
-	@Override
-	public void add(SessionUserDto sessionUser, User model)
+	public void add(User sessionUser, User model)
 	throws ModelAlreadyExistException {
 
 		model.type = UserType.EMPLOYEE
 		//model.agencyId = sessionUser.agencyId
 
-		userService.add(sessionUser, model)
+		super.add(sessionUser, model)
 
-		stockService.onEmployeeCreate(sessionUser, model)
+		accountService.onEmployeeCreate(sessionUser, model)
 	}
 
 	@Override
-	public void onAgencyCreate(SessionUserDto sessionUser, Agency agency) {
+	public void onBranchCreate(User sessionUser, Branch branch) {
 		User model = new User()
 
-		model.userId = agency.id + '@' + agency.name
+		model.userId = branch.id + '@' + branch.name
 		model.with {
-			firstName = agency.name
-			lastName = agency.id as String
-			agencyId = agency.id
+			firstName = branch.name
+			lastName = branch.id as String
+			branchId = branch.id
 		}
 
 		this.add(sessionUser, model)

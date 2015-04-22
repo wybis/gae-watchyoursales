@@ -6,7 +6,6 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 	$scope.empS = employeeService;
 
 	sessionService.properties();
-	employeeService.init()
 
 	$scope.showMenu = false;
 

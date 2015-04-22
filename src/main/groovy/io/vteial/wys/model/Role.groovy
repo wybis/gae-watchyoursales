@@ -8,41 +8,24 @@ import groovyx.gaelyk.datastore.Key
 @Entity(unindexed=false)
 @Canonical
 @ToString(includeNames=true)
-public class Role implements Serializable {
+public class Role extends AbstractModel {
 
-	static final String SYS_ADMIN = 'Sys Administrator'
+	static final String ID_MANAGER = 'manager'
 
-	static final String APP_ADMIN = 'App Administrator'
+	static final String ID_EMPLOYEE = 'employee'
 
-	static final String AGENCY_MANAGER = 'Manager'
+	static final String ID_CUSTOMER = 'customer'
 
-	static final String AGENCY_EMPLOYEE = 'Employee'
-
-	static final String AGNECY_CUSTOMER = 'Customer'
-
-	static final String AGNECY_DEALER = 'Dealer'
+	static final String ID_DEALER = 'dealer'
 
 	static final List<String> ROLES = [
-		SYS_ADMIN,
-		APP_ADMIN,
-		AGENCY_MANAGER,
-		AGENCY_EMPLOYEE,
-		AGNECY_CUSTOMER,
-		AGNECY_DEALER
+		ID_MANAGER,
+		ID_EMPLOYEE,
+		ID_CUSTOMER,
+		ID_DEALER
 	]
 
-	@Key
-	String id
-
 	String name
-
-	long createBy
-
-	long updateBy
-
-	Date createTime
-
-	Date updateTime
 
 	String toString() {
 		StringBuilder sb = new StringBuilder(AutoNumber.class.getSimpleName())
@@ -54,6 +37,8 @@ public class Role implements Serializable {
 		sb.append(']')
 		return sb.toString()
 	}
+
+	// persistance operations
 
 	void preUpdate(long updateBy) {
 		this.updateBy = updateBy
@@ -67,4 +52,6 @@ public class Role implements Serializable {
 		this.createTime = now;
 		this.updateTime = now;
 	}
+
+	// domain operations
 }

@@ -5,7 +5,7 @@ import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Order
 import io.vteial.wys.model.Product
-import io.vteial.wys.model.Stock
+import io.vteial.wys.model.Account
 import io.vteial.wys.model.Tran
 import io.vteial.wys.model.TranReceipt
 import io.vteial.wys.model.constants.OrderStatus
@@ -56,7 +56,7 @@ class DefaultTranService extends AbstractService implements TranService {
 			tran.order = order
 		}
 
-		Stock stock = Stock.get(tran.stockId)
+		Account stock = Account.get(tran.stockId)
 		tran.stock = stock
 
 		Product product = Product.get(stock.productId)

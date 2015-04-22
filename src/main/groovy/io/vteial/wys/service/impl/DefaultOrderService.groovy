@@ -6,7 +6,7 @@ import io.vteial.wys.dto.SessionUserDto
 import io.vteial.wys.model.Order
 import io.vteial.wys.model.OrderReceipt
 import io.vteial.wys.model.Product
-import io.vteial.wys.model.Stock
+import io.vteial.wys.model.Account
 import io.vteial.wys.model.Tran
 import io.vteial.wys.model.constants.OrderStatus
 import io.vteial.wys.model.constants.OrderType
@@ -44,7 +44,7 @@ class DefaultOrderService extends AbstractService implements OrderService {
 
 	private void addOrder(SessionUserDto sessionUser, Order order) throws OrderException {
 
-		Stock stock = Stock.get(order.stockId)
+		Account stock = Account.get(order.stockId)
 		order.stock = stock
 
 		Product product = Product.get(stock.productId)
@@ -84,7 +84,7 @@ class DefaultOrderService extends AbstractService implements OrderService {
 	@Override
 	public void onTransaction(SessionUserDto sessionUser, Tran tran) {
 
-		Stock stock = tran.stock
+		Account stock = tran.stock
 		if(tran.type == TransactionType.BUY) {
 			stock.withdrawVirtualStockBuy(tran.unit)
 		} else {

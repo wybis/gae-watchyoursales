@@ -49,7 +49,7 @@ function customerSearchController($rootScope, $scope, $log, $location,
 
 	$scope.select = function(customerId) {
 		var customer = employeeService.customersMap[customerId];
-		counterService.receipt.customer = customer
+		counterService.setCustomer(customer);
 		$scope.back();
 	};
 

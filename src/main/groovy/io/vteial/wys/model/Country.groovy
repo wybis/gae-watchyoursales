@@ -8,10 +8,7 @@ import groovyx.gaelyk.datastore.Key
 @Entity(unindexed=false)
 @Canonical
 @ToString(includeNames=true)
-public class Country implements Serializable {
-
-	@Key
-	String id
+public class Country extends AbstractModel {
 
 	String twoLetterCode
 
@@ -20,14 +17,6 @@ public class Country implements Serializable {
 	int numericCode
 
 	String name
-
-	long createBy
-
-	long updateBy
-
-	Date createTime
-
-	Date updateTime
 
 	String toString() {
 		StringBuilder sb = new StringBuilder(Country.class.getSimpleName())
@@ -39,6 +28,8 @@ public class Country implements Serializable {
 		return sb.toString()
 	}
 
+	// persistance operations
+	
 	void preUpdate(long updateBy) {
 		this.updateBy = updateBy
 		this.updateTime = new Date()

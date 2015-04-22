@@ -1,8 +1,8 @@
 package io.vteial.wys.service;
 
-import io.vteial.wys.dto.SessionUserDto
+import io.vteial.wys.model.User
 
 interface AutoNumberService {
 
-	long getNextNumber(SessionUserDto sessionUser, String key)
+	long getNextNumber(User sessionUser, String key)
 }

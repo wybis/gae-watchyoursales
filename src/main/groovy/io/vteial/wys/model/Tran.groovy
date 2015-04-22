@@ -9,12 +9,9 @@ import groovyx.gaelyk.datastore.Key
 @Entity(unindexed=false)
 @Canonical
 @ToString(includeNames=true)
-public class Tran implements Serializable {
+public class Tran extends AbstractModel {
 
 	static final String ID_KEY = "tranId"
-
-	@Key
-	long id
 
 	long receiptId
 
@@ -25,30 +22,29 @@ public class Tran implements Serializable {
 
 	String productCode
 
-	long stockId
+	long accountId
 
 	@Ignore
-	Stock stock
+	Account account
 
 	String type
 
-	@Ignore
 	long baseUnit
 
 	long unit
+	
+	long balanceUnit
 
 	double rate
+	
+	double averageRate
 
 	@Ignore
 	double amount
 
+	double balanceAmount
+	
 	Date date
-
-	@Ignore
-	double averageRate
-
-	@Ignore
-	double balanceUnit
 
 	String status
 
@@ -57,23 +53,22 @@ public class Tran implements Serializable {
 	@Ignore
 	Order order
 
+	long customerId
+
+	@Ignore
+	User customer
+
 	long employeeId
 
 	@Ignore
 	User employee
 
-	long agencyId
+	long branchId
 
 	@Ignore
-	Agency agency
+	Branch branch
 
-	long createBy
-
-	long updateBy
-
-	Date createTime
-
-	Date updateTime
+	// persistence operations
 
 	void preUpdate(long updateBy) {
 		this.updateBy = updateBy
@@ -88,9 +83,11 @@ public class Tran implements Serializable {
 		this.updateTime = now;
 	}
 
+	// domain operations
+
 	void computeAmount() {
 		if(this.rate == this.balanceUnit) {
-			this.amount = this.unit
+			this.amount = this.unit;
 		}
 		else {
 			double value = (this.rate / this.baseUnit);

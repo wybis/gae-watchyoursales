@@ -4,17 +4,13 @@ import groovy.transform.Canonical
 import groovy.transform.ToString
 import groovyx.gaelyk.datastore.Entity
 import groovyx.gaelyk.datastore.Ignore
-import groovyx.gaelyk.datastore.Key
 
 @Entity(unindexed=false)
 @Canonical
 @ToString(includeNames=true)
-public class User implements Serializable {
+public class User extends AbstractModel {
 
 	static final String ID_KEY = "userId"
-
-	@Key
-	long id
 
 	String userId
 
@@ -37,32 +33,35 @@ public class User implements Serializable {
 	@Ignore
 	Address address
 
-	String status
-
 	String type
+
+	String status
 
 	String roleId
 
 	@Ignore
 	Role role
 
-	long stockId
+	long branchId
 
 	@Ignore
-	Stock stock
+	Branch branch
 
-	long agencyId
+	long cashAccountId
 
 	@Ignore
-	Agency agency
+	Account cashAccount
 
-	long createBy
+	long profitAccountId
 
-	long updateBy
+	@Ignore
+	Account profitAccount
 
-	Date createTime
+	@Ignore
+	List<Long> accountIds
 
-	Date updateTime
+	@Ignore
+	List<Account> accounts
 
 	String toString() {
 		StringBuilder sb = new StringBuilder(User.class.getSimpleName())
@@ -77,6 +76,8 @@ public class User implements Serializable {
 		sb.append(']')
 		return sb.toString()
 	}
+
+	// persistance operations
 
 	void preUpdate(long updateBy) {
 		this.updateBy = updateBy

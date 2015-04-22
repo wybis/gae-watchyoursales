@@ -2,16 +2,12 @@ package io.vteial.wys.dto
 
 import groovy.transform.Canonical
 import groovy.transform.ToString
-import io.vteial.wys.model.Agency
+import io.vteial.wys.model.Branch
 import io.vteial.wys.model.User
 
 @Canonical
 @ToString(includeNames=true)
 class SessionUserDto implements Serializable {
-
-	long id
-	
-	User user
 
 	String userId
 
@@ -25,7 +21,11 @@ class SessionUserDto implements Serializable {
 
 	String roleId
 
+	long id
+
+	User user
+
 	long agencyId
 
-	Agency agency;
+	Branch agency;
 }

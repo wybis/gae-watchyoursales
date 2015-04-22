@@ -1,0 +1,73 @@
+{
+  "name": "Devi Pannai Service",
+  "products": [
+    {
+      "code": "MFC",
+      "name": "Urea - 50kg Bag",
+      "buyRate": 315.00,
+      "buyPercent": 10,
+      "sellRate": 320.00,
+      "sellPercent": 15
+    },
+    {
+      "code": "CFL",
+      "name": "Single Super Phosphate - 50kg Bag",
+      "buyRate": 400.00,
+      "buyPercent": 10,
+      "sellRate": 425.00,
+      "sellPercent": 25
+    },
+    {
+      "code": "MFC-98",
+      "name": "Zinc Sulphate - 1kg",
+      "buyRate": 58.00 ,
+      "buyPercent": 10,
+      "sellRate": 60.00 ,
+      "sellPercent": 12
+    },
+        {
+      "code": "SPIC",
+      "name": "Neem cake - 1kg",
+      "buyRate": 20.00,
+      "buyPercent": 10,
+      "sellRate": 30.00,
+      "sellPercent": 10
+    }
+  ],
+  "employees": [
+    {
+      "id": "karthi@dpservice",
+      "password": "1234",
+      "firstName": "Karthikeyan",
+      "roleId": "Manager"
+    },
+    {
+      "id": "kannan@dpservice",
+      "password": "1234",
+      "firstName": "Kannan",
+      "roleId": "Enployee"
+    },
+    {
+      "id": "mohan@dpservice",
+      "password": "1234",
+      "firstName": "Mohan",
+      "roleId": "Employee"
+    }
+  ],
+  "dealers": [
+    {
+      "firstName": "Sri Sakthi Fertilizers"
+    },
+    {
+      "firstName": "Mgm Agro Traders"
+    }
+  ],
+  "customers": [
+    {
+      "firstName": "Nandha Gopal"
+    },
+    {
+      "firstName": "Senthil Murugan"
+    }
+  ]
+}

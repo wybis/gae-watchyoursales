@@ -1,4 +1,4 @@
-function sessionService($log, $http, $q, employeeService) {
+function sessionService($log, $http, $q, $window, employeeService) {
 	var basePath = 'sessions';
 
 	var service = {
@@ -11,8 +11,7 @@ function sessionService($log, $http, $q, employeeService) {
 		var deferred = $q.defer();
 		$http.get(path).success(function(response) {
 			if (response.type === 0) {
-				_.assign(service.context, response.data);
-				identifyUserOrEmployee();
+				processSessionProperties(response.data);
 				deferred.resolve(response);
 			}
 			// $log.info(response);
@@ -23,43 +22,14 @@ function sessionService($log, $http, $q, employeeService) {
 		return deferred.promise;
 	};
 
-	service.login = function(user) {
-		var path = basePath + '/login';
-		
-		var deferred = $q.defer();
-		$http.post(path, user).success(function(response) {
-			if (response.type >= 0) {
-				if (response.type === 0) {
-					_.assign(service.context, response.data);
-					identifyUserOrEmployee();
-					employeeService.init()
-				}
-				deferred.resolve(response);
-			}
-			// $log.info(response);
-		}).error(function() {
-			deferred.reject("unable to authenticate...");
-		});
-
-		return deferred.promise;
-	};
-
-	service.logout = function() {
-		var path = basePath + '/logout';
-
-		var deferred = $q.defer();
-		$http.get(path).success(function(response) {
-			if (response.type === 0) {
-				_.assign(service.context, response.data);
-				deferred.resolve(response);
-			}
-			// $log.info(response);
-		}).error(function() {
-			deferred.reject("unable to logout...");
-		});
-
-		return deferred.promise;
-	};
+	function processSessionProperties(sesProps) {
+		$log.debug('processing session properties started...');
+		_.assign(service.context, sesProps);
+		identifyUserOrEmployee();
+		employeeService.updateSessionProperties(sesProps);
+		employeeService.init();
+		$log.debug('processing session properties finished...');
+	}
 
 	function identifyUserOrEmployee() {
 		if (!_.has(service.context.sessionUser, 'roleId')) {

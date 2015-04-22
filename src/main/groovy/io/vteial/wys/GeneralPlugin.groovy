@@ -1,7 +1,7 @@
 package io.vteial.wys
 
 import groovyx.gaelyk.plugins.PluginBaseScript
-import io.vteial.wys.service.impl.DefaultAgencyService
+import io.vteial.wys.service.impl.DefaultBranchService
 import io.vteial.wys.service.impl.DefaultAutoNumberService
 import io.vteial.wys.service.impl.DefaultCustomerService
 import io.vteial.wys.service.impl.DefaultDealerService
@@ -9,7 +9,7 @@ import io.vteial.wys.service.impl.DefaultEmployeeService
 import io.vteial.wys.service.impl.DefaultOrderService
 import io.vteial.wys.service.impl.DefaultProductService
 import io.vteial.wys.service.impl.DefaultSessionService
-import io.vteial.wys.service.impl.DefaultStockService
+import io.vteial.wys.service.impl.DefaultAccountService
 import io.vteial.wys.service.impl.DefaultTranService
 import io.vteial.wys.service.impl.DefaultUserService
 
@@ -28,35 +28,32 @@ class GeneralPlugin extends PluginBaseScript {
 		DefaultUserService usrS = new DefaultUserService()
 		usrS.autoNumberService = anS
 
-		DefaultStockService stkS = new DefaultStockService()
-		stkS.autoNumberService = anS
+		DefaultAccountService actS = new DefaultAccountService()
+		actS.autoNumberService = anS
 
 		DefaultProductService prdS = new DefaultProductService()
 		prdS.autoNumberService = anS
-		prdS.stockService = stkS
-
-		DefaultDealerService dlrS = new DefaultDealerService()
-		dlrS.autoNumberService = anS
-		dlrS.userService = usrS
-		dlrS.stockService = stkS
-
-		DefaultCustomerService cusS = new DefaultCustomerService()
-		cusS.autoNumberService = anS
-		cusS.userService = usrS
-		cusS.stockService = stkS
+		prdS.accountService = actS
 
 		DefaultEmployeeService empS = new DefaultEmployeeService()
 		empS.autoNumberService = anS
-		empS.userService = usrS
-		empS.customerService = cusS
-		empS.stockService = stkS
+		empS.accountService = actS
 
-		DefaultAgencyService agnS = new DefaultAgencyService()
-		agnS.autoNumberService = anS
-		agnS.productService = prdS
-		agnS.employeeService = empS
-		agnS.dealerService = dlrS
-		agnS.customerService = cusS
+		DefaultDealerService dlrS = new DefaultDealerService()
+		dlrS.autoNumberService = anS
+		dlrS.accountService = actS
+
+		DefaultCustomerService cusS = new DefaultCustomerService()
+		cusS.autoNumberService = anS
+		cusS.accountService = actS
+
+
+		DefaultBranchService bchS = new DefaultBranchService()
+		bchS.autoNumberService = anS
+		bchS.productService = prdS
+		bchS.employeeService = empS
+		bchS.dealerService = dlrS
+		bchS.customerService = cusS
 
 		DefaultOrderService ordS = new DefaultOrderService()
 		ordS.autoNumberService = anS
@@ -71,10 +68,9 @@ class GeneralPlugin extends PluginBaseScript {
 			jsonObjectMapper  = JacksonCategory.jsonObjectMapper
 			sessionService    = sesS
 			autoNumberService = anS
-			agencyService     = agnS
-			usrService        = usrS
+			branchService     = bchS
+			accountService    = actS
 			productService    = prdS
-			stockService      = stkS
 			employeeService   = empS
 			dealerService     = dlrS
 			customerService   = cusS

@@ -13,8 +13,6 @@ appControllers.controller('rootController', rootController);
 var dependents = [ 'ngRoute', 'ngSanitize' ];
 dependents.push('ngStorage');
 dependents.push('green.inputmask4angular');
-// dependents.push('ngInputDate');
-// dependents.push('ngNotify');
 dependents.push('ngAside');
 dependents.push('ui.select');
 dependents.push('ui.bootstrap');

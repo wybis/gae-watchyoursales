@@ -23,13 +23,13 @@ function loginController($rootScope, $scope, $log, $window, $sessionStorage,
 				$window.location = 'home-d.html';
 			}
 			// $log.info(response);
-		}).error(function() {
-			deferred.reject("unable to login...");
+		}).error(function(error) {
+			$log.debug("unable to login...");
 		});
 	}
 	$scope.signin = signin;
 
-		$timeout(function() {
+	$timeout(function() {
 		$log.info('Before signin...');
 		$scope.user.userId = 'munmin2000@maxmoney';
 		$scope.signin();
