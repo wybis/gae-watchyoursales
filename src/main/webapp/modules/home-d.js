@@ -1,11 +1,11 @@
 function rootController($scope, $log, $window, $rootScope, sessionService,
-		employeeService, $aside) {
+		$aside) {
 
 	$rootScope.sessionContext = sessionService.context;
 
-	$scope.empS = employeeService;
-
 	sessionService.properties();
+
+	$scope.empS = employeeService;
 
 	$scope.showMenu = false;
 

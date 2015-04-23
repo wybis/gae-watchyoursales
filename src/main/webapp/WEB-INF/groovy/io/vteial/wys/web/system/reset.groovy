@@ -1,6 +1,6 @@
 package io.vteial.wys.web.system;
 
-import io.vteial.wys.dto.SessionUserDto
+import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Role
 import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.UserStatus
@@ -8,7 +8,7 @@ import io.vteial.wys.model.constants.UserStatus
 println 'reset started...'
 
 try {
-	SessionUserDto sessionUser = new SessionUserDto()
+	SessionDto sessionUser = new SessionDto()
 	sessionUser.id = 'system'
 	sessionUser.roleId = Role.SYS_ADMIN
 

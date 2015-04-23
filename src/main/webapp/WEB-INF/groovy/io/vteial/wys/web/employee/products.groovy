@@ -1,14 +1,14 @@
 package io.vteial.wys.web.employee
 
 import io.vteial.wys.dto.ResponseDto
-import io.vteial.wys.dto.SessionUserDto
+import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Product
 import io.vteial.wys.model.constants.ProductType
 import io.vteial.wys.service.SessionService
 
 ResponseDto responseDto = new ResponseDto()
 
-SessionUserDto sessionUserDto = session[SessionService.SESSION_USER_KEY]
+SessionDto sessionUserDto = session[SessionService.SESSION_USER_KEY]
 
 def entitys = datastore.execute {
 	from Product.class.simpleName

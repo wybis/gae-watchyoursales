@@ -2,7 +2,7 @@ package io.vteial.wys.service.impl
 
 import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
-import io.vteial.wys.dto.SessionUserDto
+import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Order
 import io.vteial.wys.model.OrderReceipt
 import io.vteial.wys.model.Product
@@ -20,7 +20,7 @@ class DefaultOrderService extends AbstractService implements OrderService {
 	GroovyLogger log = new GroovyLogger(DefaultOrderService.class.getName())
 
 	@Override
-	public void add(SessionUserDto sessionUser, OrderReceipt receipt) throws OrderException {
+	public void add(SessionDto sessionUser, OrderReceipt receipt) throws OrderException {
 
 		Date now = new Date()
 		receipt.id = autoNumberService.getNextNumber(sessionUser, OrderReceipt.ID_KEY)
@@ -42,7 +42,7 @@ class DefaultOrderService extends AbstractService implements OrderService {
 		receipt.save()
 	}
 
-	private void addOrder(SessionUserDto sessionUser, Order order) throws OrderException {
+	private void addOrder(SessionDto sessionUser, Order order) throws OrderException {
 
 		Account stock = Account.get(order.stockId)
 		order.stock = stock
@@ -82,7 +82,7 @@ class DefaultOrderService extends AbstractService implements OrderService {
 	}
 
 	@Override
-	public void onTransaction(SessionUserDto sessionUser, Tran tran) {
+	public void onTransaction(SessionDto sessionUser, Tran tran) {
 
 		Account stock = tran.stock
 		if(tran.type == TransactionType.BUY) {

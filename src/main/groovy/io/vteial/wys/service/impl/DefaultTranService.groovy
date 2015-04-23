@@ -2,7 +2,7 @@ package io.vteial.wys.service.impl
 
 import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
-import io.vteial.wys.dto.SessionUserDto
+import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Order
 import io.vteial.wys.model.Product
 import io.vteial.wys.model.Account
@@ -23,7 +23,7 @@ class DefaultTranService extends AbstractService implements TranService {
 	OrderService orderService;
 
 	@Override
-	public void add(SessionUserDto sessionUser, TranReceipt receipt) throws TransactionException {
+	public void add(SessionDto sessionUser, TranReceipt receipt) throws TransactionException {
 
 		Date now = new Date()
 		receipt.id = autoNumberService.getNextNumber(sessionUser, TranReceipt.ID_KEY)
@@ -45,7 +45,7 @@ class DefaultTranService extends AbstractService implements TranService {
 		receipt.save()
 	}
 
-	private void addTransaction(SessionUserDto sessionUser, Tran tran) throws TransactionException {
+	private void addTransaction(SessionDto sessionUser, Tran tran) throws TransactionException {
 
 		if(tran.orderId > 0) {
 			Order order = Order.get(tran.orderId)

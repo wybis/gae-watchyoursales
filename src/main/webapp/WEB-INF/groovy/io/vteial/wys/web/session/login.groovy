@@ -1,7 +1,7 @@
 package io.vteial.wys.web.session
 
 import io.vteial.wys.dto.ResponseDto
-import io.vteial.wys.dto.SessionUserDto
+import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.dto.UserDto
 import io.vteial.wys.service.exceptions.InvalidCredentialException
 
@@ -10,7 +10,7 @@ request.responseDto = responseDto
 
 UserDto userDto = jsonCategory.parseJson(request, UserDto.class)
 try {
-	SessionUserDto sessionUserDto = sessionService.login(session, userDto)
+	SessionDto sessionUserDto = sessionService.login(session, userDto)
 	responseDto.data = sessionService.properties(session)
 	responseDto.type = 0
 	responseDto.message = 'Successfully logged in...'

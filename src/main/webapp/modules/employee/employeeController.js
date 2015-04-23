@@ -1,10 +1,10 @@
-function employeeController($rootScope, $scope, $log, employeeService) {
+function employeeController($rootScope, $scope, $log, sessionService) {
 	$rootScope.viewName = 'Employees';
 
-	$scope.items = employeeService.employees;
+	$scope.items = sessionService.employees;
 
 	$scope.refresh = function() {
-		employeeService.getMyEmployees();
+		sessionService.getEmployees();
 	};
 
 	$scope.bottomReached = function() {

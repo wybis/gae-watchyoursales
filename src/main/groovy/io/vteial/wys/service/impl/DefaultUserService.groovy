@@ -15,12 +15,12 @@ class DefaultUserService extends AbstractService implements UserService {
 	GroovyLogger log = new GroovyLogger(DefaultUserService.class.getName())
 
 	@Override
-	public List<User> findByAgencyIdAndType(long customerAgencyId, String customerType) {
+	public List<User> findByBranchIdAndType(long userBranchId, String customerType) {
 		List<User> models = []
 
 		def entitys = datastore.execute {
 			from User.class.simpleName
-			where agencyId == customerAgencyId
+			where branchId == userBranchId
 			and type == customerType
 		}
 

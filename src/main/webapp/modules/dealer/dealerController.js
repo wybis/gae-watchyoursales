@@ -1,10 +1,10 @@
-function dealerController($rootScope, $scope, $log, employeeService) {
+function dealerController($rootScope, $scope, $log, sessionService) {
 	$rootScope.viewName = 'Dealers';
 
-	$scope.items = employeeService.dealers;
+	$scope.items = sessionService.dealers;
 
 	$scope.refresh = function() {
-		employeeService.getMyDealers();
+		sessionService.getDealers();
 	};
 
 	$scope.bottomReached = function() {

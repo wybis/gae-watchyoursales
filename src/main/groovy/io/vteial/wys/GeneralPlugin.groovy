@@ -1,15 +1,15 @@
 package io.vteial.wys
 
 import groovyx.gaelyk.plugins.PluginBaseScript
-import io.vteial.wys.service.impl.DefaultBranchService
+import io.vteial.wys.service.impl.DefaultAccountService
 import io.vteial.wys.service.impl.DefaultAutoNumberService
+import io.vteial.wys.service.impl.DefaultBranchService
 import io.vteial.wys.service.impl.DefaultCustomerService
 import io.vteial.wys.service.impl.DefaultDealerService
 import io.vteial.wys.service.impl.DefaultEmployeeService
 import io.vteial.wys.service.impl.DefaultOrderService
 import io.vteial.wys.service.impl.DefaultProductService
 import io.vteial.wys.service.impl.DefaultSessionService
-import io.vteial.wys.service.impl.DefaultAccountService
 import io.vteial.wys.service.impl.DefaultTranService
 import io.vteial.wys.service.impl.DefaultUserService
 
@@ -21,15 +21,16 @@ class GeneralPlugin extends PluginBaseScript {
 
 		DefaultAutoNumberService anS = new DefaultAutoNumberService()
 
-		DefaultSessionService sesS = new DefaultSessionService()
-		sesS.autoNumberService = anS
-		sesS.appUserService = users
-
 		DefaultUserService usrS = new DefaultUserService()
 		usrS.autoNumberService = anS
 
 		DefaultAccountService actS = new DefaultAccountService()
 		actS.autoNumberService = anS
+
+		DefaultSessionService sesS = new DefaultSessionService()
+		sesS.autoNumberService = anS
+		sesS.userService = usrS
+		sesS.appUserService = users
 
 		DefaultProductService prdS = new DefaultProductService()
 		prdS.autoNumberService = anS
@@ -46,7 +47,6 @@ class GeneralPlugin extends PluginBaseScript {
 		DefaultCustomerService cusS = new DefaultCustomerService()
 		cusS.autoNumberService = anS
 		cusS.accountService = actS
-
 
 		DefaultBranchService bchS = new DefaultBranchService()
 		bchS.autoNumberService = anS

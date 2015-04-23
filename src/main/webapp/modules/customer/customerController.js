@@ -1,10 +1,10 @@
-function customerController($rootScope, $scope, $log, employeeService) {
+function customerController($rootScope, $scope, $log, sessionService) {
 	$rootScope.viewName = 'Customers';
 
-	$scope.items = employeeService.customers;
+	$scope.items = sessionService.customers;
 
 	$scope.refresh = function() {
-		employeeService.getMyCustomers();
+		sessionService.getCustomers();
 	};
 
 	$scope.bottomReached = function() {

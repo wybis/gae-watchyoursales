@@ -1,8 +1,107 @@
-function sessionService($log, $http, $q, $window, employeeService) {
+function sessionService($log, $http, $q) {
 	var basePath = 'sessions';
 
 	var service = {
-		context : {}
+		context : {},
+		products : [],
+		productsMap : {},
+		dealers : [],
+		dealersMap : {},
+		customers : [],
+		customersMap : {},
+		employees : [],
+		employeesMap : {},
+		accounts : [],
+		accountsMap : {}
+	};
+
+	function addOrUpdateCacheY(propName, objectx) {
+		var objectsLst = service[propName]
+		var objectsMap = service[propName + 'Map'];
+		var object = objectsMap[objectx.id];
+		if (object) {
+			_.assign(object, objectx);
+		} else {
+			objectsLst.push(objectx);
+			objectsMap[objectx.id] = objectx;
+		}
+	}
+
+	function processCustomers(items) {
+		$log.debug('processing customers started...')
+		_.forEach(items, function(objectx) {
+			addOrUpdateCacheY('customers', objectx);
+			addOrUpdateCacheY('accounts', objectx.cashAccount);
+			addOrUpdateCacheY('products', objectx.cashAccount.product);
+		});
+		$log.debug('processing customers finished...')
+	}
+
+	service.getCustomers = function() {
+		var path = basePath + '/customers';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				processCustomers(response.data);
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
+	};
+
+	function processDealers(items) {
+		$log.debug('processing dealers started...')
+		_.forEach(items, function(objectx) {
+			addOrUpdateCacheY('dealers', objectx);
+			addOrUpdateCacheY('accounts', objectx.cashAccount);
+			addOrUpdateCacheY('products', objectx.cashAccount.product);
+		});
+		$log.debug('processing dealers finished...')
+	}
+
+	service.getDealers = function() {
+		var path = basePath + '/dealers';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				processDealers(response.data);
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
+	};
+
+	function processEmployees(items) {
+		$log.debug('processing employees started...')
+		_.forEach(items, function(objectx) {
+			addOrUpdateCacheY('employees', objectx);
+			addOrUpdateCacheY('accounts', objectx.cashAccount);
+			addOrUpdateCacheY('products', objectx.cashAccount.product);
+			// addOrUpdateCacheY('accounts', objectx.profitAccount);
+			// addOrUpdateCacheY('products', objectx.profitAccount.product);
+		});
+		$log.debug('processing employees finished...')
+	}
+
+	service.getEmployees = function() {
+		var path = basePath + '/employees';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				processEmployees(response.data);
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
 	};
 
 	service.properties = function() {
@@ -25,23 +124,7 @@ function sessionService($log, $http, $q, $window, employeeService) {
 	function processSessionProperties(sesProps) {
 		$log.debug('processing session properties started...');
 		_.assign(service.context, sesProps);
-		identifyUserOrEmployee();
-		employeeService.updateSessionProperties(sesProps);
-		employeeService.init();
 		$log.debug('processing session properties finished...');
-	}
-
-	function identifyUserOrEmployee() {
-		if (!_.has(service.context.sessionUser, 'roleId')) {
-			return;
-		}
-		var roleId = service.context.sessionUser.roleId;
-		if (_.startsWith(roleId, 'Sys ') || _.startsWith(roleId, 'App ')) {
-			service.context.sessionUser.isAppUser = true;
-		} else {
-			service.context.sessionUser.isAppUser = false;
-		}
-		$log.info("isAppUser : " + service.context.sessionUser.isAppUser);
 	}
 
 	return service;

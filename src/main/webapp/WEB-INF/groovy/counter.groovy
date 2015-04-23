@@ -1,5 +1,5 @@
 import io.vteial.wys.dto.ResponseDto
-import io.vteial.wys.dto.SessionUserDto
+import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Tran
 import io.vteial.wys.model.TranReceipt
 import io.vteial.wys.model.User
@@ -8,7 +8,7 @@ import io.vteial.wys.service.SessionService
 
 ResponseDto responseDto = new ResponseDto(type : 0, message : 'success...')
 
-SessionUserDto sessionUserDto = session[SessionService.SESSION_USER_KEY]
+SessionDto sessionUserDto = session[SessionService.SESSION_USER_KEY]
 
 try {
 	TranReceipt tranReceipt = jsonCategory.parseJson(request, TranReceipt.class)

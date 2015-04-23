@@ -4,13 +4,12 @@ import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.dto.UserDto
+import io.vteial.wys.model.Branch
+import io.vteial.wys.model.Product
 import io.vteial.wys.model.Account
-import io.vteial.wys.model.Role
 import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.UserStatus
-import io.vteial.wys.model.constants.UserType
 import io.vteial.wys.service.SessionService
-import io.vteial.wys.service.UserService
 import io.vteial.wys.service.exceptions.InvalidCredentialException
 import io.vteial.wys.service.exceptions.ModelNotFoundException
 
@@ -22,8 +21,6 @@ SessionService {
 
 	GroovyLogger log = new GroovyLogger(DefaultSessionService.class.getName())
 
-	UserService userService
-
 	Map<String, Object> app = [:]
 
 	com.google.appengine.api.users.UserService appUserService
@@ -33,9 +30,9 @@ SessionService {
 		def props             = this.app.clone()
 
 		props.localMode       = localMode
-		props.sessionDto      = session.getAttribute(SESSION_USER_KEY)
-		props.sessionId       = session.id
 		props.applicationUser = user
+		props.sessionDto      = session.sessionDto
+		props.sessionId       = session.id
 
 		return props;
 	}
@@ -47,7 +44,7 @@ SessionService {
 	@Override
 	public SessionDto login(HttpSession session, UserDto userDto)
 	throws InvalidCredentialException {
-		SessionDto sessionDto = null
+		SessionDto sessionUser = null
 
 		def entitys = datastore.execute {
 			from User.class.simpleName
@@ -66,20 +63,27 @@ SessionService {
 			throw new InvalidCredentialException()
 		}
 
-		sessionDto = new SessionDto()
-		sessionDto.with {
-			id = aUser.id
+		aUser.cashStock = Account.get(aUser.cashStockId)
+		aUser.cashStock.product = Product.get(aUser.cashStock.productId)
+		aUser.profitStock = Account.get(aUser.profitStockId)
+		aUser.profitStock.product = Product.get(aUser.profitStock.productId)
+		aUser.agency = Branch.get(aUser.agencyId)
+		sessionUser = new SessionDto()
+		sessionUser.with {
 			userId = aUser.userId
 			firstName = aUser.firstName
 			lastName = aUser.lastName
-			type = aUser.type
 			roleId = aUser.roleId
-			branchId = aUser.branchId
+			type = aUser.type
+			id = aUser.id
+			user = aUser
+			agencyId = aUser.agencyId
+			agency = aUser.agency
 		}
 
-		session.setAttribute(SESSION_USER_KEY, sessionDto)
+		session.setAttribute(SESSION_USER_KEY, sessionUser)
 
-		return sessionDto
+		return sessionUser
 	}
 
 	@Override
@@ -95,58 +99,5 @@ SessionService {
 	@Override
 	public void changePassword(SessionDto sessionUser, UserDto userDto)
 	throws ModelNotFoundException, InvalidCredentialException {
-	}
-
-	@Override
-	public List<User> employees(SessionDto sessionUser) {
-		List<User> models = []
-
-		//		if(sessionUser.roleId == Role.ID_MANAGER) {
-		//			def entitys = datastore.execute {
-		//				from User.class.simpleName
-		//				where branchId == sessionUser.branchId
-		//				and type == UserType.EMPLOYEE
-		//			}
-		//
-		//			entitys.each { entity ->
-		//				User model = entity as User
-		//				model.cashAccount = Account.get(model.cashAccountId)
-		//				model.profitAccount = Account.get(model.profitAccountId)
-		//				models <<  model
-		//			}
-		//		}
-		//		else {
-		//			User model = User.get(sessionUser.id)
-		//			model.cashAccount = Account.get(model.cashAccountId)
-		//			model.profitAccount = Account.get(model.profitAccountId)
-		//			models << model
-		//		}
-
-		models = this.userService.findByBranchIdAndType(sessionUser.branchId, UserType.EMPLOYEE)
-
-		return models;
-	}
-
-	@Override
-	public List<User> customers(SessionDto sessionUser) {
-		List<User> models = null
-
-		models = this.userService.findByBranchIdAndType(sessionUser.branchId, UserType.CUSTOMER)
-
-		return models;
-	}
-
-	@Override
-	public List<User> dealers(SessionDto sessionUser) {
-		List<User> models = null
-
-		models = this.userService.findByBranchIdAndType(sessionUser.branchId, UserType.DEALER)
-
-		return models;
-	}
-
-	@Override
-	public List<Account> stocksAndProducts(SessionDto sessionUser) {
-		return null;
 	}
 }

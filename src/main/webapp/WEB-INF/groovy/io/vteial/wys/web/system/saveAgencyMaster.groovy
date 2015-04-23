@@ -1,6 +1,6 @@
 package io.vteial.wys.web.system;
 
-import io.vteial.wys.dto.SessionUserDto
+import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.dto.UserDto
 import io.vteial.wys.model.Branch
 import io.vteial.wys.model.Product
@@ -11,7 +11,7 @@ println 'saving agency master started...'
 
 try {
 
-	SessionUserDto sessionUser = new SessionUserDto()
+	SessionDto sessionUser = new SessionDto()
 	sessionUser.userId = 'sadmin'
 	sessionUser.roleId = Role.SYS_ADMIN
 
@@ -19,7 +19,7 @@ try {
 
 	agencyService.add(sessionUser, agency)
 
-	sessionUser = new SessionUserDto()
+	sessionUser = new SessionDto()
 	sessionUser.id = agency.employees[0].id
 	sessionUser.roleId = agency.employees[0].roleId
 

@@ -5,7 +5,7 @@ import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
 interface UserService {
 
-	List<User> findByAgencyIdAndType(long agencyId, String type);
+	List<User> findByBranchIdAndType(long branchId, String type);
 
 	void add(User sessionUser, User user) throws ModelAlreadyExistException
 }
