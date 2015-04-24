@@ -5,6 +5,8 @@ function sessionService($log, $http, $q) {
 		context : {},
 		products : [],
 		productsMap : {},
+		stocks : [],
+		stocksMap : {},
 		dealers : [],
 		dealersMap : {},
 		customers : [],
@@ -26,6 +28,31 @@ function sessionService($log, $http, $q) {
 			objectsMap[objectx.id] = objectx;
 		}
 	}
+
+	function processStocks(stocks) {
+		$log.debug('processing stocks started...')
+		_.forEach(stocks, function(objectx) {
+			addOrUpdateCacheY('stocks', objectx);
+			addOrUpdateCacheY('products', objectx.product);
+		});
+		$log.debug('processing stocks finished...')
+	}
+
+	service.getStocks = function() {
+		var path = basePath + '/stocks';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				processStocks(response.data);
+				// service.computeStockWorth();
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
+	};
 
 	function processCustomers(items) {
 		$log.debug('processing customers started...')

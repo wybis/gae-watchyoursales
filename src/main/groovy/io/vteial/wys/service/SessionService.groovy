@@ -33,6 +33,6 @@ public interface SessionService {
 	List<User> customers(SessionDto sessionUser)
 
 	List<User> dealers(SessionDto sessionUser)
-	
-	List<Account> stocksAndProducts(SessionDto sessionUser)
+
+	List<Account> stocks(SessionDto sessionUser)
 }

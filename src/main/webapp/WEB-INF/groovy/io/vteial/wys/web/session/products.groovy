@@ -1,4 +1,4 @@
-package io.vteial.wys.web.employee
+package io.vteial.wys.web.session
 
 import io.vteial.wys.dto.ResponseDto
 import io.vteial.wys.dto.SessionDto
@@ -8,11 +8,11 @@ import io.vteial.wys.service.SessionService
 
 ResponseDto responseDto = new ResponseDto()
 
-SessionDto sessionUserDto = session[SessionService.SESSION_USER_KEY]
+SessionDto sessionDto = session[SessionService.SESSION_USER_KEY]
 
 def entitys = datastore.execute {
 	from Product.class.simpleName
-	where agencyId == sessionUserDto.agencyId
+	where branchId == sessionDto.branchId
 	and type != ProductType.PROFIT_EMPLOYEE
 }
 

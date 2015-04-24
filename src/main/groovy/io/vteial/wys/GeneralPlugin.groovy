@@ -29,6 +29,7 @@ class GeneralPlugin extends PluginBaseScript {
 
 		DefaultSessionService sesS = new DefaultSessionService()
 		sesS.autoNumberService = anS
+		sesS.accountService = actS
 		sesS.userService = usrS
 		sesS.appUserService = users
 

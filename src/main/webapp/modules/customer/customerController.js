@@ -18,7 +18,7 @@ function customerController($rootScope, $scope, $log, sessionService) {
 appControllers.controller('customerController', customerController);
 
 function customerViewController($rootScope, $scope, $log, $location,
-		employeeService) {
+		sessionService) {
 	$rootScope.viewName = 'View Customer';
 
 	$scope.back = function() {
@@ -30,7 +30,7 @@ function customerViewController($rootScope, $scope, $log, $location,
 appControllers.controller('customerViewController', customerViewController);
 
 function customerEditController($rootScope, $scope, $log, $location,
-		employeeService) {
+		sessionService) {
 	$rootScope.viewName = 'Edit Customer';
 
 	$scope.back = function() {
@@ -42,13 +42,13 @@ function customerEditController($rootScope, $scope, $log, $location,
 appControllers.controller('customerEditController', customerEditController);
 
 function customerSearchController($rootScope, $scope, $log, $location,
-		employeeService, counterService) {
+		sessionService, counterService) {
 	$rootScope.viewName = 'Search Customer';
 
-	$scope.items = employeeService.customers;
+	$scope.items = sessionService.customers;
 
 	$scope.select = function(customerId) {
-		var customer = employeeService.customersMap[customerId];
+		var customer = sessionService.customersMap[customerId];
 		counterService.setCustomer(customer);
 		$scope.back();
 	};
@@ -58,7 +58,7 @@ function customerSearchController($rootScope, $scope, $log, $location,
 	};
 
 	$scope.refresh = function() {
-		employeeService.getMyCustomers();
+		sessionService.getCustomers();
 	};
 
 	$scope.bottomReached = function() {

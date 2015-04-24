@@ -16,43 +16,43 @@ class DefaultAccountService extends AbstractService implements AccountService {
 
 	GroovyLogger log = new GroovyLogger(DefaultAccountService.class.getName())
 
-	//	@Override
-	//	public List<Account> findByEmployeeId(long stockEmployeeId) {
-	//		List<Account> models = []
-	//
-	//		def entitys = datastore.execute {
-	//			from Account.class.simpleName
-	//			where userId == stockEmployeeId
-	//		}
-	//
-	//		entitys.each { entity ->
-	//			Account model = entity as Account
-	//			model.product = Product.get(model.productId)
-	//			models <<  model
-	//		}
-	//
-	//		return models;
-	//	}
-	//
-	//	@Override
-	//	public List<Account> findByEmployeeIdAndType(long stockEmployeeId, String stockType) {
-	//		List<Account> models = []
-	//
-	//		def entitys = datastore.execute {
-	//			from Account.class.simpleName
-	//			where userId == stockEmployeeId
-	//			and type == stockType
-	//		}
-	//
-	//		entitys.each { entity ->
-	//			Account model = entity as Account
-	//			model.product = Product.get(model.productId)
-	//			models <<  model
-	//		}
-	//
-	//		return models;
-	//	}
-	//
+	@Override
+	public List<Account> findByUserId(long auserId) {
+		List<Account> models = []
+
+		def entitys = datastore.execute {
+			from Account.class.simpleName
+			where userId == auserId
+		}
+
+		entitys.each { entity ->
+			Account model = entity as Account
+			model.product = Product.get(model.productId)
+			models <<  model
+		}
+
+		return models;
+	}
+
+	@Override
+	public List<Account> findByUserIdAndType(long auserId, String stockType) {
+		List<Account> models = []
+
+		def entitys = datastore.execute {
+			from Account.class.simpleName
+			where userId == auserId
+			and type == stockType
+		}
+
+		entitys.each { entity ->
+			Account model = entity as Account
+			model.product = Product.get(model.productId)
+			models <<  model
+		}
+
+		return models;
+	}
+
 	//	@Override
 	//	public Account findOneByEmployeeIdAndType(long stockEmployeeId, String stockType) {
 	//		List<Account> models = []

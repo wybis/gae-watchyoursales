@@ -1,7 +1,8 @@
-function productController($rootScope, $scope, $log, employeeService) {
+function productController($rootScope, $scope, $log, sessionService) {
+	$log.debug('productController...');
 	$rootScope.viewName = 'Products';
 
-	$scope.items = employeeService.products;
+	$scope.items = sessionService.products;
 
 	$scope.refresh = function() {
 		$log.info('yet to implement...');
@@ -11,6 +12,6 @@ function productController($rootScope, $scope, $log, employeeService) {
 		$log.info('bottom reached...');
 	}
 
-	$log.debug('productController...');
+	$scope.refresh();
 }
 appControllers.controller('productController', productController);

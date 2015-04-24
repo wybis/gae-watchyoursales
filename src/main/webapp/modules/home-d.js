@@ -4,8 +4,9 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 	$rootScope.sessionContext = sessionService.context;
 
 	sessionService.properties();
+	sessionService.getStocks();
 
-	$scope.empS = employeeService;
+	$scope.sesService = sessionService;
 
 	$scope.showMenu = false;
 
@@ -110,6 +111,12 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/transfer', {
+		templateUrl : 'modules/transfer/d.html',
+		controller : 'transferController',
+		reloadOnSearch : false
+	});
+
 	$routeProvider.when('/users', {
 		templateUrl : 'modules/user/d.html',
 		controller : 'userController',
@@ -194,84 +201,102 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
-	// -----------------------------------------------------------------------//
-	$routeProvider.when('/agencys', {
-		templateUrl : 'modules/agency/d.html',
-		controller : 'agencyController',
+	$routeProvider.when('/ledgers', {
+		templateUrl : 'modules/ledger/d.html',
+		controller : 'ledgerController',
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/agencys/:id/accounts', {
-		templateUrl : 'modules/agency/d-accounts.html',
-		controller : 'agencyAccountController',
+	$routeProvider.when('/ledgerTrans', {
+		templateUrl : 'modules/ledgerTran/d.html',
+		controller : 'ledgerTranController',
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/agencys/:id/products', {
-		templateUrl : 'modules/agency/d-products.html',
-		controller : 'agencyProductController',
+	$routeProvider.when('/trialBalance', {
+		templateUrl : 'modules/trialBalance/d.html',
+		controller : 'trialBalanceController',
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/agencys/:id/products/:productId/stocks', {
-		templateUrl : 'modules/agency/d-stocks.html',
-		controller : 'agencyProductStockController',
-		reloadOnSearch : false
-	});
-
-	$routeProvider.when('/agencys/:id/stocks', {
-		templateUrl : 'modules/agency/d-stocks.html',
-		controller : 'agencyStockController',
-		reloadOnSearch : false
-	});
-
-	$routeProvider.when('/agencys/:id/employees', {
-		templateUrl : 'modules/agency/d-employees.html',
-		controller : 'agencyEmployeeController',
-		reloadOnSearch : false
-	});
-
-	$routeProvider.when('/agencys/:id/employees/:employeeId/products', {
-		templateUrl : 'modules/agency/d-products.html',
-		controller : 'agencyEmployeeProductController',
-		reloadOnSearch : false
-	});
-
-	$routeProvider.when('/agencys/:id/employees/:employeeId/stocks', {
-		templateUrl : 'modules/agency/d-stocks.html',
-		controller : 'agencyEmployeeStockController',
-		reloadOnSearch : false
-	});
-
-	$routeProvider.when('/agencys/:id/employees/:employeeId/accounts', {
-		templateUrl : 'modules/agency/d-accounts.html',
-		controller : 'agencyEmployeeAccountController',
-		reloadOnSearch : false
-	});
-
-	$routeProvider.when('/agencys/:id/dealers', {
-		templateUrl : 'modules/agency/d-dealers.html',
-		controller : 'agencyDealerController',
-		reloadOnSearch : false
-	});
-
-	$routeProvider.when('/agencys/:id/dealers/:dealerId/accounts', {
-		templateUrl : 'modules/agency/d-accounts.html',
-		controller : 'agencyDealerAccountController',
-		reloadOnSearch : false
-	});
-
-	$routeProvider.when('/agencys/:id/customers', {
-		templateUrl : 'modules/agency/d-customers.html',
-		controller : 'agencyCustomerController',
-		reloadOnSearch : false
-	});
-
-	$routeProvider.when('/agencys/:id/customers/:customerId/accounts', {
-		templateUrl : 'modules/agency/d-accounts.html',
-		controller : 'agencyCustomerAccountController',
-		reloadOnSearch : false
-	});
+	//
+	// $routeProvider.when('/agencys', {
+	// templateUrl : 'modules/agency/d.html',
+	// controller : 'agencyController',
+	// reloadOnSearch : false
+	// });
+	//
+	// $routeProvider.when('/agencys/:id/accounts', {
+	// templateUrl : 'modules/agency/d-accounts.html',
+	// controller : 'agencyAccountController',
+	// reloadOnSearch : false
+	// });
+	//
+	// $routeProvider.when('/agencys/:id/products', {
+	// templateUrl : 'modules/agency/d-products.html',
+	// controller : 'agencyProductController',
+	// reloadOnSearch : false
+	// });
+	//
+	// $routeProvider.when('/agencys/:id/products/:productId/stocks', {
+	// templateUrl : 'modules/agency/d-stocks.html',
+	// controller : 'agencyProductStockController',
+	// reloadOnSearch : false
+	// });
+	//
+	// $routeProvider.when('/agencys/:id/stocks', {
+	// templateUrl : 'modules/agency/d-stocks.html',
+	// controller : 'agencyStockController',
+	// reloadOnSearch : false
+	// });
+	//
+	// $routeProvider.when('/agencys/:id/employees', {
+	// templateUrl : 'modules/agency/d-employees.html',
+	// controller : 'agencyEmployeeController',
+	// reloadOnSearch : false
+	// });
+	//
+	// $routeProvider.when('/agencys/:id/employees/:employeeId/products', {
+	// templateUrl : 'modules/agency/d-products.html',
+	// controller : 'agencyEmployeeProductController',
+	// reloadOnSearch : false
+	// });
+	//
+	// $routeProvider.when('/agencys/:id/employees/:employeeId/stocks', {
+	// templateUrl : 'modules/agency/d-stocks.html',
+	// controller : 'agencyEmployeeStockController',
+	// reloadOnSearch : false
+	// });
+	//
+	// $routeProvider.when('/agencys/:id/employees/:employeeId/accounts', {
+	// templateUrl : 'modules/agency/d-accounts.html',
+	// controller : 'agencyEmployeeAccountController',
+	// reloadOnSearch : false
+	// });
+	//
+	// $routeProvider.when('/agencys/:id/dealers', {
+	// templateUrl : 'modules/agency/d-dealers.html',
+	// controller : 'agencyDealerController',
+	// reloadOnSearch : false
+	// });
+	//
+	// $routeProvider.when('/agencys/:id/dealers/:dealerId/accounts', {
+	// templateUrl : 'modules/agency/d-accounts.html',
+	// controller : 'agencyDealerAccountController',
+	// reloadOnSearch : false
+	// });
+	//
+	// $routeProvider.when('/agencys/:id/customers', {
+	// templateUrl : 'modules/agency/d-customers.html',
+	// controller : 'agencyCustomerController',
+	// reloadOnSearch : false
+	// });
+	//
+	// $routeProvider.when('/agencys/:id/customers/:customerId/accounts', {
+	// templateUrl : 'modules/agency/d-accounts.html',
+	// controller : 'agencyCustomerAccountController',
+	// reloadOnSearch : false
+	// });
 
 	$routeProvider.otherwise({
 		redirectTo : '/notFound'

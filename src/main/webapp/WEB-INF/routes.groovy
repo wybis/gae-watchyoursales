@@ -30,14 +30,13 @@ post 	'/console/addBranch', 	        forward : '/io/vteial/wys/web/console/addBr
 //get 	'/system/clearTransactions',   	forward : '/io/vteial/wys/web/system/clearTransactions.groovy'
 
 // session
-get  	'/sessions/properties',			forward : '/io/vteial/wys/web/session/properties.groovy'
-post 	'/sessions/login',     			forward : '/io/vteial/wys/web/session/login.groovy'
-get  	'/sessions/logout',    			forward : '/io/vteial/wys/web/session/logout.groovy'
+get  	'/sessions/properties',					forward : '/io/vteial/wys/web/session/properties.groovy'
+post 	'/sessions/login',     					forward : '/io/vteial/wys/web/session/login.groovy'
+get  	'/sessions/logout',    					forward : '/io/vteial/wys/web/session/logout.groovy'
 
-//get		'/cash',    					forward : '/io/vteial/wys/web/employee/cash.groovy'
-//get		'/products',    				forward : '/io/vteial/wys/web/employee/products.groovy'
-//get		'/stocks',    					forward : '/io/vteial/wys/web/employee/stocks.groovy'
-//get		'/products',    				forward : '/io/vteial/wys/web/employee/products.groovy'
+get		'/sessions/cash',    					forward : '/io/vteial/wys/web/session/cash.groovy'
+get		'/sessions/products',    				forward : '/io/vteial/wys/web/session/products.groovy'
+get		'/sessions/stocks',    					forward : '/io/vteial/wys/web/session/stocks.groovy'
 get		'/sessions/customers',    				forward : '/io/vteial/wys/web/session/customers.groovy'
 get		'/sessions/pendingCustomerOrders',		forward : '/io/vteial/wys/web/session/pendingCustomerOrders.groovy'
 get		'/sessions/customerTransactions',		forward : '/io/vteial/wys/web/session/customerTransactions.groovy'

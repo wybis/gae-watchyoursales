@@ -1,4 +1,4 @@
-function counterService($log, $q, wydNotifyService, employeeService, $http) {
+function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
 	var service = {}, receipt = {}, initSize = 1, defaultCustomer = {
 		id : 0,
@@ -59,7 +59,7 @@ function counterService($log, $q, wydNotifyService, employeeService, $http) {
 		receipt.balanceAmountLabel = '';
 		receipt.customer = defaultCustomer;
 
-		var customer = _.find(employeeService.customers, function(item) {
+		var customer = _.find(sessionService.customers, function(item) {
 			return item.firstName === 'Guest';
 		});
 		service.setCustomer(customer);
@@ -76,10 +76,10 @@ function counterService($log, $q, wydNotifyService, employeeService, $http) {
 		}
 		// $log.info(customer);
 		receipt.customer = customer;
-		var productId = customer.cashStock.productId;
-		var product = employeeService.productsMap[productId];
+		var productId = customer.cashAccount.productId;
+		var product = sessionService.productsMap[productId];
 		// $log.info(product);
-		employeeService.cashCustomer = product;
+		sessionService.cashCustomer = product;
 	};
 
 	service.setDealer = function(dealer) {
@@ -88,10 +88,10 @@ function counterService($log, $q, wydNotifyService, employeeService, $http) {
 		}
 		// $log.info(dealer);
 		receipt.customer = dealer;
-		var productId = dealer.cashStock.productId;
-		var product = employeeService.productsMap[productId];
+		var productId = dealer.cashAccount.productId;
+		var product = sessionService.productsMap[productId];
 		// $log.info(product);
-		employeeService.cashDealer = product;
+		sessionService.cashDealer = product;
 	};
 
 	service.newTransaction = function() {
@@ -341,7 +341,7 @@ function counterService($log, $q, wydNotifyService, employeeService, $http) {
 		receipt.id = resReceipt.id;
 
 		_.forEach(resReceipt.trans, function(tran) {
-			employeeService.updateStockAndProduct(tran.stock);
+			sessionService.updateStockAndProduct(tran.stock);
 		});
 	}
 

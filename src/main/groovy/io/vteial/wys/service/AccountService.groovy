@@ -7,15 +7,15 @@ import io.vteial.wys.service.exceptions.ModelAlreadyExistException
 
 interface AccountService {
 
-	//	List<Account> findByEmployeeId(long employeeId)
-	//
-	//	List<Account> findByEmployeeIdAndType(long employeeId, String type)
-	//
+	List<Account> findByUserId(long userId)
+
+	List<Account> findByUserIdAndType(long userId, String type)
+
 	//	Account findOneByEmployeeIdAndType(long employeeId, String type)
 	//
 	//	Account findOneByEmployeeIdAndProductId(long employeeId, long productId)
 	//
-	//	Account findOneByAgencyIdAndEmployeeIdAndProductCode(long agencyId, long employeeId, String productCode)
+	//	Account findOneByBranchIdAndEmployeeIdAndProductCode(long agencyId, long employeeId, String productCode)
 
 	void add(User sessionUser, Account model) throws ModelAlreadyExistException
 

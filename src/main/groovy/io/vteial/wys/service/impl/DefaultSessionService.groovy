@@ -5,10 +5,11 @@ import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.dto.UserDto
 import io.vteial.wys.model.Account
-import io.vteial.wys.model.Role
 import io.vteial.wys.model.User
+import io.vteial.wys.model.constants.AccountType
 import io.vteial.wys.model.constants.UserStatus
 import io.vteial.wys.model.constants.UserType
+import io.vteial.wys.service.AccountService
 import io.vteial.wys.service.SessionService
 import io.vteial.wys.service.UserService
 import io.vteial.wys.service.exceptions.InvalidCredentialException
@@ -21,6 +22,8 @@ public class DefaultSessionService extends AbstractService implements
 SessionService {
 
 	GroovyLogger log = new GroovyLogger(DefaultSessionService.class.getName())
+
+	AccountService accountService
 
 	UserService userService
 
@@ -146,7 +149,11 @@ SessionService {
 	}
 
 	@Override
-	public List<Account> stocksAndProducts(SessionDto sessionUser) {
-		return null;
+	public List<Account> stocks(SessionDto sessionUser) {
+		List<Account> models = null
+
+		models = accountService.findByUserIdAndType(sessionUser.id, AccountType.PRODUCT)
+
+		return models;
 	}
 }

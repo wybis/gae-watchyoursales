@@ -1,19 +1,18 @@
-function stockController($rootScope, $scope, $log, employeeService, $filter) {
+function stockController($rootScope, $scope, $log, sessionService) {
+	$log.debug('stockController...');
 	$rootScope.viewName = 'Stocks';
 
-	$scope.productsMap = employeeService.productsMap;
-	$scope.items = employeeService.stocks;
+	$scope.productsMap = sessionService.productsMap;
+	$scope.items = sessionService.stocks;
 
 	$scope.refresh = function() {
 		$log.info('yet to implement...');
 	};
 
-	$scope.refresh();
-
 	$scope.bottomReached = function() {
 		$log.info('bottom reached...');
 	}
 
-	$log.debug('stockController...');
+	$scope.refresh();
 }
 appControllers.controller('stockController', stockController);
