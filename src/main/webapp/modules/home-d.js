@@ -5,8 +5,9 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 
 	sessionService.properties();
 	sessionService.getStocks();
+	// sessionService.getLedgers();
 
-	$scope.sesService = sessionService;
+	$scope.sessionS = sessionService;
 
 	$scope.showMenu = false;
 

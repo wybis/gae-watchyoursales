@@ -1,11 +1,15 @@
 package io.vteial.wys.service.impl
 
+import java.util.List;
+
 import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.model.Account
+import io.vteial.wys.model.Branch
 import io.vteial.wys.model.Product
 import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.AccountStatus
+import io.vteial.wys.model.constants.AccountType
 import io.vteial.wys.model.constants.ProductType
 import io.vteial.wys.model.constants.UserType
 import io.vteial.wys.service.AccountService
@@ -27,7 +31,9 @@ class DefaultAccountService extends AbstractService implements AccountService {
 
 		entitys.each { entity ->
 			Account model = entity as Account
-			model.product = Product.get(model.productId)
+			if(model.productId > 0) {
+				model.product = Product.get(model.productId)
+			}
 			models <<  model
 		}
 
@@ -35,23 +41,47 @@ class DefaultAccountService extends AbstractService implements AccountService {
 	}
 
 	@Override
-	public List<Account> findByUserIdAndType(long auserId, String stockType) {
+	public List<Account> findByUserIdAndType(long auserId, String accountType) {
 		List<Account> models = []
 
 		def entitys = datastore.execute {
 			from Account.class.simpleName
 			where userId == auserId
-			and type == stockType
+			and type == accountType
 		}
 
 		entitys.each { entity ->
 			Account model = entity as Account
-			model.product = Product.get(model.productId)
+			if(model.productId > 0) {
+				model.product = Product.get(model.productId)
+			}
 			models <<  model
 		}
 
 		return models;
 	}
+
+	@Override
+	public List<Account> findByBranchIdAndTypes(long abranchId, List<String> accountTypes) {
+		List<Account> models = []
+
+		def entitys = datastore.execute {
+			from Account.class.simpleName
+			where branchId == abranchId
+			and type in accountTypes
+		}
+
+		entitys.each { entity ->
+			Account model = entity as Account
+			if(model.productId > 0) {
+				model.product = Product.get(model.productId)
+			}
+			models <<  model
+		}
+
+		return models;
+	}
+
 
 	//	@Override
 	//	public Account findOneByEmployeeIdAndType(long stockEmployeeId, String stockType) {
@@ -150,6 +180,19 @@ class DefaultAccountService extends AbstractService implements AccountService {
 
 
 	@Override
+	public void onBranchCreate(User sessionUser, Branch branch) {
+		Account account = new Account()
+		account.with {
+			name = 'Capital Fund'
+			aliasName = "Capital Fund - $branch.name"
+			type = AccountType.CASH_CAPITAL
+			userId = sessionUser.id
+			branchId = branch.id
+		}
+		this.add(sessionUser, account)
+	}
+
+	@Override
 	public void onProductCreate(User sessionUser, Product product) {
 		def entitys = datastore.execute {
 			from User.class.getSimpleName()
@@ -161,6 +204,8 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			User user = entity as User
 			Account account = new Account()
 			account.with {
+				name = product.code
+				aliasName = "$product.code-$user.firstName"
 				type = product.type
 				productId = product.id
 				userId = user.id
@@ -183,6 +228,8 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			Product product = entity as Product
 			Account account = new Account()
 			account.with {
+				name = "$product.code-$employee.firstName"
+				aliasName = "$employee.id-$product.code-$employee.firstName"
 				type = product.type
 				productId = product.id
 				userId = employee.id
@@ -206,6 +253,8 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			Product product = entity as Product
 			Account account = new Account()
 			account.with {
+				name = "$product.code-$employee.firstName"
+				aliasName = "$employee.id-$product.code-$employee.firstName"
 				type = product.type
 				productId = product.id
 				userId = employee.id
@@ -228,6 +277,8 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			Product product = entity as Product
 			Account account = new Account()
 			account.with {
+				name = "$product.code-$employee.firstName"
+				aliasName = "$employee.id-$product.code-$employee.firstName"
 				type = product.type
 				productId = product.id
 				userId = employee.id
@@ -250,6 +301,8 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			Product product = entity as Product
 			Account account = new Account()
 			account.with {
+				name = "$product.code-$dealer.firstName"
+				aliasName = "$dealer.id-$product.code-$dealer.firstName"
 				isMinus = true
 				type = product.type
 				productId = product.id
@@ -277,6 +330,8 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			Product product = entity as Product
 			Account account = new Account()
 			account.with {
+				name = "$product.code-$customer.id-$customer.firstName"
+				aliasName = "$customer.id-$product.code-$customer.firstName"
 				isMinus = true
 				type = product.type
 				productId = product.id

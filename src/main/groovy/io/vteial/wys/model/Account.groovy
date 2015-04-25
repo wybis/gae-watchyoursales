@@ -70,7 +70,7 @@ class Account extends AbstractModel {
 			return true
 		}
 
-		return this.balance >= amount
+		return this.amount >= amount
 	}
 
 	boolean hasSufficientAmount(double amount) {
@@ -79,12 +79,12 @@ class Account extends AbstractModel {
 
 	void withdrawAmount(double amount) {
 		this.amount -= amount
-		this.product.withdraw(amount)
+		this.product?.withdrawAmount(amount)
 	}
 
-	void deposit(double amount) {
+	void depositAmount(double amount) {
 		this.amount += amount
-		this.product.deposit(amount)
+		this.product?.depositAmount(amount)
 	}
 
 	boolean hasSufficientHandStock(double unit) {

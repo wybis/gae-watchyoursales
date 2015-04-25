@@ -1,1 +1,116 @@
-comming soon...
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		&nbsp;
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-3">
+		    	<label><small>Debit From</small></label>
+				<select class="form-control input-sm"
+					x-ng-model="receipt.trans[0].account"
+					x-ng-disabled="receipt.id != 0"
+					x-ng-change="onLedgerSelection()"
+					x-ng-options="item.id + '-' + item.name for item in accounts">
+		    	</select>
+		  	</div>
+			<div class="col-md-2">
+		    	<label><small>Balance</small></label>
+		    	<input type="text" class="form-control input-sm"
+		    		x-ng-model="receipt.trans[0].account.amount"
+		    		x-ng-disabled="true" 
+   					x-input-mask="'decimal'"
+					mask-option="{ allowMinus : false, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true }">
+		  	</div>
+			<div class="col-md-2">
+				<label><small>Amount</small></label>
+		    	<input type="text" class="form-control input-sm"
+		    		x-ng-model="receipt.trans[0].amount"		    	 
+   					x-ng-disabled="receipt.id != 0"
+   					x-input-mask="'decimal'"
+					mask-option="{ allowMinus : false, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true }">
+		  	</div>
+			<div class="col-md-3">
+		    	<label><small>Credit To</small></label>
+				<select class="form-control input-sm" 
+					x-ng-model="receipt.trans[1].account"
+					x-ng-disabled="receipt.id != 0"
+					x-ng-options="item.id + '-' + item.name for item in accounts">
+		    	</select>
+		  	</div>
+			<div class="col-md-2">
+		    	<label><small>Balance</small></label>
+		    	<input type="text" class="form-control input-sm"
+		    		x-ng-model="receipt.trans[1].account.amount"
+		    		x-ng-disabled="true" 
+   					x-input-mask="'decimal'"
+					mask-option="{ allowMinus : false, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true }">
+		  	</div>
+		</div>
+		<br/>
+		<div class="row">
+			<div class="col-md-2 col-md-offset-3">
+				<button type="button" class="btn btn-default btn-sm btn-block"
+					x-ng-click="clearOrNew()">
+					 Clear / New
+				</button>
+			</div>
+			<div class="col-md-2 col-md-offset-2">
+				<button type="button" class="btn btn-primary btn-sm btn-block"
+					x-ng-click="saveReceiptAsTransaction()">
+					<i class="fa fa-save"></i> Save
+				</button>
+			</div>
+		</div>
+	</div>
+</div>	
+
+
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		<span class="pull-left">
+			<button	class="btn btn-default"	x-ng-disabled="items.length == 0"
+				x-ng-click="refresh()">
+				<i class="fa fa-refresh"></i>
+			</button>
+		</span>
+		&nbsp;Recent Transactions...
+	</div>
+	<table class="table table-condensed table-bordered table-striped">
+	<thead>
+	<tr>
+		<th class="text-right" width="30">Id</th>
+	   	<th class="text-center"><small>Account Id</small></th>
+	   	<th class="text-center"><small>Name</small></th>
+	   	<th class="text-center"><small>Type</small></th>
+	   	<th class="text-center"><small>Amount</small></th>
+	   	<th class="text-center"><small>Date</small></th>
+	   	<th class="text-center"><small>&nbsp;</small></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr x-ng-repeat="item in items">
+		<td class="text-right" width="40">
+			{{$index+1}}
+		</td>
+		<td>
+			{{item.accountId}}
+		</td>
+		<td>
+			-
+		</td>
+		<td class="text-center">
+			{{item.type}}
+		</td>
+		<td class="text-right">
+			{{item.amount | number : 2}}
+		</td>
+		<td width="160">
+			{{item.date | date:'yyyy-MM-dd HH:mm:ss'}}
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>

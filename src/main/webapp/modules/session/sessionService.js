@@ -3,6 +3,20 @@ function sessionService($log, $http, $q) {
 
 	var service = {
 		context : {},
+		cashBranch : {
+			handStock : 0
+		},
+		cashMine : {
+			handStock : 0
+		},
+		stockBranch : 0,
+		stockMine : 0,
+		cashDealer : {
+			handStock : 0
+		},
+		cashCustomer : {
+			handStock : 0
+		},
 		products : [],
 		productsMap : {},
 		stocks : [],
@@ -28,6 +42,33 @@ function sessionService($log, $http, $q) {
 			objectsMap[objectx.id] = objectx;
 		}
 	}
+
+	function processLedgers(ledgers) {
+		$log.debug('processing ledgers started...')
+		_.forEach(ledgers, function(objectx) {
+			addOrUpdateCacheY('accounts', objectx);
+			if (objectx.product) {
+				addOrUpdateCacheY('products', objectx.product);
+			}
+		});
+		$log.debug('processing ledgers finished...')
+	}
+
+	service.getLedgers = function() {
+		var path = basePath + '/ledgers';
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				processLedgers(response.data);
+				// service.computeStockWorth();
+				deferred.resolve(response);
+			}
+			// $log.info(response);
+		})
+
+		return deferred.promise;
+	};
 
 	function processStocks(stocks) {
 		$log.debug('processing stocks started...')

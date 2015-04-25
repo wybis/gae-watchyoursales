@@ -35,4 +35,6 @@ public interface SessionService {
 	List<User> dealers(SessionDto sessionUser)
 
 	List<Account> stocks(SessionDto sessionUser)
+
+	List<Account> ledgers(SessionDto sessionUser)
 }

@@ -122,7 +122,7 @@ class Product extends AbstractModel {
 		this.amount -= amount
 	}
 
-	void deposit(double amount) {
+	void depositAmount(double amount) {
 		this.amount += amount
 	}
 

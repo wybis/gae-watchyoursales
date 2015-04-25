@@ -35,6 +35,7 @@ post 	'/sessions/login',     					forward : '/io/vteial/wys/web/session/login.gr
 get  	'/sessions/logout',    					forward : '/io/vteial/wys/web/session/logout.groovy'
 
 get		'/sessions/cash',    					forward : '/io/vteial/wys/web/session/cash.groovy'
+get		'/sessions/ledgers',    				forward : '/io/vteial/wys/web/session/ledgers.groovy'
 get		'/sessions/products',    				forward : '/io/vteial/wys/web/session/products.groovy'
 get		'/sessions/stocks',    					forward : '/io/vteial/wys/web/session/stocks.groovy'
 get		'/sessions/customers',    				forward : '/io/vteial/wys/web/session/customers.groovy'

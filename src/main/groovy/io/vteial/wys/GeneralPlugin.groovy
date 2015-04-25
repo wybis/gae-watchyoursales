@@ -51,6 +51,7 @@ class GeneralPlugin extends PluginBaseScript {
 
 		DefaultBranchService bchS = new DefaultBranchService()
 		bchS.autoNumberService = anS
+		bchS.accountService = actS
 		bchS.productService = prdS
 		bchS.employeeService = empS
 		bchS.dealerService = dlrS
