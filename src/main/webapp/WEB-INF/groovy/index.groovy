@@ -5,7 +5,7 @@ UserAgent userAgent = UserAgent.parseUserAgentString(headers['User-Agent'])
 userAgent.operatingSystem.deviceType
 
 if(localMode && userAgent.operatingSystem.deviceType == DeviceType.COMPUTER) {
-	forward '/index-g.html'
+	forward '/console.html'
 	return
 }
 
