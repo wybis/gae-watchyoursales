@@ -2,7 +2,6 @@ package io.vteial.wys.service.impl
 
 import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
-import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Branch
 import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.UserType
@@ -16,36 +15,6 @@ class DefaultEmployeeService extends DefaultUserService implements EmployeeServi
 	GroovyLogger log = new GroovyLogger(DefaultEmployeeService.class.getName())
 
 	AccountService accountService
-
-	//	@Override
-	//	public Account getMyProductStockByProductCode(SessionUserDto sessionUser,
-	//			String productCode) {
-	//		Account model = null
-	//
-	//		model = accountService.findOneByAgencyIdAndEmployeeIdAndProductCode(sessionUser.agencyId, sessionUser.id, productCode)
-	//
-	//		return model
-	//	}
-	//
-	//
-	//	@Override
-	//	public Account getMyProductStockByProductId(SessionUserDto sessionUser,
-	//			long productId) {
-	//		Account model = null
-	//
-	//		model = accountService.findOneByEmployeeIdAndProductId(sessionUser.id, productId)
-	//
-	//		return model
-	//	}
-	//
-	//	@Override
-	//	public List<Account> getMyProductStocks(SessionUserDto sessionUser) {
-	//		List<Account> models = null
-	//
-	//		models = accountService.findByEmployeeIdAndType(sessionUser.id, AccountType.PRODUCT)
-	//
-	//		return models;
-	//	}
 
 	@Override
 	public void add(User sessionUser, User model)

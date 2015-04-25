@@ -204,8 +204,8 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			User user = entity as User
 			Account account = new Account()
 			account.with {
-				name = product.code
-				aliasName = "$product.code-$user.firstName"
+				name = "$product.code-$user.firstName"
+				aliasName = "$user.id-$product.code-$user.firstName"
 				type = product.type
 				productId = product.id
 				userId = user.id
