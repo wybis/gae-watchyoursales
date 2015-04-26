@@ -1,6 +1,21 @@
 <div class="panel panel-default">
 	<div class="panel-heading text-center">
-		&nbsp;
+		<span class="pull-left">
+			&nbsp;Receipt Id : <strong>{{receipt.id}}</strong>
+		</span>
+		&nbsp;{{receipt.message}}
+		<span class="pull-right">
+			<button class="btn btn-default btn-sm" 
+				x-ng-disabled="receipt.id == 0"
+				x-ng-click="printReceipt()">
+				<i class="fa fa-print"></i> Re-Print Receipt
+			</button>
+			&nbsp;&nbsp;
+			<button type="button" class="btn btn-default btn-sm"
+				x-ng-click="clearOrNew()">
+				 Clear / New
+			</button>
+		</span>
 	</div>
 	<div class="panel-body">
 		<div class="row">
@@ -9,8 +24,7 @@
 				<select class="form-control input-sm"
 					x-ng-model="receipt.trans[0].account"
 					x-ng-disabled="receipt.id != 0"
-					x-ng-change="onLedgerSelection()"
-					x-ng-options="item.id + '-' + item.name for item in accounts">
+					x-ng-options="item.id + '-' + item.name for item in frAccounts">
 		    	</select>
 		  	</div>
 			<div class="col-md-2">
@@ -24,8 +38,9 @@
 			<div class="col-md-2">
 				<label><small>Amount</small></label>
 		    	<input type="text" class="form-control input-sm"
-		    		x-ng-model="receipt.trans[0].amount"		    	 
+		    		x-ng-model="receipt.trans[0].unit"		    	 
    					x-ng-disabled="receipt.id != 0"
+   					x-ng-change="onTransactionUnit()"
    					x-input-mask="'decimal'"
 					mask-option="{ allowMinus : false, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true }">
 		  	</div>
@@ -34,7 +49,7 @@
 				<select class="form-control input-sm" 
 					x-ng-model="receipt.trans[1].account"
 					x-ng-disabled="receipt.id != 0"
-					x-ng-options="item.id + '-' + item.name for item in accounts">
+					x-ng-options="item.id + '-' + item.name for item in toAccounts">
 		    	</select>
 		  	</div>
 			<div class="col-md-2">
@@ -48,14 +63,17 @@
 		</div>
 		<br/>
 		<div class="row">
-			<div class="col-md-2 col-md-offset-3">
-				<button type="button" class="btn btn-default btn-sm btn-block"
-					x-ng-click="clearOrNew()">
-					 Clear / New
-				</button>
+			<div class="col-md-1">
+				<label><small>Description</small></label>
 			</div>
-			<div class="col-md-2 col-md-offset-2">
+			<div class="col-md-8">
+		    	<input type="text" class="form-control input-sm"
+		    		x-ng-model="receipt.description"
+		    		x-ng-disabled="receipt.id != 0">
+			</div>
+			<div class="col-md-2 col-md-offset-1">
 				<button type="button" class="btn btn-primary btn-sm btn-block"
+					x-ng-disabled="receipt.id != 0"
 					x-ng-click="saveReceiptAsTransaction()">
 					<i class="fa fa-save"></i> Save
 				</button>
@@ -79,7 +97,7 @@
 	<thead>
 	<tr>
 		<th class="text-right" width="30">Id</th>
-	   	<th class="text-center"><small>Account Id</small></th>
+	   	<th class="text-center" width="120"><small>Account Id</small></th>
 	   	<th class="text-center"><small>Name</small></th>
 	   	<th class="text-center"><small>Type</small></th>
 	   	<th class="text-center"><small>Amount</small></th>
@@ -88,21 +106,21 @@
 	</tr>
 	</thead>
 	<tbody>
-	<tr x-ng-repeat="item in items">
+	<tr x-ng-repeat="item in recentTrans">
 		<td class="text-right" width="40">
 			{{$index+1}}
 		</td>
-		<td>
+		<td class="text-right" width="120">
 			{{item.accountId}}
 		</td>
 		<td>
-			-
+			{{accountsMap[item.accountId].name}}
 		</td>
 		<td class="text-center">
 			{{item.type}}
 		</td>
 		<td class="text-right">
-			{{item.amount | number : 2}}
+			{{item.unit | number : 2}}
 		</td>
 		<td width="160">
 			{{item.date | date:'yyyy-MM-dd HH:mm:ss'}}

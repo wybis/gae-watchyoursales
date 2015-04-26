@@ -35,23 +35,26 @@ post 	'/sessions/login',     					forward : '/io/vteial/wys/web/session/login.gr
 get  	'/sessions/logout',    					forward : '/io/vteial/wys/web/session/logout.groovy'
 
 get		'/sessions/cash',    					forward : '/io/vteial/wys/web/session/cash.groovy'
+
 get		'/sessions/ledgers',    				forward : '/io/vteial/wys/web/session/ledgers.groovy'
 get		'/sessions/products',    				forward : '/io/vteial/wys/web/session/products.groovy'
 get		'/sessions/stocks',    					forward : '/io/vteial/wys/web/session/stocks.groovy'
+
 get		'/sessions/customers',    				forward : '/io/vteial/wys/web/session/customers.groovy'
 get		'/sessions/pendingCustomerOrders',		forward : '/io/vteial/wys/web/session/pendingCustomerOrders.groovy'
 get		'/sessions/customerTransactions',		forward : '/io/vteial/wys/web/session/customerTransactions.groovy'
+
 get		'/sessions/dealers',    				forward : '/io/vteial/wys/web/session/dealers.groovy'
 get		'/sessions/pendingDealerOrders',		forward : '/io/vteial/wys/web/session/pendingDealerOrders.groovy'
 get		'/sessions/dealerTransactions',			forward : '/io/vteial/wys/web/session/dealerTransactions.groovy'
+
 get		'/sessions/employees',    				forward : '/io/vteial/wys/web/session/employees.groovy'
 
-// user
-get      '/users',          			forward : '/io/vteial/wys/web/user/list.groovy'
+post	'/sessions/ledgerTransaction',  		forward : '/io/vteial/wys/web/session/ledgerTransaction.groovy'
+get		'/sessions/ledgerTransactions',			forward : '/io/vteial/wys/web/session/ledgerTransactions.groovy'
+get		'/sessions/recentLedgerTransactions',	forward : '/io/vteial/wys/web/session/recentLedgerTransactions.groovy'
 
-// agency
-get      '/agencys',         			forward : '/io/vteial/wys/web/agency/list.groovy'
-
+//-------------------------------------------------------------------------------------------------------//
 get      '/agencys/@id/accounts',       forward : '/io/vteial/wys/web/account/findByAgencyId.groovy?agencyId=@id'
 
 get      '/agencys/@id/products',      	forward : '/io/vteial/wys/web/product/findByAgencyId.groovy?agencyId=@id'
@@ -65,11 +68,4 @@ get      '/agencys/@id/dealers',       	forward : '/io/vteial/wys/web/dealer/fin
 
 get      '/agencys/@id/customers',      forward : '/io/vteial/wys/web/customer/findByAgencyId.groovy?agencyId=@id'
 
-// customer
-get      '/customers/all',     			forward : '/io/vteial/wys/web/customer/all.groovy'
-get      '/customers',         			forward : '/io/vteial/wys/web/customer/list.groovy'
-
-// account
-get      '/accounts/all',         		forward : '/io/vteial/wys/web/account/all.groovy'
-get      '/accounts',         			forward : '/io/vteial/wys/web/account/list.groovy'
 

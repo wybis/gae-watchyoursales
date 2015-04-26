@@ -2,6 +2,7 @@ package io.vteial.wys.service.impl
 
 import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
+import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Account
 import io.vteial.wys.model.Product
 import io.vteial.wys.model.User
@@ -35,7 +36,7 @@ class DefaultUserService extends AbstractService implements UserService {
 	}
 
 	@Override
-	public void add(User sessionUser, User model)
+	public void add(SessionDto sessionUser, User model)
 	throws ModelAlreadyExistException {
 
 		def entitys = datastore.execute {

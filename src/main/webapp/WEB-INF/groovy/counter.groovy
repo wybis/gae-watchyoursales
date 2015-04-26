@@ -30,11 +30,11 @@ try {
 
 		Tran tran = new Tran()
 		tran.category = tranReceipt.category
-		tran.stockId = employee.cashStockId
+		tran.accountId = employee.cashAccountId
 		tran.type = totalAmount < 0 ? TransactionType.SELL : TransactionType.BUY
 		tran.unit = actualTotalAmount
 		tran.rate = 1
-		//tran.rate = stock.product.sellRate
+		//tran.rate = account.product.sellRate
 
 		tranReceipt.trans << tran
 
@@ -43,11 +43,11 @@ try {
 
 		tran = new Tran()
 		tran.category = tranReceipt.category
-		tran.stockId = customer.cashStockId
+		tran.accountId = customer.cashAccountId
 		tran.type = totalAmount < 0 ? TransactionType.BUY: TransactionType.SELL
 		tran.unit = actualTotalAmount
 		tran.rate = 1
-		//tran.rate = stock.product.sellRate
+		//tran.rate = account.product.sellRate
 
 		tranReceipt.trans << tran
 	}
@@ -63,6 +63,7 @@ catch(Throwable t) {
 	PrintWriter pw = new PrintWriter(sw)
 	t.printStackTrace(pw)
 	responseDto.data = sw.toString()
+	log.warning(sw.toString())
 }
 
 jsonCategory.respondWithJson(response, responseDto)

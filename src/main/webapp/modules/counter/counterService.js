@@ -334,7 +334,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
 	function success(resReceipt, message) {
 		$log.info("Receipt after post...")
-		$log.info(message);
+		$log.debug(message);
 		$log.info(resReceipt);
 
 		wydNotifyService.addSuccess(message, true);
@@ -347,7 +347,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
 	function fail(resReceipt, message) {
 		$log.info("Receipt after post...")
-		$log.info(message);
+		$log.debug(message);
 		$log.info(resReceipt);
 		wydNotifyService.addError(message, true);
 	}

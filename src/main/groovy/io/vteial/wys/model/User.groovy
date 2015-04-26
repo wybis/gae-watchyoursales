@@ -91,4 +91,11 @@ public class User extends AbstractModel {
 		this.createTime = now;
 		this.updateTime = now;
 	}
+
+	// domain operations
+
+	boolean isVirtual() {
+		return userId == null ? false : userId.startsWith("${this.branchId}@")
+	}
+
 }

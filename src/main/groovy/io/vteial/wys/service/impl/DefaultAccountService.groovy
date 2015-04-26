@@ -1,9 +1,8 @@
 package io.vteial.wys.service.impl
 
-import java.util.List;
-
 import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
+import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Account
 import io.vteial.wys.model.Branch
 import io.vteial.wys.model.Product
@@ -168,7 +167,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 	//	}
 
 	@Override
-	public void add(User sessionUser, Account model)
+	public void add(SessionDto sessionUser, Account model)
 	throws ModelAlreadyExistException {
 
 		model.status = AccountStatus.ACTIVE
@@ -180,20 +179,11 @@ class DefaultAccountService extends AbstractService implements AccountService {
 
 
 	@Override
-	public void onBranchCreate(User sessionUser, Branch branch) {
-		Account account = new Account()
-		account.with {
-			name = 'Capital Fund'
-			aliasName = "Capital Fund - $branch.name"
-			type = AccountType.CASH_CAPITAL
-			userId = sessionUser.id
-			branchId = branch.id
-		}
-		this.add(sessionUser, account)
+	public void onBranchCreate(SessionDto sessionUser, Branch branch) {
 	}
 
 	@Override
-	public void onProductCreate(User sessionUser, Product product) {
+	public void onProductCreate(SessionDto sessionUser, Product product) {
 		def entitys = datastore.execute {
 			from User.class.getSimpleName()
 			where branchId == product.branchId
@@ -216,8 +206,32 @@ class DefaultAccountService extends AbstractService implements AccountService {
 	}
 
 	@Override
-	public void onEmployeeCreate(User sessionUser, User employee) {
-		def entitys = datastore.execute {
+	public void onEmployeeCreate(SessionDto sessionUser, User employee) {
+		def entitys = null
+
+		if(employee.isVirtual()) {
+			entitys = datastore.execute {
+				from Product.class.simpleName
+				where branchId == employee.branchId
+				and type == ProductType.CASH_CAPITAL
+				limit 1
+			}
+			entitys.each { entity ->
+				Product product = entity as Product
+				Account account = new Account()
+				account.with {
+					name = "$product.code-$employee.firstName"
+					aliasName = "$employee.id-$product.code-$employee.firstName"
+					type = product.type
+					productId = product.id
+					userId = employee.id
+					branchId = employee.branchId
+				}
+				this.add(sessionUser, account)
+			}
+		}
+
+		entitys = datastore.execute {
 			from Product.class.simpleName
 			where branchId == employee.branchId
 			and type == ProductType.CASH_EMPLOYEE
@@ -289,7 +303,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 	}
 
 	@Override
-	public void onDealerCreate(User sessionUser, User dealer) {
+	public void onDealerCreate(SessionDto sessionUser, User dealer) {
 		def entitys = datastore.execute {
 			from Product.class.simpleName
 			where branchId == dealer.branchId
@@ -318,7 +332,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 	}
 
 	@Override
-	public void onCustomerCreate(User sessionUser, User customer) {
+	public void onCustomerCreate(SessionDto sessionUser, User customer) {
 		def entitys = datastore.execute {
 			from Product.class.simpleName
 			where branchId == customer.branchId

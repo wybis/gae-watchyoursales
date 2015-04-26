@@ -1,5 +1,6 @@
 package io.vteial.wys.service;
 
+import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Account
 import io.vteial.wys.model.Branch
 import io.vteial.wys.model.Product
@@ -20,15 +21,15 @@ interface AccountService {
 	//
 	//	Account findOneByBranchIdAndEmployeeIdAndProductCode(long agencyId, long employeeId, String productCode)
 
-	void add(User sessionUser, Account model) throws ModelAlreadyExistException
+	void add(SessionDto sessionUser, Account model) throws ModelAlreadyExistException
 
-	void onBranchCreate(User sessionUser, Branch branch);
+	void onBranchCreate(SessionDto sessionUser, Branch branch);
 
-	void onProductCreate(User sessionUser, Product product)
+	void onProductCreate(SessionDto sessionUser, Product product)
 
-	void onEmployeeCreate(User sessionUser, User employee)
+	void onEmployeeCreate(SessionDto sessionUser, User employee)
 
-	void onDealerCreate(User sessionUser, User customer)
+	void onDealerCreate(SessionDto sessionUser, User customer)
 
-	void onCustomerCreate(User sessionUser, User customer)
+	void onCustomerCreate(SessionDto sessionUser, User customer)
 }

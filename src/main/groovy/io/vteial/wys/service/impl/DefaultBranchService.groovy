@@ -2,8 +2,8 @@ package io.vteial.wys.service.impl
 
 import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
+import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Branch
-import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.BranchStatus
 import io.vteial.wys.service.AccountService
 import io.vteial.wys.service.BranchService
@@ -19,7 +19,7 @@ class DefaultBranchService extends AbstractService implements BranchService {
 	GroovyLogger log = new GroovyLogger(DefaultBranchService.class.getName())
 
 	AccountService accountService
-	
+
 	ProductService productService
 
 	EmployeeService employeeService
@@ -29,7 +29,7 @@ class DefaultBranchService extends AbstractService implements BranchService {
 	CustomerService customerService
 
 	@Override
-	public void add(User sessionUser, Branch model)
+	public void add(SessionDto sessionUser, Branch model)
 	throws ModelAlreadyExistException {
 
 		model.id = autoNumberService.getNextNumber(sessionUser, Branch.ID_KEY)
@@ -38,7 +38,7 @@ class DefaultBranchService extends AbstractService implements BranchService {
 		model.prePersist(sessionUser.id)
 		model.save()
 
-		accountService.onBranchCreate(sessionUser, model)
+		//accountService.onBranchCreate(sessionUser, model)
 		productService.onBranchCreate(sessionUser, model)
 		employeeService.onBranchCreate(sessionUser, model)
 		dealerService.onBranchCreate(sessionUser, model)

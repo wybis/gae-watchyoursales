@@ -86,7 +86,7 @@ public class Tran extends AbstractModel {
 	// domain operations
 
 	void computeAmount() {
-		if(this.rate == this.balanceUnit) {
+		if(this.rate == this.baseUnit) {
 			this.amount = this.unit;
 		}
 		else {

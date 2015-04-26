@@ -3,32 +3,42 @@ function ledgerController($rootScope, $scope, $log, sessionService,
 	$log.debug('ledgerController...');
 	$rootScope.viewName = 'Ledgers';
 
-	$scope.accounts = []
+	$scope.accountsMap = sessionService.accountsMap;
+	$scope.frAccounts = [];
+	$scope.toAccounts = [];
+	$scope.recentTrans = [];
 	$scope.receipt = ledgerService.receipt;
 
+	$scope.onTransactionUnit = ledgerService.onTransactionUnit;
+
 	$scope.clearOrNew = ledgerService.clearOrNew;
-	$scope.saveReceiptAsTransaction = ledgerService.saveReceiptAsTransaction;
+
+	$scope.saveReceiptAsTransaction = function() {
+		ledgerService.saveReceiptAsTransaction().then(function(response) {
+			$scope.refresh();
+		});
+	}
 
 	sessionService.getLedgers().then(function(response) {
 		if (response.type != 0) {
 			return;
 		}
-		$scope.accounts = _.filter(sessionService.accounts, function(item) {
-			return item.type == 'cashEmployee' || item.type == 'cashCapital';
+
+		$scope.frAccounts = response.data;
+
+		_.forEach(response.data, function(item) {
+			if (item.type != 'cashCapital') {
+				$scope.toAccounts.push(item);
+			}
 		});
 	});
 
-	$scope.onLedgerSelection = function() {
-		$log.info($scope.receipt);
-	};
-
 	$scope.refresh = function() {
-		$log.info('yet to implement...');
+		ledgerService.getRecentTransactions().then(function(response) {
+			$log.info(response);
+			$scope.recentTrans = response.data;
+		});
 	};
-
-	$scope.bottomReached = function() {
-		$log.info('bottom reached...');
-	}
 
 	$scope.refresh();
 }

@@ -73,19 +73,19 @@ class Account extends AbstractModel {
 		return this.amount >= amount
 	}
 
-	boolean hasSufficientAmount(double amount) {
-		return amount <= this.amount
-	}
-
-	void withdrawAmount(double amount) {
-		this.amount -= amount
-		this.product?.withdrawAmount(amount)
-	}
-
-	void depositAmount(double amount) {
-		this.amount += amount
-		this.product?.depositAmount(amount)
-	}
+	//	boolean hasSufficientAmount(double amount) {
+	//		return amount <= this.amount
+	//	}
+	//
+	//	void withdrawAmount(double amount) {
+	//		this.amount -= amount
+	//		this.product?.withdrawAmount(amount)
+	//	}
+	//
+	//	void depositAmount(double amount) {
+	//		this.amount += amount
+	//		this.product?.depositAmount(amount)
+	//	}
 
 	boolean hasSufficientHandStock(double unit) {
 		return unit <= this.handStock
@@ -93,12 +93,20 @@ class Account extends AbstractModel {
 
 	void withdrawHandStock(double unit) {
 		this.handStock -= unit
+		this.computeAmount();
 		this.product.withdrawHandStock(unit)
 	}
 
 	void depositHandStock(double unit) {
 		this.handStock += unit
+		this.computeAmount();
 		this.product.depositHandStock(unit)
+	}
+
+	void computeAmount() {
+		double value = (this.product.handStockAverage / this.product.baseUnit);
+		value = this.handStock * value;
+		this.amount = value;
 	}
 
 	double getVirtualStock() {

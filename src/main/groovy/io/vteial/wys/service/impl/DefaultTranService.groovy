@@ -30,7 +30,7 @@ class DefaultTranService extends AbstractService implements TranService {
 		receipt.date = now
 		receipt.status = TransactionStatus.COMPLETE
 		receipt.employeeId = sessionUser.id
-		receipt.agencyId = sessionUser.agencyId
+		receipt.branchId = sessionUser.branchId
 
 		List<Tran> trans = receipt.trans
 		for(int i = 0; i < trans.size(); i++) {
@@ -56,11 +56,11 @@ class DefaultTranService extends AbstractService implements TranService {
 			tran.order = order
 		}
 
-		Account stock = Account.get(tran.stockId)
-		tran.stock = stock
+		Account account = Account.get(tran.accountId)
+		tran.account = account
 
-		Product product = Product.get(stock.productId)
-		stock.product = product
+		Product product = Product.get(account.productId)
+		account.product = product
 
 		tran.productCode = product.code
 		tran.baseUnit = product.baseUnit
@@ -73,16 +73,16 @@ class DefaultTranService extends AbstractService implements TranService {
 		if(tran.type == TransactionType.BUY) {
 			product.computeHandStockAverage(tran.unit, tran.rate)
 
-			stock.depositHandStock(tran.unit)
+			account.depositHandStock(tran.unit)
 		} else {
 
-			stock.withdrawHandStock(tran.unit)
+			account.withdrawHandStock(tran.unit)
 		}
 		tran.averageRate = product.handStockAverage
 		tran.status = TransactionStatus.COMPLETE
 
 		tran.employeeId = sessionUser.id
-		tran.agencyId = sessionUser.agencyId
+		tran.branchId = sessionUser.branchId
 
 		tran.id = autoNumberService.getNextNumber(sessionUser, Tran.ID_KEY)
 
@@ -94,9 +94,9 @@ class DefaultTranService extends AbstractService implements TranService {
 			orderService.onTransaction(sessionUser, tran);
 		}
 
-		stock.computeAvailableStock();
-		stock.preUpdate(sessionUser.id)
-		stock.save()
+		account.computeAvailableStock();
+		account.preUpdate(sessionUser.id)
+		account.save()
 
 		product.computeAvailableStockAverage(tran.rate)
 		product.preUpdate(sessionUser.id)

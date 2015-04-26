@@ -1,7 +1,7 @@
 package io.vteial.wys.web.console
 
 import io.vteial.wys.dto.ResponseDto
-import io.vteial.wys.model.AutoNumber
+import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Branch
 import io.vteial.wys.model.User
 
@@ -11,7 +11,7 @@ Branch branch = jsonCategory.parseJson(request, Branch.class)
 
 log.info("adding branch started...")
 
-User sessionUser = new User()
+SessionDto sessionUser = new SessionDto()
 
 branchService.add(sessionUser, branch)
 

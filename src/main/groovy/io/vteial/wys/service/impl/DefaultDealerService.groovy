@@ -2,6 +2,7 @@ package io.vteial.wys.service.impl
 
 import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
+import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Branch
 import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.UserType
@@ -17,7 +18,7 @@ class DefaultDealerService extends DefaultUserService implements DealerService {
 	AccountService accountService
 
 	@Override
-	public void add(User sessionUser, User model)
+	public void add(SessionDto sessionUser, User model)
 	throws ModelAlreadyExistException {
 
 		if(!model.userId) {
@@ -35,7 +36,7 @@ class DefaultDealerService extends DefaultUserService implements DealerService {
 	}
 
 	@Override
-	public void onBranchCreate(User sessionUser, Branch branch) {
+	public void onBranchCreate(SessionDto sessionUser, Branch branch) {
 
 		User model = new User()
 		model.with {
