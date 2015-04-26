@@ -16,7 +16,7 @@ try {
 		where branchId == sessionDto.branchId
 		and employeeId == sessionDto.id
 		sort desc by date
-		limit 10
+		limit 6
 	}
 
 	entitys.each { entity ->

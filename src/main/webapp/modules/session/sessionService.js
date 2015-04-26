@@ -43,6 +43,13 @@ function sessionService($log, $http, $q) {
 		}
 	}
 
+	service.updateAccount = function(objectx) {
+		addOrUpdateCacheY('accounts', objectx);
+		if (objectx.product) {
+			addOrUpdateCacheY('products', objectx.product);
+		}
+	};
+
 	function processLedgers(ledgers) {
 		$log.debug('processing ledgers started...')
 		_.forEach(ledgers, function(objectx) {

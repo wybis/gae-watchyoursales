@@ -223,6 +223,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 					name = "$product.code-$employee.firstName"
 					aliasName = "$employee.id-$product.code-$employee.firstName"
 					type = product.type
+					isMinus = true
 					productId = product.id
 					userId = employee.id
 					branchId = employee.branchId

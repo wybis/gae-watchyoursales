@@ -88,7 +88,7 @@ class Account extends AbstractModel {
 	//	}
 
 	boolean hasSufficientHandStock(double unit) {
-		return unit <= this.handStock
+		return this.isMinus ? true : unit <= this.handStock
 	}
 
 	void withdrawHandStock(double unit) {

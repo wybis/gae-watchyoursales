@@ -13,7 +13,7 @@
 			&nbsp;&nbsp;
 			<button type="button" class="btn btn-default btn-sm"
 				x-ng-click="clearOrNew()">
-				 Clear / New
+				 &nbsp;&nbsp;Clear / New&nbsp;&nbsp;
 			</button>
 		</span>
 	</div>
@@ -66,12 +66,12 @@
 			<div class="col-md-1">
 				<label><small>Description</small></label>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-9">
 		    	<input type="text" class="form-control input-sm"
 		    		x-ng-model="receipt.description"
 		    		x-ng-disabled="receipt.id != 0">
 			</div>
-			<div class="col-md-2 col-md-offset-1">
+			<div class="col-md-2">
 				<button type="button" class="btn btn-primary btn-sm btn-block"
 					x-ng-disabled="receipt.id != 0"
 					x-ng-click="saveReceiptAsTransaction()">

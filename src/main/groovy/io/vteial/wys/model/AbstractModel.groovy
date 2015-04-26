@@ -1,5 +1,6 @@
 package io.vteial.wys.model;
 
+import groovyx.gaelyk.datastore.Ignore
 import groovyx.gaelyk.datastore.Key
 
 
@@ -17,4 +18,7 @@ public abstract class AbstractModel implements Model {
 	Date createTime
 
 	Date updateTime
+
+	@Ignore
+	String errorMessage
 }

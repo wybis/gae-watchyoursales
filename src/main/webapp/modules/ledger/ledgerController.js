@@ -35,7 +35,6 @@ function ledgerController($rootScope, $scope, $log, sessionService,
 
 	$scope.refresh = function() {
 		ledgerService.getRecentTransactions().then(function(response) {
-			$log.info(response);
 			$scope.recentTrans = response.data;
 		});
 	};

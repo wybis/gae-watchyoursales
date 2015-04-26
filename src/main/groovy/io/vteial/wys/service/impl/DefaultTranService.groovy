@@ -3,9 +3,9 @@ package io.vteial.wys.service.impl
 import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionDto
+import io.vteial.wys.model.Account
 import io.vteial.wys.model.Order
 import io.vteial.wys.model.Product
-import io.vteial.wys.model.Account
 import io.vteial.wys.model.Tran
 import io.vteial.wys.model.TranReceipt
 import io.vteial.wys.model.constants.OrderStatus
@@ -37,8 +37,13 @@ class DefaultTranService extends AbstractService implements TranService {
 			Tran tran = trans.get(i)
 			tran.receiptId = receipt.id
 			tran.date = receipt.date
-
-			this.addTransaction(sessionUser, tran)
+			try {
+				this.addTransaction(sessionUser, tran)
+			}
+			catch(TransactionException e) {
+				receipt.errorMessage = tran.errorMessage
+				throw e
+			}
 		}
 
 		receipt.prePersist(sessionUser.id)
@@ -58,6 +63,11 @@ class DefaultTranService extends AbstractService implements TranService {
 
 		Account account = Account.get(tran.accountId)
 		tran.account = account
+
+		if(tran.type == TransactionType.SELL && !account.hasSufficientHandStock(tran.unit)) {
+			tran.errorMessage = 'Insufficient fund or stock...'
+			throw new TransactionException();
+		}
 
 		Product product = Product.get(account.productId)
 		account.product = product

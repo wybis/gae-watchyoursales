@@ -66,7 +66,7 @@ function ledgerService($log, $http, $q, wydNotifyService, sessionService, $http)
 
 	service.saveReceiptAsTransaction = function() {
 		$log.debug('saveReceiptAsTransaction started...');
-
+		
 		$log.debug("Ledger receipt before process...")
 		$log.debug(service.receipt);
 
@@ -117,9 +117,9 @@ function ledgerService($log, $http, $q, wydNotifyService, sessionService, $http)
 		service.receipt.id = resReceipt.id;
 		service.receipt.message = message;
 
-		// _.forEach(resReceipt.trans, function(tran) {
-		// sessionService.updateStockAndProduct(tran.stock);
-		// });
+		_.forEach(resReceipt.trans, function(tran) {
+			sessionService.updateAccount(tran.account);
+		});
 	}
 
 	function fail(resReceipt, message) {
