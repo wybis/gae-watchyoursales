@@ -195,7 +195,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			Account account = new Account()
 			account.with {
 				name = "$product.code-$user.firstName"
-				aliasName = "$user.id-$product.code-$user.firstName"
+				aliasName = product.code
 				type = product.type
 				productId = product.id
 				userId = user.id
@@ -221,7 +221,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 				Account account = new Account()
 				account.with {
 					name = "$product.code-$employee.firstName"
-					aliasName = "$employee.id-$product.code-$employee.firstName"
+					aliasName = product.code
 					type = product.type
 					isMinus = true
 					productId = product.id
@@ -244,7 +244,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			Account account = new Account()
 			account.with {
 				name = "$product.code-$employee.firstName"
-				aliasName = "$employee.id-$product.code-$employee.firstName"
+				aliasName = product.code
 				type = product.type
 				productId = product.id
 				userId = employee.id
@@ -269,7 +269,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			Account account = new Account()
 			account.with {
 				name = "$product.code-$employee.firstName"
-				aliasName = "$employee.id-$product.code-$employee.firstName"
+				aliasName = product.code
 				type = product.type
 				productId = product.id
 				userId = employee.id
@@ -293,7 +293,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			Account account = new Account()
 			account.with {
 				name = "$product.code-$employee.firstName"
-				aliasName = "$employee.id-$product.code-$employee.firstName"
+				aliasName = product.code
 				type = product.type
 				productId = product.id
 				userId = employee.id
@@ -317,7 +317,7 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			Account account = new Account()
 			account.with {
 				name = "$product.code-$dealer.firstName"
-				aliasName = "$dealer.id-$product.code-$dealer.firstName"
+				aliasName = product.code
 				isMinus = true
 				type = product.type
 				productId = product.id
@@ -345,8 +345,8 @@ class DefaultAccountService extends AbstractService implements AccountService {
 			Product product = entity as Product
 			Account account = new Account()
 			account.with {
-				name = "$product.code-$customer.id-$customer.firstName"
-				aliasName = "$customer.id-$product.code-$customer.firstName"
+				name = "$product.code-$customer.firstName"
+				aliasName = product.code
 				isMinus = true
 				type = product.type
 				productId = product.id

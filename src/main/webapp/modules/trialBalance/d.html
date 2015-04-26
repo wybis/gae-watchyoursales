@@ -1,1 +1,98 @@
-comming soon...
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		<span class="pull-left">
+			<button	class="btn btn-default"
+				x-ng-click="refresh()">
+				<i class="fa fa-refresh"></i>
+			</button>
+		</span>
+		&nbsp; Grand Total 
+		Debit : <strong>{{debit | number : 2}}</strong>
+		&nbsp;&nbsp;&nbsp;&nbsp; 
+		Credit : <strong>{{credit  | number : 2}}</strong>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		Difference : <strong>{{difference  | number : 2}}</strong>
+		<span class="pull-right">
+			<button class="btn btn-default btn-sm" 
+				x-ng-disabled="true">
+				<i class="fa fa-print"></i>
+			</button>
+		</span>		
+	</div>
+	<table class="table table-condensed table-bordered" x-ng-repeat="tbg in tbgs">
+	<thead>
+	<tr>
+		<th class="text-center" colspan="6">
+			<small>{{tbg.type}}</small>
+		</th>
+	</tr>	
+	<tr>
+		<th class="text-right" width="40">#</th>
+	   	<th class="text-center" width="120"><small>Account Id</small></th>
+	   	<th class="text-center"><small>Name</small></th>
+	   	<th class="text-center" width="240"><small>Debit</small></th>
+	   	<th class="text-center" width="240"><small>Credit</small></th>
+	   	<th class="text-center" width="40"><small>&nbsp;</small></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr x-ng-repeat="item in tbg.items">
+		<td class="text-right">
+			{{$index+1}}
+		</td>
+		<td class="text-right">
+			{{item.id}}
+		</td>
+		<td>
+			{{item.name}}
+		</td>
+		<td class="text-right">
+			{{item.debit | number : 2}}
+		</td>
+		<td class="text-right">
+			{{item.credit | number : 2}}
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+	<tr class="info">
+		<td class="text-right" colspan="1">
+			&nbsp;
+		</td>
+		<td class="text-right" colspan="2">
+			<strong><small>Total : </small></strong>
+		</td>
+		<td class="text-right">
+			{{tbg.debit | number : 2}}
+		</td>
+		<td class="text-right">
+			{{tbg.credit | number : 2}}
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+	</tbody>
+	</table>
+	<div class="panel-footer text-center">
+		<span class="pull-left">
+			<button	class="btn btn-default"
+				x-ng-click="refresh()">
+				<i class="fa fa-refresh"></i>
+			</button>
+		</span>
+		&nbsp; Grand Total 
+		Debit : <strong>{{debit | number : 2}}</strong>
+		&nbsp;&nbsp;&nbsp;&nbsp; 
+		Credit : <strong>{{credit  | number : 2}}</strong>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		Difference : <strong>{{difference  | number : 2}}</strong>
+		<span class="pull-right">
+			<button class="btn btn-default btn-sm" 
+				x-ng-disabled="true">
+				<i class="fa fa-print"></i>
+			</button>
+		</span>		
+	</div>
+</div>
