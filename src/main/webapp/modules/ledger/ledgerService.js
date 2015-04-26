@@ -57,7 +57,7 @@ function ledgerService($log, $http, $q, wydNotifyService, sessionService, $http)
 		$log.debug('clearOrNew started...');
 
 		service.receipt.id = 0;
-		service.receipt.description;
+		service.receipt.description = '';
 		service.receipt.message = '';
 		service.receipt.trans = _.cloneDeep(defaultReceipt.trans);
 

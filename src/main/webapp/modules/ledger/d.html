@@ -33,7 +33,7 @@
 		    		x-ng-model="receipt.trans[0].account.amount"
 		    		x-ng-disabled="true" 
    					x-input-mask="'decimal'"
-					mask-option="{ allowMinus : false, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true }">
+					mask-option="{ allowMinus : true, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true }">
 		  	</div>
 			<div class="col-md-2">
 				<label><small>Amount</small></label>
@@ -58,7 +58,7 @@
 		    		x-ng-model="receipt.trans[1].account.amount"
 		    		x-ng-disabled="true" 
    					x-input-mask="'decimal'"
-					mask-option="{ allowMinus : false, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true }">
+					mask-option="{ allowMinus : true, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true }">
 		  	</div>
 		</div>
 		<br/>
