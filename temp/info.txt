@@ -9,3 +9,8 @@ public class Event {
       (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     public Date eventDate;
 }
+
+- ledger - validation from capital fund to virtual employee only
+- ledger - implemen transaction management
+- trialbalance - group stocks
+- implement blockui in ledger and trialbalance
