@@ -20,16 +20,27 @@ function sessionService($log, $http, $q) {
 		products : [],
 		productsMap : {},
 		stocks : [],
-		stocksMap : {},
+		accounts : [],
+		accountsMap : {},
 		dealers : [],
 		dealersMap : {},
 		customers : [],
 		customersMap : {},
 		employees : [],
-		employeesMap : {},
-		accounts : [],
-		accountsMap : {}
+		employeesMap : {}
 	};
+
+	function addOrUpdateCacheX(propName1, propName2, objectx) {
+		var objectsLst = service[propName1]
+		var objectsMap = service[propName2 + 'Map'];
+		var object = objectsMap[objectx.id];
+		if (object) {
+			_.assign(object, objectx);
+		} else {
+			objectsLst.push(objectx);
+			objectsMap[objectx.id] = objectx;
+		}
+	}
 
 	function addOrUpdateCacheY(propName, objectx) {
 		var objectsLst = service[propName]
@@ -80,7 +91,7 @@ function sessionService($log, $http, $q) {
 	function processStocks(stocks) {
 		$log.debug('processing stocks started...')
 		_.forEach(stocks, function(objectx) {
-			addOrUpdateCacheY('stocks', objectx);
+			addOrUpdateCacheX('stocks', 'accounts', objectx);
 			addOrUpdateCacheY('products', objectx.product);
 		});
 		$log.debug('processing stocks finished...')
@@ -179,13 +190,30 @@ function sessionService($log, $http, $q) {
 		return deferred.promise;
 	};
 
+	function processProps(props) {
+		$log.debug('processing session properties started...');
+		_.assign(service.context, props);
+		$log.debug('processing session properties finished...');
+	}
+
+	function processModel(model) {
+		$log.debug('processing session properties started...');
+		processStocks(model.stocks);
+		processLedgers(model.ledgers);
+		processEmployees(model.employees);
+		processDealers(model.dealers);
+		processCustomers(model.customers);
+		$log.debug('processing session properties finished...');
+	}
+
 	service.properties = function() {
 		var path = basePath + '/properties';
 
 		var deferred = $q.defer();
 		$http.get(path).success(function(response) {
 			if (response.type === 0) {
-				processSessionProperties(response.data);
+				processProps(response.data);
+				processModel(response.model);
 				deferred.resolve(response);
 			}
 			// $log.info(response);
@@ -195,12 +223,6 @@ function sessionService($log, $http, $q) {
 
 		return deferred.promise;
 	};
-
-	function processSessionProperties(sesProps) {
-		$log.debug('processing session properties started...');
-		_.assign(service.context, sesProps);
-		$log.debug('processing session properties finished...');
-	}
 
 	return service;
 }

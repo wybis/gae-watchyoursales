@@ -18,7 +18,7 @@ try {
 		and category == TransactionCategory.LEDGER
 		sort desc by date
 	}
-	console.println("esize = $entitys.size")
+
 	entitys.each { entity ->
 		Tran model = entity as Tran
 		models <<  model

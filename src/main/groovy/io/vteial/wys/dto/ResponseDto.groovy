@@ -5,7 +5,9 @@ import groovy.transform.Canonical
 @Canonical
 class ResponseDto {
 
-	static final int UNKNOWN = -1
+	static final int UNKNOWN = -2
+
+	static final int FORBIDDEN = -1
 
 	static final int SUCCESS = 0
 
@@ -16,4 +18,6 @@ class ResponseDto {
 	String message;
 
 	Object data
+
+	Object model
 }

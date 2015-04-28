@@ -13,6 +13,6 @@ function stockController($rootScope, $scope, $log, sessionService) {
 		$log.info('bottom reached...');
 	}
 
-	$scope.refresh();
+	//$scope.refresh();
 }
 appControllers.controller('stockController', stockController);

@@ -76,7 +76,7 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 	$rootScope.isLoggedIn = false;
 	$rootScope.homeView = '/index';
 
-	$location.path($rootScope.homeView);
+	// $location.path($rootScope.homeView);
 
 	$log.info('Initialization finished...');
 }

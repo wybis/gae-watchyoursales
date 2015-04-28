@@ -9,6 +9,7 @@ get     '/',				redirect : '/index'
 get     '/index',			forward  : '/index.groovy'
 get 	'/info',			forward  : '/info.groovy'
 get		'/ping',			forward  : '/ping.groovy'
+get		'/forbidden',		forward  : '/forbidden.groovy'
 all 	'/_ah/warmup',		forward  : '/ping.groovy'
 
 // cron
@@ -34,8 +35,10 @@ get  	'/sessions/properties',					forward : '/io/vteial/wys/web/session/properti
 post 	'/sessions/login',     					forward : '/io/vteial/wys/web/session/login.groovy'
 get  	'/sessions/logout',    					forward : '/io/vteial/wys/web/session/logout.groovy'
 
-get		'/sessions/cash',    					forward : '/io/vteial/wys/web/session/cash.groovy'
+get		'/sessions/counter',  					forward : '/io/vteial/wys/web/session/counter.groovy'
+
 get		'/sessions/trialBalance',  				forward : '/io/vteial/wys/web/session/trialBalance.groovy'
+get		'/sessions/cash',    					forward : '/io/vteial/wys/web/session/cash.groovy'
 
 get		'/sessions/ledgers',    				forward : '/io/vteial/wys/web/session/ledgers.groovy'
 get		'/sessions/products',    				forward : '/io/vteial/wys/web/session/products.groovy'

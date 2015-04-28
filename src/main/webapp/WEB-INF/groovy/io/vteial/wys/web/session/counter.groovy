@@ -1,5 +1,7 @@
+package io.vteial.wys.web.session
 import io.vteial.wys.dto.ResponseDto
 import io.vteial.wys.dto.SessionDto
+import io.vteial.wys.model.Account
 import io.vteial.wys.model.Tran
 import io.vteial.wys.model.TranReceipt
 import io.vteial.wys.model.User
@@ -25,8 +27,8 @@ try {
 
 	if(totalAmount != 0) {
 		User employee = User.get(sessionUserDto.id);
-		//employee.cashStock = Stock.get(employee.cashStockId);
-		//employee.profitStock = Stock.get(employee.profitStockId);
+		//employee.cashAccount = Account.get(employee.cashAccountId);
+		//employee.profitAccount = Account.get(employee.profitAccountId);
 
 		Tran tran = new Tran()
 		tran.category = tranReceipt.category
@@ -39,7 +41,7 @@ try {
 		tranReceipt.trans << tran
 
 		User customer = User.get(tranReceipt.customerId);
-		//customer.cashStock = Stock.get(customer.cashStockId);
+		//customer.cashAccount = Account.get(customer.cashAccountId);
 
 		tran = new Tran()
 		tran.category = tranReceipt.category

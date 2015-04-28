@@ -11,7 +11,7 @@ function customerController($rootScope, $scope, $log, sessionService) {
 		$log.info('bottom reached...');
 	}
 
-	$scope.refresh();
+	//$scope.refresh();
 
 	$log.debug('customerController...');
 }

@@ -40,7 +40,7 @@ function wydFocusService($rootScope, $timeout) {
 appServices.factory('wydFocusService', [ '$rootScope', '$timeout',
 		wydFocusService ]);
 
-appServices.factory('generalHttpInterceptor', function($log) {
+function generalHttpInterceptor($log, $q, $window) {
 	return {
 		'request' : function(config) {
 			return config;
@@ -57,7 +57,12 @@ appServices.factory('generalHttpInterceptor', function($log) {
 
 		'responseError' : function(rejection) {
 			$log.error(rejection);
+			if (rejection.status == 419) {
+				$window.location = 'index-d.html#/signin'
+				return;
+			}
 			return rejection;
 		}
 	};
-});
+}
+appServices.factory('generalHttpInterceptor', generalHttpInterceptor);

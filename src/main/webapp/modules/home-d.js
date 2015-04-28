@@ -4,7 +4,7 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 	$rootScope.sessionContext = sessionService.context;
 
 	sessionService.properties();
-	sessionService.getStocks();
+	// sessionService.getStocks();
 	// sessionService.getLedgers();
 
 	$scope.sessionS = sessionService;
@@ -66,6 +66,10 @@ app.config(function(uiSelectConfig) {
 
 app.config(function($httpProvider) {
 	$httpProvider.interceptors.push('generalHttpInterceptor');
+});
+
+app.config(function(blockUIConfig) {
+	// blockUIConfig.autoBlock = false;
 });
 
 app.config(function($routeProvider, $locationProvider) {

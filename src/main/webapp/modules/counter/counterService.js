@@ -304,7 +304,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			}
 			reqTran = {
 				category : 'customer',
-				stockId : tran.item.id,
+				accountId : tran.item.id,
 				type : tran.type,
 				unit : tran.unitRaw,
 				rate : tran.rateRaw,
@@ -341,7 +341,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		receipt.id = resReceipt.id;
 
 		_.forEach(resReceipt.trans, function(tran) {
-			sessionService.updateStockAndProduct(tran.stock);
+			sessionService.updateAccount(tran.account);
 		});
 	}
 
