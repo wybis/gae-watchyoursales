@@ -4,7 +4,6 @@ import groovy.transform.Canonical
 import groovy.transform.ToString
 import groovyx.gaelyk.datastore.Entity
 import groovyx.gaelyk.datastore.Ignore
-import groovyx.gaelyk.datastore.Key
 
 @Entity(unindexed=false)
 @Canonical
@@ -32,18 +31,18 @@ public class Tran extends AbstractModel {
 	long baseUnit
 
 	long unit
-	
+
 	long balanceUnit
 
 	double rate
-	
+
 	double averageRate
 
 	@Ignore
 	double amount
 
 	double balanceAmount
-	
+
 	Date date
 
 	String status

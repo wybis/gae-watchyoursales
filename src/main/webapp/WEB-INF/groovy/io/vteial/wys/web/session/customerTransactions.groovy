@@ -15,10 +15,10 @@ try {
 	def entitys = datastore.execute {
 		from Tran.class.simpleName
 		where branchId == sessionDto.branchId
-		and category == TransactionCategory.LEDGER
+		and category == TransactionCategory.CUSTOMER
 		sort desc by date
 	}
-	console.println("esize = $entitys.size")
+
 	entitys.each { entity ->
 		Tran model = entity as Tran
 		models <<  model

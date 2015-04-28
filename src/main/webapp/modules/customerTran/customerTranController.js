@@ -1,18 +1,23 @@
-function customerTranController($rootScope, $scope, $log, employeeService) {
+function customerTranController($rootScope, $scope, $log, sessionService, $http) {
+	$log.debug('customerTranController...');
 	$rootScope.viewName = 'Customer Transactions';
 
-	$scope.refresh = function() {
-		employeeService.getMyCustomerTransactions().then(function(response) {
-			$scope.items = response.data;
-		});
-	};
+	$scope.items = [];
 
-	$scope.bottomReached = function() {
-		$log.info('bottom reached...');
+	function processTrans(trans) {
+		$scope.items = trans;
 	}
 
-	$scope.refresh();
+	$scope.refresh = function() {
+		var path = '/sessions/customerTransactions';
+		$http.get(path).success(function(response) {
+			if (response.type === 0) {
+				processTrans(response.data);
+			}
+			//$log.info(response);
+		})
+	};
 
-	$log.debug('customerTranController...');
+	$scope.refresh();
 }
 appControllers.controller('customerTranController', customerTranController);

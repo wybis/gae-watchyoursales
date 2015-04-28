@@ -1,1 +1,49 @@
-comming soon...
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		<span class="pull-left">
+			<button	class="btn btn-default"	x-ng-disabled="items.length == 0"
+				x-ng-click="refresh()">
+				<i class="fa fa-refresh"></i>
+			</button>
+		</span>
+		&nbsp;
+	</div>
+	<table class="table table-condensed table-bordered table-striped">
+	<thead>
+	<tr>
+		<th class="text-right" width="60">#</th>
+	   	<th class="text-center" width="80"><small>Id</small></th>
+	   	<th class="text-center"><small>Name</small></th>
+	   	<th class="text-center" width="60"><small>Type</small></th>
+	   	<th class="text-center" width="160"><small>Amount</small></th>
+	   	<th class="text-center" width="160"><small>Date</small></th>
+	   	<th class="text-center" width="40"><small>&nbsp;</small></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr x-ng-repeat="item in items | orderBy : '-id'">
+		<td class="text-right">
+			{{$index+1}}
+		</td>
+		<td class="text-right">
+			{{item.id}}
+		</td>
+		<td>
+			{{accountsMap[item.accountId].name}}
+		</td>
+		<td class="text-center">
+			{{item.type}}
+		</td>
+		<td class="text-right">
+			{{item.unit | number : 2}}
+		</td>
+		<td>
+			{{item.date | date:'yyyy-MM-dd HH:mm:ss'}}
+		</td>
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
