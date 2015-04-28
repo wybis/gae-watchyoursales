@@ -6,6 +6,8 @@ import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.AutoNumber
 import io.vteial.wys.service.AutoNumberService
 
+import com.google.appengine.api.datastore.Transaction
+
 @GaelykBindings
 class DefaultAutoNumberService implements AutoNumberService {
 
@@ -13,6 +15,23 @@ class DefaultAutoNumberService implements AutoNumberService {
 
 	@Override
 	public long getNextNumber(SessionDto sessionUser, String key) {
+		long anValue = 0
+
+		Transaction tm = datastore.beginTransaction()
+
+		try {
+			anValue = this.doNextNumber(sessionUser, key)
+			tm.commit()
+		}
+		catch(Throwable t) {
+			tm.rollback()
+			throw t
+		}
+
+		return anValue
+	}
+
+	private long doNextNumber(SessionDto sessionUser, String key) {
 		AutoNumber an = AutoNumber.get(key)
 
 		if(an) {

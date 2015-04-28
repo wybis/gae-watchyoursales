@@ -1,4 +1,4 @@
-function ledgerController($rootScope, $scope, $log, sessionService,
+function ledgerController($rootScope, $scope, $log, wydNotifyService, sessionService,
 		ledgerService) {
 	$log.debug('ledgerController...');
 	$rootScope.viewName = 'Ledgers';
@@ -14,6 +14,25 @@ function ledgerController($rootScope, $scope, $log, sessionService,
 	$scope.clearOrNew = ledgerService.clearOrNew;
 
 	$scope.saveReceiptAsTransaction = function() {
+		var receipt = $scope.receipt;
+		if (!receipt.trans[0].unitRaw
+				|| receipt.trans[0].unitRaw === 0) {
+			wydNotifyService.addError('Invalid amount...', true);
+			return
+		}
+		if(receipt.trans[0].account.id === 0) {
+			wydNotifyService.addError('Select debit from...', true);
+			return
+		}
+		if(receipt.trans[1].account.id === 0) {
+			wydNotifyService.addError('Select credit to...', true);
+			return
+		}
+		if(receipt.trans[0].account.id === receipt.trans[1].account.id) {
+			var s = "Transaction can't be done between same ledgers";
+			wydNotifyService.addError(s, true);
+		}
+		
 		ledgerService.saveReceiptAsTransaction().then(function(response) {
 			$scope.refresh();
 		});

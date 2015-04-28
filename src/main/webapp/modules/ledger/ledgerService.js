@@ -47,7 +47,6 @@ function ledgerService($log, $http, $q, wydNotifyService, sessionService, $http)
 			} else {
 				$log.error('fetching recent ledger transacitons failed...');
 			}
-			$log.debug('saveReceiptAsTransaction finished...');
 		});
 
 		return deferred.promise;
@@ -66,7 +65,7 @@ function ledgerService($log, $http, $q, wydNotifyService, sessionService, $http)
 
 	service.saveReceiptAsTransaction = function() {
 		$log.debug('saveReceiptAsTransaction started...');
-		
+
 		$log.debug("Ledger receipt before process...")
 		$log.debug(service.receipt);
 
