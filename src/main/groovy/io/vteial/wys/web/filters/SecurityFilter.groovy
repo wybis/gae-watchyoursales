@@ -33,7 +33,6 @@ public class SecurityFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 
 		HttpServletRequest request = (HttpServletRequest) req
-		System.out.println("Request URI : $request.requestURI")
 
 		if(!request.requestURI.startsWith('/sessions/')) {
 			chain.doFilter(req, res)
@@ -53,6 +52,13 @@ public class SecurityFilter implements Filter {
 			response.sendError(419);
 			return;
 		}
+		String arrivedUserId = request.getHeader('X-UserId')
+		String s = "${request.requestURI} => ${sessionUser.userId} : ${arrivedUserId}"
+		System.out.println(s)
+		//		if(sessionUser.userId != arrivedUserId) {
+		//			response.sendError(419);
+		//			return;
+		//		}
 
 		chain.doFilter(req, res)
 	}

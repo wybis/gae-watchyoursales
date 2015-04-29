@@ -1,5 +1,5 @@
-function loginController($rootScope, $scope, $log, $window, $sessionStorage,
-		wydNotifyService, $http, $timeout) {
+function loginController($rootScope, $scope, $log, $window, wydNotifyService,
+		$http, $timeout) {
 	$rootScope.viewName = 'SignIn';
 
 	$scope.message = null

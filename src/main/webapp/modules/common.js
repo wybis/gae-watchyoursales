@@ -40,9 +40,13 @@ function wydFocusService($rootScope, $timeout) {
 appServices.factory('wydFocusService', [ '$rootScope', '$timeout',
 		wydFocusService ]);
 
-function generalHttpInterceptor($log, $q, $window) {
+function generalHttpInterceptor($log, $rootScope, $q, $window) {
 	return {
 		'request' : function(config) {
+			$log.info('xUserId = ' + $rootScope.xUserId);
+			if ($rootScope.xUserId) {
+				config.headers['X-UserId'] = $rootScope.xUserId;
+			}
 			return config;
 		},
 

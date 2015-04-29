@@ -1,4 +1,4 @@
-function sessionService($log, $http, $q) {
+function sessionService($log, $http, $q, $rootScope) {
 	var basePath = 'sessions';
 
 	var service = {
@@ -193,6 +193,10 @@ function sessionService($log, $http, $q) {
 	function processProps(props) {
 		$log.debug('processing session properties started...');
 		_.assign(service.context, props);
+		if (props.sessionDto.userId) {
+			$rootScope.xUserId = props.sessionDto.userId;
+			//$log.info('Session User Id = ' + $rootScope.xUserId);
+		}
 		$log.debug('processing session properties finished...');
 	}
 
