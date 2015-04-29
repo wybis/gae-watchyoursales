@@ -20,7 +20,7 @@
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-3">
-		    	<label><small>Debit From</small></label>
+		    	<label><small>Debit From *</small></label>
 				<select class="form-control input-sm"
 					x-ng-model="receipt.trans[0].account"
 					x-ng-disabled="receipt.id != 0"
@@ -36,7 +36,7 @@
 					mask-option="{ allowMinus : true, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true }">
 		  	</div>
 			<div class="col-md-2">
-				<label><small>Amount</small></label>
+				<label><small>Amount *</small></label>
 		    	<input type="text" class="form-control input-sm"
 		    		x-ng-model="receipt.trans[0].unit"		    	 
    					x-ng-disabled="receipt.id != 0"
@@ -45,7 +45,7 @@
 					mask-option="{ allowMinus : false, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true }">
 		  	</div>
 			<div class="col-md-3">
-		    	<label><small>Credit To</small></label>
+		    	<label><small>Credit To *</small></label>
 				<select class="form-control input-sm" 
 					x-ng-model="receipt.trans[1].account"
 					x-ng-disabled="receipt.id != 0"

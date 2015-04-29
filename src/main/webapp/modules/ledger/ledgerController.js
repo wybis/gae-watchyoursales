@@ -28,8 +28,19 @@ function ledgerController($rootScope, $scope, $log, wydNotifyService, sessionSer
 			return
 		}
 		if(receipt.trans[0].account.id === receipt.trans[1].account.id) {
-			var s = "Transaction can't be done between same ledgers";
+			var s = "Transaction can't be done between same ledgers...";
 			wydNotifyService.addError(s, true);
+			return;
+		}
+		
+		var vrEmpId = sessionService.context.sessionDto.branchVirtualEmployeeId;
+		var vrEmply = sessionService.employeesMap[vrEmpId]
+		var frAcc = receipt.trans[0].account;
+		var toAcc = receipt.trans[1].account;
+		if(frAcc.type == 'cashCapital' && toAcc.id != vrEmply.cashAccountId) {
+			var s = "Invalid credit ledger...";
+			wydNotifyService.addError(s, true);
+			return
 		}
 		
 		ledgerService.saveReceiptAsTransaction().then(function(response) {
