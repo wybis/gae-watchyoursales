@@ -37,7 +37,7 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 					e.stopPropagation();
 				};
 			}
-		})
+		});
 	};
 
 	$log.info('root...');
@@ -327,7 +327,7 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 
 		var srcUrl = $location.absUrl().indexOf('index');
 		srcUrl = $location.absUrl().substring(0, srcUrl);
-		srcUrl = srcUrl + next.templateUrl
+		srcUrl = srcUrl + next.templateUrl;
 		$rootScope.currentViewSrcUrl = srcUrl;
 		// $log.info('srcUrl = ' + srcUrl);
 	});

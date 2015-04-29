@@ -19,6 +19,10 @@ class SessionDto implements Serializable {
 
 	String roleId
 
+	long cashAccountId
+
+	long profitAccountId
+
 	long branchId
 
 	String branchCode

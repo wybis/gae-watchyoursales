@@ -30,9 +30,9 @@ public class Tran extends AbstractModel {
 
 	long baseUnit
 
-	long unit
+	double unit
 
-	long balanceUnit
+	double balanceUnit
 
 	double rate
 
@@ -41,11 +41,17 @@ public class Tran extends AbstractModel {
 	@Ignore
 	double amount
 
+	@Ignore
 	double balanceAmount
 
 	Date date
 
 	String status
+
+	long profitTranId
+
+	@Ignore
+	Tran profitTran
 
 	long orderId
 

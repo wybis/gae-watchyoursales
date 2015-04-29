@@ -8,6 +8,7 @@ import io.vteial.wys.model.Order
 import io.vteial.wys.model.Product
 import io.vteial.wys.model.Tran
 import io.vteial.wys.model.TranReceipt
+import io.vteial.wys.model.constants.AccountType
 import io.vteial.wys.model.constants.OrderStatus
 import io.vteial.wys.model.constants.TransactionStatus
 import io.vteial.wys.model.constants.TransactionType
@@ -37,6 +38,8 @@ class DefaultTranService extends AbstractService implements TranService {
 			Tran tran = trans.get(i)
 			tran.receiptId = receipt.id
 			tran.date = receipt.date
+			tran.customerId = receipt.customerId
+
 			try {
 				this.addTransaction(sessionUser, tran)
 			}
@@ -86,6 +89,12 @@ class DefaultTranService extends AbstractService implements TranService {
 			account.depositHandStock(tran.unit)
 		} else {
 
+			if(tran.account.type == AccountType.PRODUCT) {
+				Tran ptran = this.addTransactionForProfit(sessionUser, tran)
+				tran.profitTranId = ptran.id
+				//tran.profitTran = tran
+			}
+
 			account.withdrawHandStock(tran.unit)
 		}
 		tran.averageRate = product.handStockAverage
@@ -111,5 +120,49 @@ class DefaultTranService extends AbstractService implements TranService {
 		product.computeAvailableStockAverage(tran.rate)
 		product.preUpdate(sessionUser.id)
 		product.save()
+	}
+
+	private Tran addTransactionForProfit(SessionDto sessionUser, Tran tran) {
+
+		Account account = Account.get(sessionUser.profitAccountId)
+		Product product = Product.get(account.productId)
+		account.product = product
+
+		Tran ptran = new Tran()
+		ptran.with {
+			receiptId = tran.receiptId
+			category = tran.category
+			productCode = product.code
+			accountId = account.id
+			type = TransactionType.BUY
+			baseUnit = product.baseUnit
+			rate = product.buyRate
+			averageRate = product.handStockAverage
+			date = tran.date
+			status = TransactionStatus.COMPLETE
+			customerId = tran.customerId
+		}
+
+		double avgUnit = tran.unit * (tran.account.product.handStockAverage / tran.account.product.baseUnit)
+		ptran.unit = tran.unit - avgUnit
+		ptran.computeAmount()
+
+		ptran.employeeId = sessionUser.id
+		ptran.branchId = sessionUser.branchId
+
+		ptran.id = autoNumberService.getNextNumber(sessionUser, Tran.ID_KEY)
+
+		ptran.prePersist(sessionUser.id)
+		ptran.save()
+
+		//account.computeAvailableStock();
+		account.preUpdate(sessionUser.id)
+		account.save()
+
+		//product.computeAvailableStockAverage(ptran.rate)
+		product.preUpdate(sessionUser.id)
+		product.save()
+
+		return ptran
 	}
 }

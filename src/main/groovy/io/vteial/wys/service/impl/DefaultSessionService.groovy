@@ -78,6 +78,8 @@ SessionService {
 			lastName = aUser.lastName
 			type = aUser.type
 			roleId = aUser.roleId
+			cashAccountId = aUser.cashAccountId
+			profitAccountId = aUser.profitAccountId
 			branchId = aUser.branchId
 		}
 		Branch branch = Branch.get(sessionDto.branchId)
