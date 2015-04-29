@@ -5,6 +5,7 @@ import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.dto.UserDto
 import io.vteial.wys.model.Account
+import io.vteial.wys.model.Branch
 import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.AccountType
 import io.vteial.wys.model.constants.UserStatus
@@ -79,6 +80,10 @@ SessionService {
 			roleId = aUser.roleId
 			branchId = aUser.branchId
 		}
+		Branch branch = Branch.get(sessionDto.branchId)
+		sessionDto.branchCode = branch.code
+		sessionDto.branchName = branch.name
+		sessionDto.branchVirtualEmployeeId = branch.virtualEmployeeId
 
 		session.setAttribute(SESSION_USER_KEY, sessionDto)
 

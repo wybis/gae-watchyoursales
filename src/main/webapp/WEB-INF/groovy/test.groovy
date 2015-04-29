@@ -1,5 +1,6 @@
 import io.vteial.wys.model.AutoNumber
 import io.vteial.wys.model.Branch
+import io.vteial.wys.web.console.index;
 
 println '''
 <html><head><title>Test</title><head><body><pre>
@@ -19,9 +20,9 @@ try {
 	//log.info an.toString()
 	an.value += 1
 	an.save()
-	console.println(an)
+	index.println(an)
 	an = AutoNumber.get(Branch.ID_KEY)
-	console.println(an)
+	index.println(an)
 
 //	UserDto auser = new UserDto()
 //	auser.userId = 'munmin2000@maxmoney'

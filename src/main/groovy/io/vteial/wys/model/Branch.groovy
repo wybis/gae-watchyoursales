@@ -12,6 +12,8 @@ public class Branch extends AbstractModel  {
 
 	static final String ID_KEY = "branchId"
 
+	String code
+
 	String name
 
 	String aliasName
@@ -30,6 +32,8 @@ public class Branch extends AbstractModel  {
 
 	@Ignore
 	Address address
+
+	long virtualEmployeeId
 
 	String status
 

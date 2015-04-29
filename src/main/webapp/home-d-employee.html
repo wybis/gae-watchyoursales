@@ -20,6 +20,15 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<style>
+
+	body {
+		padding-top: 90px;
+		margin-bottom: 28px;
+	}
+
+</style>
+
 </head>
 <body x-ng-clock>
 
@@ -80,29 +89,6 @@
 						</small></strong>
 					</div>
 				</div>
-			</div>
-		</div>
-
-		<div id="netCashAndStock" class="container-fluid">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3">
-						<strong><small>Branch :</small></strong> 
-						Cash : <span class="badge badge-info">{{ sessionS.cashBranch.handStock | number : 2 }}</span>
-					</div>	
-					<div class="col-md-2">
-						Stock : <span class="badge badge-info">{{ sessionS.stockBranch | number : 2 }}</span>
-					</div>
-					<div class="col-md-3">
-						Total : <span class="badge badge-info">{{ sessionS.cashBranch.handStock + sessionS.stockBranch | number : 2 }}</span>
-					</div>
-					<div class="col-md-2">
-						<strong><small>Dealer :</small></strong> <span class="badge badge-info">{{ sessionS.cashDealer.handStock | number : 2 }}</span>
-					</div>
-					<div class="col-md-2">	
-						<strong><small>Customer :</small></strong> <span class="badge badge-info">{{ sessionS.cashCustomer.handStock | number : 2 }}</span>
-					</div>
-				</div>	
 			</div>
 		</div>
 

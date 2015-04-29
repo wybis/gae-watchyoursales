@@ -4,6 +4,7 @@ import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Branch
+import io.vteial.wys.model.Role
 import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.UserType
 import io.vteial.wys.service.AccountService
@@ -24,10 +25,11 @@ class DefaultDealerService extends DefaultUserService implements DealerService {
 		if(!model.userId) {
 			Branch branch = Branch.get(model.branchId)
 			model.branch = branch
-			model.userId = "${model.firstName}-${model.lastName}@${branch.name}"
+			model.userId = "${model.firstName}-${model.lastName}@${branch.code}"
 			model.userId = model.userId.toLowerCase()
 		}
 		model.type = UserType.DEALER
+		model.roleId = Role.ID_DEALER
 		//model.branchId = sessionUser.branchId
 
 		super.add(sessionUser, model)
@@ -40,7 +42,6 @@ class DefaultDealerService extends DefaultUserService implements DealerService {
 
 		User model = new User()
 		model.with {
-			userId = "guest-dealer@$branch.name"
 			firstName = 'Guest'
 			lastName = 'Dealer'
 			branchId = branch.id

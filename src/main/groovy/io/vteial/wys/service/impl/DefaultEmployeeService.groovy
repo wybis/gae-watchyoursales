@@ -33,7 +33,7 @@ class DefaultEmployeeService extends DefaultUserService implements EmployeeServi
 	public void onBranchCreate(SessionDto sessionUser, Branch branch) {
 		User model = new User()
 
-		model.userId = branch.id + '@' + branch.name
+		model.userId = branch.id + '@' + branch.code
 		model.with {
 			firstName = branch.name
 			lastName = branch.id as String
@@ -41,5 +41,10 @@ class DefaultEmployeeService extends DefaultUserService implements EmployeeServi
 		}
 
 		this.add(sessionUser, model)
+
+		branch.virtualEmployeeId = model.id
+
+		model.prePersist(sessionUser.id)
+		branch.save();
 	}
 }

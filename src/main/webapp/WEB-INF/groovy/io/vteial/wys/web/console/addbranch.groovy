@@ -15,6 +15,8 @@ SessionDto sessionUser = new SessionDto()
 
 branchService.add(sessionUser, branch)
 
+sessionUser.with { code = branch.code }
+
 branch.products.each { t ->
 	t.branchId = branch.id
 	productService.add(sessionUser, t)
@@ -22,6 +24,7 @@ branch.products.each { t ->
 
 branch.employees.each { t ->
 	t.branchId = branch.id
+	t.userId = "${t.userId}@${branch.code}"
 	employeeService.add(sessionUser, t)
 }
 

@@ -1,4 +1,5 @@
 {
+  "code": "maxmoney",	
   "name": "Max Money",
   "products": [
     {
@@ -34,38 +35,42 @@
   ],
   "employees": [
     {
-      "userId": "munmin2000@maxmoney",
+      "userId": "munmin2000",
       "password": "1234",
       "firstName": "Munavar Ali",
-      "roleId": "Manager"
+      "roleId": "manager"
     },
     {
-      "userId": "feroz@maxmoney",
+      "userId": "feroz",
       "password": "1234",
       "firstName": "Feroz",
-      "roleId": "Employee"
+      "roleId": "employee"
     },
     {
-      "userId": "rahamathulla@maxmoney",
+      "userId": "rahamathulla",
       "password": "1234",
       "firstName": "Rahamathulla",
-      "roleId": "Employee"
+      "roleId": "smployee"
     }
   ],
   "dealers": [
     {
-      "firstName": "Rapid Million"
+      "firstName": "Rapid",
+      "lastName" : "Million"
     },
     {
-      "firstName": "Ok Money"
+      "firstName": "Ok",
+      "lastName" : "Money"
     }
   ],
   "customers": [
     {
-      "firstName": "Arun Nair"
+      "firstName": "Arun",
+      "lastName" : "Nair"
     },
     {
-      "firstName": "Shahul Hameed"
+      "firstName": "Shahul",
+      "lastName" : "Hameed"
     }
   ]
 }

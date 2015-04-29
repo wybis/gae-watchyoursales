@@ -20,4 +20,10 @@ class SessionDto implements Serializable {
 	String roleId
 
 	long branchId
+
+	String branchCode
+
+	String branchName
+
+	long branchVirtualEmployeeId
 }

@@ -3,11 +3,6 @@ html {
 	min-height: 100%;
 }
 
-body {
-	padding-top: 115px;
-	margin-bottom: 28px;
-}
-
 a {
 	color: #a6120d;
 	transition: all .3s;

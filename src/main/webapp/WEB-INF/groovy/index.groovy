@@ -1,17 +1,16 @@
+import io.vteial.wys.dto.SessionDto
+import io.vteial.wys.model.Role
+import io.vteial.wys.service.SessionService
 import eu.bitwalker.useragentutils.DeviceType
 import eu.bitwalker.useragentutils.UserAgent
 
-UserAgent userAgent = UserAgent.parseUserAgentString(headers['User-Agent'])
-userAgent.operatingSystem.deviceType
+SessionDto sessionDto = session[SessionService.SESSION_USER_KEY]
 
-if(localMode && userAgent.operatingSystem.deviceType == DeviceType.COMPUTER) {
-	forward '/console.html'
+UserAgent userAgent = UserAgent.parseUserAgentString(headers['User-Agent'])
+if(userAgent.operatingSystem.deviceType != DeviceType.COMPUTER) {
+	forward '/index-m.html'
 	return
 }
 
-if(userAgent.operatingSystem.deviceType != DeviceType.COMPUTER) {
-	forward '/index-d.html'
-}
-else {
-	forward '/index-m.html'
-}
+redirect '/index-d.html'
+

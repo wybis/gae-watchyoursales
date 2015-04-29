@@ -13,4 +13,3 @@ public class Event {
 - ledger - validation from capital fund to virtual employee only
 - ledger - implement transaction management
 - trial balance - group stocks
-- implement block ui in ledger and trial balance

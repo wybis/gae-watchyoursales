@@ -1,0 +1,212 @@
+<html lang="en" class="no-js" x-ng-app="app" x-ng-csp x-ng-controller="rootController">
+<head>
+<title>WatchYourSales</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" >
+<link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="modules/wydNotify/wydNotifyByBootstrap.css">
+<link rel="stylesheet" href="assets/ui-select/selectize.bootstrap3.css" />
+<link rel="stylesheet" href="assets/ui-select/select.min.css" />
+<link rel="stylesheet" href="assets/angular-block-ui/angular-block-ui.min.css"/>
+<link rel="stylesheet" href="assets/angular-aside/css/angular-aside.min.css" />
+<link rel="stylesheet" href="assets/home.css" />
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<style>
+
+	body {
+		padding-top: 115px;
+		margin-bottom: 28px;
+	}
+
+</style>
+
+</head>
+<body x-ng-clock>
+
+<div id="header">
+	<nav class="navbar navbar-default navbar-fixed-top" x-role="navigation">
+	
+		<div class="container-fluid">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" 
+						x-toggle="collapse" x-target=".navbar-inverse-collapse"">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index-d.html">Watch Your Sales</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<form class="navbar-form navbar-left">
+						<button class="btn btn-default" x-ng-click="showLeftMenu()">
+							<i class="fa fa-bars"></i>&nbsp;
+						</button>
+					</form>
+					<ul class="nav navbar-nav">
+						<li>
+							<a x-ng-href="#{{homeView}}"><i class="fa fa-home"></i> Home</a>
+						</li>
+					</ul>
+					<form class="navbar-form navbar-left">
+						My Cash : <span class="badge badge-info">{{ sessionS.cashMine.handStock | number : 2 }}</span>
+						&nbsp;&nbsp;
+						My Stock : <span class="badge badge-info">{{ sessionS.stockMine | number : 2 }}</span>
+						&nbsp;&nbsp;
+						My Total : <span class="badge badge-info">{{ sessionS.cashMine.handStock + sessionS.stockMine | number : 2 }}</span>
+					</form>
+					<ul class="nav navbar-nav navbar-right" x-ng-hide="isLoggedIn">
+						<li>
+							<a href="#/settings"><i class="fa fa-cog"></i> Settings</a>
+						</li>
+						<li>
+							<a href="#/signout"><i class="fa fa-sign-out"></i> Logout</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div id="breadCrumb" class="container-fluid">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3">
+						<strong><small>{{viewName | capitalizeFilter}}</small></strong>
+					</div>
+					<div class="col-md-9 text-right">
+						<strong><small>
+						{{sessionContext.sessionDto.firstName}} / {{sessionContext.sessionDto.userId}} / {{sessionContext.sessionDto.roleId}}
+						</small></strong>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="netCashAndStock" class="container-fluid">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3">
+						<strong><small>Branch :</small></strong> 
+						Cash : <span class="badge badge-info">{{ sessionS.cashBranch.handStock | number : 2 }}</span>
+					</div>	
+					<div class="col-md-2">
+						Stock : <span class="badge badge-info">{{ sessionS.stockBranch | number : 2 }}</span>
+					</div>
+					<div class="col-md-3">
+						Total : <span class="badge badge-info">{{ sessionS.cashBranch.handStock + sessionS.stockBranch | number : 2 }}</span>
+					</div>
+					<div class="col-md-2">
+						<strong><small>Dealer :</small></strong> <span class="badge badge-info">{{ sessionS.cashDealer.handStock | number : 2 }}</span>
+					</div>
+					<div class="col-md-2">	
+						<strong><small>Customer :</small></strong> <span class="badge badge-info">{{ sessionS.cashCustomer.handStock | number : 2 }}</span>
+					</div>
+				</div>	
+			</div>
+		</div>
+
+	</nav>
+</div>
+
+<wyd-notify-by-bootstrap-directive></wyd-notify-by-bootstrap-directive>
+
+<section class="container-fluid">
+	<div class="container" x-ng-view></div>
+</section>
+
+<div id="footer">
+	<x-footer-navigator-directive></x-footer-navigator-directive>
+</div>
+
+<script type="text/javascript"
+	src="assets/lodash.min.js"></script>
+<script type="text/javascript" 
+	src="assets/moment.min.js"></script>
+<script type="text/javascript" 
+	src="assets/jquery.min.js"></script>
+<script type="text/javascript" 
+	src="assets/holder.js"></script>
+	
+<script type="text/javascript"
+	src="assets/angularjs/angular.js"></script>
+<script type="text/javascript"
+	src="assets/angularjs/angular-route.js"></script>
+<script type="text/javascript"
+	src="assets/angularjs/angular-sanitize.js"></script>
+
+<script type="text/javascript" 
+	src="assets/ngStorage.min.js"></script>
+<script type="text/javascript" 
+	src="assets/ui-bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+<script type="text/javascript"
+	src='assets/ui-select/select.min.js'></script>
+<script type="text/javascript" 
+	src="assets/inputmask/jquery.inputmask.bundle.min.js"></script>
+<script type="text/javascript" 
+	src="assets/inputmask/green.inputmask4angular.js"></script>
+<script type="text/javascript"  
+	src="assets/angular-block-ui/angular-block-ui.min.js"></script>
+<script type="text/javascript" 
+	src="assets/angular-aside/js/angular-aside.min.js"></script>
+
+<script type="text/javascript" src="modules/init.js"></script>
+<script type="text/javascript" src="modules/wydNotify/wydNotifyByBootstrap.js"></script>
+
+<script type="text/javascript" src="modules/session/sessionService.js"></script>
+
+<script type="text/javascript" src="modules/account/accountController.js"></script>
+
+<script type="text/javascript" src="modules/product/productController.js"></script>
+
+<script type="text/javascript" src="modules/stock/stockController.js"></script>
+
+<script type="text/javascript" src="modules/employee/employeeController.js"></script>
+
+<script type="text/javascript" src="modules/dealer/dealerController.js"></script>
+
+<script type="text/javascript" src="modules/dealerOrder/dealerOrderController.js"></script>
+
+<script type="text/javascript" src="modules/dealerTran/dealerTranController.js"></script>
+
+<script type="text/javascript" src="modules/customer/customerController.js"></script>
+
+<script type="text/javascript" src="modules/customerOrder/customerOrderController.js"></script>
+
+<script type="text/javascript" src="modules/customerTran/customerTranController.js"></script>
+
+<script type="text/javascript" src="modules/counter/counterService.js"></script>
+<script type="text/javascript" src="modules/counter/counterController.js"></script>
+
+<script type="text/javascript" src="modules/transfer/transferController.js"></script>
+
+<script type="text/javascript" src="modules/ledger/ledgerService.js"></script>
+<script type="text/javascript" src="modules/ledger/ledgerController.js"></script>
+
+<script type="text/javascript" src="modules/ledgerTran/ledgerTranController.js"></script>
+
+<script type="text/javascript" src="modules/trialBalance/trialBalanceController.js"></script>
+
+<script type="text/javascript" src="modules/home/homeController.js"></script>
+<script type="text/javascript" src="modules/home/indexController.js"></script>
+
+<script type="text/javascript" src="modules/session/settingController.js"></script>
+
+<script type="text/javascript" src="modules/session/loginController.js"></script>
+<script type="text/javascript" src="modules/session/logoutController.js"></script>
+
+<script type="text/javascript" src="modules/common.js"></script>
+<script type="text/javascript" src="modules/directives.js"></script>
+<script type="text/javascript" src="modules/home-d.js"></script>
+
+</body>
+</html>

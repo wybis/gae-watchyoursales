@@ -1,15 +1,14 @@
 function logoutController($rootScope, $scope, $log, $http, $window) {
+	$log.debug('logoutContoller...');
 	$rootScope.viewName = 'SignOut';
 
 	var path = 'sessions/logout';
 	$http.get(path).success(function(response) {
-		$window.location = 'index-d.html';
+		$window.location = 'index';
 		// $log.info(response);
 	}).error(function() {
-		deferred.reject("unable to logout...");
-		$window.location = 'index-d.html';
+		deferred.reject("unable to signgout...");
+		$window.location = 'index';
 	});
-
-	$log.debug('logoutContoller...');
 }
 appControllers.controller('logoutController', logoutController);

@@ -10,7 +10,7 @@ ResponseDto responseDto = new ResponseDto(type : 0, message : 'success...')
 SessionDto sessionDto = session[SessionService.SESSION_USER_KEY]
 
 try {
-	TrialBalance tb = new TrialBalance()
+	TB tb = new TB()
 	tb.generatedBy = sessionDto.userId
 	tb.generatedTime = new Date()
 
@@ -21,7 +21,7 @@ try {
 
 	entitys.each { entity ->
 		Account account = entity as Account
-		TrialBalanceItem tbi = new TrialBalanceItem()
+		TBI tbi = new TBI()
 		tbi.with {
 			id = account.id
 			name = account.name
@@ -44,18 +44,20 @@ try {
 catch(Throwable t) {
 	responseDto.type = ResponseDto.UNKNOWN
 	responseDto.message = t.message
+
 	StringWriter sw = new StringWriter()
 	PrintWriter pw = new PrintWriter(sw)
 	t.printStackTrace(pw)
 	responseDto.message = 'Fetching trial balance failed...';
 	responseDto.data = sw.toString()
+
 	log.warning(sw.toString())
 }
 
 jsonCategory.respondWithJson(response, responseDto)
 
 
-class TrialBalanceItem {
+class TBI {
 	long id
 	String name
 	String type
@@ -64,10 +66,10 @@ class TrialBalanceItem {
 	double debit
 }
 
-class TrialBalance {
+class TB {
 	String generatedBy
 	Date generatedTime
 	double creditTotal
 	double debitTotal
-	List<TrialBalanceItem> items = []
+	List<TBI> items = []
 }

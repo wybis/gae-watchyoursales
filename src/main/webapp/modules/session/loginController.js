@@ -16,25 +16,32 @@ function loginController($rootScope, $scope, $log, $window, $sessionStorage,
 
 		var path = 'sessions/login';
 		$http.post(path, $scope.user).success(function(response) {
+			$log.info(response);
 			if (response.type === 1) {
 				$scope.message = response.message;
 				wydNotifyService.addError($scope.message, true);
 			} else {
-				$window.location = 'home-d.html';
+				var roleId = response.data.sessionDto.roleId;
+				var pathId = '/home-d-customer.html'
+				if (roleId == 'manager') {
+					pathId = '/home-d-manager.html'
+				}
+				if (roleId == 'employee') {
+					pathId = '/home-d-employee.html'
+				}
+				if (roleId == 'dealer') {
+					pathId = '/home-d-dealer.html'
+				}
+				$window.location = pathId;
 			}
-			// $log.info(response);
-		}).error(function(error) {
-			$log.debug("unable to login...");
-		});
+		})
 	}
 	$scope.signin = signin;
 
-	$timeout(function() {
-		$log.info('Before signin...');
-		$scope.user.userId = 'munmin2000@maxmoney';
-		$scope.signin();
-		$log.info('After signin...');
-	}, 1000);
+	// $timeout(function() {
+	$scope.user.userId = 'munmin2000@maxmoney';
+	// $scope.signin();
+	// }, 1000);
 
 	$log.debug('loginController...');
 }
