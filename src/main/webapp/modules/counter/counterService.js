@@ -319,7 +319,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			$log.info("Receipt before post...")
 			$log.info(reqReceipt);
 
-			var path = '/counter.groovy'
+			var path = '/sessions/counter'
 			$http.post(path, reqReceipt).success(function(response) {
 				// $log.debug(response);
 				if (response.type === 0) {

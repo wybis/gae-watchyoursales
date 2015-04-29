@@ -4,8 +4,7 @@ function ledgerController($rootScope, $scope, $log, wydNotifyService, sessionSer
 	$rootScope.viewName = 'Ledgers';
 
 	$scope.accountsMap = sessionService.accountsMap;
-	$scope.frAccounts = [];
-	$scope.toAccounts = [];
+	
 	$scope.recentTrans = [];
 	$scope.receipt = ledgerService.receipt;
 
@@ -38,25 +37,25 @@ function ledgerController($rootScope, $scope, $log, wydNotifyService, sessionSer
 		});
 	}
 
-	sessionService.getLedgers().then(function(response) {
-		if (response.type != 0) {
-			return;
-		}
-
-		$scope.frAccounts = response.data;
-
-		_.forEach(response.data, function(item) {
-			if (item.type != 'cashCapital') {
-				$scope.toAccounts.push(item);
-			}
-		});
-	});
-
 	$scope.refresh = function() {
 		ledgerService.getRecentTransactions().then(function(response) {
 			$scope.recentTrans = response.data;
 		});
 	};
+
+	$scope.frAccounts = [];
+	$scope.toAccounts = [];
+
+	_.forEach(sessionService.accounts, function(item) {
+		if (item.type == 'cashCapital') {
+			$scope.frAccounts.push(item);
+		}
+		if (item.type == 'cashEmployee') {
+			$scope.frAccounts.push(item);
+			$scope.toAccounts.push(item);
+		}
+	});
+
 
 	$scope.refresh();
 }

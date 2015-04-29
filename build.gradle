@@ -32,7 +32,7 @@ sourceCompatibility = compatibilityVersion
 targetCompatibility = compatibilityVersion
 
 appengine {
-	//httpAddress = '192.168.1.104'
+	//httpAddress = '192.168.1.2'
 	httpPort = 1111
 	disableUpdateCheck = false
 

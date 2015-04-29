@@ -28,7 +28,7 @@ get  	'/sessions/properties',					forward : '/io/vteial/wys/web/session/properti
 post 	'/sessions/login',     					forward : '/io/vteial/wys/web/session/login.groovy'
 get  	'/sessions/logout',    					forward : '/io/vteial/wys/web/session/logout.groovy'
 
-get		'/sessions/counter',  					forward : '/io/vteial/wys/web/session/counter.groovy'
+post	'/sessions/counter',  					forward : '/io/vteial/wys/web/session/counter.groovy'
 
 get		'/sessions/trialBalance',  				forward : '/io/vteial/wys/web/session/trialBalance.groovy'
 get		'/sessions/cash',    					forward : '/io/vteial/wys/web/session/cash.groovy'
