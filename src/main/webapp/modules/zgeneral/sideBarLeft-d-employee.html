@@ -49,39 +49,19 @@
 				Transactions
 			</a>
 		</li>
-		<li class="list-group-item" x-ng-hide="sessionContext.sessionUser.isAppUser">
-			<a href="" x-ng-click="routeTo($event, '/dealers')"> 
-				Dealers
+		<li class="list-group-item">
+			<a href="" x-ng-click="routeTo($event, '/ledgers')"> 
+				Ledgers
 			</a>
 		</li>	
 		<li class="list-group-item">
-				Dealer &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="" x-ng-click="routeTo($event, '/dealerOrders')"> 
-			 	Orders
-			</a>
-			<a href="" x-ng-click="routeTo($event, '/dealerOrderHistory')" class="pull-right"> 
-				Order History
-			</a>
-		</li>
-		<li class="list-group-item">
-				Dealer
-			<a href="" x-ng-click="routeTo($event, '/dealerTrans')" class="pull-right"> 
-			 	Transactions
-			</a>
-		</li>
-		<li class="list-group-item">
-			<a href="" x-ng-click="routeTo($event, '/ledgers')">
 				Ledger
-			</a>
 			<a href="" x-ng-click="routeTo($event, '/ledgerTrans')" class="pull-right"> 
 				Transactions
 			</a>
 		</li>
 		<li class="list-group-item">
-			<a href="" x-ng-click="routeTo($event, '/employees')"> 
-				Employees
-			</a>
-			<a href="" x-ng-click="routeTo($event, '/trialBalance')" class="pull-right"> 
+			<a href="" x-ng-click="routeTo($event, '/trialBalance')"> 
 				Trial Balance
 			</a>
 		</li>	

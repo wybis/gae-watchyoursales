@@ -3,6 +3,7 @@ function ledgerTranController($rootScope, $scope, $log, sessionService, $http) {
 	$rootScope.viewName = 'Ledger Transactionss';
 
 	$scope.accountsMap = sessionService.accountsMap;
+	
 	$scope.items = [];
 
 	function processTrans(trans) {

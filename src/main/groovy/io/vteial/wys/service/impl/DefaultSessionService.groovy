@@ -168,7 +168,7 @@ SessionService {
 	public List<Account> ledgers(SessionDto sessionUser) {
 		List<Account> models = null
 
-		List<String> accountTypes = [AccountType.CASH_CAPITAL, AccountType.CASH_EMPLOYEE]
+		List<String> accountTypes = [AccountType.CASH_CAPITAL, AccountType.CASH_EMPLOYEE, AccountType.PROFIT_EMPLOYEE]
 		models = accountService.findByBranchIdAndTypes(sessionUser.branchId, accountTypes)
 
 		return models;

@@ -2,6 +2,9 @@ function customerTranController($rootScope, $scope, $log, sessionService, $http)
 	$log.debug('customerTranController...');
 	$rootScope.viewName = 'Customer Transactions';
 
+	$scope.productsMap = sessionService.productsMap;
+	$scope.accountsMap = sessionService.accountsMap;
+
 	$scope.items = [];
 
 	function processTrans(trans) {

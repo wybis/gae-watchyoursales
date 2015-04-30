@@ -1,5 +1,5 @@
-import io.vteial.wys.model.Product
-import io.vteial.wys.model.constants.ProductType
+import io.vteial.wys.model.Tran
+import io.vteial.wys.model.constants.TransactionCategory
 
 
 println '''
@@ -8,9 +8,10 @@ println '''
 println '-----------------------------------------------------------------'
 try {
 	def entitys = datastore.execute {
-		from Product.class.simpleName
-		where branchId == 1
-		and type == ProductType.CASH_DEALER
+		from Tran.class.simpleName
+		where category == TransactionCategory.CUSTOMER
+		and branchId == 1
+		sort desc by date
 	}
 
 	println("dsize = " + entitys.size())

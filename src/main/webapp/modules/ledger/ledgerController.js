@@ -1,7 +1,7 @@
 function ledgerController($rootScope, $scope, $log, wydNotifyService, sessionService,
 		ledgerService) {
 	$log.debug('ledgerController...');
-	$rootScope.viewName = 'Ledgers';
+	$rootScope.viewName = 'Ledger';
 
 	$scope.accountsMap = sessionService.accountsMap;
 	
@@ -66,7 +66,6 @@ function ledgerController($rootScope, $scope, $log, wydNotifyService, sessionSer
 			$scope.toAccounts.push(item);
 		}
 	});
-
 
 	$scope.refresh();
 }
