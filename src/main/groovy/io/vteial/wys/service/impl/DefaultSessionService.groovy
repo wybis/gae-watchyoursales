@@ -6,6 +6,7 @@ import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.dto.UserDto
 import io.vteial.wys.model.Account
 import io.vteial.wys.model.Branch
+import io.vteial.wys.model.Role
 import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.AccountType
 import io.vteial.wys.model.constants.UserStatus
@@ -168,8 +169,14 @@ SessionService {
 	public List<Account> ledgers(SessionDto sessionUser) {
 		List<Account> models = null
 
-		List<String> accountTypes = [AccountType.CASH_CAPITAL, AccountType.CASH_EMPLOYEE, AccountType.PROFIT_EMPLOYEE]
-		models = accountService.findByBranchIdAndTypes(sessionUser.branchId, accountTypes)
+		if(sessionUser.roleId == Role.ID_MANAGER) {
+			List<String> accountTypes = [AccountType.CASH_CAPITAL, AccountType.CASH_EMPLOYEE, AccountType.PROFIT_EMPLOYEE]
+			models = accountService.findByBranchIdAndTypes(sessionUser.branchId, accountTypes)
+		}
+		else {
+			List<String> accountTypes = [AccountType.CASH_EMPLOYEE, AccountType.PROFIT_EMPLOYEE]
+			models = accountService.findByUserIdAndTypes(sessionUser.id, accountTypes)
+		}
 
 		return models;
 	}

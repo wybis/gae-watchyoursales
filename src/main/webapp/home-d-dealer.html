@@ -73,7 +73,7 @@
 					</div>
 					<div class="col-md-9 text-right">
 						<strong><small>
-						{{sessionContext.sessionDto.firstName}} / {{sessionContext.sessionDto.userId}} / {{sessionContext.sessionDto.roleId}}
+						{{sessionContext.sessionDto.firstName}} / {{sessionContext.sessionDto.userId}} / {{sessionContext.sessionDto.roleId | capitalizeFilter}}
 						</small></strong>
 					</div>
 				</div>
@@ -129,49 +129,15 @@
 
 <script type="text/javascript" src="modules/session/sessionService.js"></script>
 
-<script type="text/javascript" src="modules/account/accountController.js"></script>
-
-<script type="text/javascript" src="modules/product/productController.js"></script>
-
-<script type="text/javascript" src="modules/stock/stockController.js"></script>
-
-<script type="text/javascript" src="modules/employee/employeeController.js"></script>
-
-<script type="text/javascript" src="modules/dealer/dealerController.js"></script>
-
-<script type="text/javascript" src="modules/dealerOrder/dealerOrderController.js"></script>
-
-<script type="text/javascript" src="modules/dealerTran/dealerTranController.js"></script>
-
-<script type="text/javascript" src="modules/customer/customerController.js"></script>
-
-<script type="text/javascript" src="modules/customerOrder/customerOrderController.js"></script>
-
-<script type="text/javascript" src="modules/customerTran/customerTranController.js"></script>
-
-<script type="text/javascript" src="modules/counter/counterService.js"></script>
-<script type="text/javascript" src="modules/counter/counterController.js"></script>
-
-<script type="text/javascript" src="modules/transfer/transferController.js"></script>
-
-<script type="text/javascript" src="modules/ledger/ledgerService.js"></script>
-<script type="text/javascript" src="modules/ledger/ledgerController.js"></script>
-
-<script type="text/javascript" src="modules/ledgerTran/ledgerTranController.js"></script>
-
-<script type="text/javascript" src="modules/trialBalance/trialBalanceController.js"></script>
-
 <script type="text/javascript" src="modules/home/homeController.js"></script>
-<script type="text/javascript" src="modules/home/indexController.js"></script>
 
 <script type="text/javascript" src="modules/session/settingController.js"></script>
 
-<script type="text/javascript" src="modules/session/loginController.js"></script>
 <script type="text/javascript" src="modules/session/logoutController.js"></script>
 
 <script type="text/javascript" src="modules/common.js"></script>
 <script type="text/javascript" src="modules/directives.js"></script>
-<script type="text/javascript" src="modules/home-d.js"></script>
+<script type="text/javascript" src="modules/home-d-dealer.js"></script>
 
 </body>
 </html>

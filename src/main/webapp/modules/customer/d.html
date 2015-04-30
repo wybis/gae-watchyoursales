@@ -14,9 +14,10 @@
 		<th class="text-right" width="30">#</th>
 		<th class="text-center"><small>Id</small></th>
 	   	<th class="text-center"><small>Name</small></th>
-	   	<th class="text-center"><small>Email Id</small></th>
-	   	<th class="text-center"><small>Mobile No</small></th>
-	   	<th class="text-center"><small>Balance</small></th>
+	   	<th class="text-center" width="220"><small>Email Id</small></th>
+	   	<th class="text-center" width="140"><small>Mobile No</small></th>
+	   	<th class="text-center" width="160"><small>Amount</small></th>
+	   	<th class="text-center" width="40"><small>&nbsp;</small></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -38,6 +39,9 @@
 		</td>
 		<td class="text-right">
 			{{item.cashAccount.amount  | number : 2}}
+		</td>
+		<td>
+			&nbsp;
 		</td>
 	</tr>
 	</tbody>

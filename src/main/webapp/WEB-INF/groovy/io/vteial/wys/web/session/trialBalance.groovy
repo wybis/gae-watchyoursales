@@ -3,6 +3,7 @@ package io.vteial.wys.web.session
 import io.vteial.wys.dto.ResponseDto
 import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Account
+import io.vteial.wys.model.Role
 import io.vteial.wys.service.SessionService
 
 ResponseDto responseDto = new ResponseDto(type : 0, message : 'success...')
@@ -14,9 +15,18 @@ try {
 	tb.generatedBy = sessionDto.userId
 	tb.generatedTime = new Date()
 
-	def entitys = datastore.execute {
-		from Account.class.simpleName
-		where branchId == sessionDto.branchId
+	def entitys = null
+	if(sessionDto.roleId == Role.ID_MANAGER) {
+		entitys = datastore.execute {
+			from Account.class.simpleName
+			where branchId == sessionDto.branchId
+		}
+	}
+	else {
+		entitys = datastore.execute {
+			from Account.class.simpleName
+			where userId == sessionDto.id
+		}
 	}
 
 	entitys.each { entity ->

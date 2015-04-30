@@ -61,6 +61,27 @@ class DefaultAccountService extends AbstractService implements AccountService {
 	}
 
 	@Override
+	public List<Account> findByUserIdAndTypes(long aUserId, List<String> accountTypes) {
+		List<Account> models = []
+
+		def entitys = datastore.execute {
+			from Account.class.simpleName
+			where userId == aUserId
+			and type in accountTypes
+		}
+
+		entitys.each { entity ->
+			Account model = entity as Account
+			if(model.productId > 0) {
+				model.product = Product.get(model.productId)
+			}
+			models <<  model
+		}
+
+		return models;
+	}
+
+	@Override
 	public List<Account> findByBranchIdAndTypes(long abranchId, List<String> accountTypes) {
 		List<Account> models = []
 

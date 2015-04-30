@@ -13,6 +13,8 @@ interface AccountService {
 
 	List<Account> findByUserIdAndType(long userId, String accountType)
 
+	List<Account> findByUserIdAndTypes(long userId, List<String> accountTypes)
+
 	List<Account> findByBranchIdAndTypes(long branchId, List<String> accountTypes)
 
 	//	Account findOneByEmployeeIdAndType(long employeeId, String type)

@@ -77,12 +77,12 @@ function sessionService($log, $http, $q, $rootScope) {
 
 		var deferred = $q.defer();
 		$http.get(path).success(function(response) {
+			// $log.info(response);
 			if (response.type === 0) {
 				processLedgers(response.data);
 				// service.computeStockWorth();
 				deferred.resolve(response);
 			}
-			// $log.info(response);
 		})
 
 		return deferred.promise;
@@ -102,12 +102,12 @@ function sessionService($log, $http, $q, $rootScope) {
 
 		var deferred = $q.defer();
 		$http.get(path).success(function(response) {
+			// $log.info(response);
 			if (response.type === 0) {
 				processStocks(response.data);
 				// service.computeStockWorth();
 				deferred.resolve(response);
 			}
-			// $log.info(response);
 		})
 
 		return deferred.promise;
@@ -128,11 +128,11 @@ function sessionService($log, $http, $q, $rootScope) {
 
 		var deferred = $q.defer();
 		$http.get(path).success(function(response) {
+			// $log.info(response);
 			if (response.type === 0) {
 				processCustomers(response.data);
 				deferred.resolve(response);
 			}
-			// $log.info(response);
 		})
 
 		return deferred.promise;
@@ -153,11 +153,11 @@ function sessionService($log, $http, $q, $rootScope) {
 
 		var deferred = $q.defer();
 		$http.get(path).success(function(response) {
+			// $log.info(response);
 			if (response.type === 0) {
 				processDealers(response.data);
 				deferred.resolve(response);
 			}
-			// $log.info(response);
 		})
 
 		return deferred.promise;
@@ -180,11 +180,11 @@ function sessionService($log, $http, $q, $rootScope) {
 
 		var deferred = $q.defer();
 		$http.get(path).success(function(response) {
+			// $log.info(response);
 			if (response.type === 0) {
 				processEmployees(response.data);
 				deferred.resolve(response);
 			}
-			// $log.info(response);
 		})
 
 		return deferred.promise;
@@ -195,7 +195,7 @@ function sessionService($log, $http, $q, $rootScope) {
 		_.assign(service.context, props);
 		if (props.sessionDto.userId) {
 			$rootScope.xUserId = props.sessionDto.userId;
-			//$log.info('Session User Id = ' + $rootScope.xUserId);
+			// $log.info('Session User Id = ' + $rootScope.xUserId);
 		}
 		$log.debug('processing session properties finished...');
 	}
@@ -215,12 +215,12 @@ function sessionService($log, $http, $q, $rootScope) {
 
 		var deferred = $q.defer();
 		$http.get(path).success(function(response) {
+			// $log.info(response);
 			if (response.type === 0) {
 				processProps(response.data);
 				processModel(response.model);
 				deferred.resolve(response);
 			}
-			// $log.info(response);
 		}).error(function() {
 			deferred.reject("unable to authenticate...");
 		});
