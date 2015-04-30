@@ -3,30 +3,57 @@ function trialBalanceController($rootScope, $scope, $log, sessionService, $http)
 	$rootScope.viewName = 'Trial Balance';
 
 	function processTrialBalance(data) {
-		var trialBalance = {}, tbgs = [], tbg = null, debit = 0, credit = 0;
+		var tbs = {}, tbgs = [], tbg = null, debit = 0, credit = 0, paccts = [];
 		_.forEach(data.items, function(item) {
-			tbg = trialBalance[item.type];
-			if (!tbg) {
-				tbg = {
-					type : _.capitalize(item.type),
-					debit : 0,
-					credit : 0,
-					items : []
-				};
-				trialBalance[item.type] = tbg;
-				tbgs.push(tbg);
-			}
-			tbg.items.push(item);
-			if (item.amount > 0) {
-				item.debit = item.amount;
-				tbg.debit += item.amount;
-				debit += item.amount;
+			if (item.type == 'product') {
+				paccts.push(item);
 			} else {
-				item.credit = item.amount;
-				tbg.credit += item.amount;
-				credit += item.amount;
+				tbg = tbs[item.type];
+				if (!tbg) {
+					tbg = {
+						type : item.type,
+						debit : 0,
+						credit : 0,
+						items : []
+					};
+					tbs[item.type] = tbg;
+					tbgs.push(tbg);
+				}
+				tbg.items.push(item);
+				if (item.amount > 0) {
+					item.debit = item.amount;
+					tbg.debit += item.amount;
+					debit += item.amount;
+				} else {
+					item.credit = item.amount;
+					tbg.credit += item.amount;
+					credit += item.amount;
+				}
 			}
 		});
+
+		var pacctsg = _.groupBy(paccts, function(item) {
+			return item.aliasName
+		});
+		tbg = {
+			type : 'product',
+			debit : 0,
+			credit : 0,
+			items : []
+		};
+		var pcodes = _.keys(pacctsg);
+		_.forEach(pcodes, function(pcode) {
+			var amount = 0;
+			_.forEach(pacctsg[pcode], function(item) {
+				amount += item.amount;
+			});
+			var acct = _.clone(pacctsg[pcode][0]);
+			acct.amount = amount;
+			tbg.debit += amount;
+			tbg.items.push(acct);
+			debit += amount;
+		});
+		tbgs.push(tbg);
 
 		var difference = credit + debit;
 		if (difference < 0) {
@@ -36,6 +63,7 @@ function trialBalanceController($rootScope, $scope, $log, sessionService, $http)
 		$scope.tbgs = tbgs;
 		$scope.debit = debit;
 		$scope.credit = credit;
+
 	}
 
 	$scope.refresh = function() {

@@ -146,6 +146,13 @@ class DefaultTranService extends AbstractService implements TranService {
 		double avgUnit = tran.unit * (tran.account.product.handStockAverage / tran.account.product.baseUnit)
 		ptran.unit = tran.unit - avgUnit
 		ptran.computeAmount()
+		if(ptran.unit >= 0) {
+			ptran.type = TransactionType.SELL
+			account.withdrawHandStock(ptran.unit)
+		} else {
+			ptran.type = TransactionType.BUY
+			account.depositHandStock(ptran.unit)
+		}
 
 		ptran.employeeId = sessionUser.id
 		ptran.branchId = sessionUser.branchId

@@ -16,18 +16,18 @@ try {
 	tb.generatedTime = new Date()
 
 	def entitys = null
-	if(sessionDto.roleId == Role.ID_MANAGER) {
-		entitys = datastore.execute {
-			from Account.class.simpleName
-			where branchId == sessionDto.branchId
-		}
+	//	if(sessionDto.roleId == Role.ID_MANAGER) {
+	entitys = datastore.execute {
+		from Account.class.simpleName
+		where branchId == sessionDto.branchId
 	}
-	else {
-		entitys = datastore.execute {
-			from Account.class.simpleName
-			where userId == sessionDto.id
-		}
-	}
+	//	}
+	//	else {
+	//		entitys = datastore.execute {
+	//			from Account.class.simpleName
+	//			where userId == sessionDto.id
+	//		}
+	//	}
 
 	entitys.each { entity ->
 		Account account = entity as Account
@@ -35,8 +35,10 @@ try {
 		tbi.with {
 			id = account.id
 			name = account.name
+			aliasName = account.aliasName
 			type = account.type
 			amount = account.amount
+			userId = account.userId
 		}
 		if(account.amount > 0) {
 			tbi.debit = account.amount
@@ -70,10 +72,12 @@ jsonCategory.respondWithJson(response, responseDto)
 class TBI {
 	long id
 	String name
+	String aliasName
 	String type
 	double amount
 	double credit
 	double debit
+	long userId
 }
 
 class TB {
