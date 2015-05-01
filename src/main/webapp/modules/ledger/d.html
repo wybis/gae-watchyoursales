@@ -106,7 +106,7 @@
 	</tr>
 	</thead>
 	<tbody>
-	<tr x-ng-repeat="item in recentTrans">
+	<tr x-ng-repeat="item in recentTrans | orderBy : '-id'">
 		<td class="text-right" width="40">
 			{{$index+1}}
 		</td>
