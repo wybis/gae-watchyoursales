@@ -150,13 +150,49 @@ app.config(function($routeProvider, $locationProvider) {
 		controller : 'employeeController',
 		reloadOnSearch : false
 	});
-
+	// dealers
 	$routeProvider.when('/dealers', {
 		templateUrl : 'modules/dealer/d.html',
 		controller : 'dealerController',
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/dealers/dealer', {
+		templateUrl : 'modules/dealer/d-edit.html',
+		controller : 'dealerEditController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/dealers/dealer/:id', {
+		templateUrl : 'modules/dealer/d-view.html',
+		controller : 'dealerViewController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/dealers/dealer/:id/edit', {
+		templateUrl : 'modules/dealer/d-edit.html',
+		controller : 'dealerEditController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/dealers/search', {
+		templateUrl : 'modules/dealer/d-search.html',
+		controller : 'dealerSearchController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/dealerOrders', {
+		templateUrl : 'modules/dealerOrder/d.html',
+		controller : 'dealerOrderController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/dealerTrans', {
+		templateUrl : 'modules/dealerTran/d.html',
+		controller : 'dealerTranController',
+		reloadOnSearch : false
+	});
+	// customers
 	$routeProvider.when('/customers', {
 		templateUrl : 'modules/customer/d.html',
 		controller : 'customerController',
@@ -184,18 +220,6 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/customers/search', {
 		templateUrl : 'modules/customer/d-search.html',
 		controller : 'customerSearchController',
-		reloadOnSearch : false
-	});
-
-	$routeProvider.when('/dealerOrders', {
-		templateUrl : 'modules/dealerOrder/d.html',
-		controller : 'dealerOrderController',
-		reloadOnSearch : false
-	});
-
-	$routeProvider.when('/dealerTrans', {
-		templateUrl : 'modules/dealerTran/d.html',
-		controller : 'dealerTranController',
 		reloadOnSearch : false
 	});
 

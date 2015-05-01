@@ -80,6 +80,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		var product = sessionService.productsMap[productId];
 		// $log.info(product);
 		sessionService.cashCustomer = product;
+		receipt.customerUrl = '/customers/customer/' + customer.id;
 	};
 
 	service.setDealer = function(dealer) {
@@ -92,6 +93,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		var product = sessionService.productsMap[productId];
 		// $log.info(product);
 		sessionService.cashDealer = product;
+		receipt.customerUrl = '/dealers/dealer/' + dealer.id;
 	};
 
 	service.newTransaction = function() {
