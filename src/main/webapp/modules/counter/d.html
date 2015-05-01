@@ -49,45 +49,47 @@
 
 <div class="panel" data-ng-class="{true : 'panel-danger', false : 'panel-default'}[receipt.transactions[receipt.curTranIndex].message != '']">
 	<div class="panel-heading">
-		<div class="pull-left">
-		<button class="btn btn-default btn-sm"
-			x-tooltip="Add New Transaction"
-			x-ng-click="newTransaction()">
-			<i class="fa fa-plus"></i> New
-		</button>
-		</div>
+		<span class="pull-left">
+			Receipt Id : <strong>{{receipt.id}}</strong>&nbsp;
+		</span>
 		&nbsp;{{receipt.transactions[receipt.curTranIndex].message}}
-		
-			<div class="btn-group pull-right" x-dropdown>
-      			<button type="button" class="btn btn-default btn-sm dropdown-toggle"
-      				x-ng-disabled="receipt.id != 0"
-      				x-dropdown-toggle>
-      				&nbsp;<i class="fa fa-ellipsis-v"></i>&nbsp; 
-      			</button>
-      			<ul class="dropdown-menu" role="menu">
-        			<li>
-        				<a href="" x-ng-click="removeAllTransactions()">
-        					<i class="fa fa-times"></i> &nbsp;Delete All 
-        				</a>
-        			</li>
-        			<li>
-        				<a href="#/recentTransactions"> 
-        					<i class="fa fa-refresh"></i> &nbsp;Recent Transactions
-        				</a>
-        			</li>
-        			<li>
-        				<a href="#/recentOrders"> 
-        					<i class="fa fa-refresh"></i> &nbsp;Recent Orders
-        				</a>
-        			</li>
-        			<li>
-        				<a href="#/recentDrafts">
-        					<i class="fa fa-refresh"></i> &nbsp;Recent Drafts
-        				</a>
-        			</li>
-        		</ul>
-    		</div>
-		
+		<div class="pull-right">
+			<button class="btn btn-default btn-sm"
+				x-tooltip="Add New Transaction"
+				x-ng-click="newTransaction()">
+				<i class="fa fa-plus"></i> New
+			</button>
+			&nbsp;&nbsp;
+			<div class="btn-group" x-dropdown>
+	   			<button type="button" class="btn btn-default btn-sm dropdown-toggle"
+	   				x-ng-disabled="receipt.id != 0"
+	   				x-dropdown-toggle>
+	   				&nbsp;<i class="fa fa-ellipsis-v"></i>&nbsp; 
+	   			</button>
+	   			<ul class="dropdown-menu" role="menu">
+	       			<li>
+	       				<a href="" x-ng-click="removeAllTransactions()">
+	       					<i class="fa fa-times"></i> &nbsp;Delete All 
+	       				</a>
+	       			</li>
+	       			<li>
+	       				<a href="#/recentTransactions"> 
+	       					<i class="fa fa-refresh"></i> &nbsp;Recent Transactions
+	       				</a>
+	       			</li>
+	       			<li>
+	       				<a href="#/recentOrders"> 
+	       					<i class="fa fa-refresh"></i> &nbsp;Recent Orders
+	       				</a>
+	       			</li>
+	       			<li>
+	       				<a href="#/recentDrafts">
+	       					<i class="fa fa-refresh"></i> &nbsp;Recent Drafts
+	       				</a>
+	       			</li>
+	       		</ul>
+	   		</div>
+   		</div>
 	</div>
 	<table class="table table-condensed table-bordered">
 	<thead>

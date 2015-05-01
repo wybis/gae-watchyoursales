@@ -1,19 +1,13 @@
 <div class="panel panel-default">
 	<div class="panel-heading text-center">
 		<span class="pull-left">
-			&nbsp;Receipt Id : <strong>{{receipt.id}}</strong>
+			&nbsp;Receipt Id : <strong>{{receipt.id}}</strong>&nbsp;
 		</span>
-		&nbsp;{{receipt.message}}
+		&nbsp;&nbsp;{{receipt.message}}
 		<span class="pull-right">
-			<button class="btn btn-default btn-sm" 
-				x-ng-disabled="receipt.id == 0"
-				x-ng-click="printReceipt()">
-				<i class="fa fa-print"></i> Re-Print Receipt
-			</button>
-			&nbsp;&nbsp;
 			<button type="button" class="btn btn-default btn-sm"
 				x-ng-click="clearOrNew()">
-				 &nbsp;&nbsp;Clear / New&nbsp;&nbsp;
+				 &nbsp;Clear / New&nbsp;&nbsp;
 			</button>
 		</span>
 	</div>
@@ -66,10 +60,17 @@
 			<div class="col-md-1">
 				<label><small>Description</small></label>
 			</div>
-			<div class="col-md-9">
+			<div class="col-md-7">
 		    	<input type="text" class="form-control input-sm"
 		    		x-ng-model="receipt.description"
 		    		x-ng-disabled="receipt.id != 0">
+			</div>
+			<div class="col-md-2">
+				<button class="btn btn-default btn-sm btn-block" 
+					x-ng-disabled="receipt.id == 0"
+					x-ng-click="printReceipt()">
+					<i class="fa fa-print"></i> Re-Print Receipt
+				</button>
 			</div>
 			<div class="col-md-2">
 				<button type="button" class="btn btn-primary btn-sm btn-block"
