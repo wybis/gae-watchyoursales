@@ -1,11 +1,10 @@
 function rootController($scope, $log, $window, $rootScope, sessionService,
-		$aside) {
+		panels) {
+	$log.info('rootController...');
 
 	$rootScope.sessionContext = sessionService.context;
 
 	sessionService.properties();
-	// sessionService.getStocks();
-	// sessionService.getLedgers();
 
 	$scope.sessionS = sessionService;
 
@@ -18,45 +17,50 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 	};
 
 	$scope.showLeftMenu = function() {
-		var sideBarTemplate = 'modules/zgeneral/sideBarLeft-d-employee.html';
-		if (sessionService.context.sessionDto.roleId == 'manager') {
-			sideBarTemplate = 'modules/zgeneral/sideBarLeft-d-manager.html';
-		}
-
-		$scope.showMenu = !$scope.showMenu;
-		$aside.open({
-			templateUrl : sideBarTemplate,
-			placement : 'left',
-			size : 'sm',
-			backdrop : false,
-			controller : function($scope, $modalInstance, $location) {
-
-				$scope.routeTo = function(e, uri) {
-					$modalInstance.close();
-					e.stopPropagation();
-					$location.path(uri);
-				};
-
-				$scope.close = function(e) {
-					$modalInstance.close();
-					e.stopPropagation();
-				};
-			}
-		});
+		panels.open('sideMenuLeft');
 	};
 
-	$log.info('root...');
+	// $scope.showLeftMenu = function() {
+	// var sideBarTemplate = 'modules/zgeneral/sideBarLeft-d-employee.html';
+	// if (sessionService.context.sessionDto.roleId == 'manager') {
+	// sideBarTemplate = 'modules/zgeneral/sideBarLeft-d-manager.html';
+	// }
+	//
+	// $scope.showMenu = !$scope.showMenu;
+	// $aside.open({
+	// templateUrl : sideBarTemplate,
+	// placement : 'left',
+	// size : 'sm',
+	// backdrop : false,
+	// controller : function($scope, $modalInstance, $location) {
+	//
+	// $scope.routeTo = function(e, uri) {
+	// $modalInstance.close();
+	// e.stopPropagation();
+	// $location.path(uri);
+	// };
+	//
+	// $scope.close = function(e) {
+	// $modalInstance.close();
+	// e.stopPropagation();
+	// };
+	// }
+	// });
+	// };
 }
 appControllers.controller('rootController', rootController);
+
+appControllers.controller('sideMenuLeftController', function($log, $scope) {
+	$log.info('sideMenuLeftController...');
+});
 
 var dependents = [ 'ngRoute', 'ngSanitize' ];
 dependents.push('ngStorage');
 dependents.push('green.inputmask4angular');
 dependents.push('blockUI');
 // dependents.push('ngInputDate');
-// dependents.push('ngNotify');
-dependents.push('ngAside');
-// dependents.push('pageslide-directive');
+dependents.push('ngNotify');
+dependents.push('angular.panels');
 dependents.push('ui.select');
 dependents.push('ui.bootstrap');
 dependents.push('app.filters');
@@ -76,6 +80,18 @@ app.config(function($httpProvider) {
 app.config(function(blockUIConfig) {
 	// blockUIConfig.autoBlock = false;
 });
+
+app.config([ 'panelsProvider', function(panelsProvider) {
+
+	panelsProvider.add({
+		id : 'sideMenuLeft',
+		position : 'left',
+		size : '300px',
+		templateUrl : 'modules/zgeneral/sideMenuLeft-d-manager.html',
+		controller : 'sideMenuLeftController'
+	});
+
+} ]);
 
 app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/', {
@@ -243,7 +259,7 @@ app.config(function($routeProvider, $locationProvider) {
 	// $locationProvider.html5Mode(true);
 });
 
-function appInit($log, $rootScope, $location, $sessionStorage) {
+function appInit($log, $rootScope, $location, $sessionStorage, panels) {
 	$log.info('Initialization started...');
 
 	$rootScope.$on("$routeChangeStart", function(event, next, current) {
@@ -268,6 +284,8 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 		// $log.info('Location : ', $location.path());
 		var curLocPath = $location.path();
 		// $log.info('After Current Location : ', curLocPath);
+
+		panels.close();
 	});
 
 	$rootScope.isLoggedIn = false;
@@ -281,4 +299,5 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 
 	$log.info('Initialization finished...');
 }
-app.run([ '$log', '$rootScope', '$location', '$sessionStorage', appInit ]);
+app.run([ '$log', '$rootScope', '$location', '$sessionStorage', 'panels',
+		appInit ]);

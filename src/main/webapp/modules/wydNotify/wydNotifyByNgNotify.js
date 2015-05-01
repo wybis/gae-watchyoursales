@@ -1,8 +1,8 @@
 appServices.factory('wydNotifyService', function($log, $timeout, ngNotify) {
 
 	ngNotify.config({
-		theme : 'pastel',
-		position : 'top',
+		theme : 'pitchy',
+		position : 'bottom',
 		duration : 3000,
 		type : 'info',
 		sticky : false

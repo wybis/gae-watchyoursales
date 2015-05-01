@@ -17,7 +17,7 @@ var dependents = [ 'ngRoute', 'ngSanitize' ];
 dependents.push('ngStorage');
 dependents.push('green.inputmask4angular');
 dependents.push('blockUI');
-// dependents.push('ngNotify');
+dependents.push('ngNotify');
 dependents.push('ui.select');
 dependents.push('ui.bootstrap');
 dependents.push('app.filters');
