@@ -1,5 +1,5 @@
-function rootController($scope, $log, $window, $rootScope, wydNotifyService,
-		panels) {
+function rootController($scope, $log, $window, $rootScope, $timeout,
+		wydNotifyService, panels, presenceStates) {
 	$log.info('root...');
 
 	$scope.viewSource = function() {
@@ -7,6 +7,18 @@ function rootController($scope, $log, $window, $rootScope, wydNotifyService,
 		$log.info(s);
 		$window.open(s);
 	};
+
+	$scope.presenceStates = presenceStates;
+
+	presenceStates.onChange(function(state) {
+		$log.debug('Current Presence State : ' + state.text);
+	});
+
+	presenceStates.LONGAWAY.onEnter(function() {
+		$log.debug('presence timout started...');
+		panels.open('presenceTimeout');
+		$log.debug('presence timout started...');
+	});
 
 	$scope.success = function() {
 		wydNotifyService.addSuccess("Success message...", true);
@@ -27,6 +39,30 @@ function rootController($scope, $log, $window, $rootScope, wydNotifyService,
 	$scope.openPanel = function(panelId) {
 		panels.open(panelId);
 	};
+
+	// $scope.isBusy = false;
+
+	$scope.receipt = {
+		id : 0
+	};
+
+	$scope.newReceipt = function() {
+		$scope.receipt.id = 0;
+		$scope.isBusy = false;
+	};
+
+	$scope.saveReceipt = function() {
+		$log.info('saving receipt started...');
+		$scope.receipt.id = -1;
+		// $scope.isBusy = true;
+		$log.info($scope.receipt);
+		$timeout(function() {
+			$scope.receipt.id = 1;
+			// $scope.isBusy = false;
+			$log.info($scope.receipt);
+			$log.info('saving receipt finished...');
+		}, 5000);
+	};
 }
 appControllers.controller('rootController', rootController);
 
@@ -43,7 +79,7 @@ appControllers.controller('rightPanelController', function($log, $scope) {
 appControllers.controller('topPanelController', function($log, $scope) {
 	$log.info('top panel...');
 
-	$scope.message = 'Top Panel';
+	$scope.message = 'Top Panel...';
 });
 appControllers.controller('bottomPanelController', function($log, $scope) {
 	$log.info('bottom panel...');
@@ -56,6 +92,7 @@ dependents.push('ngStorage');
 dependents.push('green.inputmask4angular');
 dependents.push('ngNotify');
 dependents.push('angular.panels');
+dependents.push('presence');
 dependents.push('ui.select');
 dependents.push('ui.bootstrap');
 dependents.push('app.filters');
@@ -67,10 +104,18 @@ var app = angular.module('app', dependents);
 app.config([ 'panelsProvider', function(panelsProvider) {
 
 	panelsProvider.add({
+		id : 'presenceTimeout',
+		position : 'top',
+		size : '100%',
+		templateUrl : 'modules/angularPresence/presenceResponse.html',
+		controller : 'presenceResponseController'
+	});
+
+	panelsProvider.add({
 		id : 'lp',
 		position : 'left',
 		size : '300px',
-		templateUrl : 'modules/zgeneral/sideMenuLeft-d-manager.html',
+		templateUrl : 'panel.html',
 		controller : 'leftPanelController'
 	});
 
@@ -85,7 +130,7 @@ app.config([ 'panelsProvider', function(panelsProvider) {
 	panelsProvider.add({
 		id : 'tp',
 		position : 'top',
-		size : '40%',
+		size : '95%',
 		templateUrl : 'panel.html',
 		controller : 'topPanelController'
 	});

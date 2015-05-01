@@ -1,12 +1,24 @@
 function rootController($scope, $log, $window, $rootScope, sessionService,
-		panels) {
+		panels, presenceStates) {
 	$log.info('rootController...');
 
 	$rootScope.sessionContext = sessionService.context;
 
+	$scope.sessionS = sessionService;
+
 	sessionService.properties();
 
-	$scope.sessionS = sessionService;
+	$scope.presenceStates = presenceStates;
+
+	presenceStates.onChange(function(state) {
+		$log.debug('Current Presence State : ' + state.text);
+	});
+
+	presenceStates.LONGAWAY.onEnter(function() {
+		$log.debug('presence timout started...');
+		panels.open('presenceTimeout');
+		$log.debug('presence timout started...');
+	});
 
 	$scope.showLeftMenu = function() {
 		var sideMenuId = 'sideMenuLeft-employee';
@@ -31,11 +43,12 @@ appControllers.controller('sideMenuLeftController', function($log, $scope) {
 
 var dependents = [ 'ngRoute', 'ngSanitize' ];
 dependents.push('ngStorage');
-dependents.push('green.inputmask4angular');
-dependents.push('blockUI');
-// dependents.push('ngInputDate');
 dependents.push('ngNotify');
+dependents.push('green.inputmask4angular');
+// dependents.push('ngInputDate');
+dependents.push('blockUI');
 dependents.push('angular.panels');
+dependents.push('presence');
 dependents.push('ui.select');
 dependents.push('ui.bootstrap');
 dependents.push('app.filters');
@@ -57,6 +70,14 @@ app.config(function(blockUIConfig) {
 });
 
 app.config([ 'panelsProvider', function(panelsProvider) {
+
+	panelsProvider.add({
+		id : 'presenceTimeout',
+		position : 'top',
+		size : '100%',
+		templateUrl : 'modules/angularPresence/presenceResponse.html',
+		controller : 'presenceResponseController'
+	});
 
 	panelsProvider.add({
 		id : 'sideMenuLeft-manager',
