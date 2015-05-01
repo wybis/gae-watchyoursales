@@ -8,7 +8,13 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 
 	$scope.sessionS = sessionService;
 
-	$scope.showMenu = false;
+	$scope.showLeftMenu = function() {
+		var sideMenuId = 'sideMenuLeft-employee';
+		if (sessionService.context.sessionDto.roleId == 'manager') {
+			sideMenuId = 'sideMenuLeft-manager';
+		}
+		panels.open(sideMenuId);
+	};
 
 	$scope.viewSource = function() {
 		var s = 'view-source:localhost:1111/' + $rootScope.currentViewSrcUrl;
@@ -16,37 +22,6 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 		$window.open(s);
 	};
 
-	$scope.showLeftMenu = function() {
-		panels.open('sideMenuLeft');
-	};
-
-	// $scope.showLeftMenu = function() {
-	// var sideBarTemplate = 'modules/zgeneral/sideBarLeft-d-employee.html';
-	// if (sessionService.context.sessionDto.roleId == 'manager') {
-	// sideBarTemplate = 'modules/zgeneral/sideBarLeft-d-manager.html';
-	// }
-	//
-	// $scope.showMenu = !$scope.showMenu;
-	// $aside.open({
-	// templateUrl : sideBarTemplate,
-	// placement : 'left',
-	// size : 'sm',
-	// backdrop : false,
-	// controller : function($scope, $modalInstance, $location) {
-	//
-	// $scope.routeTo = function(e, uri) {
-	// $modalInstance.close();
-	// e.stopPropagation();
-	// $location.path(uri);
-	// };
-	//
-	// $scope.close = function(e) {
-	// $modalInstance.close();
-	// e.stopPropagation();
-	// };
-	// }
-	// });
-	// };
 }
 appControllers.controller('rootController', rootController);
 
@@ -84,10 +59,18 @@ app.config(function(blockUIConfig) {
 app.config([ 'panelsProvider', function(panelsProvider) {
 
 	panelsProvider.add({
-		id : 'sideMenuLeft',
+		id : 'sideMenuLeft-manager',
 		position : 'left',
 		size : '300px',
 		templateUrl : 'modules/zgeneral/sideMenuLeft-d-manager.html',
+		controller : 'sideMenuLeftController'
+	});
+
+	panelsProvider.add({
+		id : 'sideMenuLeft-employee',
+		position : 'left',
+		size : '300px',
+		templateUrl : 'modules/zgeneral/sideMenuLeft-d-employee.html',
 		controller : 'sideMenuLeftController'
 	});
 
