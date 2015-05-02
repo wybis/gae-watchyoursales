@@ -10,9 +10,9 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 
 	$scope.presenceStates = presenceStates;
 
-	presenceStates.onChange(function(state) {
-		$log.debug('Current Presence State : ' + state.text);
-	});
+	// presenceStates.onChange(function(state) {
+	// $log.debug('Current Presence State : ' + state.text);
+	// });
 
 	presenceStates.LONGAWAY.onEnter(function() {
 		$log.debug('presence timout started...');

@@ -307,10 +307,15 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		$log.info(receipt);
 
 		var reqReceipt = {
-			category : 'customer',
 			customerId : receipt.customer.id,
 			trans : []
 		}, reqTran = null, totalSaleAmount = 0, rowIds = [];
+
+		if (receipt.customer.type == 'dealer') {
+			reqReceipt.category = 'dealer'
+		} else {
+			reqReceipt.category = 'customer'
+		}
 
 		for (var i = 0; i < receipt.transactions.length; i++) {
 			var tran = receipt.transactions[i]
@@ -320,7 +325,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 				continue;
 			}
 			reqTran = {
-				category : 'customer',
+				category : reqReceipt.category,
 				accountId : tran.item.id,
 				type : tran.type,
 				unit : tran.unitRaw,

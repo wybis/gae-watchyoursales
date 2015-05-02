@@ -70,6 +70,7 @@ function ledgerService($log, $http, $q, wydNotifyService, sessionService, $http)
 		$log.debug(service.receipt);
 
 		var reqReceipt = {
+			category : 'ledger',
 			description : service.receipt.description,
 			trans : [ {
 				category : 'ledger',
