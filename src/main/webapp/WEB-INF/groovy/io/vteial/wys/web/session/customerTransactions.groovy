@@ -26,7 +26,7 @@ try {
 		entitys = datastore.execute {
 			from Tran.class.simpleName
 			where category == TransactionCategory.CUSTOMER
-			and employeeId == sessionDto.id
+			and byUserId == sessionDto.id
 			sort desc by date
 		}
 	}

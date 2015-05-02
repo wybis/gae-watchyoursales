@@ -28,14 +28,15 @@ get  	'/sessions/properties',					forward : '/io/vteial/wys/web/session/properti
 post 	'/sessions/login',     					forward : '/io/vteial/wys/web/session/login.groovy'
 get  	'/sessions/logout',    					forward : '/io/vteial/wys/web/session/logout.groovy'
 
-post	'/sessions/counter',  					forward : '/io/vteial/wys/web/session/counter.groovy'
-
 get		'/sessions/trialBalance',  				forward : '/io/vteial/wys/web/session/trialBalance.groovy'
 get		'/sessions/cash',    					forward : '/io/vteial/wys/web/session/cash.groovy'
 
 get		'/sessions/ledgers',    				forward : '/io/vteial/wys/web/session/ledgers.groovy'
 get		'/sessions/products',    				forward : '/io/vteial/wys/web/session/products.groovy'
 get		'/sessions/stocks',    					forward : '/io/vteial/wys/web/session/stocks.groovy'
+
+post	'/sessions/order',  					forward : '/io/vteial/wys/web/session/order.groovy'
+post	'/sessions/counter',  					forward : '/io/vteial/wys/web/session/counter.groovy'
 
 get		'/sessions/customers',    				forward : '/io/vteial/wys/web/session/customers.groovy'
 get		'/sessions/pendingCustomerOrders',		forward : '/io/vteial/wys/web/session/pendingCustomerOrders.groovy'
@@ -47,7 +48,7 @@ get		'/sessions/dealerTransactions',			forward : '/io/vteial/wys/web/session/dea
 
 get		'/sessions/employees',    				forward : '/io/vteial/wys/web/session/employees.groovy'
 
-post	'/sessions/ledgerTransaction',  		forward : '/io/vteial/wys/web/session/ledgerTransaction.groovy'
+post	'/sessions/ledger',  					forward : '/io/vteial/wys/web/session/ledger.groovy'
 get		'/sessions/ledgerTransactions',			forward : '/io/vteial/wys/web/session/ledgerTransactions.groovy'
 get		'/sessions/recentLedgerTransactions',	forward : '/io/vteial/wys/web/session/recentLedgerTransactions.groovy'
 

@@ -30,7 +30,7 @@ class DefaultTranService extends AbstractService implements TranService {
 		receipt.id = autoNumberService.getNextNumber(sessionUser, TranReceipt.ID_KEY)
 		receipt.date = now
 		receipt.status = TransactionStatus.COMPLETE
-		receipt.employeeId = sessionUser.id
+		receipt.byUserId = sessionUser.id
 		receipt.branchId = sessionUser.branchId
 
 		List<Tran> trans = receipt.trans
@@ -38,7 +38,7 @@ class DefaultTranService extends AbstractService implements TranService {
 			Tran tran = trans.get(i)
 			tran.receiptId = receipt.id
 			tran.date = receipt.date
-			tran.customerId = receipt.customerId
+			tran.forUserId = receipt.forUserId
 
 			try {
 				this.addTransaction(sessionUser, tran)
@@ -100,7 +100,7 @@ class DefaultTranService extends AbstractService implements TranService {
 		tran.averageRate = product.handStockAverage
 		tran.status = TransactionStatus.COMPLETE
 
-		tran.employeeId = sessionUser.id
+		tran.byUserId = sessionUser.id
 		tran.branchId = sessionUser.branchId
 
 		tran.id = autoNumberService.getNextNumber(sessionUser, Tran.ID_KEY)
@@ -140,7 +140,7 @@ class DefaultTranService extends AbstractService implements TranService {
 			averageRate = product.handStockAverage
 			date = tran.date
 			status = TransactionStatus.COMPLETE
-			customerId = tran.customerId
+			forUserId = tran.forUserId
 		}
 
 		double avgUnit = tran.unit * (tran.account.product.handStockAverage / tran.account.product.baseUnit)
@@ -154,7 +154,7 @@ class DefaultTranService extends AbstractService implements TranService {
 			account.depositHandStock(ptran.unit)
 		}
 
-		ptran.employeeId = sessionUser.id
+		ptran.byUserId = sessionUser.id
 		ptran.branchId = sessionUser.branchId
 
 		ptran.id = autoNumberService.getNextNumber(sessionUser, Tran.ID_KEY)

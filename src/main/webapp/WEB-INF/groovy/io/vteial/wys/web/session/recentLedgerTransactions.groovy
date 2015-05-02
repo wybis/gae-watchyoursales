@@ -14,7 +14,7 @@ try {
 	def entitys = datastore.execute {
 		from Tran.class.simpleName
 		where branchId == sessionDto.branchId
-		and employeeId == sessionDto.id
+		and byUserId == sessionDto.id
 		sort desc by date
 		limit 6
 	}
@@ -29,13 +29,13 @@ try {
 catch(Throwable t) {
 	responseDto.type = ResponseDto.UNKNOWN
 	responseDto.message = t.message
-	
+
 	StringWriter sw = new StringWriter()
 	PrintWriter pw = new PrintWriter(sw)
 	t.printStackTrace(pw)
 	responseDto.message = 'Fetching recent ledger transactions failed...';
 	responseDto.data = sw.toString()
-	
+
 	log.warning(sw.toString())
 }
 

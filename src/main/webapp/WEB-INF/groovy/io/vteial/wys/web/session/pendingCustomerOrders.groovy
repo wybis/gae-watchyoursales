@@ -1,4 +1,4 @@
-package io.vteial.wys.web.employee
+package io.vteial.wys.web.session
 
 import io.vteial.wys.dto.ResponseDto
 import io.vteial.wys.dto.SessionDto

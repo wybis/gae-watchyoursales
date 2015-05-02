@@ -58,15 +58,15 @@ public class Tran extends AbstractModel {
 	@Ignore
 	Order order
 
-	long customerId
+	long forUserId
 
 	@Ignore
-	User customer
+	User forUser
 
-	long employeeId
+	long byUserId
 
 	@Ignore
-	User employee
+	User byUser
 
 	long branchId
 

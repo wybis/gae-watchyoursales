@@ -4,7 +4,6 @@ import groovy.transform.Canonical
 import groovy.transform.ToString
 import groovyx.gaelyk.datastore.Entity
 import groovyx.gaelyk.datastore.Ignore
-import groovyx.gaelyk.datastore.Key
 
 @Entity(unindexed=false)
 @Canonical
@@ -27,15 +26,15 @@ public class OrderReceipt extends AbstractModel {
 
 	String status
 
-	long customerId
+	long forUserId
 
 	@Ignore
-	User customer
+	User forUser
 
-	long employeeId
+	long byUserId
 
 	@Ignore
-	User employee
+	User byUser
 
 	long branchId
 

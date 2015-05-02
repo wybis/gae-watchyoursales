@@ -49,6 +49,8 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 	}
 
 	service.init = function() {
+		$log.debug("counterService initialize started...")
+
 		receipt.id = 0;
 		receipt.totalAmount = 0;
 		receipt.totalAmountLabel = '';
@@ -57,7 +59,8 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		receipt.customerAmountLabel = '';
 		receipt.balanceAmount = 0;
 		receipt.balanceAmountLabel = '';
-		receipt.customer = defaultCustomer;
+		receipt.forUserLabel = 'Customer';
+		receipt.forUser = defaultCustomer;
 
 		var customer = _.find(sessionService.customers, function(item) {
 			return item.firstName === 'Guest';
@@ -67,7 +70,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		receipt.transactions = [];
 		addTransaction(initSize);
 
-		$log.debug("counterService initialized")
+		$log.debug("counterService initialize finished...")
 	};
 
 	service.setCustomer = function(customer) {
@@ -75,12 +78,13 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			return;
 		}
 		// $log.info(customer);
-		receipt.customer = customer;
+		receipt.forUser = customer;
+		receipt.forUserLabel = 'Customer';
 		var productId = customer.cashAccount.productId;
 		var product = sessionService.productsMap[productId];
 		// $log.info(product);
 		sessionService.cashCustomer = product;
-		receipt.customerUrl = '/customers/customer/' + customer.id;
+		receipt.forUserUrl = '/customers/customer/' + customer.id;
 	};
 
 	service.setDealer = function(dealer) {
@@ -88,12 +92,13 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			return;
 		}
 		// $log.info(dealer);
-		receipt.customer = dealer;
+		receipt.forUser = dealer;
+		receipt.forUserLabel = 'Dealer';
 		var productId = dealer.cashAccount.productId;
 		var product = sessionService.productsMap[productId];
 		// $log.info(product);
 		sessionService.cashDealer = product;
-		receipt.customerUrl = '/dealers/dealer/' + dealer.id;
+		receipt.forUserUrl = '/dealers/dealer/' + dealer.id;
 	};
 
 	service.newTransaction = function() {
@@ -296,8 +301,57 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 	};
 
 	service.saveReceiptAsOrder = function() {
-		var message = 'Order is not yet implemented...';
-		wydNotifyService.addWarning(message, true);
+		$log.debug('saveReceiptAsOrder started...');
+
+		$log.info("Receipt before process...")
+		$log.info(receipt);
+
+		var reqReceipt = {
+			forUserId : receipt.forUser.id,
+			orders : []
+		}, reqTran = null, totalSaleAmount = 0, rowIds = [];
+
+		if (receipt.forUser.type == 'dealer') {
+			reqReceipt.category = 'dealer'
+		} else {
+			reqReceipt.category = 'customer'
+		}
+
+		for (var i = 0; i < receipt.transactions.length; i++) {
+			var tran = receipt.transactions[i]
+			service.validateTransaction(tran);
+			if (tran.message != '') {
+				rowIds.push(i + 1);
+				continue;
+			}
+			reqOrder = {
+				category : reqReceipt.category,
+				accountId : tran.item.id,
+				type : tran.type,
+				unit : tran.unitRaw,
+				rate : tran.rateRaw,
+			};
+			reqReceipt.orders.push(reqOrder);
+		}
+
+		if (rowIds.length > 0) {
+			var msg = "Row's " + rowIds.join(', ') + ' has issues...';
+			wydNotifyService.addError(msg, true);
+		} else {
+			$log.info("Receipt before post...")
+			$log.info(reqReceipt);
+
+			var path = '/sessions/order'
+			$http.post(path, reqReceipt).success(function(response) {
+				// $log.debug(response);
+				if (response.type === 0) {
+					success(response.data, response.message)
+				} else {
+					fail(response.data, response.message)
+				}
+				$log.debug('saveReceiptAsOrder finished...');
+			});
+		}
 	};
 
 	service.saveReceiptAsTransaction = function() {
@@ -307,11 +361,11 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		$log.info(receipt);
 
 		var reqReceipt = {
-			customerId : receipt.customer.id,
+			forUserId : receipt.forUser.id,
 			trans : []
 		}, reqTran = null, totalSaleAmount = 0, rowIds = [];
 
-		if (receipt.customer.type == 'dealer') {
+		if (receipt.forUser.type == 'dealer') {
 			reqReceipt.category = 'dealer'
 		} else {
 			reqReceipt.category = 'customer'

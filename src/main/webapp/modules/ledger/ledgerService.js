@@ -92,7 +92,7 @@ function ledgerService($log, $http, $q, wydNotifyService, sessionService, $http)
 		$log.info("Ledger receipt before post...")
 		$log.info(reqReceipt);
 
-		var path = basePath + '/ledgerTransaction'
+		var path = basePath + '/ledger'
 		var deferred = $q.defer();
 		$http.post(path, reqReceipt).success(function(response) {
 			// $log.debug(response);

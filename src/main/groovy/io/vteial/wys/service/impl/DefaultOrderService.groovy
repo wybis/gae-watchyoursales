@@ -26,14 +26,15 @@ class DefaultOrderService extends AbstractService implements OrderService {
 		receipt.id = autoNumberService.getNextNumber(sessionUser, OrderReceipt.ID_KEY)
 		receipt.date = now
 		receipt.status = OrderStatus.PENDING
-		receipt.employeeId = sessionUser.id
-		receipt.agencyId = sessionUser.agencyId
+		receipt.forUserId = sessionUser.id
+		receipt.branchId = sessionUser.branchId
 
 		List<Order> orders = receipt.orders
 		for(int i = 0; i < orders.size(); i++) {
 			Order order = orders.get(i)
 			order.receiptId = receipt.id
 			order.date = receipt.date
+			order.forUserId = receipt.forUserId
 
 			this.addOrder(sessionUser, order)
 		}
@@ -44,37 +45,37 @@ class DefaultOrderService extends AbstractService implements OrderService {
 
 	private void addOrder(SessionDto sessionUser, Order order) throws OrderException {
 
-		Account stock = Account.get(order.stockId)
-		order.stock = stock
+		Account account = Account.get(order.accountId)
+		order.account = account
 
-		Product product = Product.get(stock.productId)
-		stock.product = product
-		
+		Product product = Product.get(account.productId)
+		account.product = product
+
 		order.productCode = product.code
 		order.baseUnit = product.baseUnit
 		//order.computeAmount()
-		
+
 		if(order.type == OrderType.BUY) {
 			product.computeVirtualStockAverage(order.unit, order.rate)
 
-			stock.depositVirtualStockBuy(order.unit)
+			account.depositVirtualStockBuy(order.unit)
 		} else {
-			stock.depositVirtualStockSell(order.unit)
+			account.depositVirtualStockSell(order.unit)
 		}
 		order.averageRate = product.virtualStockAverage
 		order.status = OrderStatus.PENDING
 
-		order.employeeId = sessionUser.id
-		order.agencyId = sessionUser.agencyId
+		order.forUserId = sessionUser.id
+		order.branchId = sessionUser.branchId
 
 		order.id = autoNumberService.getNextNumber(sessionUser, Order.ID_KEY)
 
 		order.prePersist(sessionUser.id)
 		order.save()
 
-		stock.computeAvailableStock();
-		stock.preUpdate(sessionUser.id)
-		stock.save()
+		account.computeAvailableStock();
+		account.preUpdate(sessionUser.id)
+		account.save()
 
 		product.computeAvailableStockAverage(order.rate)
 		product.preUpdate(sessionUser.id)
@@ -84,11 +85,11 @@ class DefaultOrderService extends AbstractService implements OrderService {
 	@Override
 	public void onTransaction(SessionDto sessionUser, Tran tran) {
 
-		Account stock = tran.stock
+		Account account = tran.account
 		if(tran.type == TransactionType.BUY) {
-			stock.withdrawVirtualStockBuy(tran.unit)
+			account.withdrawVirtualStockBuy(tran.unit)
 		} else {
-			stock.withdrawVirtualStockSell(tran.unit)
+			account.withdrawVirtualStockSell(tran.unit)
 		}
 
 		Order order = tran.order

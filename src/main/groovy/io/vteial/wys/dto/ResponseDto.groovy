@@ -13,6 +13,8 @@ class ResponseDto {
 
 	static final int ERROR = 1
 
+	static final int WARNING = 2
+
 	int type
 
 	String message;

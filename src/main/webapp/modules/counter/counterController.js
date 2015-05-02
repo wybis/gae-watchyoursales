@@ -27,7 +27,7 @@ function counterController($rootScope, $scope, $log, sessionService,
 
 	$scope.printReceipt = counterService.printReceipt;
 
-	if ($scope.receipt.customer.id === 0) {
+	if ($scope.receipt.forUser.id === 0) {
 		counterService.init();
 	}
 

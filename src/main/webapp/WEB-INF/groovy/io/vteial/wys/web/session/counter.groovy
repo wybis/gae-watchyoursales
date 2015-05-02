@@ -41,7 +41,7 @@ try {
 
 		tranReceipt.trans << tran
 
-		User customer = User.get(tranReceipt.customerId);
+		User customer = User.get(tranReceipt.forUserId);
 		//customer.cashAccount = Account.get(customer.cashAccountId);
 
 		tran = new Tran()
@@ -58,6 +58,7 @@ try {
 	tranService.add(sessionUserDto, tranReceipt)
 
 	responseDto.data = tranReceipt;
+	responseDto.message = "Transaction saved successfuly..."
 }
 catch(TransactionException e) {
 	responseDto.type = ResponseDto.ERROR

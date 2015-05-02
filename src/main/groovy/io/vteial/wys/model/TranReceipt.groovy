@@ -27,15 +27,15 @@ public class TranReceipt extends AbstractModel {
 
 	String status
 
-	long customerId
+	long forUserId
 
 	@Ignore
-	User customer
+	User forUser
 
-	long employeeId
+	long byUserId
 
 	@Ignore
-	User employee
+	User byUser
 
 	long branchId
 

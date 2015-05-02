@@ -9,13 +9,10 @@
 <div class="row">
 	<div class="col-md-12">
 		<div>
-			<strong><small>Customer</small></strong> : 
-			<a x-tooltip="View Customer"
-				x-ng-disabled="receipt.id != 0"
-				x-ng-href="#{{receipt.customerUrl}}">
-				{{receipt.customer.firstName}} {{receipt.customer.lastName}}
+			<strong><small>{{receipt.forUserLabel}}</small></strong> : 
+			<a x-ng-disabled="receipt.id != 0" x-ng-href="#{{receipt.forUserUrl}}">
+				{{receipt.forUser.firstName}} {{receipt.forUser.lastName}}
 			</a>
-			
 			<div class="btn-group pull-right" x-dropdown>
       			<button type="button" class="btn btn-default dropdown-toggle"
       				x-ng-disabled="receipt.id != 0"
@@ -42,7 +39,7 @@
     	</div>				
 		<div>			
  			<strong><small>Balance&nbsp;&nbsp;&nbsp;</small></strong> 
- 			: {{receipt.customer.cashAccount.handStock | number : 2}}
+ 			: {{receipt.forUser.cashAccount.handStock | number : 2}}
 		</div>
 	</div>	
 </div>

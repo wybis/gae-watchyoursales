@@ -17,12 +17,6 @@ interface AccountService {
 
 	List<Account> findByBranchIdAndTypes(long branchId, List<String> accountTypes)
 
-	//	Account findOneByEmployeeIdAndType(long employeeId, String type)
-	//
-	//	Account findOneByEmployeeIdAndProductId(long employeeId, long productId)
-	//
-	//	Account findOneByBranchIdAndEmployeeIdAndProductCode(long agencyId, long employeeId, String productCode)
-
 	void add(SessionDto sessionUser, Account model) throws ModelAlreadyExistException
 
 	void onBranchCreate(SessionDto sessionUser, Branch branch);
