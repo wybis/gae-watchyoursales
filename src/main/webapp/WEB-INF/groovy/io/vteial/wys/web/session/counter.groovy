@@ -17,7 +17,7 @@ TranReceipt tranReceipt = jsonCategory.parseJson(request, TranReceipt.class)
 try {
 
 	double totalAmount = 0, actualTotalAmount = 0, amount = 0
-	tranReceipt.trans.each { tran ->
+	tranReceipt.trans.each { Tran tran ->
 		amount = tran.unit * tran.rate
 		if(tran.type == TransactionType.BUY) {
 			amount *= -1

@@ -45,7 +45,7 @@ catch(Throwable t) {
 	StringWriter sw = new StringWriter()
 	PrintWriter pw = new PrintWriter(sw)
 	t.printStackTrace(pw)
-	responseDto.message = 'Fetching ledger transactions failed...';
+	responseDto.message = 'Fetching dealer transactions failed...';
 	responseDto.data = sw.toString()
 
 	log.warning(sw.toString())

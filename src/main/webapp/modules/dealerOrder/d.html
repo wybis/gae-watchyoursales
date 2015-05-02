@@ -12,32 +12,32 @@
 	<thead>
 	<tr>
 		<th class="text-right" width="30">Id</th>
-	   	<th class="text-center"><small>Code</small></th>
+	   	<th class="text-center" width="100"><small>Code</small></th>
 	   	<th class="text-center"><small>Name</small></th>
-	   	<th class="text-center"><small>Type</small></th>
+	   	<th class="text-center" width="60"><small>Type</small></th>
 	   	<th class="text-center"><small>Unit</small></th>
-	   	<th class="text-center"><small>Rate</small></th>
+	   	<th class="text-center" width="60"><small>Rate</small></th>
 	   	<th class="text-center"><small>Amount</small></th>
-	   	<th class="text-center"><small>Date</small></th>
-	   	<th class="text-center"><small>&nbsp;</small></th>
+	   	<th class="text-center" width="160"><small>Date</small></th>
+	   	<th class="text-center" width="40"><small>&nbsp;</small></th>
 	</tr>
 	</thead>
 	<tbody>
-	<tr x-ng-repeat="item in items">
+	<tr x-ng-repeat="item in items | orderBy : '-id'">
 		<td class="text-right" width="40">
-			{{item.id}}
+			{{$index+1}}
 		</td>
 		<td>
 			{{item.productCode}}
 		</td>
 		<td>
-			-
+			{{productsMap[accountsMap[item.accountId].productId].name}}
 		</td>
 		<td class="text-center">
 			{{item.type}}
 		</td>
 		<td class="text-right">
-			{{item.unit | number : 2}}
+			{{item.unit | number : 5}}
 		</td>
 		<td class="text-right">
 			{{item.rate | number : 5}}
@@ -45,7 +45,7 @@
 		<td class="text-right">
 			{{item.unit * item.rate | number : 2}}
 		</td>
-		<td width="160">
+		<td>
 			{{item.date | date:'yyyy-MM-dd HH:mm:ss'}}
 		</td>
 		<td>
@@ -53,17 +53,5 @@
 		</td>
 	</tr>
 	</tbody>
-	<tfoot x-ng-show="searchResults.hasItems">
-	<tr>
-		<td>&nbsp;</td>
-		<td colspan="6">
-			<buttton class="btn btn-info btn-block"	
-				x-ng-click="loadMore()">
-				Load More
-			</buttton>
-		</td>
-		<td>&nbsp;</td>
-	</tr>	
-	</tfoot>
 	</table>
 </div>

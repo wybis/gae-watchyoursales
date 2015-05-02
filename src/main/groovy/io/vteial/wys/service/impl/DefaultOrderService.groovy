@@ -26,7 +26,7 @@ class DefaultOrderService extends AbstractService implements OrderService {
 		receipt.id = autoNumberService.getNextNumber(sessionUser, OrderReceipt.ID_KEY)
 		receipt.date = now
 		receipt.status = OrderStatus.PENDING
-		receipt.forUserId = sessionUser.id
+		receipt.byUserId = sessionUser.id
 		receipt.branchId = sessionUser.branchId
 
 		List<Order> orders = receipt.orders
@@ -65,7 +65,7 @@ class DefaultOrderService extends AbstractService implements OrderService {
 		order.averageRate = product.virtualStockAverage
 		order.status = OrderStatus.PENDING
 
-		order.forUserId = sessionUser.id
+		order.byUserId = sessionUser.id
 		order.branchId = sessionUser.branchId
 
 		order.id = autoNumberService.getNextNumber(sessionUser, Order.ID_KEY)

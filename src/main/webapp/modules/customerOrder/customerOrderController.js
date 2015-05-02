@@ -1,18 +1,28 @@
-function customerOrderController($rootScope, $scope, $log, employeeService) {
+function customerOrderController($rootScope, $scope, $log, sessionService,
+		$http) {
+	$log.debug('customerOrderController...');
 	$rootScope.viewName = 'Customer Orders';
 
-	$scope.refresh = function() {
-		employeeService.getMyPendingCustomerOrders().then(function(response) {
-			$scope.items = response.data;
-		});
-	};
+	$scope.productsMap = sessionService.productsMap;
+	$scope.accountsMap = sessionService.accountsMap;
 
-	$scope.bottomReached = function() {
-		$log.info('bottom reached...');
+	$scope.items = [];
+
+	function processOrders(orders) {
+		$scope.items = orders;
 	}
+
+	$scope.refresh = function() {
+		var path = '/sessions/pendingCustomerOrders';
+		$http.get(path).success(function(response) {
+			// $log.info(response);
+			if (response.type === 0) {
+				processOrders(response.data);
+			}
+		})
+	};
 
 	$scope.refresh();
 
-	$log.debug('customerOrderController...');
 }
 appControllers.controller('customerOrderController', customerOrderController);

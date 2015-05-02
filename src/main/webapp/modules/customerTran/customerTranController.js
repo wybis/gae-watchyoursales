@@ -14,10 +14,10 @@ function customerTranController($rootScope, $scope, $log, sessionService, $http)
 	$scope.refresh = function() {
 		var path = '/sessions/customerTransactions';
 		$http.get(path).success(function(response) {
+			// $log.info(response);
 			if (response.type === 0) {
 				processTrans(response.data);
 			}
-			//$log.info(response);
 		})
 	};
 

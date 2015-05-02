@@ -1,18 +1,26 @@
-function dealerOrderController($rootScope, $scope, $log, employeeService) {
+function dealerOrderController($rootScope, $scope, $log, sessionService, $http) {
+	$log.debug('dealerOrderController...');
 	$rootScope.viewName = 'Dealer Orders';
 
-	$scope.refresh = function() {
-		employeeService.getMyPendingDealerOrders().then(function(response) {
-			$scope.items = response.data;
-		});
-	};
+	$scope.productsMap = sessionService.productsMap;
+	$scope.accountsMap = sessionService.accountsMap;
 
-	$scope.bottomReached = function() {
-		$log.info('bottom reached...');
+	$scope.items = [];
+
+	function processOrders(orders) {
+		$scope.items = orders;
 	}
 
-	$scope.refresh();
+	$scope.refresh = function() {
+		var path = '/sessions/pendingDealerOrders';
+		$http.get(path).success(function(response) {
+			$log.info(response);
+			if (response.type === 0) {
+				processOrders(response.data);
+			}
+		})
+	};
 
-	$log.debug('dealerOrderController...');
+	$scope.refresh();
 }
 appControllers.controller('dealerOrderController', dealerOrderController);
