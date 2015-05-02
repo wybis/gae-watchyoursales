@@ -21,12 +21,11 @@ function counterController($rootScope, $scope, $log, sessionService,
 	$scope.onCustomerAmount = counterService.onCustomerAmount;
 
 	$scope.saveReceiptAsQuotation = counterService.saveReceiptAsQuotation;
+	$scope.saveReceiptAsDraft = counterService.saveReceiptAsDraft;
 	$scope.saveReceiptAsOrder = counterService.saveReceiptAsOrder;
 	$scope.saveReceiptAsTransaction = counterService.saveReceiptAsTransaction;
 
-	$scope.printReceipt = function() {
-		$log.info('print receipt comming soon...');
-	};
+	$scope.printReceipt = counterService.printReceipt;
 
 	if ($scope.receipt.customer.id === 0) {
 		counterService.init();

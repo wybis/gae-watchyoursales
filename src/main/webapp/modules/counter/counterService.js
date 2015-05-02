@@ -285,6 +285,21 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		}
 	};
 
+	service.saveReceiptAsQuotation = function() {
+		var message = 'Quotation is not yet implemented...';
+		wydNotifyService.addWarning(message, true);
+	};
+
+	service.saveReceiptAsDraft = function() {
+		var message = 'Draft is not yet implemented...';
+		wydNotifyService.addWarning(message, true);
+	};
+
+	service.saveReceiptAsOrder = function() {
+		var message = 'Order is not yet implemented...';
+		wydNotifyService.addWarning(message, true);
+	};
+
 	service.saveReceiptAsTransaction = function() {
 		$log.debug('saveReceiptAsTransaction started...');
 
@@ -332,6 +347,11 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 				$log.debug('saveReceiptAsTransaction finished...');
 			});
 		}
+	};
+
+	service.printReceipt = function() {
+		var message = 'Printing receipt is not yet implemented...';
+		wydNotifyService.addWarning(message, true);
 	};
 
 	function success(resReceipt, message) {

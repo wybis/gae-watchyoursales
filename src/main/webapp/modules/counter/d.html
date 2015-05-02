@@ -49,17 +49,7 @@
 
 <div class="panel" data-ng-class="{true : 'panel-danger', false : 'panel-default'}[receipt.transactions[receipt.curTranIndex].message != '']">
 	<div class="panel-heading">
-		<span class="pull-left">
-			Receipt Id : <strong>{{receipt.id}}</strong>&nbsp;
-		</span>
-		&nbsp;{{receipt.transactions[receipt.curTranIndex].message}}
-		<div class="pull-right">
-			<button class="btn btn-default btn-sm"
-				x-tooltip="Add New Transaction"
-				x-ng-click="newTransaction()">
-				<i class="fa fa-plus"></i> New
-			</button>
-			&nbsp;&nbsp;
+		<div class="pull-left">
 			<div class="btn-group" x-dropdown>
 	   			<button type="button" class="btn btn-default btn-sm dropdown-toggle"
 	   				x-ng-disabled="receipt.id != 0"
@@ -89,6 +79,17 @@
 	       			</li>
 	       		</ul>
 	   		</div>
+	   		<span>
+				&nbsp;&nbsp;Receipt Id : <strong>{{receipt.id}}</strong>
+			</span>
+		</div>
+		&nbsp;{{receipt.transactions[receipt.curTranIndex].message}}
+		<div class="pull-right">
+			<button class="btn btn-default btn-sm"
+				x-tooltip="Add New Transaction"
+				x-ng-click="newTransaction()">
+				<i class="fa fa-plus"></i> New&nbsp;&nbsp;
+			</button>
    		</div>
 	</div>
 	<table class="table table-condensed table-bordered">
