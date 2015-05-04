@@ -58,19 +58,19 @@
       "userId": "ameer",
       "password": "1234",
       "firstName": "Ameer Khan",
-      "roleId": "Manager"
+      "roleId": "manager"
     },
     {
       "userId": "arun",
       "password": "1234",
       "firstName": "Arun",
-      "roleId": "Employee"
+      "roleId": "employee"
     },
     {
       "userId": "senthil",
       "password": "1234",
       "firstName": "Senthil Murugan",
-      "roleId": "Employee"
+      "roleId": "employee"
     }
   ],
   "dealers": [
