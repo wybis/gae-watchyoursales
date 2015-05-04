@@ -56,24 +56,24 @@ class Product extends AbstractModel {
 	@Ignore
 	Branch branch
 
-	String toString() {
-		StringBuilder sb = new StringBuilder(Product.class.getSimpleName())
-		sb.append('[')
-
-		sb.append("id:${this.id}, ")
-		sb.append("code:${this.code}, ")
-		sb.append("handStock:${this.handStock}, ")
-		sb.append("handStockAverage:${this.handStockAverage}, ")
-		sb.append("virtualStockBuy:${this.virtualStockBuy}, ")
-		sb.append("virtualStockAverage:${this.virtualStockAverage}, ")
-		sb.append("virtualStockSell:${this.virtualStockSell}, ")
-		sb.append("availableStock:${this.availableStock}, ")
-		sb.append("availableStockAverage:${this.availableStockAverage}, ")
-		sb.append("agencyId:${this.branchId} ")
-
-		sb.append(']')
-		return sb.toString()
-	}
+//	String toString() {
+//		StringBuilder sb = new StringBuilder(Product.class.getSimpleName())
+//		sb.append('[')
+//
+//		sb.append("id:${this.id}, ")
+//		sb.append("code:${this.code}, ")
+//		sb.append("handStock:${this.handStock}, ")
+//		sb.append("handStockAverage:${this.handStockAverage}, ")
+//		sb.append("virtualStockBuy:${this.virtualStockBuy}, ")
+//		sb.append("virtualStockAverage:${this.virtualStockAverage}, ")
+//		sb.append("virtualStockSell:${this.virtualStockSell}, ")
+//		sb.append("availableStock:${this.availableStock}, ")
+//		sb.append("availableStockAverage:${this.availableStockAverage}, ")
+//		sb.append("branchId:${this.branchId} ")
+//
+//		sb.append(']')
+//		return sb.toString()
+//	}
 
 	// persistance operations
 

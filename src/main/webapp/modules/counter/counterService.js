@@ -135,7 +135,6 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 	}
 
 	service.onTransactionItem = function(tran) {
-		$log.info(tran.item.product);
 		service.onTransactionType(tran);
 	}
 
@@ -269,21 +268,19 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			tran.message = 'Rate should be greater than 0';
 			return;
 		}
-		$log.info(tran.item.product);
-		$log.info(tran.rateRaw);
-		if (tran.type === service.TRAN_TYPE_BUY) {
-			if (tran.item.product.buyPercentageRate <= tran.rateRaw) {
-				var s = "Rate is more than ";
-				s += tran.item.product.buyPercentageRate;
-				tran.message = s;
-			}
-		} else {
-			if (tran.item.product.sellPercentageRate >= tran.rateRaw) {
-				var s = "Rate is less than ";
-				s += tran.item.product.sellPercentageRate;
-				tran.message = s;
-			}
-		}
+		// if (tran.type === service.TRAN_TYPE_BUY) {
+		// if (tran.item.product.buyPercentageRate <= tran.rateRaw) {
+		// var s = "Rate is more than ";
+		// s += tran.item.product.buyPercentageRate;
+		// tran.message = s;
+		// }
+		// } else {
+		// if (tran.item.product.sellPercentageRate >= tran.rateRaw) {
+		// var s = "Rate is less than ";
+		// s += tran.item.product.sellPercentageRate;
+		// tran.message = s;
+		// }
+		// }
 	};
 
 	service.saveReceiptAsQuotation = function() {
