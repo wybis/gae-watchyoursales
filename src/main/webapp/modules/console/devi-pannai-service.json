@@ -48,19 +48,19 @@
       "userId": "karthi",
       "password": "1234",
       "firstName": "Karthikeyan",
-      "roleId": "Manager"
+      "roleId": "manager"
     },
     {
       "userId": "kannan",
       "password": "1234",
       "firstName": "Kannan",
-      "roleId": "Enployee"
+      "roleId": "employee"
     },
     {
       "userId": "mohan",
       "password": "1234",
       "firstName": "Mohan",
-      "roleId": "Employee"
+      "roleId": "employee"
     }
   ],
   "dealers": [
