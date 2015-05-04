@@ -1,54 +1,63 @@
 {
+  "code": "dpservice",
   "name": "Devi Pannai Service",
   "products": [
     {
       "code": "MFC",
       "name": "Urea - 50kg Bag",
-      "buyRate": 315.00,
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 315,
       "buyPercent": 10,
-      "sellRate": 320.00,
+      "sellRate": 320,
       "sellPercent": 15
     },
     {
       "code": "CFL",
       "name": "Single Super Phosphate - 50kg Bag",
-      "buyRate": 400.00,
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 400,
       "buyPercent": 10,
-      "sellRate": 425.00,
+      "sellRate": 425,
       "sellPercent": 25
     },
     {
       "code": "MFC-98",
       "name": "Zinc Sulphate - 1kg",
-      "buyRate": 58.00 ,
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 58,
       "buyPercent": 10,
-      "sellRate": 60.00 ,
+      "sellRate": 60,
       "sellPercent": 12
     },
-        {
+    {
       "code": "SPIC",
       "name": "Neem cake - 1kg",
-      "buyRate": 20.00,
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 20,
       "buyPercent": 10,
-      "sellRate": 30.00,
+      "sellRate": 30,
       "sellPercent": 10
     }
   ],
   "employees": [
     {
-      "id": "karthi@dpservice",
+      "userId": "karthi",
       "password": "1234",
       "firstName": "Karthikeyan",
       "roleId": "Manager"
     },
     {
-      "id": "kannan@dpservice",
+      "userId": "kannan",
       "password": "1234",
       "firstName": "Kannan",
       "roleId": "Enployee"
     },
     {
-      "id": "mohan@dpservice",
+      "userId": "mohan",
       "password": "1234",
       "firstName": "Mohan",
       "roleId": "Employee"
@@ -56,18 +65,22 @@
   ],
   "dealers": [
     {
-      "firstName": "Sri Sakthi Fertilizers"
+      "firstName": "Sri Sakthi",
+      "lastName": "Fertilizers"
     },
     {
-      "firstName": "Mgm Agro Traders"
+      "firstName": "Mgm Agro",
+      "lastName": "Traders"
     }
   ],
   "customers": [
     {
-      "firstName": "Nandha Gopal"
+      "firstName": "Nandha",
+      "lastName": "Gopal"
     },
     {
-      "firstName": "Senthil Murugan"
+      "firstName": "Senthil",
+      "lastName": "Murugan"
     }
   ]
 }

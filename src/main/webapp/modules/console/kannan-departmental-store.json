@@ -1,37 +1,106 @@
 {
+  "code": "kannan_departmental",
   "name": "Kannan Deparmental Store",
-  "products": [],
+  "products": [
+    {
+      "code": "SE0001",
+      "name": "Surf Excel Powder 1kg",
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 105,
+      "buyPercent": 6.3,
+      "sellRate": 115,
+      "sellPercent": 6.3
+    },
+    {
+      "code": "P0001",
+      "name": "Power Soap",
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 45,
+      "buyPercent": 5.2,
+      "sellRate": 50,
+      "sellPercent": 6.3
+    },
+    {
+      "code": "D0012",
+      "name": "Dabur Shampoo 1 lit",
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 300,
+      "buyPercent": 10,
+      "sellRate": 320,
+      "sellPercent": 12.3
+    },
+    {
+      "code": "C0013",
+      "name": "Comfort fabric conditioner 1.5 ltrs",
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 250,
+      "buyPercent": 10,
+      "sellRate": 285,
+      "sellPercent": 15.5
+    },
+    {
+      "code": "SFO222",
+      "name": "Sun Flower Oil 5 lit",
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 400,
+      "buyPercent": 7.5,
+      "sellRate": 475,
+      "sellPercent": 10.2
+    }
+  ],
   "employees": [
     {
-      "id": "ameerk@ramnadu_medicals",
-      "firstName": "Ameer Khan",
-      "roleId": "Manager"
+      "userId": "karan",
+      "password": "1234",
+      "firstName": "Karan",
+      "roleId": "manager"
     },
     {
-      "id": "arun@ramnadu_medicals",
-      "firstName": "Arun",
-      "roleId": "Employee"
+      "userId": "mani",
+      "password": "1234",
+      "firstName": "Mani Maran",
+      "roleId": "employee"
     },
     {
-      "id": "senthil@ramnadu_medicals",
-      "firstName": "Ameer Khan",
-      "roleId": "Employee"
+      "userId": "surya",
+      "password": "1234",
+      "firstName": "Surya Kumar",
+      "roleId": "employee"
+    },
+    {
+      "userId": "surash",
+      "password": "1234",
+      "firstName": "Suresh Kumar",
+      "roleId": "employee"
     }
   ],
   "dealers": [
     {
-      "name": "ABC Pharma"
+      "firstName": "Sentil",
+      "lastName": "Department Stores"
     },
     {
-      "name": "Big Pharma"
+      "firstName": "M.K.",
+      "lastName": "Retails"
     }
   ],
   "customers": [
     {
-      "firstName": "Dr. Govindaraj"
+      "firstName": "Manimaran",
+      "lastName": "Stores"
     },
     {
-      "firstName": "Dr. Paneerselvam"
+      "firstName": "Geetha",
+      "lastName": "Stores"
+    },
+    {
+      "firstName": "Raj Saranya",
+      "lastName": "Stores"
     }
   ]
 }

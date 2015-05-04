@@ -1,9 +1,12 @@
 {
+  "code": "twplus",
   "name": "Tata Water Plus",
   "products": [
     {
       "code": "TWP-111",
       "name": "Tata water plus-500 ml",
+      "baseUnit": 1,
+      "denominator": 1,
       "buyRate": 7,
       "buyPercent": 10,
       "sellRate": 7.5,
@@ -12,6 +15,8 @@
     {
       "code": "TWP-112",
       "name": "Tata water plus-1 lit",
+      "baseUnit": 1,
+      "denominator": 1,
       "buyRate": 14,
       "buyPercent": 10,
       "sellRate": 15,
@@ -20,6 +25,8 @@
     {
       "code": "TGP-01",
       "name": "Tata gluco plus-Orange",
+      "baseUnit": 1,
+      "denominator": 1,
       "buyRate": 8,
       "buyPercent": 10,
       "sellRate": 10,
@@ -28,6 +35,8 @@
     {
       "code": "TGP-02",
       "name": "Tata gluco plus-Lemon",
+      "baseUnit": 1,
+      "denominator": 1,
       "buyRate": 7.75,
       "buyPercent": 10,
       "sellRate": 9.9,
@@ -36,6 +45,8 @@
     {
       "code": "TGP-03",
       "name": "Tata gluco plus-Apple",
+      "baseUnit": 1,
+      "denominator": 1,
       "buyRate": 7.6,
       "buyPercent": 15,
       "sellRate": 11.5,
@@ -44,6 +55,8 @@
     {
       "code": "TGP-04",
       "name": "Tata gluco plus-Mango",
+      "baseUnit": 1,
+      "denominator": 1,
       "buyRate": 5.6,
       "buyPercent": 15,
       "sellRate": 7,
@@ -52,6 +65,8 @@
     {
       "code": "TGP-05",
       "name": "Tata gluco plus-Grape",
+      "baseUnit": 1,
+      "denominator": 1,
       "buyRate": 6.6,
       "buyPercent": 12,
       "sellRate": 10,
@@ -60,19 +75,19 @@
   ],
   "employees": [
     {
-      "id": "ponnarasu@twp",
+      "userId": "ponnarasu",
       "password": "1234",
       "firstName": "Ponnarasu",
       "roleId": "Manager"
     },
     {
-      "id": "prabhakaran@twp",
+      "userId": "prabhakaran",
       "password": "parbhu",
       "firstName": "Prabhakaran",
       "roleId": "Employee"
     },
     {
-      "id": "kaali@twp",
+      "userId": "kaali",
       "password": "kaali1234",
       "firstName": "Kaali",
       "roleId": "Employee"
@@ -80,18 +95,22 @@
   ],
   "dealers": [
     {
-      "firstName": "Rohan Minerals"
+      "firstName": "Rohan",
+      "lastName": "Minerals"
     },
     {
-      "firstName": "Sri.Devi Traders"
+      "firstName": "Sri.Devi",
+      "lastName": "Traders"
     }
   ],
   "customers": [
     {
-      "firstName": "Naveen Bakery"
+      "firstName": "Naveen",
+      "lastName": "Bakery"
     },
     {
-      "firstName": "Nila Restaurent"
+      "firstName": "Nila",
+      "lastName": "Restaurent"
     }
   ]
 }

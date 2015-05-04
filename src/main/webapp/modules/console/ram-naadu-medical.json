@@ -1,37 +1,96 @@
 {
+  "code": "ram_medical",
   "name": "Ramnaadu Medicals",
-  "products": [],
+  "products": [
+    {
+      "code": " para500mg",
+      "name": "Crocine Tab ( Paracitamol",
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 15.5,
+      "buyPercent": 10,
+      "sellRate": 17,
+      "sellPercent": 11.2
+    },
+    {
+      "code": "bldry0101",
+      "name": "Benylin Dry Coughs 7.5mg / 5ml Syrup",
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 65,
+      "buyPercent": 10,
+      "sellRate": 70,
+      "sellPercent": 10
+    },
+    {
+      "code": "cot2020",
+      "name": "Cotton Roll",
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 150,
+      "buyPercent": 10,
+      "sellRate": 150,
+      "sellPercent": 10
+    },
+    {
+      "code": "bldry0101",
+      "name": "Benylin Dry Coughs 7.5mg / 5ml Syrup",
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 65,
+      "buyPercent": 10,
+      "sellRate": 70,
+      "sellPercent": 10
+    },
+    {
+      "code": "IO0931",
+      "name": "Iodex Ointment",
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 85,
+      "buyPercent": 10,
+      "sellRate": 90,
+      "sellPercent": 13.4
+    }
+  ],
   "employees": [
     {
-      "id": "ameerk@ramnadu_medicals",
+      "userId": "ameer",
+      "password": "1234",
       "firstName": "Ameer Khan",
       "roleId": "Manager"
     },
     {
-      "id": "arun@ramnadu_medicals",
+      "userId": "arun",
+      "password": "1234",
       "firstName": "Arun",
       "roleId": "Employee"
     },
     {
-      "id": "senthil@ramnadu_medicals",
-      "firstName": "Ameer Khan",
+      "userId": "senthil",
+      "password": "1234",
+      "firstName": "Senthil Murugan",
       "roleId": "Employee"
     }
   ],
   "dealers": [
     {
-      "name": "ABC Pharma"
+      "firstName": "ABC",
+      "lastName": "Pharma"
     },
     {
-      "name": "Big Pharma"
+      "firstName": "Big",
+      "lastName": "Pharma"
     }
   ],
   "customers": [
     {
-      "firstName": "Dr. Govindaraj"
+      "firstName": "Dr. Govindaraj",
+      "lastName": "Clinic"
     },
     {
-      "firstName": "Dr. Paneerselvam"
+      "firstName": "Dr. Paneerselvam",
+      "lastName": "Clinic"
     }
   ]
 }
