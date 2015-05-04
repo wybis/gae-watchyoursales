@@ -15,7 +15,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 	service.receipt = receipt;
 
 	function addTransaction(times) {
-		var trans = receipt.transactions;
+		var trans = receipt.trans;
 		for (var i = 0; i < times; i++) {
 			var tran = {
 				type : '',
@@ -67,7 +67,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		});
 		service.setCustomer(customer);
 
-		receipt.transactions = [];
+		receipt.trans = [];
 		addTransaction(initSize);
 
 		$log.debug("counterService initialize finished...")
@@ -110,16 +110,16 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 	};
 
 	service.removeTransaction = function(index) {
-		receipt.transactions.splice(index, 1);
+		receipt.trans.splice(index, 1);
 		receipt.curTranIndex = index - 1;
-		if (receipt.transactions.length == 0) {
+		if (receipt.trans.length == 0) {
 			service.newTransaction();
 		}
 		service.computeTotalAmount();
 	};
 
 	service.removeAllTransactions = function() {
-		receipt.transactions.length = 0;
+		receipt.trans.length = 0;
 		receipt.curTranIndex = -1;
 		receipt.curTran = {};
 		service.newTransaction();
@@ -131,40 +131,26 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			return;
 		}
 		receipt.curTranIndex = index;
-		receipt.curTran = receipt.transactions[receipt.curTranIndex];
-		// $log.info(receipt.curTran);
-	}
-
-	service.onTransactionType = function(tran) {
-		if (tran.type == '') {
-			return;
-		}
-		if (tran.type === service.TRAN_TYPE_BUY) {
-			tran.rate = tran.item.product.buyRate;
-		} else {
-			tran.rate = tran.item.product.sellRate;
-		}
-		service.computeTransactionAmount(tran);
+		receipt.curTran = receipt.trans[receipt.curTranIndex];
 	}
 
 	service.onTransactionItem = function(tran) {
-		if (tran.type === service.TRAN_TYPE_BUY) {
-			tran.rate = tran.item.product.buyRate;
-		} else {
-			tran.rate = tran.item.product.sellRate;
+		$log.info(tran.item.product);
+		service.onTransactionType(tran);
+	}
+
+	service.onTransactionType = function(tran) {
+		if (tran.type != '') {
+			if (tran.type === service.TRAN_TYPE_BUY) {
+				tran.rate = tran.item.product.buyRate + '';
+			} else {
+				tran.rate = tran.item.product.sellRate + '';
+			}
+			service.onTransactionRate(tran);
 		}
-		service.computeTransactionAmount(tran);
 	}
 
 	service.onTransactionUnit = function(tran) {
-		service.computeTransactionAmount(tran);
-	}
-
-	service.onTransactionRate = function(tran) {
-		service.computeTransactionAmount(tran);
-	}
-
-	service.computeTransactionAmount = function(tran) {
 		var unit = tran.unit;
 		if (unit == '' || _.isUndefined(unit)) {
 			return;
@@ -174,7 +160,10 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			unit = parseFloat(unit);
 		}
 		tran.unitRaw = unit;
+		service.computeTransactionAmount(tran);
+	}
 
+	service.onTransactionRate = function(tran) {
 		var rate = tran.rate;
 		if (rate == '' || _.isUndefined(rate)) {
 			return;
@@ -184,22 +173,24 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			rate = parseFloat(rate);
 		}
 		tran.rateRaw = rate;
+		service.computeTransactionAmount(tran);
+	}
 
+	service.computeTransactionAmount = function(tran) {
 		var amount = tran.unitRaw * (tran.rateRaw / tran.item.product.baseUnit);
 		if (tran.type === service.TRAN_TYPE_BUY) {
 			amount *= -1;
 		}
 		tran.amount = amount;
-
 		service.computeTotalAmount();
 	};
 
 	service.computeTotalAmount = function() {
-		var transactions = receipt.transactions;
+		var trans = receipt.trans;
 		var totalAmount = 0, i = 0, amount = 0;
-		for (i = 0; i < transactions.length; i++) {
-			amount = transactions[i].amount;
-			if (transactions[i].type === service.TYPE_BUY) {
+		for (i = 0; i < trans.length; i++) {
+			amount = trans[i].amount;
+			if (trans[i].type === service.TYPE_BUY) {
 				amount *= -1;
 			}
 			totalAmount += amount;
@@ -213,26 +204,6 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			receipt.customerAmountLabel = 'Receive';
 		}
 		service.onCustomerAmount();
-	};
-
-	service.onRevertAmount = function(tran) {
-		var rate = tran.rate;
-		if (rate == '') {
-			return;
-		}
-		rate = rate.split(',').join('')
-
-		var revertAmount = tran.revertAmount;
-		if (revertAmount == '') {
-			return;
-		}
-		revertAmount = revertAmount.split(',').join('')
-
-		var v0 = rate / tran.item.product.baseUnit;
-		var v1 = revertAmount / v0;
-		var v2 = v1 % tran.item.denominator;
-		var v3 = v1 - v2
-		tran.unit = v3;
 	};
 
 	service.onCustomerAmount = function() {
@@ -261,10 +232,33 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		}
 	};
 
+	service.onRevertAmount = function() {
+		var revertAmount = receipt.revertAmount;
+		if (revertAmount == '' || _.isUndefined(revertAmount)) {
+			return;
+		}
+		if (!_.isNumber(revertAmount)) {
+			revertAmount = revertAmount.split(',').join('')
+			revertAmount = parseFloat(revertAmount);
+		}
+		receipt.revertAmountRaw = revertAmount;
+		var tran = receipt.curTran;
+		var v0 = tran.rateRaw / tran.item.product.baseUnit;
+		var v1 = revertAmount / v0;
+		var v2 = v1 % tran.item.product.denominator;
+		var v3 = v1 - v2
+		tran.unit = v3 + '';
+		service.onTransactionUnit(tran);
+	};
+
 	service.validateTransaction = function(tran) {
 		tran.message = '';
 		if (!tran.item) {
 			tran.message = 'Missing Product! Please select product...';
+			return;
+		}
+		if (tran.type === '') {
+			tran.message = 'Missing Type! Please select type...';
 			return;
 		}
 		if (tran.unitRaw <= 0) {
@@ -275,14 +269,16 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			tran.message = 'Rate should be greater than 0';
 			return;
 		}
+		$log.info(tran.item.product);
+		$log.info(tran.rateRaw);
 		if (tran.type === service.TRAN_TYPE_BUY) {
-			if (tran.item.product.buyPercentageRate <= tran.rate) {
+			if (tran.item.product.buyPercentageRate <= tran.rateRaw) {
 				var s = "Rate is more than ";
 				s += tran.item.product.buyPercentageRate;
 				tran.message = s;
 			}
 		} else {
-			if (tran.item.product.sellPercentageRate >= tran.rate) {
+			if (tran.item.product.sellPercentageRate >= tran.rateRaw) {
 				var s = "Rate is less than ";
 				s += tran.item.product.sellPercentageRate;
 				tran.message = s;
@@ -317,8 +313,8 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			reqReceipt.category = 'customer'
 		}
 
-		for (var i = 0; i < receipt.transactions.length; i++) {
-			var tran = receipt.transactions[i]
+		for (var i = 0; i < receipt.trans.length; i++) {
+			var tran = receipt.trans[i]
 			service.validateTransaction(tran);
 			if (tran.message != '') {
 				rowIds.push(i + 1);
@@ -371,8 +367,8 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			reqReceipt.category = 'customer'
 		}
 
-		for (var i = 0; i < receipt.transactions.length; i++) {
-			var tran = receipt.transactions[i]
+		for (var i = 0; i < receipt.trans.length; i++) {
+			var tran = receipt.trans[i]
 			service.validateTransaction(tran);
 			if (tran.message != '') {
 				rowIds.push(i + 1);

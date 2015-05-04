@@ -44,7 +44,7 @@
 	</div>	
 </div>
 
-<div class="panel" data-ng-class="{true : 'panel-danger', false : 'panel-default'}[receipt.transactions[receipt.curTranIndex].message != '']">
+<div class="panel" x-ng-class="{true : 'panel-danger', false : 'panel-default'}[receipt.curTran.message != '']">
 	<div class="panel-heading">
 		<div class="pull-left">
 			<div class="btn-group" x-dropdown>
@@ -102,7 +102,7 @@
 	</tr>
 	</thead>
 	<tbody>
-	<tr x-ng-repeat="tran in receipt.transactions"
+	<tr x-ng-repeat="tran in receipt.trans"
 		x-ng-click="onTransactionSelect($index)"
 	   	x-ng-class="{info : $index === receipt.curTranIndex}">
 		<td width="30" class="text-right">{{$index+1}}</td>
