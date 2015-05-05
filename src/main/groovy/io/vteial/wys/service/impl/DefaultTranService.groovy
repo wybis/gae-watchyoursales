@@ -134,6 +134,7 @@ class DefaultTranService extends AbstractService implements TranService {
 			category = tran.category
 			productCode = product.code
 			accountId = account.id
+			account = account
 			type = TransactionType.BUY
 			baseUnit = product.baseUnit
 			rate = product.buyRate

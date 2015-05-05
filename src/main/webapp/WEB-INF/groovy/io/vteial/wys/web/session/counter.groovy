@@ -47,7 +47,7 @@ try {
 		tran = new Tran()
 		tran.category = tranReceipt.category
 		tran.accountId = customer.cashAccountId
-		tran.type = totalAmount < 0 ? TransactionType.BUY: TransactionType.SELL
+		tran.type = totalAmount < 0 ? TransactionType.SELL: TransactionType.BUY
 		tran.unit = actualTotalAmount
 		tran.rate = 1
 		//tran.rate = account.product.sellRate

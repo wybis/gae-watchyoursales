@@ -48,9 +48,12 @@ function trialBalanceController($rootScope, $scope, $log, sessionService, $http)
 				amount += item.amount;
 			});
 			var acct = _.clone(pacctsg[pcode][0]);
-			acct.amount = amount;
-			tbg.debit += amount;
 			tbg.items.push(acct);
+
+			acct.amount = amount;
+			acct.debit = acct.amount;
+			tbg.debit += amount;
+			
 			debit += amount;
 		});
 		tbgs.push(tbg);
