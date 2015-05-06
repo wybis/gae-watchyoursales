@@ -1,9 +1,4 @@
-appControllers.controller('presenceResponseController', function($log, $scope) {
-	$log.info('presenceResponseController...');
-	$scope.message = 'Presence Response...';
-});
-
-appServices.factory('presenceStates', function($log, $presence, panels) {
+appServices.factory('presenceStates', function($log, $presence) {
 	$log.debug('presenceStates service started...');
 
 	var states = [];
@@ -65,16 +60,6 @@ appServices.factory('presenceStates', function($log, $presence, panels) {
 	});
 
 	states = $presence.init(states[1]);
-
-	// states.onChange(function(state) {
-	// $log.debug('Current Presence State : ' + state.text);
-	// });
-	//
-	// states.LONGAWAY.onEnter(function() {
-	// $log.debug('presence timout started...');
-	// panels.open('presenceTimeout');
-	// $log.debug('presence timout started...');
-	// });
 
 	$log.debug('presenceStates service finished...');
 

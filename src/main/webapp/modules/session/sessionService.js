@@ -195,7 +195,7 @@ function sessionService($log, $http, $q, $rootScope) {
 		_.assign(service.context, props);
 		if (props.sessionDto.userId) {
 			$rootScope.xUserId = props.sessionDto.userId;
-			// $log.info('Session User Id = ' + $rootScope.xUserId);
+			$log.info('Session User Id = ' + $rootScope.xUserId);
 		}
 		$log.debug('processing session properties finished...');
 	}

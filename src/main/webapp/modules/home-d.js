@@ -16,8 +16,16 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 
 	presenceStates.LONGAWAY.onEnter(function() {
 		$log.debug('presence timout started...');
-		panels.open('presenceTimeout');
+		// panels.open('sessionResponse');
+		$scope.$broadcast('session:response', 'Session timeout...');
 		$log.debug('presence timout started...');
+	});
+
+	$rootScope.$on('session:invalid', function(event, data) {
+		$log.debug('session invalid started...');
+		// panels.open('sessionResponse');
+		$scope.$broadcast('session:response', data);
+		$log.debug('session invalid finished...');
 	});
 
 	$scope.showLeftMenu = function() {
@@ -72,11 +80,11 @@ app.config(function(blockUIConfig) {
 app.config([ 'panelsProvider', function(panelsProvider) {
 
 	panelsProvider.add({
-		id : 'presenceTimeout',
+		id : 'sessionResponse',
 		position : 'top',
 		size : '100%',
-		templateUrl : 'modules/angularPresence/presenceResponse.html',
-		controller : 'presenceResponseController'
+		templateUrl : 'modules/session/sessionResponse.html',
+		controller : 'sessionResponseController'
 	});
 
 	panelsProvider.add({

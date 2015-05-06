@@ -43,10 +43,9 @@ appServices.factory('wydFocusService', [ '$rootScope', '$timeout',
 function generalHttpInterceptor($log, $rootScope, $q, $window) {
 	return {
 		'request' : function(config) {
-			$log.info('xUserId = ' + $rootScope.xUserId);
-			if ($rootScope.xUserId) {
-				config.headers['X-UserId'] = $rootScope.xUserId;
-			}
+			var xUserId = $rootScope.xUserId || 'null';
+			$log.info('xUserId = ' + xUserId);
+			config.headers['X-UserId'] = xUserId;
 			return config;
 		},
 
@@ -62,11 +61,24 @@ function generalHttpInterceptor($log, $rootScope, $q, $window) {
 		'responseError' : function(rejection) {
 			$log.error(rejection);
 			if (rejection.status == 419) {
-				$window.location = 'index-d.html#/signin'
-				return;
+				// $window.location = 'index-d.html#/signin'
+				$rootScope.$emit('session:invalid', 'Invalid session...');
 			}
 			return rejection;
 		}
 	};
 }
 appServices.factory('generalHttpInterceptor', generalHttpInterceptor);
+
+appControllers.controller('sessionResponseController', function($log, $scope,
+		panels) {
+	$log.info('sessionResponseController...');
+	$scope.message = 'session response...';
+
+	$scope.$on('session:response', function(event, data) {
+		$log.debug('session response started...');
+		$scope.message = data;
+		panels.open('sessionResponse');
+		$log.debug('session iresponse finished...');
+	});
+});

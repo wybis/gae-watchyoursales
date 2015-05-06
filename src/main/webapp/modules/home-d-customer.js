@@ -1,9 +1,28 @@
-function rootController($scope, $log, $window, $rootScope, sessionService) {
+function rootController($scope, $log, $window, $rootScope, sessionService,
+		panels, presenceStates) {
 	$log.info('rootController...');
 
 	$rootScope.sessionContext = sessionService.context;
 
 	sessionService.properties();
+
+	// presenceStates.onChange(function(state) {
+	// $log.debug('Current Presence State : ' + state.text);
+	// });
+
+	presenceStates.LONGAWAY.onEnter(function() {
+		$log.debug('presence timout started...');
+		// panels.open('sessionResponse');
+		$scope.$broadcast('session:response', 'Session timeout...');
+		$log.debug('presence timout started...');
+	});
+
+	$rootScope.$on('session:invalid', function(event, data) {
+		$log.debug('session invalid started...');
+		// panels.open('sessionResponse');
+		$scope.$broadcast('session:response', data);
+		$log.debug('session invalid finished...');
+	});
 
 	$scope.viewSource = function() {
 		var s = 'view-source:localhost:1111/' + $rootScope.currentViewSrcUrl;
