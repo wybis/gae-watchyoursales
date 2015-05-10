@@ -77,7 +77,7 @@ app.config(function(blockUIConfig) {
 	// blockUIConfig.autoBlock = false;
 });
 
-app.config([ 'panelsProvider', function(panelsProvider) {
+app.config(function(panelsProvider) {
 
 	panelsProvider.add({
 		id : 'sessionResponse',
@@ -103,7 +103,7 @@ app.config([ 'panelsProvider', function(panelsProvider) {
 		controller : 'sideMenuLeftController'
 	});
 
-} ]);
+});
 
 app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/', {
@@ -255,6 +255,12 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/customerOrders', {
 		templateUrl : 'modules/customerOrder/d.html',
 		controller : 'customerOrderController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/processCustomerOrders', {
+		templateUrl : 'modules/customerOrder/d-processCustomerOrder.html',
+		controller : 'processCustomerOrderController',
 		reloadOnSearch : false
 	});
 

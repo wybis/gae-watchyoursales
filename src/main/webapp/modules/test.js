@@ -1,5 +1,32 @@
+function WydConstants() {
+	var instance = {
+		tranCategory : {
+			dealer : 'dealer',
+			customer : 'customer',
+			ledger : 'ledger',
+		},
+		tranCategorys : [ {
+			id : 'dealer',
+			text : 'Dealer'
+		}, {
+			id : 'customer',
+			text : 'Dealer'
+		}, {
+			id : 'ledger',
+			text : 'Ledger'
+		} ]
+	};
+
+	return instance;
+}
+
+appServices.factory('wydConstants', function($log) {
+	var instance = WydConstants();
+	return instance;
+});
+
 function rootController($scope, $log, $window, $rootScope, $timeout,
-		wydNotifyService, panels, presenceStates) {
+		wydNotifyService, panels, wydConstants) {
 	$log.info('root...');
 
 	$scope.viewSource = function() {
@@ -7,18 +34,6 @@ function rootController($scope, $log, $window, $rootScope, $timeout,
 		$log.info(s);
 		$window.open(s);
 	};
-
-	$scope.presenceStates = presenceStates;
-
-	presenceStates.onChange(function(state) {
-		$log.debug('Current Presence State : ' + state.text);
-	});
-
-	presenceStates.LONGAWAY.onEnter(function() {
-		$log.debug('presence timout started...');
-		panels.open('presenceTimeout');
-		$log.debug('presence timout started...');
-	});
 
 	$scope.success = function() {
 		wydNotifyService.addSuccess("Success message...", true);
@@ -39,6 +54,8 @@ function rootController($scope, $log, $window, $rootScope, $timeout,
 	$scope.openPanel = function(panelId) {
 		panels.open(panelId);
 	};
+
+	$scope.wydConstants = wydConstants;
 
 	// $scope.isBusy = false;
 
@@ -92,7 +109,6 @@ dependents.push('ngStorage');
 dependents.push('green.inputmask4angular');
 dependents.push('ngNotify');
 dependents.push('angular.panels');
-dependents.push('presence');
 dependents.push('ui.select');
 dependents.push('ui.bootstrap');
 dependents.push('app.filters');
@@ -102,14 +118,6 @@ dependents.push('app.controllers');
 var app = angular.module('app', dependents);
 
 app.config([ 'panelsProvider', function(panelsProvider) {
-
-	panelsProvider.add({
-		id : 'presenceTimeout',
-		position : 'top',
-		size : '100%',
-		templateUrl : 'modules/angularPresence/presenceResponse.html',
-		controller : 'presenceResponseController'
-	});
 
 	panelsProvider.add({
 		id : 'lp',

@@ -7,9 +7,6 @@
 
 <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" >
 <link rel="stylesheet" href="assets/fontawesome/css/font-awesome.min.css">
-<!-- 
-<link rel="stylesheet" href="modules/wydNotify/wydNotifyByBootstrap.css">
--->
 <link rel="stylesheet" href="assets/ngNotify/ng-notify.min.css"></script>
 <link rel="stylesheet" href="assets/ui-select/select.min.css" />
 <link rel="stylesheet" href="assets/angular-panels/angular.panels.css">
@@ -22,43 +19,43 @@
 <![endif]-->
 
 </head>
-<body x-ng-clock x-presence>
+<body x-ng-clock>
 
-<section class="container-fluid">
-	<div cllass="container">
-		<div class="text-center">
-			Presence State : {{presenceStates.getCurrent().text}}
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="text-center">
+				<button class="btn btn-success" x-ng-click="success()">Success</button>
+				<button class="btn btn-info"    x-ng-click="info()">Info</button>
+				<button class="btn btn-warning" x-ng-click="warning()">Warning</button>
+				<button class="btn btn-danger"  x-ng-click="error()">Error</button>		
+			</div>
+			<br/>
+			<div class="text-center">
+				<button class="btn btn-default" x-ng-click="openPanel('lp')">Left Panel</button>
+				<button class="btn btn-default" x-ng-click="openPanel('rp')">Right Panel</button>
+				<button class="btn btn-default" x-ng-click="openPanel('tp')">Top Panel</button>
+				<button class="btn btn-default" x-ng-click="openPanel('bp')">Bottom Panel</button>
+			</div>
+			<br/>
+			<div class="text-center">
+				<button class="btn btn-default" 
+					x-ng-click="newReceipt()">
+					New Receipt
+				</button>
+				<button class="btn btn-primary" 
+					x-ng-disabled="receipt.id != 0"
+					x-ng-click="saveReceipt()">
+					Save Receipt
+				</button>
+			</div>
 		</div>
-		<br/>
-		<div class="text-center">
-			<button class="btn btn-success" x-ng-click="success()">Success</button>
-			<button class="btn btn-info"    x-ng-click="info()">Info</button>
-			<button class="btn btn-warning" x-ng-click="warning()">Warning</button>
-			<button class="btn btn-danger"  x-ng-click="error()">Error</button>		
-		</div>
-		<br/>
-		<div class="text-center">
-			<button class="btn btn-default" x-ng-click="openPanel('lp')">Left Panel</button>
-			<button class="btn btn-default" x-ng-click="openPanel('rp')">Right Panel</button>
-			<button class="btn btn-default" x-ng-click="openPanel('tp')">Top Panel</button>
-			<button class="btn btn-default" x-ng-click="openPanel('bp')">Bottom Panel</button>
-		</div>
-		<br/>
-		<div class="text-center">
-			<button class="btn btn-default" 
-				x-ng-click="newReceipt()">
-				New Receipt
-			</button>
-			<button class="btn btn-primary" 
-				x-ng-disabled="receipt.id != 0"
-				x-ng-click="saveReceipt()">
-				Save Receipt
-			</button>
+		<div class="col-md-4">
+			<pre>{{wydConstants | json}}</pre>
 		</div>
 	</div>
-</section>
+</div>
 
-<wyd-notify-by-bootstrap-directive></wyd-notify-by-bootstrap-directive>
 <div data-panels="true"></div>
     
 <script type="text/javascript"
@@ -93,16 +90,9 @@
 	src="assets/angular-block-ui/angular-block-ui.min.js"></script>
 <script type="text/javascript" 
 	src="assets/angular-panels/angular.panels.js"></script>
-<script type="text/javascript" 
-	src="assets/angular-presence/angular-presence.min.js"></script>
 
 <script type="text/javascript" src="modules/init.js"></script>
-<!-- 
-<script type="text/javascript" src="modules/wydNotify/wydNotifyByBootstrap.js"></script>
--->
 <script type="text/javascript" src="modules/wydNotify/wydNotifyByNgNotify.js"></script>
-
-<script type="text/javascript" src="modules/angularPresence/angularPresence.js"></script>
 
 <script type="text/javascript" src="modules/test.js"></script>
 

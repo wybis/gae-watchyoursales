@@ -1,17 +1,31 @@
 <div class="panel panel-default">
 	<div class="panel-body">
-		&nbsp;
+		<div class="col-md-2">
+   			<label><small>Customer</small></label>
+   			<select class="form-control input-sm" x-ng-model="searchCriteria.customer"
+   				x-ng-change='onCustomerChange()'
+				x-ng-options="item.id + ' - ' + item.firstName for item in customers">
+    		</select>
+		</div>
 	</div>
 </div>
 <div class="panel panel-default">
 	<div class="panel-heading text-center">
 		<span class="pull-left">
-			<button	class="btn btn-default"	x-ng-disabled="items.length == 0"
+			<button	type="button" class="btn btn-default btn-sm" 
+				x-ng-disabled="items.length == 0"
 				x-ng-click="refresh()">
 				<i class="fa fa-refresh"></i>
 			</button>
 		</span>
 		&nbsp;
+		<span class="pull-right">
+			<button type="button" class="btn btn-default btn-sm"
+				x-ng-disabled="true"
+				x-ng-click="print()">
+				<i class="fa fa-print"></i>
+			</button>
+		</span>
 	</div>
 	<table class="table table-condensed table-bordered table-striped">
 	<thead>
@@ -24,11 +38,15 @@
 	   	<th class="text-center" width="60"><small>Rate</small></th>
 	   	<th class="text-center"><small>Amount</small></th>
 	   	<th class="text-center" width="160"><small>Date</small></th>
-	   	<th class="text-center" width="40"><small>&nbsp;</small></th>
+	   	<th class="text-center"><small>Customer</small></th>
+	   	<th class="text-center" width="40">
+			<input type="checkbox" x-ng-model="searchCriteria.isSelectedAll"
+				x-ng-change="selectOrDeSelectAll()">	   	
+		</th>
 	</tr>
 	</thead>
 	<tbody>
-	<tr x-ng-repeat="item in items | orderBy : '-id'">
+	<tr x-ng-repeat="item in searchResult.items | orderBy : '-id'">
 		<td class="text-right" width="40">
 			{{$index+1}}
 		</td>
@@ -54,9 +72,21 @@
 			{{item.date | date:'yyyy-MM-dd HH:mm:ss'}}
 		</td>
 		<td>
-			&nbsp;
+			{{item.forUserId}}
+		</td>
+		<td class="text-center">
+			<input type="checkbox" x-ng-model="item.isSelected"
+				x-ng-change="onOrderSelectionChange()">
 		</td>
 	</tr>
 	</tbody>
 	</table>
+	<div class="panel-footer text-center">
+		<button type="button" class="btn btn-primary btn-sm"
+			x-ng-click="proceed()">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			Proceed
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</button>
+	</div>
 </div>

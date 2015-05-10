@@ -54,7 +54,7 @@ public class SecurityFilter implements Filter {
 		}
 		String arrivedUserId = request.getHeader('X-UserId')
 		String s = "${request.requestURI} => ${sessionUser.userId} : ${arrivedUserId}"
-		System.out.println(s)
+		//System.out.println(s)
 		if(arrivedUserId != 'null' && sessionUser.userId != arrivedUserId) {
 			response.sendError(419);
 			return;
