@@ -18,8 +18,6 @@ function counterController($rootScope, $scope, $log, sessionService,
 	$scope.onRevertAmount = counterService.onRevertAmount;
 	$scope.onCustomerAmount = counterService.onCustomerAmount;
 
-	$scope.saveReceiptAsQuotation = counterService.saveReceiptAsQuotation;
-	$scope.saveReceiptAsDraft = counterService.saveReceiptAsDraft;
 	$scope.saveReceiptAsOrder = counterService.saveReceiptAsOrder;
 	$scope.saveReceiptAsTransaction = counterService.saveReceiptAsTransaction;
 

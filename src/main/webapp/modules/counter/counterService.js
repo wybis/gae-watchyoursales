@@ -1,6 +1,6 @@
 function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
-	var service = {}, receipt = {}, initSize = 1, defaultCustomer = {
+	var service = {}, receipt = {}, initSize = 4, defaultCustomer = {
 		id : 0,
 	};
 
@@ -15,7 +15,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		var trans = receipt.trans;
 		for (var i = 0; i < times; i++) {
 			var tran = {
-				type : '',
+				type : 'sell',
 				item : {
 					product : {
 						code : '-',
@@ -66,6 +66,8 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
 		receipt.trans = [];
 		addTransaction(initSize);
+		receipt.curTranIndex = 0;
+		receipt.curTran = receipt.trans[0];
 
 		$log.debug("counterService initialize finished...")
 	};
@@ -186,9 +188,9 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		var totalAmount = 0, i = 0, amount = 0;
 		for (i = 0; i < trans.length; i++) {
 			amount = trans[i].amount;
-//			if (trans[i].type == 'buy') {
-//				amount *= -1;
-//			}
+			// if (trans[i].type == 'buy') {
+			// amount *= -1;
+			// }
 			totalAmount += amount;
 		}
 		receipt.totalAmount = totalAmount;
@@ -278,16 +280,6 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		// tran.message = s;
 		// }
 		// }
-	};
-
-	service.saveReceiptAsQuotation = function() {
-		var message = 'Quotation is not yet implemented...';
-		wydNotifyService.addWarning(message, true);
-	};
-
-	service.saveReceiptAsDraft = function() {
-		var message = 'Draft is not yet implemented...';
-		wydNotifyService.addWarning(message, true);
 	};
 
 	service.saveReceiptAsOrder = function() {
