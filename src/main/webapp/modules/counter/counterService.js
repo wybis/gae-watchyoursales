@@ -186,9 +186,9 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		var totalAmount = 0, i = 0, amount = 0;
 		for (i = 0; i < trans.length; i++) {
 			amount = trans[i].amount;
-			if (trans[i].type == 'buy') {
-				amount *= -1;
-			}
+//			if (trans[i].type == 'buy') {
+//				amount *= -1;
+//			}
 			totalAmount += amount;
 		}
 		receipt.totalAmount = totalAmount;
