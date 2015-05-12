@@ -15,7 +15,7 @@ repositories {
 	jcenter()
 }
 
-apply plugin: 'eclipse'
+//apply plugin: 'eclipse'
 apply plugin: 'war'
 apply plugin: 'gaelyk'
 apply plugin: 'appengine-geb'
@@ -34,7 +34,7 @@ targetCompatibility = compatibilityVersion
 appengine {
 	//httpAddress = '192.168.1.2'
 	httpPort = 1111
-	disableUpdateCheck = false
+	disableUpdateCheck = true
 
 	appcfg {
 		email = 'vteial@wybis.com'
