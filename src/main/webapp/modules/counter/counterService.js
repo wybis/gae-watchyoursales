@@ -4,9 +4,6 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		id : 0,
 	};
 
-	service.TRAN_TYPE_BUY = 'buy';
-	service.TRAN_TYPE_SELL = 'sell';
-
 	service.tranTypeNames = {
 		'buy' : 'Buy',
 		'sell' : 'Sell'
@@ -140,7 +137,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
 	service.onTransactionType = function(tran) {
 		if (tran.type != '') {
-			if (tran.type === service.TRAN_TYPE_BUY) {
+			if (tran.type == 'buy') {
 				tran.rate = tran.item.product.buyRate + '';
 			} else {
 				tran.rate = tran.item.product.sellRate + '';
@@ -177,7 +174,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
 	service.computeTransactionAmount = function(tran) {
 		var amount = tran.unitRaw * (tran.rateRaw / tran.item.product.baseUnit);
-		if (tran.type === service.TRAN_TYPE_BUY) {
+		if (tran.type == 'buy') {
 			amount *= -1;
 		}
 		tran.amount = amount;
@@ -189,7 +186,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		var totalAmount = 0, i = 0, amount = 0;
 		for (i = 0; i < trans.length; i++) {
 			amount = trans[i].amount;
-			if (trans[i].type === service.TYPE_BUY) {
+			if (trans[i].type == 'buy') {
 				amount *= -1;
 			}
 			totalAmount += amount;
@@ -295,6 +292,12 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
 	service.saveReceiptAsOrder = function() {
 		$log.debug('saveReceiptAsOrder started...');
+
+		if (receipt.forUser.firstName == 'Guest') {
+			var message = 'Order can\'t be placed for Guest...';
+			wydNotifyService.addWarning(message, true);
+			return;
+		}
 
 		$log.info("Receipt before process...")
 		$log.info(receipt);

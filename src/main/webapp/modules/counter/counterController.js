@@ -2,9 +2,7 @@ function counterController($rootScope, $scope, $log, sessionService,
 		counterService) {
 	$rootScope.viewName = 'Counter';
 
-	// sessionService.getStocks().then(function(response) {
 	$scope.items = sessionService.stocks;
-	// });
 
 	$scope.receipt = counterService.receipt;
 
