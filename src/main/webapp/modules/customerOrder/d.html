@@ -9,7 +9,88 @@
 		</div>
 	</div>
 </div>
-<div class="panel panel-default">
+
+<div class="panel panel-default" x-ng-show="searchCriteria.customer.id != 0">
+	<div class="panel-heading text-center">
+		<span class="pull-left">
+			<button	type="button" class="btn btn-default btn-sm" 
+				x-ng-disabled="items.length == 0"
+				x-ng-click="refresh()">
+				<i class="fa fa-refresh"></i>
+			</button>
+		</span>
+		&nbsp;
+		<span class="pull-right">
+			<button type="button" class="btn btn-default btn-sm"
+				x-ng-disabled="true"
+				x-ng-click="print()">
+				<i class="fa fa-print"></i>
+			</button>
+		</span>
+	</div>
+	<table class="table table-condensed table-bordered table-striped">
+	<thead>
+	<tr>
+		<th class="text-right" width="30">Id</th>
+	   	<th class="text-center" width="100"><small>Code</small></th>
+	   	<th class="text-center"><small>Name</small></th>
+	   	<th class="text-center" width="60"><small>Type</small></th>
+	   	<th class="text-center"><small>Unit</small></th>
+	   	<th class="text-center" width="60"><small>Rate</small></th>
+	   	<th class="text-center"><small>Amount</small></th>
+	   	<th class="text-center" width="160"><small>Date</small></th>
+	   	<th class="text-center" width="40">
+			<input type="checkbox" x-ng-model="searchCriteria.isSelectedAll"
+				x-ng-change="selectOrDeSelectAll()">	   	
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr x-ng-repeat="item in searchResult.items | orderBy : '-id'">
+		<td class="text-right" width="40">
+			{{$index+1}}
+		</td>
+		<td>
+			{{item.productCode}}
+		</td>
+		<td>
+			{{productsMap[accountsMap[item.accountId].productId].name}}
+		</td>
+		<td class="text-center">
+			{{item.type}}
+		</td>
+		<td class="text-right">
+			{{item.unit | number : 2}}
+		</td>
+		<td class="text-right">
+			{{item.rate | number : 5}}
+		</td>	
+		<td class="text-right">
+			{{item.unit * item.rate | number : 2}}
+		</td>
+		<td>
+			{{item.date | date:'yyyy-MM-dd HH:mm:ss'}}
+		</td>
+		<td class="text-center">
+			<input type="checkbox" x-ng-model="item.isSelected"
+				x-ng-change="onOrderSelectionChange()">
+		</td>
+	</tr>
+	</tbody>
+	</table>
+	<div class="panel-footer text-center">
+		<button type="button" class="btn btn-primary btn-sm"
+			x-ng-click="proceed()">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			Proceed
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</button>
+	</div>
+</div>
+
+<!-- all pending orders -->
+
+<div class="panel panel-default" x-ng-show="searchCriteria.customer.id === 0">
 	<div class="panel-heading text-center">
 		<span class="pull-left">
 			<button	type="button" class="btn btn-default btn-sm" 
@@ -39,10 +120,6 @@
 	   	<th class="text-center"><small>Amount</small></th>
 	   	<th class="text-center" width="160"><small>Date</small></th>
 	   	<th class="text-center"><small>Customer</small></th>
-	   	<th class="text-center" width="40">
-			<input type="checkbox" x-ng-model="searchCriteria.isSelectedAll"
-				x-ng-change="selectOrDeSelectAll()">	   	
-		</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -60,7 +137,7 @@
 			{{item.type}}
 		</td>
 		<td class="text-right">
-			{{item.unit | number : 5}}
+			{{item.unit | number : 2}}
 		</td>
 		<td class="text-right">
 			{{item.rate | number : 5}}
@@ -72,21 +149,9 @@
 			{{item.date | date:'yyyy-MM-dd HH:mm:ss'}}
 		</td>
 		<td>
-			{{item.forUserId}}
-		</td>
-		<td class="text-center">
-			<input type="checkbox" x-ng-model="item.isSelected"
-				x-ng-change="onOrderSelectionChange()">
+			{{customersMap[item.forUserId].firstName}}
 		</td>
 	</tr>
 	</tbody>
 	</table>
-	<div class="panel-footer text-center">
-		<button type="button" class="btn btn-primary btn-sm"
-			x-ng-click="proceed()">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			Proceed
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		</button>
-	</div>
 </div>

@@ -1,10 +1,10 @@
 <div class="row">
 
-<div class="col-md-3">
-	<x-ng-include src="'modules/counter/productView.html'"/>
-</div>
+	<div class="col-md-3">
+		<x-ng-include src="'modules/counter/productView.html'"/>
+	</div>
 
-<div class="col-md-9">
+	<div class="col-md-9">
 
 <div class="row">
 	<div class="col-md-12">
@@ -80,7 +80,7 @@
 				&nbsp;&nbsp;Receipt Id : <strong>{{receipt.id}}</strong>
 			</span>
 		</div>
-		&nbsp;{{receipt.transactions[receipt.curTranIndex].message}}
+		&nbsp;{{receipt.trans[receipt.curTranIndex].message}}
 		<div class="pull-right">
 			<button class="btn btn-default btn-sm"
 				x-tooltip="Add New Transaction"

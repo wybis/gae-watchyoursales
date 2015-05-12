@@ -4,8 +4,8 @@ function customerOrderController($rootScope, $scope, $log, customerOrderService)
 
 	$scope.productsMap = customerOrderService.productsMap;
 	$scope.accountsMap = customerOrderService.accountsMap;
-
 	$scope.customers = customerOrderService.customers;
+	$scope.customersMap = customerOrderService.customersMap;
 	$scope.searchCriteria = customerOrderService.searchCriteria;
 	$scope.searchResult = customerOrderService.searchResult;
 
@@ -31,7 +31,13 @@ function processCustomerOrderController($rootScope, $scope, $log,
 	$scope.productsMap = customerOrderService.productsMap;
 	$scope.accountsMap = customerOrderService.accountsMap;
 
-	$scope.orders = customerOrderService.selectedOrders
+	$scope.receipt = customerOrderService.receipt;
+	$scope.removeTran = customerOrderService.removeTran;
+	$scope.onTranSelect = customerOrderService.onTranSelect;
+	$scope.onTranUnit = customerOrderService.onTranUnit;
+	$scope.onCustomerAmount = customerOrderService.onCustomerAmount;
+	$scope.saveReceiptAsTransaction = customerOrderService.saveReceiptAsTransaction;
+	$scope.printReceipt = customerOrderService.printReceipt
 
 	$scope.cancel = function() {
 		$location.path('/customerOrders');
