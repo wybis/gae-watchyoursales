@@ -64,7 +64,7 @@
 						&nbsp;&nbsp;Receipt Id : <strong>{{receipt.id}}</strong>
 					</span>
 				</div>
-				&nbsp;{{receipt.trans[receipt.curTranIndex].message}}
+				&nbsp;{{receipt.curTran.message}}
 				<div class="pull-right">
 					<button class="btn btn-default btn-sm" 
 						x-ng-disabled="receipt.id == 0"

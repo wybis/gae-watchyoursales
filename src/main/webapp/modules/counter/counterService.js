@@ -1,6 +1,6 @@
 function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
-	var service = {}, receipt = {}, initSize = 4, defaultCustomer = {
+	var service = {}, receipt = {}, initSize = 1, defaultCustomer = {
 		id : 0,
 	};
 
@@ -411,6 +411,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
 		_.forEach(resReceipt.trans, function(tran) {
 			sessionService.updateAccount(tran.account);
+			$log.info(tran.account);
 		});
 	}
 
