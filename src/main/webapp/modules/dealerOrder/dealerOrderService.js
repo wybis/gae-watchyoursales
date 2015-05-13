@@ -320,6 +320,7 @@ function dealerOrderService($log, $q, wydNotifyService, sessionService, $http,
 				receipt.trans[i].order.unit = tran.order.unit;
 			}
 		}
+		sessionService.computeStockWorth();
 		service.getPendingOrders();
 	}
 

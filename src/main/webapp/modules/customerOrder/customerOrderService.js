@@ -320,6 +320,7 @@ function customerOrderService($log, $q, wydNotifyService, sessionService,
 				receipt.trans[i].order.unit = tran.order.unit;
 			}
 		}
+		sessionService.computeStockWorth();
 		service.getPendingOrders();
 	}
 

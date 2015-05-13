@@ -61,6 +61,31 @@ function sessionService($log, $http, $q, $rootScope) {
 		}
 	};
 
+	service.computeStockWorth = function() {
+		var stockMine = 0, stockBranch = 0;
+		_.forEach(service.stocks, function(item) {
+			stockMine += item.amount
+			stockBranch += item.product.amount;
+		});
+		service.stockMine = stockMine;
+		service.stockBranch = stockBranch;
+	};
+
+	service.computeCashWorth = function() {
+		var accId = service.context.sessionDto.cashAccountId;
+		service.cashMine = service.accountsMap[accId];
+
+		service.cashCustomer = _.find(service.products, function(item) {
+			return item.code === 'CIC';
+		});
+		service.cashDealer = _.find(service.products, function(item) {
+			return item.code === 'CID';
+		});
+		service.cashBranch = _.find(service.products, function(item) {
+			return item.code === 'CIE';
+		});
+	};
+
 	function processLedgers(ledgers) {
 		$log.debug('processing ledgers started...')
 		_.forEach(ledgers, function(objectx) {
@@ -195,7 +220,7 @@ function sessionService($log, $http, $q, $rootScope) {
 		_.assign(service.context, props);
 		if (props.sessionDto.userId) {
 			$rootScope.xUserId = props.sessionDto.userId;
-			$log.info('Session User Id = ' + $rootScope.xUserId);
+			// $log.info('Session User Id = ' + $rootScope.xUserId);
 		}
 		$log.debug('processing session properties finished...');
 	}
@@ -207,6 +232,8 @@ function sessionService($log, $http, $q, $rootScope) {
 		processEmployees(model.employees);
 		processDealers(model.dealers);
 		processCustomers(model.customers);
+		service.computeStockWorth();
+		service.computeCashWorth();
 		$log.debug('processing session properties finished...');
 	}
 

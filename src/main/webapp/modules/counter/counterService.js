@@ -82,7 +82,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		var productId = customer.cashAccount.productId;
 		var product = sessionService.productsMap[productId];
 		// $log.info(product);
-		sessionService.cashCustomer = product;
+		// sessionService.cashCustomer = product;
 		receipt.forUserUrl = '/customers/customer/' + customer.id;
 	};
 
@@ -96,7 +96,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		var productId = dealer.cashAccount.productId;
 		var product = sessionService.productsMap[productId];
 		// $log.info(product);
-		sessionService.cashDealer = product;
+		// sessionService.cashDealer = product;
 		receipt.forUserUrl = '/dealers/dealer/' + dealer.id;
 	};
 
@@ -413,8 +413,8 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
 		_.forEach(resReceipt.trans, function(tran) {
 			sessionService.updateAccount(tran.account);
-			$log.info(tran.account);
 		});
+		sessionService.computeStockWorth();
 	}
 
 	function fail(resReceipt, message) {
