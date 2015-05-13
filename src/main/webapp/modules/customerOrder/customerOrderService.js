@@ -75,11 +75,11 @@ function customerOrderService($log, $q, wydNotifyService, sessionService,
 			return item.isSelected;
 		});
 
-//		if (orders.length === 0) {
-//			wydNotifyService.addError(
-//					'Please select minimum one order to proceed...', true);
-//			return;
-//		}
+		// if (orders.length === 0) {
+		// wydNotifyService.addError(
+		// 'Please select minimum one order to proceed...', true);
+		// return;
+		// }
 
 		receipt.id = 0;
 
@@ -313,9 +313,13 @@ function customerOrderService($log, $q, wydNotifyService, sessionService,
 		wydNotifyService.addSuccess(message, true);
 		receipt.id = resReceipt.id;
 
-		_.forEach(resReceipt.trans, function(tran) {
+		for (var i = 0; i < resReceipt.trans.length; i++) {
+			var tran = resReceipt.trans[i];
 			sessionService.updateAccount(tran.account);
-		});
+			if (tran.order) {
+				receipt.trans[i].order.unit = tran.order.unit;
+			}
+		}
 		service.getPendingOrders();
 	}
 
