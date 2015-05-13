@@ -174,11 +174,11 @@ function dealerOrderService($log, $q, wydNotifyService, sessionService, $http,
 		}
 		receipt.totalAmount = totalAmount;
 		if (totalAmount < 0) {
-			receipt.totalAmountLabel = 'Pay';
-			receipt.customerAmountLabel = 'Pay';
+			receipt.totalAmountLabel = 'pay';
+			receipt.customerAmountLabel = 'pay';
 		} else {
-			receipt.totalAmountLabel = 'Receive';
-			receipt.customerAmountLabel = 'Receive';
+			receipt.totalAmountLabel = 'receive';
+			receipt.customerAmountLabel = 'receive';
 		}
 		service.onCustomerAmount();
 	};
@@ -211,7 +211,7 @@ function dealerOrderService($log, $q, wydNotifyService, sessionService, $http,
 
 	service.validateTransaction = function(tran) {
 		tran.message = '';
-		if (!tran.item) {
+		if (!tran.item.id) {
 			tran.message = 'Missing Product! Please select product...';
 			return;
 		}
@@ -219,11 +219,11 @@ function dealerOrderService($log, $q, wydNotifyService, sessionService, $http,
 			tran.message = 'Missing Type! Please select type...';
 			return;
 		}
-		if (tran.unitRaw <= 0) {
-			tran.message = 'Unit should be greater than 0';
+		if (tran.unit == '' || tran.unitRaw <= 0) {
+			tran.message = 'Quantity should be greater than 0';
 			return;
 		}
-		if (tran.rateRaw <= 0) {
+		if (tran.rate == '' || tran.rateRaw <= 0) {
 			tran.message = 'Rate should be greater than 0';
 			return;
 		}

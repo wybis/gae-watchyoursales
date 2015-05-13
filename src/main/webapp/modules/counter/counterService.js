@@ -79,10 +79,6 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		// $log.info(customer);
 		receipt.forUser = customer;
 		receipt.forUserLabel = 'Customer';
-		var productId = customer.cashAccount.productId;
-		var product = sessionService.productsMap[productId];
-		// $log.info(product);
-		// sessionService.cashCustomer = product;
 		receipt.forUserUrl = '/customers/customer/' + customer.id;
 	};
 
@@ -93,10 +89,6 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		// $log.info(dealer);
 		receipt.forUser = dealer;
 		receipt.forUserLabel = 'Dealer';
-		var productId = dealer.cashAccount.productId;
-		var product = sessionService.productsMap[productId];
-		// $log.info(product);
-		// sessionService.cashDealer = product;
 		receipt.forUserUrl = '/dealers/dealer/' + dealer.id;
 	};
 
@@ -195,11 +187,11 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		}
 		receipt.totalAmount = totalAmount;
 		if (totalAmount < 0) {
-			receipt.totalAmountLabel = 'Pay';
-			receipt.customerAmountLabel = 'Pay';
+			receipt.totalAmountLabel = 'pay';
+			receipt.customerAmountLabel = 'pay';
 		} else {
-			receipt.totalAmountLabel = 'Receive';
-			receipt.customerAmountLabel = 'Receive';
+			receipt.totalAmountLabel = 'receive';
+			receipt.customerAmountLabel = 'receive';
 		}
 		service.onCustomerAmount();
 	};
@@ -251,7 +243,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
 	service.validateTransaction = function(tran) {
 		tran.message = '';
-		if (!tran.item) {
+		if (!tran.item.id) {
 			tran.message = 'Missing Product! Please select product...';
 			return;
 		}
@@ -259,11 +251,11 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			tran.message = 'Missing Type! Please select type...';
 			return;
 		}
-		if (tran.unitRaw <= 0) {
-			tran.message = 'Unit should be greater than 0';
+		if (tran.unit == '' || tran.unitRaw <= 0) {
+			tran.message = 'Quantity should be greater than 0';
 			return;
 		}
-		if (tran.rateRaw <= 0) {
+		if (tran.rate == '' || tran.rateRaw <= 0) {
 			tran.message = 'Rate should be greater than 0';
 			return;
 		}
@@ -381,21 +373,36 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		if (rowIds.length > 0) {
 			var msg = "Row's " + rowIds.join(', ') + ' has issues...';
 			wydNotifyService.addError(msg, true);
-		} else {
-			$log.info("Receipt before post...")
-			$log.info(reqReceipt);
-
-			var path = '/sessions/counter'
-			$http.post(path, reqReceipt).success(function(response) {
-				// $log.debug(response);
-				if (response.type === 0) {
-					success(response.data, response.message)
-				} else {
-					fail(response.data, response.message)
-				}
-				$log.debug('saveReceiptAsTransaction finished...');
-			});
+			return;
 		}
+
+		var totalAmount = receipt.totalAmount;
+		if (totalAmount < 0) {
+			totalAmount *= -1;
+		}
+		if (receipt.forUser.firstName == 'Guest'
+				&& receipt.customerAmountRaw < totalAmount) {
+			var msg = 'Please provide the amount to ';
+			msg += receipt.customerAmountLabel
+			msg += ', which should be greater then or equal to '
+			msg += totalAmount;
+			wydNotifyService.addError(msg, true);
+			return;
+		}
+
+		$log.info("Receipt before post...")
+		$log.info(reqReceipt);
+
+		var path = '/sessions/counter'
+		$http.post(path, reqReceipt).success(function(response) {
+			// $log.debug(response);
+			if (response.type === 0) {
+				success(response.data, response.message)
+			} else {
+				fail(response.data, response.message)
+			}
+			$log.debug('saveReceiptAsTransaction finished...');
+		});
 	};
 
 	service.printReceipt = function() {
