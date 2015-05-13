@@ -216,6 +216,13 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/processDealerOrders', {
+		templateUrl : 'modules/dealerOrder/d-processDealerOrder.html',
+		controller : 'processDealerOrderController',
+		reloadOnSearch : false
+	});
+
+
 	$routeProvider.when('/dealerTrans', {
 		templateUrl : 'modules/dealerTran/d.html',
 		controller : 'dealerTranController',

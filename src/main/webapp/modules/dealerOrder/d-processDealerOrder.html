@@ -1,0 +1,138 @@
+<div class="row">
+	<div class="col-md-3">
+		<x-ng-include src="'modules/counter/productView.html'"/>
+	</div>
+	<div class="col-md-9">
+	
+			<div>
+				<strong><small>Dealer</small></strong> : 
+				{{receipt.forUser.firstName}} {{receipt.forUser.lastName}}
+	    	</div>				
+			<div>			
+	 			<strong><small>Balance&nbsp;&nbsp;&nbsp;</small></strong> 
+	 			: {{receipt.forUser.cashAccount.handStock | number : 2}}
+			</div>
+
+			<div class="panel" x-ng-class="{true : 'panel-danger', false : 'panel-default'}[receipt.curTran.message != '']">
+				<div class="panel-heading">
+					<div class="pull-left">
+						&nbsp;&nbsp;Receipt Id : <strong>{{receipt.id}}</strong>
+					</div>
+					&nbsp;{{receipt.curTran.message}}
+					<div class="pull-right">
+						<button class="btn btn-default btn-sm" 
+							x-ng-disabled="receipt.id == 0"
+							x-ng-click="printReceipt()">
+							<i class="fa fa-print"></i>
+						</button>
+			   		</div>
+				</div>
+				<table class="table table-condensed table-bordered">
+				<thead>
+				<tr>
+					<th class="text-right" width="30">#</th>
+				   	<th class="text-center"><small>Product</small></th>
+				   	<th class="text-center"><small>We</small></th>
+				   	<th class="text-center"><small>Quantity</small></th>
+				   	<th class="text-center"><small>Balance</small></th>
+				   	<th class="text-center"><small>Rate</small></th>
+				   	<th class="text-center"><small>Amount</small></th>
+				   	<th class="text-center" width="40">&nbsp;</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr x-ng-repeat="tran in receipt.trans"
+					x-ng-click="onTranSelect($index)"
+				   	x-ng-class="{info : $index === receipt.curTranIndex}">
+					<td width="30" class="text-right">{{$index+1}}</td>
+					<td>
+						{{tran.item.product.name}}
+					</td>
+					<td width="60" class="text-center">
+						{{tran.type}}
+					</td>
+					<td width="120">
+						<input type="text" class="form-control input-sm"
+							x-ng-model="tran.unit"
+							x-ng-disabled="receipt.id != 0"
+							x-ng-change="onTranUnit(tran)"
+							x-input-mask="'decimal'"
+							mask-option="{ allowMinus : false, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true }"/> 
+					</td>
+					<td width="120" class="text-right">
+						{{tran.order.unit | number}}
+					</td>
+					<td  width="100" class="text-right">
+						{{tran.rate | number : 5}}
+					</td>
+					<td width="140" class="text-right">
+						{{tran.amount | number : 2}}
+					</td>
+					<td width="40" class="text-center">
+						<button class="btn btn-danger btn-xs"
+							x-ng-disabled="receipt.id != 0"
+							x-ng-click="removeTran($index)">		
+							<i class="fa fa-times"></i>
+						</button>
+					</td>
+				</tr>
+				</tbody>
+				<tfoot>
+				<tr>
+					<td colspan="6" class="text-right">
+						{{receipt.totalAmountLabel}} 
+					</td>
+					<td class="text-right">
+						{{receipt.totalAmount | number : 2}}
+					</td>
+					<td>&nbsp;</td>
+				</tr>		
+				<tr>
+					<td colspan="6" class="text-right">
+						{{receipt.customerAmountLabel}}  
+					</td>
+					<td class="text-right">
+						<input type="text" class="form-control input-sm" 
+							x-ng-model="receipt.customerAmount" 
+							x-ng-disabled="receipt.id != 0"
+							x-ng-change="onCustomerAmount()"
+							x-input-mask="'decimal'"
+							mask-option="{ allowMinus : false, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true}"/>
+					</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="6" class="text-right">
+						{{receipt.balanceAmountLabel}} Balance
+					</td>
+					<td class="text-right">
+						{{receipt.balanceAmount | number : 2}}
+					</td>
+					<td>&nbsp;</td>
+				</tr>
+				</tfoot>
+				</table>	
+			</div>	
+
+			<div class="row">
+				<div class="col-md-4 text-left">	
+					<button class="btn btn-default" 
+						x-ng-click="cancel()">
+						Back to Orders
+					</button>
+				</div>
+				<div class="col-md-5 text-center">
+					&nbsp;	
+				</div>
+				<div class="col-md-3">
+					<button class="btn btn-primary btn-block" 
+						x-ng-disabled="receipt.id != 0"
+						x-ng-click="saveReceiptAsTransaction()">
+						<i class="fa fa-save"></i> Save As Transaction
+					</button>
+				</div>
+			</div>
+	
+	</div>
+</div>
+
