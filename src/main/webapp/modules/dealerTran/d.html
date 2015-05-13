@@ -17,6 +17,7 @@
 	   	<th class="text-center" width="60"><small>Type</small></th>
 	   	<th class="text-center"><small>Unit</small></th>
 	   	<th class="text-center" width="60"><small>Rate</small></th>
+	   	<th class="text-center" width="60"><small>Average</small></th>
 	   	<th class="text-center"><small>Amount</small></th>
 	   	<th class="text-center" width="160"><small>Date</small></th>
 	   	<th class="text-center" width="40"><small>&nbsp;</small></th>
@@ -41,6 +42,9 @@
 		</td>
 		<td class="text-right">
 			{{item.rate | number : 5}}
+		</td>	
+		<td class="text-right">
+			{{item.averageRate | number : 5}}
 		</td>	
 		<td class="text-right">
 			{{item.unit * item.rate | number : 2}}
