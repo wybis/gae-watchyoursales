@@ -350,6 +350,8 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
 		var reqReceipt = {
 			forUserId : receipt.forUser.id,
+			amount : receipt.customerAmountRaw,
+			balanceAmount : receipt.balanceAmount,
 			trans : []
 		}, reqTran = null, totalSaleAmount = 0, rowIds = [];
 

@@ -23,6 +23,11 @@ public class TranReceipt extends AbstractModel {
 	@Ignore
 	double totalSaleAmount
 
+	double amount
+
+	@Ignore
+	double balanceAmount
+
 	String description
 
 	String status
