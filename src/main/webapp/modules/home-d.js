@@ -324,7 +324,7 @@ function appInit($log, $rootScope, $location, $sessionStorage, panels) {
 		$sessionStorage.wysCLP = curLocPath;
 		// $log.info('Stored Location : ', $sessionStorage.wysCLP);
 
-		var srcUrl = $location.absUrl().indexOf('index');
+		var srcUrl = $location.absUrl().indexOf('home');
 		srcUrl = $location.absUrl().substring(0, srcUrl);
 		srcUrl = srcUrl + next.templateUrl;
 		$rootScope.currentViewSrcUrl = srcUrl;
