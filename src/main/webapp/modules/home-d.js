@@ -52,6 +52,7 @@ appControllers.controller('sideMenuLeftController', function($log, $scope) {
 var dependents = [ 'ngRoute', 'ngSanitize' ];
 dependents.push('ngStorage');
 dependents.push('ngNotify');
+dependents.push('hSweetAlert');
 dependents.push('green.inputmask4angular');
 // dependents.push('ngInputDate');
 dependents.push('blockUI');
@@ -222,7 +223,6 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
-
 	$routeProvider.when('/dealerTrans', {
 		templateUrl : 'modules/dealerTran/d.html',
 		controller : 'dealerTranController',
@@ -337,14 +337,12 @@ function appInit($log, $rootScope, $location, $sessionStorage, panels) {
 		panels.close();
 	});
 
-	$rootScope.isLoggedIn = false;
-	$rootScope.homeView = '/home';
-
 	var path = $sessionStorage.wysCLP;
 	if (!path) {
 		path = '/home';
 	}
 	$location.path(path);
+	// $location.path('/home');
 
 	$log.info('Initialization finished...');
 }

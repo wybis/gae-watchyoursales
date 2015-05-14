@@ -75,11 +75,11 @@ function dealerOrderService($log, $q, wydNotifyService, sessionService, $http,
 			return item.isSelected;
 		});
 
-		// if (orders.length === 0) {
-		// wydNotifyService.addError(
-		// 'Please select minimum one order to proceed...', true);
-		// return;
-		// }
+		 if (orders.length === 0) {
+			wydNotifyService.addError(
+					'Please select minimum one order to proceed...', true);
+			return;
+		}
 
 		receipt.id = 0;
 
@@ -283,27 +283,31 @@ function dealerOrderService($log, $q, wydNotifyService, sessionService, $http,
 		if (rowIds.length > 0) {
 			var msg = "Row's " + rowIds.join(', ') + ' has issues...';
 			wydNotifyService.addError(msg, true);
-		} else {
-			$log.info("Receipt before post...")
-			$log.info(reqReceipt);
-
-			var path = '/sessions/counter'
-			$http.post(path, reqReceipt).success(function(response) {
-				// $log.debug(response);
-				if (response.type === 0) {
-					success(response.data, response.message)
-				} else {
-					fail(response.data, response.message)
-				}
-				$log.debug('saveReceiptAsTransaction finished...');
-			});
+			return;
 		}
+		$log.info("Receipt before post...")
+		$log.info(reqReceipt);
+
+		submit(reqReceipt);
 	};
 
 	service.printReceipt = function() {
 		var message = 'Printing receipt is not yet implemented...';
 		wydNotifyService.addWarning(message, true);
 	};
+
+	function submit(reqReceipt) {
+		var path = '/sessions/counter'
+		$http.post(path, reqReceipt).success(function(response) {
+			// $log.debug(response);
+			if (response.type === 0) {
+				success(response.data, response.message)
+			} else {
+				fail(response.data, response.message)
+			}
+			$log.debug('saveReceiptAsTransaction finished...');
+		});
+	}
 
 	function success(resReceipt, message) {
 		$log.info("Receipt after post...")

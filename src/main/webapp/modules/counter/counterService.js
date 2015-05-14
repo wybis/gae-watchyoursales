@@ -390,9 +390,36 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			return;
 		}
 
+		if (receipt.customerAmountRaw === 0) {
+			var s = 'Are you sure to proceed without the amount to ';
+			s += receipt.customerAmountLabel + '?';
+			var params = {
+				title : 'Confirm',
+				text : s,
+				type : 'warning',
+				showCancelButton : true,
+				confirmButtonText : 'Yes',
+				cancelButtonText : 'No',
+			};
+			var callback = function() {
+				submit(reqReceipt);
+			};
+			wydNotifyService.sweet.show(params, callback);
+		} else {
+			submit(reqReceipt);
+		}
+
 		$log.info("Receipt before post...")
 		$log.info(reqReceipt);
 
+	};
+
+	service.printReceipt = function() {
+		var message = 'Printing receipt is not yet implemented...';
+		wydNotifyService.addWarning(message, true);
+	};
+
+	function submit(reqReceipt) {
 		var path = '/sessions/counter'
 		$http.post(path, reqReceipt).success(function(response) {
 			// $log.debug(response);
@@ -403,12 +430,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			}
 			$log.debug('saveReceiptAsTransaction finished...');
 		});
-	};
-
-	service.printReceipt = function() {
-		var message = 'Printing receipt is not yet implemented...';
-		wydNotifyService.addWarning(message, true);
-	};
+	}
 
 	function success(resReceipt, message) {
 		$log.info("Receipt after post...")

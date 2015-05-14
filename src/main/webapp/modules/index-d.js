@@ -12,8 +12,10 @@ appControllers.controller('rootController', rootController);
 
 var dependents = [ 'ngRoute', 'ngSanitize' ];
 dependents.push('ngStorage');
-dependents.push('green.inputmask4angular');
 dependents.push('ngNotify');
+dependents.push('hSweetAlert');
+dependents.push('green.inputmask4angular');
+dependents.push('blockUI');
 dependents.push('ui.select');
 dependents.push('ui.bootstrap');
 dependents.push('app.filters');
@@ -28,6 +30,10 @@ app.config(function(uiSelectConfig) {
 
 app.config(function($httpProvider) {
 	$httpProvider.interceptors.push('generalHttpInterceptor');
+});
+
+app.config(function(blockUIConfig) {
+	// blockUIConfig.autoBlock = false;
 });
 
 app.config(function($routeProvider, $locationProvider) {
@@ -73,7 +79,6 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 		// $log.info('After Current Location : ', curLocPath);
 	});
 
-	$rootScope.isLoggedIn = false;
 	$rootScope.homeView = '/index';
 
 	// $location.path($rootScope.homeView);

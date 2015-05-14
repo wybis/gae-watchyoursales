@@ -1,4 +1,5 @@
 function indexController($rootScope, $scope, $log, wydNotifyService) {
+	$log.debug('indexController...');
 	$rootScope.viewName = 'Home';
 
 	$scope.success = function() {
@@ -17,6 +18,20 @@ function indexController($rootScope, $scope, $log, wydNotifyService) {
 		wydNotifyService.addError("Error message...", true);
 	};
 
-	$log.debug('indexController...');
+	$scope.confirm = function() {
+		var params = {
+			title : 'Confirm',
+			text : 'Are you sure to proceed?',
+			type : 'warning',
+			showCancelButton : true,
+			confirmButtonText : 'Yes',
+			cancelButtonText : 'No',
+		};
+		var callback = function() {
+			$log.info('yes');
+		};
+		wydNotifyService.sweet.show(params, callback);
+	}
+
 }
 appControllers.controller('indexController', indexController);
