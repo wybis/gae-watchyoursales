@@ -3,12 +3,11 @@ function customerOrderService($log, $q, wydNotifyService, sessionService,
 
 	var service = {}, customers = [], searchCriteria = {}, searchResult = {}, receipt = {};
 
-	customers = sessionService.customers;
-	customers.unshift({
+	customers.push({
 		id : 0,
 		firstName : 'All'
 	});
-	service.customers = customers;
+	service.customers = customers.concat(sessionService.customers);
 
 	service.productsMap = sessionService.productsMap;
 	service.accountsMap = sessionService.accountsMap;
@@ -75,7 +74,7 @@ function customerOrderService($log, $q, wydNotifyService, sessionService,
 			return item.isSelected;
 		});
 
-		 if (orders.length === 0) {
+		if (orders.length === 0) {
 			wydNotifyService.addError(
 					'Please select minimum one order to proceed...', true);
 			return;

@@ -3,12 +3,11 @@ function dealerOrderService($log, $q, wydNotifyService, sessionService, $http,
 
 	var service = {}, dealers = [], searchCriteria = {}, searchResult = {}, receipt = {};
 
-	dealers = sessionService.dealers;
-	dealers.unshift({
+	dealers.push({
 		id : 0,
 		firstName : 'All'
 	});
-	service.dealers = dealers;
+	service.dealers = dealers.concat(sessionService.dealers);
 
 	service.productsMap = sessionService.productsMap;
 	service.accountsMap = sessionService.accountsMap;
@@ -75,7 +74,7 @@ function dealerOrderService($log, $q, wydNotifyService, sessionService, $http,
 			return item.isSelected;
 		});
 
-		 if (orders.length === 0) {
+		if (orders.length === 0) {
 			wydNotifyService.addError(
 					'Please select minimum one order to proceed...', true);
 			return;

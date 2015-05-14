@@ -16,6 +16,7 @@ import io.vteial.wys.service.SessionService
 import io.vteial.wys.service.UserService
 import io.vteial.wys.service.exceptions.InvalidCredentialException
 import io.vteial.wys.service.exceptions.ModelNotFoundException
+import io.vteial.wys.service.exceptions.UnAuthorizedException
 
 import javax.servlet.http.HttpSession
 
@@ -64,8 +65,8 @@ SessionService {
 			throw new InvalidCredentialException()
 		}
 		User aUser = entitys[0] as User
-		if(aUser.status == UserStatus.PASSIVE) {
-			throw new InvalidCredentialException()
+		if(aUser.status == UserStatus.PASSIVE || aUser.isVirtual()) {
+			throw new UnAuthorizedException()
 		}
 		if(!localMode && aUser.password != userDto.password) {
 			throw new InvalidCredentialException()

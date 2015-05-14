@@ -15,7 +15,10 @@ dependents.push('ngStorage');
 dependents.push('ngNotify');
 dependents.push('hSweetAlert');
 dependents.push('green.inputmask4angular');
+// dependents.push('ngInputDate');
 dependents.push('blockUI');
+//dependents.push('angular.panels');
+//dependents.push('presence');
 dependents.push('ui.select');
 dependents.push('ui.bootstrap');
 dependents.push('app.filters');
@@ -81,9 +84,7 @@ function appInit($log, $rootScope, $location, $sessionStorage) {
 		// $log.info('After Current Location : ', curLocPath);
 	});
 
-	$rootScope.homeView = '/index';
-
-	// $location.path($rootScope.homeView);
+	$location.path('/index');
 
 	$log.info('Initialization finished...');
 }

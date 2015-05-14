@@ -14,6 +14,9 @@
 <link rel="stylesheet" href="assets/ui-select/select.min.css" />
 <link rel="stylesheet" href="assets/ui-select/selectize..css" />
 <link rel="stylesheet" href="assets/angular-block-ui/angular-block-ui.min.css"/>
+<!-- 
+<link rel="stylesheet" href="assets/angular-panels/angular.panels.css">
+-->
 <link rel="stylesheet" href="assets/ngSweetAlert/sweetalert.css">
 <link rel="stylesheet" href="assets/index.css" />
 
@@ -25,8 +28,6 @@
 
 </head>
 <body x-ng-clock>
-
-<wyd-notify-by-bootstrap-directive></wyd-notify-by-bootstrap-directive>
 
 <div id="header">
 	<nav class="navbar navbar-default navbar-fixed-top" x-role="navigation">
@@ -44,7 +45,7 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li>
-						<a x-ng-href="#{{homeView}}"><i class="fa fa-home"></i> Home</a>
+						<a x-ng-href="#/index"><i class="fa fa-home"></i> Home</a>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right" x-ng-hide="isLoggedIn">
@@ -73,9 +74,10 @@
 <div id="footer">
 	<x-footer-navigator-directive></x-footer-navigator-directive>
 </div>
-
-<div x-panels="true" x-panel-left-template="modules/zgeneral/sideBarLeft.html">
-</div>
+<!-- 
+<wyd-notify-by-bootstrap-directive></wyd-notify-by-bootstrap-directive>
+<div data-panels="true"></div>
+-->
 
 <script type="text/javascript"
 	src="assets/lodash.min.js"></script>
@@ -107,7 +109,12 @@
 	src="assets/inputmask/green.inputmask4angular.js"></script>
 <script type="text/javascript"  
 	src="assets/angular-block-ui/angular-block-ui.min.js"></script>
-
+<!-- 	
+<script type="text/javascript" 
+	src="assets/angular-panels/angular.panels.js"></script>
+<script type="text/javascript" 
+	src="assets/angular-presence/angular-presence.min.js"></script>
+-->
 <script type="text/javascript" 
 	src="assets/ngSweetAlert/sweetalert.min.js"></script>
 <script type="text/javascript" 
