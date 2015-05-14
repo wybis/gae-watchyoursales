@@ -25,7 +25,9 @@ dependents.push('app.controllers');
 var app = angular.module('app', dependents);
 
 app.config(function(uiSelectConfig) {
-	uiSelectConfig.theme = 'select2';
+	uiSelectConfig.theme = 'selectize';
+	// uiSelectConfig.theme = 'select2';
+	// uiSelectConfig.theme = 'bootstrap';
 });
 
 app.config(function($httpProvider) {
@@ -52,7 +54,7 @@ app.config(function($routeProvider, $locationProvider) {
 	});
 
 	$routeProvider.when('/signin', {
-		templateUrl : 'modules/session/login-d.html',
+		templateUrl : 'modules/session/login-d-dev.html',
 		controller : 'loginController',
 		reloadOnSearch : false
 	});
