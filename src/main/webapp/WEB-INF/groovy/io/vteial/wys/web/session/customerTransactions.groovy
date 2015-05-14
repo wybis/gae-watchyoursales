@@ -33,6 +33,7 @@ try {
 
 	entitys.each { entity ->
 		Tran model = entity as Tran
+		model.computeAmount()
 		models <<  model
 	}
 

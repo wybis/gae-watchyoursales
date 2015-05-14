@@ -77,7 +77,7 @@ class DefaultTranService extends AbstractService implements TranService {
 
 		tran.productCode = product.code
 		tran.baseUnit = product.baseUnit
-		//tran.computeAmount()
+		tran.computeAmount()
 		if(tran.orderId > 0) {
 			tran.order.baseUnit = product.baseUnit
 			//tran.order.computeAmount()
@@ -144,8 +144,8 @@ class DefaultTranService extends AbstractService implements TranService {
 			forUserId = tran.forUserId
 		}
 
-		double avgUnit = tran.unit * (tran.account.product.handStockAverage / tran.account.product.baseUnit)
-		ptran.unit = tran.unit - avgUnit
+		double avgAmount = tran.unit * (tran.account.product.handStockAverage / tran.account.product.baseUnit)
+		ptran.unit = tran.amount - avgAmount
 		ptran.computeAmount()
 		if(ptran.unit >= 0) {
 			ptran.type = TransactionType.SELL
