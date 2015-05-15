@@ -57,21 +57,21 @@
 		<div class="panel" x-ng-class="{true : 'panel-danger', false : 'panel-default'}[receipt.curTran.message != '']">
 			<div class="panel-heading">
 				<div class="pull-left">
-					<button class="btn btn-default btn-sm"
-						x-tooltip="Add New Transaction"
-						x-ng-click="newTransaction()">
-						<i class="fa fa-plus"></i> New&nbsp;&nbsp;
+					<button class="btn btn-default btn-sm" 
+						x-ng-disabled="receipt.id == 0"
+						x-ng-click="printReceipt()">
+						<i class="fa fa-print"></i>
 					</button>
 			   		<span>
 						&nbsp;&nbsp;Receipt Id : <strong>{{receipt.id}}</strong>
 					</span>
 				</div>
-				&nbsp;{{receipt.curTran.message}}
+				&nbsp;&nbsp;&nbsp;&nbsp;{{receipt.curTran.message}}
 				<div class="pull-right">
-					<button class="btn btn-default btn-sm" 
-						x-ng-disabled="receipt.id == 0"
-						x-ng-click="printReceipt()">
-						<i class="fa fa-print"></i>
+					<button class="btn btn-default btn-sm"
+						x-tooltip="Add New Transaction"
+						x-ng-click="newTransaction()">
+						<i class="fa fa-plus"></i> New&nbsp;&nbsp;
 					</button>
 		   		</div>
 			</div>
