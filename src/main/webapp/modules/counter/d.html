@@ -10,7 +10,7 @@
 			<div class="col-md-12">
 				<div>
 					<strong><small>{{receipt.forUserLabel}}</small></strong> : 
-					<a x-ng-disabled="receipt.id != 0" x-ng-href="#{{receipt.forUserUrl}}">
+					<a x-ng-href="#{{receipt.forUserUrl}}">
 						{{receipt.forUser.firstName}} {{receipt.forUser.lastName}}
 					</a>
 					<div class="btn-group pull-right" x-dropdown>
@@ -46,8 +46,10 @@
 		    		</div>
 		    	</div>				
 				<div>			
-		 			<strong><small>Balance&nbsp;&nbsp;&nbsp;</small></strong> 
-		 			: {{receipt.forUser.cashAccount.handStock | number : 2}}
+		 			<strong><small>Balance</small></strong> : 
+	 				<a x-ng-href="#{{receipt.balanceUrl}}">
+	 					{{receipt.forUser.cashAccount.handStock | number : 2}}
+	 				</a>
 				</div>
 			</div>	
 		</div>

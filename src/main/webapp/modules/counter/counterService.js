@@ -80,6 +80,13 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		receipt.forUser = customer;
 		receipt.forUserLabel = 'Customer';
 		receipt.forUserUrl = '/customers/customer/' + customer.id;
+		var balanceUrl = '/customers/customer/' + customer.id;
+		if (customer.cashAccount.handStock > 0) {
+			balanceUrl += '/pay';
+		} else {
+			balanceUrl += '/collect';
+		}
+		receipt.balanceUrl = balanceUrl;
 	};
 
 	service.setDealer = function(dealer) {
@@ -90,6 +97,13 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		receipt.forUser = dealer;
 		receipt.forUserLabel = 'Dealer';
 		receipt.forUserUrl = '/dealers/dealer/' + dealer.id;
+		var balanceUrl = '/dealers/dealer/' + dealer.id;
+		if (dealer.cashAccount.handStock > 0) {
+			balanceUrl += '/pay';
+		} else {
+			balanceUrl += '/collect';
+		}
+		receipt.balanceUrl = balanceUrl;
 	};
 
 	service.newTransaction = function() {

@@ -213,6 +213,18 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/dealers/dealer/:id/pay', {
+		templateUrl : 'modules/dealer/d-payOrCollect.html',
+		controller : 'dealerPayOrCollectController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/dealers/dealer/:id/collect', {
+		templateUrl : 'modules/dealer/d-payOrCollect.html',
+		controller : 'dealerPayOrCollectController',
+		reloadOnSearch : false
+	});
+
 	$routeProvider.when('/dealerOrders', {
 		templateUrl : 'modules/dealerOrder/d.html',
 		controller : 'dealerOrderController',
@@ -258,6 +270,18 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/customers/search', {
 		templateUrl : 'modules/customer/d-search.html',
 		controller : 'customerSearchController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/customers/customer/:id/pay', {
+		templateUrl : 'modules/customer/d-payOrCollect.html',
+		controller : 'customerPayOrCollectController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/customers/customer/:id/collect', {
+		templateUrl : 'modules/customer/d-payOrCollect.html',
+		controller : 'customerPayOrCollectController',
 		reloadOnSearch : false
 	});
 

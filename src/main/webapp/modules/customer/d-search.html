@@ -17,7 +17,6 @@
 	   	<th class="text-center"><small>Email Id</small></th>
 	   	<th class="text-center"><small>Mobile No</small></th>
 	   	<th class="text-center"><small>Status</small></th>
-	   	<th class="text-center"><small>Balance</small></th>
 	   	<th class="text-center"><small>Update Time</small></th>
 	   	<th class="text-center">&nbsp;</th>
 	</tr>
@@ -42,9 +41,6 @@
 		<td>
 			{{item.status}}
 		</td>	
-		<td class="text-right">
-			{{item.stock.handStock  | number : 2}}
-		</td>
 		<td width="160">
 			{{item.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}
 		</td>

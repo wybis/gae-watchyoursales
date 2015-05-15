@@ -1,4 +1,5 @@
 function dealerController($rootScope, $scope, $log, sessionService) {
+	$log.debug('dealerController...');
 	$rootScope.viewName = 'Dealers';
 
 	$scope.items = sessionService.dealers;
@@ -7,25 +8,19 @@ function dealerController($rootScope, $scope, $log, sessionService) {
 		sessionService.getDealers();
 	};
 
-	$scope.bottomReached = function() {
-		$log.info('bottom reached...');
-	}
-
 	// $scope.refresh();
-
-	$log.debug('dealerController...');
 }
 appControllers.controller('dealerController', dealerController);
 
 function dealerViewController($rootScope, $scope, $log, $location,
 		sessionService) {
+	$log.debug('dealerVeiwController...');
 	$rootScope.viewName = 'View Dealer';
 
 	$scope.back = function() {
 		$location.path('/counter');
 	};
 
-	$log.debug('dealerVeiwController...');
 }
 appControllers.controller('dealerViewController', dealerViewController);
 
@@ -50,11 +45,18 @@ function dealerSearchController($rootScope, $scope, $log, $location,
 		sessionService.getDealers();
 	};
 
-	$scope.bottomReached = function() {
-		$log.info('bottom reached...');
-	}
-
-	$scope.refresh();
-
+	// $scope.refresh();
 }
 appControllers.controller('dealerSearchController', dealerSearchController);
+
+function dealerPayOrCollectController($rootScope, $scope, $log, $location,
+		sessionService) {
+	$log.debug('dealerPayOrCollectController...');
+	$rootScope.viewName = 'Dealer Pay Or Collect';
+
+	$scope.back = function() {
+		$location.path('/counter');
+	};
+
+}
+appControllers.controller('dealerPayOrCollectController', dealerPayOrCollectController);
