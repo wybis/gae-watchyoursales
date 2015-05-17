@@ -1,15 +1,15 @@
-function transferController($rootScope, $scope, $log, sessionService) {
+function transferController($rootScope, $scope, $log, wydNotifyService,
+		transferService) {
 	$log.debug('transferController...');
 	$rootScope.viewName = 'Transfer';
 
-	$scope.refresh = function() {
-		$log.info('yet to implement...');
-	};
+	$scope.items = sessionService.stocks;
 
-	$scope.bottomReached = function() {
-		$log.info('bottom reached...');
-	}
+	$scope.receipt = transferService.receipt;
 
-	$scope.refresh();
+	$scope.newTran = transferService.newTran;
+	$scope.removeTran = transferService.removeTran;
+	$scope.removeAllTrans = transferService.removeAllTrans;
+
 }
 appControllers.controller('transferController', transferController);

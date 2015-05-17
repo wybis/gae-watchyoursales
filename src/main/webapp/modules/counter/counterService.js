@@ -4,11 +4,6 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		id : 0,
 	};
 
-	service.tranTypeNames = {
-		'buy' : 'Buy',
-		'sell' : 'Sell'
-	};
-
 	service.receipt = receipt;
 
 	function addTransaction(times) {
@@ -72,6 +67,23 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		$log.debug("counterService initialize finished...")
 	};
 
+	function decideBalanceUrl() {
+		var user = receipt.forUser, balanceUrl = null;
+		if (receipt.forUserLabel == 'Customer') {
+			balanceUrl = '/customers/customer/' + user.id;
+		} else {
+			balanceUrl = '/dealers/dealerr/' + user.id;
+		}
+		if (user.cashAccount.handStock > 0) {
+			balanceUrl += '/pay';
+			receipt.balanceLabel = 'Pay Balance';
+		} else {
+			balanceUrl += '/collect';
+			receipt.balanceLabel = 'Collect Balance';
+		}
+		receipt.balanceUrl = balanceUrl;
+	}
+
 	service.setCustomer = function(customer) {
 		if (_.isUndefined(customer)) {
 			return;
@@ -80,13 +92,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		receipt.forUser = customer;
 		receipt.forUserLabel = 'Customer';
 		receipt.forUserUrl = '/customers/customer/' + customer.id;
-		var balanceUrl = '/customers/customer/' + customer.id;
-		if (customer.cashAccount.handStock > 0) {
-			balanceUrl += '/pay';
-		} else {
-			balanceUrl += '/collect';
-		}
-		receipt.balanceUrl = balanceUrl;
+		decideBalanceUrl();
 	};
 
 	service.setDealer = function(dealer) {
@@ -97,29 +103,28 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		receipt.forUser = dealer;
 		receipt.forUserLabel = 'Dealer';
 		receipt.forUserUrl = '/dealers/dealer/' + dealer.id;
-		var balanceUrl = '/dealers/dealer/' + dealer.id;
-		if (dealer.cashAccount.handStock > 0) {
-			balanceUrl += '/pay';
-		} else {
-			balanceUrl += '/collect';
-		}
-		receipt.balanceUrl = balanceUrl;
+		decideBalanceUrl();
 	};
 
 	service.newTransaction = function() {
 		if (receipt.id > 0) {
 			service.init();
 		} else {
-			addTransaction(1);
+			addTransaction(initSize);
 		}
 	};
 
 	service.removeTransaction = function(index) {
 		receipt.trans.splice(index, 1);
-		receipt.curTranIndex = index - 1;
-		if (receipt.trans.length == 0) {
+		if (index === 0) {
 			service.newTransaction();
+			return;
 		}
+		if (index === receipt.trans.length) {
+			index--;
+		}
+		receipt.curTranIndex = index;
+		receipt.curTran = receipt.trans[index];
 		service.computeTotalAmount();
 	};
 
@@ -128,7 +133,6 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		receipt.curTranIndex = -1;
 		receipt.curTran = {};
 		service.newTransaction();
-		service.computeTotalAmount();
 	};
 
 	service.onTransactionSelect = function(index) {

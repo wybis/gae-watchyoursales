@@ -47,8 +47,11 @@
 		    	</div>				
 				<div>			
 		 			<strong><small>Balance</small></strong> : 
-	 				<a x-ng-href="#{{receipt.balanceUrl}}">
-	 					{{receipt.forUser.cashAccount.handStock | number : 2}}
+ 					{{receipt.forUser.cashAccount.handStock | number : 2}}
+ 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	 				<a x-ng-hide="receipt.forUser.cashAccount.handStock === 0" 
+	 					x-ng-href="#{{receipt.balanceUrl}}">
+						{{receipt.balanceLabel}}
 	 				</a>
 				</div>
 			</div>	
@@ -66,7 +69,7 @@
 						&nbsp;&nbsp;Receipt Id : <strong>{{receipt.id}}</strong>
 					</span>
 				</div>
-				&nbsp;&nbsp;&nbsp;&nbsp;{{receipt.curTran.message}}
+				&nbsp;&nbsp;&nbsp;&nbsp;{{receipt.curTran.message}} {{receipt.curTranIndex}} {{receipt.trans.length}}
 				<div class="pull-right">
 					<button class="btn btn-default btn-sm"
 						x-tooltip="Add New Transaction"

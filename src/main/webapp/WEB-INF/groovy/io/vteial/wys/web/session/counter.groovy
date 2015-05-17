@@ -26,7 +26,28 @@ try {
 	}
 	actualTotalAmount = totalAmount < 0 ? totalAmount * -1 : totalAmount
 
-	if(totalAmount != 0 && tranReceipt.amount != 0) {
+	if(tranReceipt.amount != 0) {
+
+		User employee = User.get(sessionUserDto.id);
+		//employee.cashAccount = Account.get(employee.cashAccountId);
+		//employee.profitAccount = Account.get(employee.profitAccountId);
+
+		Tran tran = new Tran()
+		tran.category = tranReceipt.category
+		tran.accountId = employee.cashAccountId
+		tran.unit = actualTotalAmount
+		tran.rate = 1
+
+		if(totalAmount > 0) {
+			tran.type = TransactionType.BUY
+		} else {
+			tran.type = TransactionType.SELL
+		}
+
+		tranReceipt.trans << tran
+
+	} else {
+
 		User employee = User.get(sessionUserDto.id);
 		//employee.cashAccount = Account.get(employee.cashAccountId);
 		//employee.profitAccount = Account.get(employee.profitAccountId);
@@ -53,37 +74,7 @@ try {
 		//tran.rate = account.product.sellRate
 
 		tranReceipt.trans << tran
-	}
 
-	if(totalAmount != 0 && tranReceipt.amount == 0) {
-
-		if(totalAmount > 0) {
-			User employee = User.get(sessionUserDto.id);
-			//employee.cashAccount = Account.get(employee.cashAccountId);
-			//employee.profitAccount = Account.get(employee.profitAccountId);
-
-			Tran tran = new Tran()
-			tran.category = tranReceipt.category
-			tran.accountId = employee.cashAccountId
-			tran.type = TransactionType.BUY
-			tran.unit = actualTotalAmount
-			tran.rate = 1
-
-			tranReceipt.trans << tran
-		} else {
-
-			User customer = User.get(tranReceipt.forUserId);
-			//customer.cashAccount = Account.get(customer.cashAccountId);
-
-			Tran tran = new Tran()
-			tran.category = tranReceipt.category
-			tran.accountId = customer.cashAccountId
-			tran.type = TransactionType.SELL
-			tran.unit = actualTotalAmount
-			tran.rate = 1
-
-			tranReceipt.trans << tran
-		}
 	}
 
 	tranService.add(sessionUserDto, tranReceipt)
