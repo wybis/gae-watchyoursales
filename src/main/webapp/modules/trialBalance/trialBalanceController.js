@@ -63,10 +63,10 @@ function trialBalanceController($rootScope, $scope, $log, sessionService, $http)
 			tbg.items.push(acct);
 
 			acct.amount = amount;
-			acct.debit = acct.amount;
-			tbg.debit += amount;
+			acct.credit = acct.amount;
+			tbg.credit += amount;
 
-			debit += amount;
+			credit += amount;
 		});
 		tbgs.push(tbg);
 

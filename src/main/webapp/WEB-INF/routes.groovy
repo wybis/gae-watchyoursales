@@ -17,11 +17,11 @@ get 	'/cron/dailyBackup',					forward : '/cron/dailyBackup.groovy'
 
 // console
 get		'/console',								forward : '/io/vteial/wys/web/console/index.groovy'
-get 	'/console/branchs',    					forward : '/io/vteial/wys/web/console/branchs.groovy'
-get 	'/console/reset',    					forward : '/io/vteial/wys/web/console/reset.groovy'
 get 	'/console/clear',    					forward : '/io/vteial/wys/web/console/clear.groovy'
-get 	'/console/clearTransactions', 			forward : '/io/vteial/wys/web/console/clearTransactions.groovy'
+get 	'/console/branchs',    					forward : '/io/vteial/wys/web/console/branchs.groovy'
 post 	'/console/addBranch', 	        		forward : '/io/vteial/wys/web/console/addBranch.groovy'
+get 	'/console/branchs/branch/@id/reset',	forward : '/io/vteial/wys/web/console/branchReset.groovy?branchId=@id'
+delete 	'/console/branchs/branch/@id', 			forward : '/io/vteial/wys/web/console/branchDelete.groovy?branchId=@id'
 
 // session
 get  	'/sessions/properties',					forward : '/io/vteial/wys/web/session/properties.groovy'

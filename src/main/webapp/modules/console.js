@@ -51,7 +51,7 @@ function appConfig($routeProvider, $locationProvider) {
 		controller : 'homeController'
 	});
 
-	$routeProvider.when('/dataViewer', {
+	$routeProvider.when('/shops', {
 		templateUrl : 'modules/console/dataViewer/d.html',
 		controller : 'dataViewerController'
 	});

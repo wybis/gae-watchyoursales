@@ -1,8 +1,41 @@
-function dataViewerController($rootScope, $scope, $log, dataService) {
+function dataViewerController($rootScope, $scope, $log, wydNotifyService,
+		dataService) {
 	$log.debug('dataViewerController...');
 	$rootScope.viewName = 'Data Viewer';
 
 	$scope.items = dataService.branchs;
+
+	$scope.resetBranch = function(id) {
+		var s = 'Are you sure to reset the shop?';
+		var params = {
+			title : 'Confirm',
+			text : s,
+			type : 'warning',
+			showCancelButton : true,
+			confirmButtonText : 'Yes',
+			cancelButtonText : 'No',
+		};
+		var callback = function() {
+			dataService.resetBranch(id);
+		};
+		wydNotifyService.sweet.show(params, callback);
+	};
+
+	$scope.deleteBranch = function(id) {
+		var s = 'Are you sure to delete the shop?';
+		var params = {
+			title : 'Confirm',
+			text : s,
+			type : 'warning',
+			showCancelButton : true,
+			confirmButtonText : 'Yes',
+			cancelButtonText : 'No',
+		};
+		var callback = function() {
+			dataService.deleteBranch(id);
+		};
+		wydNotifyService.sweet.show(params, callback);
+	};
 
 	$scope.refresh = function() {
 		dataService.getBranchs();

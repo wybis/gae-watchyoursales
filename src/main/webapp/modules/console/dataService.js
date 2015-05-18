@@ -1,4 +1,4 @@
-function dataService($log, $http, $q) {
+function dataService($log, $http, $q, wydNotifyService) {
 	var basePath = 'console', isLoggingEnabled = false;
 
 	var service = {
@@ -92,6 +92,40 @@ function dataService($log, $http, $q) {
 			}
 			// $log.info(response);
 		})
+
+		return deferred.promise;
+	};
+
+	service.resetBranch = function(id) {
+		var path = basePath + '/branchs/branch/' + id + '/reset'
+
+		var deferred = $q.defer();
+		$http.get(path).success(function(response) {
+			// $log.debug(response);
+			if (response.type === 0) {
+				wydNotifyService.addSuccess(response.message, true);
+				deferred.resolve(response);
+			} else {
+				$log.error('reset branch failed...');
+			}
+		});
+
+		return deferred.promise;
+	};
+
+	service.deleteBranch = function(id) {
+		var path = basePath + '/branchs/branch/' + id
+
+		var deferred = $q.defer();
+		$http['delete'](path).success(function(response) {
+			// $log.debug(response);
+			if (response.type === 0) {
+				wydNotifyService.addSuccess(response.message, true);
+				deferred.resolve(response);
+			} else {
+				$log.error('deleting branch failed...');
+			}
+		});
 
 		return deferred.promise;
 	};
