@@ -72,16 +72,14 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		if (receipt.forUserLabel == 'Customer') {
 			balanceUrl = '/customers/customer/' + user.id;
 		} else {
-			balanceUrl = '/dealers/dealerr/' + user.id;
+			balanceUrl = '/dealers/dealer/' + user.id;
 		}
 		if (user.cashAccount.handStock > 0) {
-			balanceUrl += '/pay';
 			receipt.balanceLabel = 'Pay Balance';
 		} else {
-			balanceUrl += '/collect';
 			receipt.balanceLabel = 'Collect Balance';
 		}
-		receipt.balanceUrl = balanceUrl;
+		receipt.balanceUrl = balanceUrl + '/tran';
 	}
 
 	service.setCustomer = function(customer) {
@@ -462,6 +460,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 			sessionService.updateAccount(tran.account);
 		});
 		sessionService.computeStockWorth();
+		decideBalanceUrl();
 	}
 
 	function fail(resReceipt, message) {

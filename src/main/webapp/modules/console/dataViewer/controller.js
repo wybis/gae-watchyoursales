@@ -4,6 +4,11 @@ function dataViewerController($rootScope, $scope, $log, dataService) {
 
 	$scope.items = dataService.branchs;
 
+	$scope.refresh = function() {
+		dataService.getBranchs();
+	};
+
+	$scope.refresh();
 }
 appControllers.controller('dataViewerController', dataViewerController);
 

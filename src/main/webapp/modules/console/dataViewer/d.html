@@ -1,5 +1,14 @@
 <div class="panel panel-default">
-  <div class="panel-heading">Panel heading without title</div>
+  <div class="panel-heading text-center">
+  		<span class="pull-left">
+			<button	type="button" class="btn btn-default btn-sm" 
+				x-ng-disabled="items.length == 0"
+				x-ng-click="refresh()">
+				<i class="fa fa-refresh"></i>
+			</button>
+		</span>
+		&nbsp;
+  </div>
   <table class="table table-striped table-bordered table-hover">
 	<thead>
 	<tr>
@@ -11,6 +20,7 @@
 		<th><small>Customers</small></th>
 		<th><small>Products</small></th>
 		<th><small>Accounts</small></th>
+		<th><small>&nbsp;</small></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -23,6 +33,9 @@
 		<td class="text-right"><a href="#/dataViewer/branchs/branch/{{item.id}}/customers">{{item.customers.length}}</a></td>
 		<td class="text-right"><a href="#/dataViewer/branchs/branch/{{item.id}}/products">{{item.products.length}}</a></td>
 		<td class="text-right"><a href="#/dataViewer/branchs/branch/{{item.id}}/accounts">{{item.accounts.length}}</a></td>
+		<td class="text-center">
+			&nbsp;
+	    </td>
 	</tr>
 	</tbody>
 	</table>

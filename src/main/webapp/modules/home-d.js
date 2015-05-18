@@ -184,125 +184,115 @@ app.config(function($routeProvider, $locationProvider) {
 	});
 	// dealers
 	$routeProvider.when('/dealers', {
-		templateUrl : 'modules/dealer/d.html',
-		controller : 'dealerController',
+		templateUrl : 'modules/dealer/dealerList.html',
+		controller : 'dealerListController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/dealers/dealer', {
-		templateUrl : 'modules/dealer/d-edit.html',
+		templateUrl : 'modules/dealer/dealerEdit.html',
 		controller : 'dealerEditController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/dealers/dealer/:id', {
-		templateUrl : 'modules/dealer/d-view.html',
+		templateUrl : 'modules/dealer/dealerView.html',
 		controller : 'dealerViewController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/dealers/dealer/:id/edit', {
-		templateUrl : 'modules/dealer/d-edit.html',
+		templateUrl : 'modules/dealer/dealerEdit.html',
 		controller : 'dealerEditController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/dealers/search', {
-		templateUrl : 'modules/dealer/d-search.html',
+		templateUrl : 'modules/dealer/dealerSearch.html',
 		controller : 'dealerSearchController',
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/dealers/dealer/:id/pay', {
-		templateUrl : 'modules/dealer/d-payOrCollect.html',
-		controller : 'dealerPayOrCollectController',
-		reloadOnSearch : false
-	});
-
-	$routeProvider.when('/dealers/dealer/:id/collect', {
-		templateUrl : 'modules/dealer/d-payOrCollect.html',
-		controller : 'dealerPayOrCollectController',
-		reloadOnSearch : false
-	});
-
 	$routeProvider.when('/dealerOrders', {
-		templateUrl : 'modules/dealerOrder/d.html',
-		controller : 'dealerOrderController',
+		templateUrl : 'modules/dealer/order/dealerOrderList.html',
+		controller : 'dealerOrderListController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/processDealerOrders', {
-		templateUrl : 'modules/dealerOrder/d-processDealerOrder.html',
-		controller : 'processDealerOrderController',
+		templateUrl : 'modules/dealer/order/dealerOrderProcess.html',
+		controller : 'dealerOrderProcessController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/dealers/dealer/:id/tran', {
+		templateUrl : 'modules/dealer/tran/dealerTran.html',
+		controller : 'dealerTranController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/dealerTrans', {
-		templateUrl : 'modules/dealerTran/d.html',
-		controller : 'dealerTranController',
+		templateUrl : 'modules/dealer/tran/dealerTranList.html',
+		controller : 'dealerTranListController',
 		reloadOnSearch : false
 	});
+
 	// customers
 	$routeProvider.when('/customers', {
-		templateUrl : 'modules/customer/d.html',
-		controller : 'customerController',
+		templateUrl : 'modules/customer/customerList.html',
+		controller : 'customerListController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/customers/customer', {
-		templateUrl : 'modules/customer/d-edit.html',
+		templateUrl : 'modules/customer/customerEdit.html',
 		controller : 'customerEditController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/customers/customer/:id', {
-		templateUrl : 'modules/customer/d-view.html',
+		templateUrl : 'modules/customer/customerView.html',
 		controller : 'customerViewController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/customers/customer/:id/edit', {
-		templateUrl : 'modules/customer/d-edit.html',
+		templateUrl : 'modules/customer/customerEdit.html',
 		controller : 'customerEditController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/customers/search', {
-		templateUrl : 'modules/customer/d-search.html',
+		templateUrl : 'modules/customer/customerSearch.html',
 		controller : 'customerSearchController',
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/customers/customer/:id/pay', {
-		templateUrl : 'modules/customer/d-payOrCollect.html',
-		controller : 'customerPayOrCollectController',
-		reloadOnSearch : false
-	});
-
-	$routeProvider.when('/customers/customer/:id/collect', {
-		templateUrl : 'modules/customer/d-payOrCollect.html',
-		controller : 'customerPayOrCollectController',
-		reloadOnSearch : false
-	});
-
 	$routeProvider.when('/customerOrders', {
-		templateUrl : 'modules/customerOrder/d.html',
-		controller : 'customerOrderController',
+		templateUrl : 'modules/customer/order/customerOrderList.html',
+		controller : 'customerOrderListController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/processCustomerOrders', {
-		templateUrl : 'modules/customerOrder/d-processCustomerOrder.html',
-		controller : 'processCustomerOrderController',
+		templateUrl : 'modules/customer/order/customerOrderProcess.html',
+		controller : 'customerOrderProcessController',
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/customerTrans', {
-		templateUrl : 'modules/customerTran/d.html',
+	$routeProvider.when('/customers/customer/:id/tran', {
+		templateUrl : 'modules/customer/tran/customerTran.html',
 		controller : 'customerTranController',
 		reloadOnSearch : false
 	});
 
+	$routeProvider.when('/customerTrans', {
+		templateUrl : 'modules/customer/tran/customerTranList.html',
+		controller : 'customerTranListController',
+		reloadOnSearch : false
+	});
+
+	// ledgers
 	$routeProvider.when('/ledgers', {
 		templateUrl : 'modules/ledgers/d.html',
 		controller : 'ledgersController',
@@ -321,6 +311,7 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
+	// others
 	$routeProvider.when('/trialBalance', {
 		templateUrl : 'modules/trialBalance/d.html',
 		controller : 'trialBalanceController',

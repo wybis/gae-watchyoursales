@@ -1,9 +1,10 @@
-function dealerTranController($rootScope, $scope, $log, sessionService, $http) {
-	$log.debug('dealerTranController...');
+function dealerTranListController($rootScope, $scope, $log, sessionService,
+		$http) {
+	$log.debug('dealerTranListController...');
 	$rootScope.viewName = 'Dealer Transactions';
 
 	$scope.accountsMap = sessionService.accountsMap;
-	
+
 	$scope.items = [];
 
 	function processTrans(trans) {
@@ -11,7 +12,7 @@ function dealerTranController($rootScope, $scope, $log, sessionService, $http) {
 	}
 
 	$scope.refresh = function() {
-		var path = '/sessions/dealerTransactions';
+		var path = '/sessions/dealerTrans';
 		$http.get(path).success(function(response) {
 			if (response.type === 0) {
 				processTrans(response.data);
@@ -23,4 +24,4 @@ function dealerTranController($rootScope, $scope, $log, sessionService, $http) {
 	$scope.refresh();
 
 }
-appControllers.controller('dealerTranController', dealerTranController);
+appControllers.controller('dealerTranListController', dealerTranListController);

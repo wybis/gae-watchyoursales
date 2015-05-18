@@ -39,17 +39,19 @@ post	'/sessions/counter',  					forward : '/io/vteial/wys/web/session/counter.gr
 
 get		'/sessions/customers',    				forward : '/io/vteial/wys/web/session/customers.groovy'
 get		'/sessions/pendingCustomerOrders',		forward : '/io/vteial/wys/web/session/pendingCustomerOrders.groovy'
-get		'/sessions/customerTransactions',		forward : '/io/vteial/wys/web/session/customerTransactions.groovy'
+post	'/sessions/customerTran',				forward : '/io/vteial/wys/web/session/customerTran.groovy'
+get		'/sessions/customerTrans',				forward : '/io/vteial/wys/web/session/customerTrans.groovy'
 
 get		'/sessions/dealers',    				forward : '/io/vteial/wys/web/session/dealers.groovy'
 get		'/sessions/pendingDealerOrders',		forward : '/io/vteial/wys/web/session/pendingDealerOrders.groovy'
-get		'/sessions/dealerTransactions',			forward : '/io/vteial/wys/web/session/dealerTransactions.groovy'
+post	'/sessions/dealerTran',					forward : '/io/vteial/wys/web/session/dealerTran.groovy'
+get		'/sessions/dealerTrans',				forward : '/io/vteial/wys/web/session/dealerTrans.groovy'
 
 get		'/sessions/employees',    				forward : '/io/vteial/wys/web/session/employees.groovy'
 
 post	'/sessions/ledger',  					forward : '/io/vteial/wys/web/session/ledger.groovy'
-get		'/sessions/ledgerTransactions',			forward : '/io/vteial/wys/web/session/ledgerTransactions.groovy'
-get		'/sessions/recentLedgerTransactions',	forward : '/io/vteial/wys/web/session/recentLedgerTransactions.groovy'
+get		'/sessions/ledgerTrans',				forward : '/io/vteial/wys/web/session/ledgerTrans.groovy'
+get		'/sessions/recentLedgerTrans',			forward : '/io/vteial/wys/web/session/recentLedgerTrans.groovy'
 
 
 //-------------------------------------------------------------------------------------------------------//

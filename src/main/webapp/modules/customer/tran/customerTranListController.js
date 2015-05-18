@@ -1,5 +1,6 @@
-function customerTranController($rootScope, $scope, $log, sessionService, $http) {
-	$log.debug('customerTranController...');
+function customerTranListController($rootScope, $scope, $log, sessionService,
+		$http) {
+	$log.debug('customerTranListController...');
 	$rootScope.viewName = 'Customer Transactions';
 
 	$scope.productsMap = sessionService.productsMap;
@@ -12,7 +13,7 @@ function customerTranController($rootScope, $scope, $log, sessionService, $http)
 	}
 
 	$scope.refresh = function() {
-		var path = '/sessions/customerTransactions';
+		var path = '/sessions/customerTrans';
 		$http.get(path).success(function(response) {
 			// $log.info(response);
 			if (response.type === 0) {
@@ -23,4 +24,5 @@ function customerTranController($rootScope, $scope, $log, sessionService, $http)
 
 	$scope.refresh();
 }
-appControllers.controller('customerTranController', customerTranController);
+appControllers.controller('customerTranListController',
+		customerTranListController);

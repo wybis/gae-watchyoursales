@@ -16,7 +16,7 @@ TranReceipt tranReceipt = jsonCategory.parseJson(request, TranReceipt.class)
 
 try {
 
-	double totalAmount = 0, actualTotalAmount = 0, amount = 0
+	double totalAmount = 0, absTotalAmount = 0, amount = 0
 	tranReceipt.trans.each { Tran tran ->
 		amount = tran.unit * tran.rate
 		if(tran.type == TransactionType.BUY) {
@@ -24,57 +24,44 @@ try {
 		}
 		totalAmount += amount
 	}
-	actualTotalAmount = totalAmount < 0 ? totalAmount * -1 : totalAmount
+	absTotalAmount = totalAmount < 0 ? totalAmount * -1 : totalAmount
 
 	if(tranReceipt.amount != 0) {
 
-		User employee = User.get(sessionUserDto.id);
-		//employee.cashAccount = Account.get(employee.cashAccountId);
-		//employee.profitAccount = Account.get(employee.profitAccountId);
+		User emp = User.get(sessionUserDto.id);
+		//emp.cashAccount = Account.get(emp.cashAccountId);
 
 		Tran tran = new Tran()
-		tran.category = tranReceipt.category
-		tran.accountId = employee.cashAccountId
-		tran.unit = actualTotalAmount
+		tran.accountId = emp.cashAccountId
+		tran.unit = absTotalAmount
 		tran.rate = 1
 
-		if(totalAmount > 0) {
-			tran.type = TransactionType.BUY
-		} else {
+		if(totalAmount < 0) {
 			tran.type = TransactionType.SELL
+		} else {
+			tran.type = TransactionType.BUY
 		}
 
 		tranReceipt.trans << tran
 
 	} else {
 
-		User employee = User.get(sessionUserDto.id);
-		//employee.cashAccount = Account.get(employee.cashAccountId);
-		//employee.profitAccount = Account.get(employee.profitAccountId);
+		User cus = User.get(tranReceipt.forUserId);
+		//cus.cashAccount = Account.get(cus.cashAccountId);
 
 		Tran tran = new Tran()
-		tran.category = tranReceipt.category
-		tran.accountId = employee.cashAccountId
-		tran.type = totalAmount < 0 ? TransactionType.SELL : TransactionType.BUY
-		tran.unit = actualTotalAmount
+		tran.accountId = cus.cashAccountId
+		tran.unit = absTotalAmount
 		tran.rate = 1
-		//tran.rate = account.product.sellRate
+
+		if(totalAmount < 0) {
+			tran.type = TransactionType.BUY
+		}
+		else {
+			tran.type = TransactionType.SELL
+		}
 
 		tranReceipt.trans << tran
-
-		User customer = User.get(tranReceipt.forUserId);
-		//customer.cashAccount = Account.get(customer.cashAccountId);
-
-		tran = new Tran()
-		tran.category = tranReceipt.category
-		tran.accountId = customer.cashAccountId
-		tran.type = totalAmount < 0 ? TransactionType.BUY : TransactionType.SELL
-		tran.unit = actualTotalAmount
-		tran.rate = 1
-		//tran.rate = account.product.sellRate
-
-		tranReceipt.trans << tran
-
 	}
 
 	tranService.add(sessionUserDto, tranReceipt)

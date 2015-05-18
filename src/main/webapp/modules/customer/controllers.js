@@ -1,5 +1,5 @@
-function customerController($rootScope, $scope, $log, sessionService) {
-	$log.debug('customerController...');
+function customerListController($rootScope, $scope, $log, sessionService) {
+	$log.debug('customerListController...');
 	$rootScope.viewName = 'Customers';
 
 	$scope.items = sessionService.customers;
@@ -10,7 +10,7 @@ function customerController($rootScope, $scope, $log, sessionService) {
 
 	// $scope.refresh();
 }
-appControllers.controller('customerController', customerController);
+appControllers.controller('customerListController', customerListController);
 
 function customerViewController($rootScope, $scope, $log, $location,
 		sessionService) {
@@ -58,15 +58,3 @@ function customerSearchController($rootScope, $scope, $log, $location,
 	// $scope.refresh();
 }
 appControllers.controller('customerSearchController', customerSearchController);
-
-function customerPayOrCollectController($rootScope, $scope, $log, $location,
-		sessionService) {
-	$log.debug('customerPayOrCollectController...');
-	$rootScope.viewName = 'Customer Pay Or Collect';
-
-	$scope.back = function() {
-		$location.path('/counter');
-	};
-}
-appControllers.controller('customerPayOrCollectController',
-		customerPayOrCollectController);

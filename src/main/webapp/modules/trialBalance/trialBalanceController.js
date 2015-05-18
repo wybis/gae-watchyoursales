@@ -20,14 +20,26 @@ function trialBalanceController($rootScope, $scope, $log, sessionService, $http)
 					tbgs.push(tbg);
 				}
 				tbg.items.push(item);
-				if (item.amount > 0) {
-					item.debit = item.amount;
-					tbg.debit += item.amount;
-					debit += item.amount;
+				if (item.type == 'dealer' || item.type == 'customer') {
+					if (item.amount < 0) {
+						item.debit = item.amount;
+						tbg.debit += item.amount;
+						debit += item.amount;
+					} else {
+						item.credit = item.amount;
+						tbg.credit += item.amount;
+						credit += item.amount;
+					}
 				} else {
-					item.credit = item.amount;
-					tbg.credit += item.amount;
-					credit += item.amount;
+					if (item.amount > 0) {
+						item.debit = item.amount;
+						tbg.debit += item.amount;
+						debit += item.amount;
+					} else {
+						item.credit = item.amount;
+						tbg.credit += item.amount;
+						credit += item.amount;
+					}
 				}
 			}
 		});
@@ -53,7 +65,7 @@ function trialBalanceController($rootScope, $scope, $log, sessionService, $http)
 			acct.amount = amount;
 			acct.debit = acct.amount;
 			tbg.debit += amount;
-			
+
 			debit += amount;
 		});
 		tbgs.push(tbg);

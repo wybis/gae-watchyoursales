@@ -37,6 +37,7 @@ class DefaultTranService extends AbstractService implements TranService {
 		for(int i = 0; i < trans.size(); i++) {
 			Tran tran = trans.get(i)
 			tran.receiptId = receipt.id
+			tran.category = receipt.category
 			tran.date = receipt.date
 			tran.forUserId = receipt.forUserId
 

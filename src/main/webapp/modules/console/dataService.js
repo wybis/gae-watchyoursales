@@ -33,7 +33,6 @@ function dataService($log, $http, $q) {
 		_.forEach(items, function(objectx) {
 			addOrUpdateCacheY('accounts', objectx);
 		});
-		// logit();
 		$log.debug('processing accounts finished...')
 	}
 
@@ -42,7 +41,6 @@ function dataService($log, $http, $q) {
 		_.forEach(items, function(objectx) {
 			addOrUpdateCacheY('customers', objectx);
 		});
-		// logit();
 		$log.debug('processing customers finished...')
 	}
 
@@ -51,7 +49,6 @@ function dataService($log, $http, $q) {
 		_.forEach(items, function(objectx) {
 			addOrUpdateCacheY('dealers', objectx);
 		});
-		// logit();
 		$log.debug('processing dealers finished...')
 	}
 
@@ -60,7 +57,6 @@ function dataService($log, $http, $q) {
 		_.forEach(items, function(objectx) {
 			addOrUpdateCacheY('employees', objectx);
 		});
-		// logit();
 		$log.debug('processing employees finished...')
 	}
 
@@ -69,7 +65,6 @@ function dataService($log, $http, $q) {
 		_.forEach(items, function(objectx) {
 			addOrUpdateCacheY('products', objectx);
 		});
-		// logit();
 		$log.debug('processing products finished...')
 	}
 
@@ -83,7 +78,6 @@ function dataService($log, $http, $q) {
 			processCustomers(objectx.customers);
 			processAccounts(objectx.accounts);
 		});
-		// logit();
 		$log.debug('processing branchs finished...')
 	}
 
@@ -96,7 +90,7 @@ function dataService($log, $http, $q) {
 				processBranchs(response.data);
 				deferred.resolve(response);
 			}
-			$log.info(response);
+			// $log.info(response);
 		})
 
 		return deferred.promise;

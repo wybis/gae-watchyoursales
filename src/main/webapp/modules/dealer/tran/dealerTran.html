@@ -1,0 +1,56 @@
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		<span class="pull-left">
+			&nbsp;Receipt Id : <strong>{{receipt.id}}</strong>&nbsp;
+		</span>
+		&nbsp;<strong>{{receipt.forUser.firstName}} {{receipt.forUser.lastName}}</strong>&nbsp;
+		<span class="pull-right">
+			&nbsp;
+		</span>
+	</div>
+	<div class="panel-body">
+
+		<div>
+			<div class="col-md-3">
+		    	<label><small>Balance</small></label>
+		    	<input type="text" class="form-control input-sm"
+		    		x-ng-model="receipt.forUser.cashAccount.handStock"
+		    		x-ng-disabled="true" 
+   					x-input-mask="'decimal'"
+					mask-option="{ allowMinus : true, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true }">
+			</div>
+			<div class="col-md-3">
+		    	<label><small>Amount *</small></label>
+				<input type="text" class="form-control input-sm"
+		 			x-ng-model="receipt.amount"		    	 
+					x-ng-disabled="receipt.id != 0"
+					x-ng-change="onAmount()"
+					x-input-mask="'decimal'"
+					mask-option="{ allowMinus : false, 'digits' : 2, 'groupSeparator' : ',', 'autoGroup': true }">
+		  	</div>
+			<div class="col-md-6">
+		    	<label><small>Description</small></label>
+		    	<input type="text" class="form-control input-sm"
+		    		x-ng-model="receipt.description"
+		    		x-ng-disabled="receipt.id != 0">
+		  	</div>
+		</div>
+		<div>&nbsp;</div>
+		<div>
+			<div class="col-md-3 col-md-offset-2">
+				<button type="button" class="btn btn-default btn-block"
+					x-ng-click="back()"> 
+					Back
+				</button>
+			</div>
+			<div class="col-md-3 col-md-offset-2">
+				<button type="button" class="btn btn-primary btn-block"
+					x-ng-click="saveReceiptAsTran()"> 
+					Save
+				</button>
+			</div>
+		</div>
+	
+	</div>
+</div>
+
