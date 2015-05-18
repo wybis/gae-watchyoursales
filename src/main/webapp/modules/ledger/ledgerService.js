@@ -37,7 +37,7 @@ function ledgerService($log, $http, $q, wydNotifyService, sessionService, $http)
 	};
 
 	service.getRecentTransactions = function() {
-		var path = basePath + '/recentLedgerTransactions'
+		var path = basePath + '/recentLedgerTrans'
 
 		var deferred = $q.defer();
 		$http.get(path).success(function(response) {
