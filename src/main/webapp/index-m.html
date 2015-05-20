@@ -1,112 +1,107 @@
-<html lang="en" class="no-js" x-ng-app="app" x-ng-controller="rootController">
+<html lang="en" class="no-js" x-ng-app="app" x-ng-csp x-ng-controller="rootController">
 <head>
-
-<title>WatchYourSales</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-<!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-<link rel="stylesheet" href="assets/ui-select/selectize.bootstrap3.css" />
-<link rel="stylesheet" href="assets/ui-select/select.min.css" />
-
-<link rel="stylesheet" href="assets/maui/css/mobile-angular-ui-hover.min.css" />
-<link rel="stylesheet" href="assets/maui/css/mobile-angular-ui-base.min.css" />
-<link rel="stylesheet" href="assets/maui/css/mobile-angular-ui-desktop.min.css" />
-    
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+<link rel="stylesheet" href="material/index-m.css" />
 </head>
-<body x-ng-clock>
 
-	<bootstrap-notify-directive></bootstrap-notify-directive>
+<body layout="column">
 
-	<div x-ng-include="'modules/zgeneral/sideBarLeft-m.html'" 
-		class="sidebar sidebar-left" 
-		x-ui-track-as-search-param="true">
-	</div>
+<md-toolbar layout="row">
+   	<button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button menuBtn">
+       	<span class="md-visually-hidden">Menu</span>
+    </button>
+    <h1 class="md-toolbar-tools">Watch Your Sales</h1>
+    <h3 class="md-toolbar-tools">{{viewName}}</h1>
+    <!-- 
+	<span flex></span>
+	<md-button class="md-icon-button" aria-label="Favorite">
+    	<md-icon md-svg-icon="img/icons/favorite.svg"></md-icon>
+	</md-button>
+	<md-button class="md-icon-button" aria-label="More">
+		<md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+	</md-button>
+	-->     
+</md-toolbar>
 
-	<div x-ng-include="'modules/zgeneral/sideBarRight-m.html'"
-		class="sidebar sidebar-right">
-	</div>
-
-	<div class="app" 
-		x-ui-swipe-right='Ui.turnOn("uiSidebarLeft")'
-        x-ui-swipe-left='Ui.turnOff("uiSidebarLeft")'>
-		
-		<div x-ng-include="'modules/zgeneral/headerNavigatorDirective-m.html'"></div>
-	
-		<div class="app-body" x-ng-class="{loading: loading}">
-			<div x-ng-show="loading" class="app-content-loading">
-	        	<i class="fa fa-spinner fa-spin loading-spinner"></i>
-	        </div>
-	        <div class="app-content">
-	        	<x-ng-view></x-ng-view>
-	        </div>
-		</div>
-
-		<div x-ng-include="'modules/zgeneral/footerNavigatorDirective-m.html'"></div>
-		
-	</div>
-
-	<div x-ui-yield-to="modals"></div>
+<div layout="row" flex>
+    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" 
+    	md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+		<md-list>
+      		<md-list-item ng-repeat="item in menuItems">
+          		<md-button ng-href="#{{item.url}}" 
+          			ng-class="{'md-primary' : item.url == curLocPath }">
+            		{{item.text}}
+          		</md-button>
+      		</md-list-item>
+    	</md-list>    	
+    	<!-- 
+    	<ul x-ng-hide="isLoggedIn">
+    		<li><a href="#/index">Home</a></li>
+       		<li><a href="#/signIn">Sign In</a></li>
+     	</ul>
+    	<ul x-ng-show="isLoggedIn">
+    		<li><a href="#/home">Home</a></li>
+    		<li><a href="#/customerOrder">Orders</a></li>
+    		<li><a href="#/customerTrans">Transactions</a></li>
+    		<li><a href="#/stocks">Stocks</a></li>
+    		<li><a href="#/products">Products</a></li>
+    		<li><a href="#/customers">Customers</a></li>
+       		<li><a href="#/signOut">Sign Out</a></li>
+     	</ul>
+     	-->
+    </md-sidenav>
+    <div layout="column" flex id="content">
+        <md-content layout="column" flex class="md-padding">
+        	<ng-view></ng-view>
+        </md-content>
+    </div>
+</div>
+    
+<script type="text/javascript"
+	src="assets/lodash.min.js"></script>
+<script type="text/javascript" 
+	src="assets/moment.min.js"></script>
+<script type="text/javascript" 
+	src="assets/jquery.min.js"></script>
 
 <script type="text/javascript"
-	src="assets/lib/lodash.min.js"></script>
+	src="assets/angularjs/angular.js"></script>
+<script type="text/javascript"
+	src="assets/angularjs/angular-route.js"></script>
+<script type="text/javascript"
+	src="assets/angularjs/angular-sanitize.js"></script>
 <script type="text/javascript" 
-	src="assets/lib/moment.min.js"></script>
+	src="assets/angularjs/angular-animate.min.js"></script>
 <script type="text/javascript" 
-	src="assets/lib/jquery.min.js"></script>
+	src="assets/angularjs/angular-aria.min.js"></script>
 <script type="text/javascript" 
-	src="assets/lib/holder.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.js"></script>
+<script type="text/javascript" 
+	src="assets/ngStorage.min.js"></script>
 
-<script type="text/javascript"
-	src="assets/angular/13x/angular.js"></script>
-<script type="text/javascript"
-	src="assets/angular/13x/angular-route.min.js"></script>
-<script type="text/javascript"
-	src="assets/angular/13x/angular-sanitize.min.js"></script>
-
-<script type="text/javascript" 
-	src="assets/lib/ngStorage.min.js"></script>
-
-<script type="text/javascript" 
- 	src="assets/maui/js/mobile-angular-ui.min.js"></script>
-<script type="text/javascript" 
-	src="assets/maui/js/mobile-angular-ui.gestures.min.js"></script>
-	
-<script type="text/javascript"
-	src='assets/ui-select/select.min.js'></script>
-<script type="text/javascript" 
-	src="assets/inputmask/jquery.inputmask.bundle.min.js"></script>
-<script type="text/javascript" 
-	src="assets/inputmask/green.inputmask4angular.js"></script>
-	
 <script type="text/javascript" src="modules/init.js"></script>
-<script type="text/javascript" src="modules/zgeneral/wydNotifyByMaui.js"></script>
 
-<script type="text/javascript" src="modules/session/sessionService.js"></script>
+<script type="text/javascript" src="material/modules/product/controller.js"></script>
 
-<script type="text/javascript" src="modules/agency/agencyService.js"></script>
+<script type="text/javascript" src="material/modules/stock/controller.js"></script>
 
-<script type="text/javascript" src="modules/account/accountController.js"></script>
-<script type="text/javascript" src="modules/product/productController.js"></script>
-<script type="text/javascript" src="modules/stock/stockController.js"></script>
-<script type="text/javascript" src="modules/employee/employeeController.js"></script>
-<script type="text/javascript" src="modules/dealer/dealerController.js"></script>
-<script type="text/javascript" src="modules/customer/customerController.js"></script>
-<script type="text/javascript" src="modules/customerOrder/customerOrderController.js"></script>
-<script type="text/javascript" src="modules/customerTran/customerTranController.js"></script>
+<script type="text/javascript" src="material/modules/customer/controller.js"></script>
+<script type="text/javascript" src="material/modules/customer/order/controller.js"></script>
+<script type="text/javascript" src="material/modules/customer/tran/controller.js"></script>
 
-<script type="text/javascript" src="modules/home/indexController.js"></script>
+<script type="text/javascript" src="material/modules/trialBalance/controller.js"></script>
 
-<script type="text/javascript" src="modules/session/settingController.js"></script>
+<script type="text/javascript" src="material/modules/home/indexController.js"></script>
+<script type="text/javascript" src="material/modules/home/homeController.js"></script>
 
-<script type="text/javascript" src="modules/session/loginController.js"></script>
-<script type="text/javascript" src="modules/session/logoutController.js"></script>
+<script type="text/javascript" src="material/modules/session/loginController-dev.js"></script>
+<script type="text/javascript" src="material/modules/session/logoutController.js"></script>
 
-<script type="text/javascript" src="modules/common.js"></script>
-<script type="text/javascript" src="modules/directives.js"></script>
-<script type="text/javascript" src="modules/index-m.js"></script>
-
+<script type="text/javascript" src="material/index-m.js"></script>
+	
 </body>
-</html>
+</htm>
