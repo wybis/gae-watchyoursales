@@ -1,12 +1,11 @@
-function rootController($scope, $log, $window, $rootScope, sessionService,
-		panels, presenceStates) {
+function rootController($rootScope, $scope, $log, wydNotifyService,
+		sessionService, $window, $timeout, $http, panels, presenceStates) {
 	$log.info('rootController...');
 
-	$rootScope.sessionContext = sessionService.context;
+	var sessionS = sessionService;
+	$scope.sessionS = sessionS;
 
-	$scope.sessionS = sessionService;
-
-	sessionService.properties();
+	sessionS.properties();
 
 	$scope.presenceStates = presenceStates;
 
@@ -35,6 +34,23 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 		}
 		panels.open(sideMenuId);
 	};
+
+	$scope.reset = function() {
+		var path = 'console/branchs/branch/';
+		path += sessionS.context.sessionDto.branchId + '/reset'
+		$http.get(path).success(function(response) {
+			// $log.debug(response);
+			if (response.type === 0) {
+				wydNotifyService.addSuccess(response.message, true);
+				$timeout(function() {
+					location.reload();
+				}, 2000);
+			} else {
+				wydNotifyService.addError(response.message, true);
+				$log.error('reset branch failed...');
+			}
+		});
+	}
 
 	$scope.viewSource = function() {
 		var s = 'view-source:localhost:1111/' + $rootScope.currentViewSrcUrl;

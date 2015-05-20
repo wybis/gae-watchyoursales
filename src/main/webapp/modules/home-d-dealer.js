@@ -2,9 +2,10 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 		panels, presenceStates) {
 	$log.info('rootController...');
 
-	$rootScope.sessionContext = sessionService.context;
+	var sessionS = sessionService;
+	$scope.sessionS = sessionS;
 
-	sessionService.properties();
+	sessionS.properties();
 
 	// presenceStates.onChange(function(state) {
 	// $log.debug('Current Presence State : ' + state.text);

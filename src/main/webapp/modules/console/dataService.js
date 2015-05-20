@@ -104,8 +104,10 @@ function dataService($log, $http, $q, wydNotifyService) {
 			// $log.debug(response);
 			if (response.type === 0) {
 				wydNotifyService.addSuccess(response.message, true);
+				service.getBranchs();
 				deferred.resolve(response);
 			} else {
+				wydNotifyService.addError(response.message, true);
 				$log.error('reset branch failed...');
 			}
 		});
@@ -121,8 +123,10 @@ function dataService($log, $http, $q, wydNotifyService) {
 			// $log.debug(response);
 			if (response.type === 0) {
 				wydNotifyService.addSuccess(response.message, true);
+				service.getBranchs();
 				deferred.resolve(response);
 			} else {
+				wydNotifyService.addError(response.message, true);
 				$log.error('deleting branch failed...');
 			}
 		});

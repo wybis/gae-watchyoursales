@@ -14,7 +14,9 @@
 		</div>
 		<div class="col-md-4 text-right">
 			<small>
-				<span x-ng-show="sessionContext.localMode">
+				<span x-ng-show="sessionS.context.localMode">
+				<a class="navbar-link" href="" x-ng-click="reset()">Reset</a>
+				<b>|</b>
 				<a class="navbar-link" href="" x-ng-click="viewSource()">Source</a>
 				<b>|</b>
 				</span>
