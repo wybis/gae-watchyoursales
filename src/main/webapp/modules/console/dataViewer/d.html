@@ -22,7 +22,9 @@
 		<tr>
 			<th><small>#</small></th>
 			<th><small>Id</small></th>
+			<th><small>Code</small></th>
 			<th><small>Name</small></th>
+			<th><small>Trans</small></th>
 			<th><small>Employees</small></th>
 			<th><small>Dealers</small></th>
 			<th><small>Customers</small></th>
@@ -35,7 +37,9 @@
 		<tr x-ng-repeat="item in items">
 			<td class="text-right">{{$index+1}}</td>
 			<td class="text-right"><a x-ng-href="#/dataViewer/branchs/branch/{{item.id}}">{{item.id}}</a></td>
+			<td>{{item.code}}</td>
 			<td>{{item.name}}</td>
+			<td class="text-right"><a x-ng-href="#/dataViewer/branchs/branch/{{item.id}}/trans">{{item.tranCount}}</a></td>
 			<td class="text-right"><a x-ng-href="#/dataViewer/branchs/branch/{{item.id}}/employees">{{item.employees.length}}</a></td>
 			<td class="text-right"><a x-ng-href="#/dataViewer/branchs/branch/{{item.id}}/dealers">{{item.dealers.length}}</a></td>
 			<td class="text-right"><a x-ng-href="#/dataViewer/branchs/branch/{{item.id}}/customers">{{item.customers.length}}</a></td>
