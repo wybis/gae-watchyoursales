@@ -17,8 +17,8 @@ dependents.push('hSweetAlert');
 dependents.push('green.inputmask4angular');
 // dependents.push('ngInputDate');
 dependents.push('blockUI');
-//dependents.push('angular.panels');
-//dependents.push('presence');
+// dependents.push('angular.panels');
+// dependents.push('presence');
 dependents.push('ui.select');
 dependents.push('ui.bootstrap');
 dependents.push('app.filters');
@@ -42,13 +42,18 @@ app.config(function(blockUIConfig) {
 });
 
 app.config(function($routeProvider, $locationProvider) {
-	$routeProvider.when('/', {
-		templateUrl : 'modules/home/index-d.html',
-		controller : 'indexController'
+
+	$routeProvider.otherwise({
+		redirectTo : '/notFound'
 	});
 
 	$routeProvider.when('/notFound', {
-		templateUrl : 'modules/zgeneral/notFound-d.html'
+		templateUrl : 'modules/zgeneral/d-notFound.html'
+	});
+
+	$routeProvider.when('/', {
+		templateUrl : 'modules/home/index-d.html',
+		controller : 'indexController'
 	});
 
 	$routeProvider.when('/index', {
@@ -60,10 +65,6 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'modules/session/login-d-dev.html',
 		controller : 'loginController',
 		reloadOnSearch : false
-	});
-
-	$routeProvider.otherwise({
-		redirectTo : '/notFound'
 	});
 
 	// $locationProvider.html5Mode(true);

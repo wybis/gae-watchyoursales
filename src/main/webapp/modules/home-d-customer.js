@@ -13,14 +13,12 @@ function rootController($scope, $log, $window, $rootScope, sessionService,
 
 	presenceStates.LONGAWAY.onEnter(function() {
 		$log.debug('presence timout started...');
-		// panels.open('sessionResponse');
 		$scope.$broadcast('session:response', 'Session timeout...');
 		$log.debug('presence timout started...');
 	});
 
 	$rootScope.$on('session:invalid', function(event, data) {
 		$log.debug('session invalid started...');
-		// panels.open('sessionResponse');
 		$scope.$broadcast('session:response', data);
 		$log.debug('session invalid finished...');
 	});
@@ -63,13 +61,18 @@ app.config(function(blockUIConfig) {
 });
 
 app.config(function($routeProvider, $locationProvider) {
-	$routeProvider.when('/', {
-		templateUrl : 'modules/home/index-d.html',
-		controller : 'indexController'
+
+	$routeProvider.otherwise({
+		redirectTo : '/notFound'
 	});
 
 	$routeProvider.when('/notFound', {
-		templateUrl : 'modules/zgeneral/notFound-d.html'
+		templateUrl : 'modules/zgeneral/d-notFound.html'
+	});
+
+	$routeProvider.when('/', {
+		templateUrl : 'modules/home/index-d.html',
+		controller : 'indexController'
 	});
 
 	$routeProvider.when('/index', {
@@ -93,10 +96,6 @@ app.config(function($routeProvider, $locationProvider) {
 		templateUrl : 'modules/home/home-d.html',
 		controller : 'homeController',
 		reloadOnSearch : false
-	});
-
-	$routeProvider.otherwise({
-		redirectTo : '/notFound'
 	});
 
 	// $locationProvider.html5Mode(true);

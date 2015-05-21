@@ -1,0 +1,55 @@
+<div class="scrollable">
+	<h1 class="scrollable-header app-name">Watch Your Sales</h1>
+
+   	<div class="scrollable-content" x-ng-hide="isLoggedIn">
+		<div class="list-group" x-ui-turn-off="uiSidebarLeft">
+        	<a class="list-group-item" href="#/index">
+        		Home <i class="fa fa-home pull-right"></i>
+        	</a>
+			<a class="list-group-item" href="#/signIn">
+				Sign In <i class="fa fa-sign-in pull-right"></i>
+			</a>
+		</div>
+	</div>
+
+   	<div class="scrollable-content" x-ng-show="isLoggedIn">
+		<div class="list-group" ui-turn-off="uiSidebarLeft">
+			<div class="list-group-item">
+				<i class="fa fa-user"></i>
+				{{sessionS.context.sessionDto.firstName}} {{sessionS.context.sessionDto.lastName}}  
+				<a class="pull-right" href="#/settings">
+					<i class="fa fa-cog"></i>
+				</a><br/>
+				{{sessionS.context.sessionDto.userId}} / {{sessionS.context.sessionDto.roleId}}
+				<a class="pull-right" href="#/signOut">
+					<i class="fa fa-sign-out pull-right"></i>
+				</a><br/>
+			</div>
+        	<a class="list-group-item" href="#/home">
+        		Home <i class="fa fa-home pull-right"></i>
+        	</a>
+			<a class="list-group-item" href="#/stocks">
+				Stocks <i class="fa fa-database pull-right"></i>
+			</a>
+			<a class="list-group-item" href="#/customers">
+				Customers <i class="fa fa-users pull-right"></i>
+			</a>
+        	<a class="list-group-item" href="#/customerOrders">
+        		Customer Orders
+        	</a>
+        	<a class="list-group-item" href="#/customerTrans">
+        		Customer Transactions <i class="fa fa-history pull-right"></i>
+        	</a>
+			<a class="list-group-item" href="#/products">
+				Products <i class="fa fa-database pull-right"></i>
+			</a>
+			<a class="list-group-item" href="#/trialBalance">
+				Trial Balance
+			</a>
+			<a class="list-group-item" href="#/signOut">
+				Sign Out <i class="fa fa-sign-out pull-right"></i>
+			</a>
+		</div>
+	</div>
+
+</div>
