@@ -2,6 +2,7 @@ package io.vteial.wys.web.session
 import io.vteial.wys.dto.ResponseDto
 import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.TranReceipt
+import io.vteial.wys.model.constants.TransactionStatus
 import io.vteial.wys.service.SessionService
 import io.vteial.wys.service.exceptions.TransactionException
 
@@ -25,6 +26,7 @@ try {
 		return
 	}
 
+	//tranReceipt.status = TransactionStatus.PENDING
 	tranService.add(sessionDto, tranReceipt)
 
 	responseDto.data = tranReceipt;

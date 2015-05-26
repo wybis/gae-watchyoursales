@@ -203,33 +203,64 @@ app.config(function($routeProvider, $locationProvider) {
 		controller : 'employeeController',
 		reloadOnSearch : false
 	});
+
+	$routeProvider.when('/employees', {
+		templateUrl : 'modules/employee/d-list.html',
+		controller : 'employeeListController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/employees/employee', {
+		templateUrl : 'modules/employee/d-edit.html',
+		controller : 'employeeEditController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/employees/employee/:id', {
+		templateUrl : 'modules/employee/d-view.html',
+		controller : 'employeeViewController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/employees/employee/:id/edit', {
+		templateUrl : 'modules/employee/d-edit.html',
+		controller : 'employeeEditController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/employees/search', {
+		templateUrl : 'modules/employee/d-search.html',
+		controller : 'employeeSearchController',
+		reloadOnSearch : false
+	});
+
 	// dealers
 	$routeProvider.when('/dealers', {
-		templateUrl : 'modules/dealer/dealerList.html',
+		templateUrl : 'modules/dealer/d-list.html',
 		controller : 'dealerListController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/dealers/dealer', {
-		templateUrl : 'modules/dealer/dealerEdit.html',
+		templateUrl : 'modules/dealer/d-edit.html',
 		controller : 'dealerEditController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/dealers/dealer/:id', {
-		templateUrl : 'modules/dealer/dealerView.html',
+		templateUrl : 'modules/dealer/d-view.html',
 		controller : 'dealerViewController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/dealers/dealer/:id/edit', {
-		templateUrl : 'modules/dealer/dealerEdit.html',
+		templateUrl : 'modules/dealer/d-edit.html',
 		controller : 'dealerEditController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/dealers/search', {
-		templateUrl : 'modules/dealer/dealerSearch.html',
+		templateUrl : 'modules/dealer/d-search.html',
 		controller : 'dealerSearchController',
 		reloadOnSearch : false
 	});
@@ -260,31 +291,31 @@ app.config(function($routeProvider, $locationProvider) {
 
 	// customers
 	$routeProvider.when('/customers', {
-		templateUrl : 'modules/customer/customerList.html',
+		templateUrl : 'modules/customer/d-list.html',
 		controller : 'customerListController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/customers/customer', {
-		templateUrl : 'modules/customer/customerEdit.html',
+		templateUrl : 'modules/customer/d-edit.html',
 		controller : 'customerEditController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/customers/customer/:id', {
-		templateUrl : 'modules/customer/customerView.html',
+		templateUrl : 'modules/customer/d-view.html',
 		controller : 'customerViewController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/customers/customer/:id/edit', {
-		templateUrl : 'modules/customer/customerEdit.html',
+		templateUrl : 'modules/customer/d-edit.html',
 		controller : 'customerEditController',
 		reloadOnSearch : false
 	});
 
 	$routeProvider.when('/customers/search', {
-		templateUrl : 'modules/customer/customerSearch.html',
+		templateUrl : 'modules/customer/d-search.html',
 		controller : 'customerSearchController',
 		reloadOnSearch : false
 	});

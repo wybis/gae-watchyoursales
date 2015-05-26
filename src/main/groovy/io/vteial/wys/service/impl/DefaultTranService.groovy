@@ -29,7 +29,9 @@ class DefaultTranService extends AbstractService implements TranService {
 		Date now = new Date()
 		receipt.id = autoNumberService.getNextNumber(sessionUser, TranReceipt.ID_KEY)
 		receipt.date = now
-		receipt.status = TransactionStatus.COMPLETE
+		if(!receipt.status) {
+			receipt.status = TransactionStatus.COMPLETE
+		}
 		receipt.byUserId = sessionUser.id
 		receipt.branchId = sessionUser.branchId
 
@@ -40,6 +42,9 @@ class DefaultTranService extends AbstractService implements TranService {
 			tran.category = receipt.category
 			tran.date = receipt.date
 			tran.forUserId = receipt.forUserId
+			if(receipt.status) {
+				tran.status = receipt.status
+			}
 
 			try {
 				this.addTransaction(sessionUser, tran)
@@ -99,7 +104,9 @@ class DefaultTranService extends AbstractService implements TranService {
 			account.withdrawHandStock(tran.unit)
 		}
 		tran.averageRate = product.handStockAverage
-		tran.status = TransactionStatus.COMPLETE
+		if(!tran.status) {
+			tran.status = TransactionStatus.COMPLETE
+		}
 
 		tran.byUserId = sessionUser.id
 		tran.branchId = sessionUser.branchId

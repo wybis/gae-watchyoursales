@@ -40,6 +40,10 @@
 		        			</li>
 		        			<li class="divider"></li>
 		        			<li>
+		        				<a href="#/employees/search"><i class="fa fa-search"></i> &nbsp;Search Employee </a>
+		        			</li>
+		        			<li class="divider"></li>
+		        			<li>
 		        				<a href="" x-ng-click="saveReceiptAsOrder()"><i class="fa fa-save"></i> &nbsp;Save As Order </a>
 		        			</li>
 		        		</ul>
@@ -49,7 +53,7 @@
 		 			<strong><small>Balance</small></strong> : 
  					{{receipt.forUser.cashAccount.handStock | number : 2}}
  					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 				<a x-ng-hide="receipt.forUser.cashAccount.handStock === 0" 
+	 				<a x-ng-hide="receipt.forUser.cashAccount.handStock === 0 || receipt.forUser.type == 'employee'" 
 	 					x-ng-href="#{{receipt.balanceUrl}}">
 						{{receipt.balanceLabel}}
 	 				</a>

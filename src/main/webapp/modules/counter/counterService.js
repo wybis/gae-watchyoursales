@@ -69,10 +69,12 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
 	function decideBalanceUrl() {
 		var user = receipt.forUser, balanceUrl = null;
-		if (receipt.forUserLabel == 'Customer') {
+		if (receipt.forUser.type == 'customer') {
 			balanceUrl = '/customers/customer/' + user.id;
-		} else {
+		} else if (receipt.forUser.type == 'dealer') {
 			balanceUrl = '/dealers/dealer/' + user.id;
+		} else {
+			balanceUrl = '/employees/employee/' + user.id;
 		}
 		if (user.cashAccount.handStock > 0) {
 			receipt.balanceLabel = 'Pay Balance';
@@ -101,6 +103,17 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		receipt.forUser = dealer;
 		receipt.forUserLabel = 'Dealer';
 		receipt.forUserUrl = '/dealers/dealer/' + dealer.id;
+		decideBalanceUrl();
+	};
+
+	service.setEmployee = function(employee) {
+		if (_.isUndefined(employee)) {
+			return;
+		}
+		// $log.info(employee);
+		receipt.forUser = employee;
+		receipt.forUserLabel = 'Employee';
+		receipt.forUserUrl = '/employees/employee/' + employee.id;
 		decideBalanceUrl();
 	};
 
@@ -352,6 +365,12 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 
 	service.saveReceiptAsTransaction = function() {
 		$log.debug('saveReceiptAsTransaction started...');
+
+		if (receipt.forUser.type == 'employee') {
+			var message = 'Transaction can\'t be done on employees...';
+			wydNotifyService.addWarning(message, true);
+			return;
+		}
 
 		$log.info("Receipt before process...")
 		$log.info(receipt);
