@@ -1,153 +1,76 @@
 function customerOrderService($log, $q, wydNotifyService, sessionService,
 		$http, $location) {
 
-	var service = {}, customers = [], employees = [], receipt = {};
-	var searchCriteriaR = {}, searchResultR = {}, searchCriteriaO = {}, searchResultO = {};
+	var service = {}, customers = [], searchCriteria = {}, searchResult = {}, receipt = {};
 
 	customers.push({
 		id : 0,
 		firstName : 'All'
 	});
-	customers = customers.concat(sessionService.customers);
-	service.customers = customers;
-	service.customersMap = sessionService.customersMap;
-
-	employees.push({
-		id : 0,
-		firstName : '<Select Employee>'
-	});
-	employees = employees.concat(sessionService.employees);
-	service.employees = employees;
-	service.employeesMap = sessionService.employeesMap;
+	service.customers = customers.concat(sessionService.customers);
 
 	service.productsMap = sessionService.productsMap;
 	service.accountsMap = sessionService.accountsMap;
+	service.customersMap = sessionService.customersMap;
 
-	searchCriteriaR.isSelectedAll = false;
-	searchCriteriaR.customer = customers[0];
-	service.searchCriteriaR = searchCriteriaR;
+	searchCriteria.isSelectedAll = false;
+	searchCriteria.customer = customers[0];
+	service.searchCriteria = searchCriteria;
 
-	searchResultR.items = [];
-	searchResultR.employee = employees[0];
-	service.searchResultR = searchResultR;
-
-	searchCriteriaO.isSelectedAll = false;
-	service.searchCriteriaO = searchCriteriaO;
-
-	searchResultO.items = [];
-	service.searchResultO = searchResultO;
+	searchResult.items = [];
+	service.searchResult = searchResult;
 
 	receipt.id = 0;
 	service.receipt = receipt;
 
-	service.selectOrDeSelectAllR = function() {
-		_.forEach(searchResultR.items, function(item) {
-			item.isSelected = searchCriteriaR.isSelectedAll;
+	service.onCustomerChange = function() {
+		if (searchCriteria.customer.id === 0) {
+			searchResult.items = searchResult.orders
+		} else {
+			var items = _.filter(searchResult.orders, function(item) {
+				return item.forUserId === searchCriteria.customer.id;
+			});
+			searchResult.items = items;
+		}
+		searchCriteria.isSelectedAll = false;
+	};
+
+	service.selectOrDeSelectAll = function() {
+		_.forEach(searchResult.items, function(item) {
+			item.isSelected = searchCriteria.isSelectedAll;
 		});
 	};
 
-	service.onSelectionChangeR = function() {
-		var flag = true, items = searchResultR.items;
-		for (var i = 0; i < items.length; i++) {
-			if (items[i].isSelected === false) {
+	service.onOrderSelectionChange = function() {
+		var flag = true;
+		for (var i = 0; i < searchResult.items.length; i++) {
+			if (searchResult.items[i].isSelected === false) {
 				flag = false;
-				i = items.length;
+				i = searchResult.items.length;
 			}
 		}
-		searchCriteriaR.isSelectedAll = flag;
+		searchCriteria.isSelectedAll = flag;
 	};
 
-	function processOrderReceipts(items) {
-		searchResultR.items = items;
+	function processOrders(items) {
+		searchResult.orders = items;
 		_.forEach(items, function(item) {
 			item.isSelected = false;
 		});
-		// service.onCustomerChange();
+		service.onCustomerChange();
 	}
 
-	service.getPendingOrderReceipts = function() {
-		var path = '/sessions/pendingCustomerOrderReceipts';
+	service.getPendingOrders = function() {
+		var path = '/sessions/pendingCustomerOrders';
 		$http.get(path).success(function(response) {
 			if (response.type === 0) {
-				processOrderReceipts(response.data);
+				processOrders(response.data);
 			}
 		})
-	};
-
-	service.onCustomerChange = function() {
-		if (searchCriteriaR.customer.id === 0) {
-			return;
-		}
-		service.getPendingOrders(searchCriteriaR.customer.id);
-		searchCriteriaO.isSelectedAll = false;
-	};
-
-	service.selectOrDeSelectAllO = function() {
-		_.forEach(searchResultO.items, function(item) {
-			item.isSelected = searchCriteriaO.isSelectedAll;
-		});
-	};
-
-	service.onSelectionChangeO = function() {
-		var flag = true, items = searchResultO.items;
-		for (var i = 0; i < items.length; i++) {
-			if (items[i].isSelected === false) {
-				flag = false;
-				i = items.length;
-			}
-		}
-		searchCriteriaO.isSelectedAll = flag;
-	};
-
-	service.getPendingOrders = function(customerId) {
-		var path = '/sessions/pendingCustomerOrders/' + customerId;
-		$http.get(path).success(function(response) {
-			$log.info(response);
-			if (response.type === 0) {
-				searchResultO.items = response.data;
-			}
-		})
-	};
-
-	//
-	service.assignToEmployee = function() {
-		var orderReceipts = _.filter(searchResultR.items, function(item) {
-			return item.isSelected;
-		});
-
-		if (orderReceipts.length === 0) {
-			wydNotifyService.addError(
-					'Please select minimum one order to proceed...', true);
-			return;
-		}
-
-		if (searchResultR.employee.id === 0) {
-			wydNotifyService.addError(
-					'Please select an employee to proceed...', true);
-			return;
-		}
-
-		var orderReceiptIds = _.map(orderReceipts, function(item) {
-			return item.id;
-		});
-		$log.info(orderReceiptIds);
-
-		var path = '/sessions/assignOrders/' + searchResultR.employee.id;
-		$http.post(path, orderReceiptIds).success(function(response) {
-			// $log.debug(response);
-			if (response.type === 0) {
-				wydNotifyService.addSuccess(response.message, true);
-				receipt.id = resReceipt.id;
-				service.getPendingOrderReceipts();
-			} else {
-				fail(response.data, response.message)
-			}
-			$log.debug('saveReceiptAsTransaction finished...');
-		});
 	};
 
 	service.proceedToProcessOrder = function() {
-		var orders = _.filter(searchResultO.items, function(item) {
+		var orders = _.filter(searchResult.items, function(item) {
 			return item.isSelected;
 		});
 
@@ -169,7 +92,7 @@ function customerOrderService($log, $q, wydNotifyService, sessionService,
 		receipt.balanceAmount = 0;
 		receipt.balanceAmountLabel = '';
 
-		receipt.forUser = searchCriteriaR.customer
+		receipt.forUser = searchCriteria.customer
 		receipt.forUserLabel = 'Customer';
 		receipt.forUserUrl = '/customers/customer/' + receipt.forUser.id;
 
@@ -325,10 +248,15 @@ function customerOrderService($log, $q, wydNotifyService, sessionService,
 		$log.info(receipt);
 
 		var reqReceipt = {
-			category : 'customer',
 			forUserId : receipt.forUser.id,
 			trans : []
 		}, reqTran = null, totalSaleAmount = 0, rowIds = [];
+
+		if (receipt.forUser.type == 'dealer') {
+			reqReceipt.category = 'dealer'
+		} else {
+			reqReceipt.category = 'customer'
+		}
 
 		for (var i = 0; i < receipt.trans.length; i++) {
 			var tran = receipt.trans[i]
@@ -397,7 +325,7 @@ function customerOrderService($log, $q, wydNotifyService, sessionService,
 			}
 		}
 		sessionService.computeStockWorth();
-		service.getPendingOrders(receipt.forUser.id);
+		service.getPendingOrders();
 	}
 
 	function fail(resReceipt, message) {

@@ -5,7 +5,12 @@ function rootController($rootScope, $scope, $log, wydNotifyService,
 	var sessionS = sessionService;
 	$scope.sessionS = sessionS;
 
-	sessionS.properties();
+	sessionS.properties().then(
+			function(response) {
+				$log.info(response.message);
+				$scope.$broadcast('session:properties',
+						'Session properties loaded...');
+			});
 
 	$scope.presenceStates = presenceStates;
 
@@ -323,6 +328,12 @@ app.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/customerOrders', {
 		templateUrl : 'modules/customer/order/customerOrderList.html',
 		controller : 'customerOrderListController',
+		reloadOnSearch : false
+	});
+
+	$routeProvider.when('/customerOrders/:id', {
+		templateUrl : 'modules/customer/order/customerOrderView.html',
+		controller : 'customerOrderViewController',
 		reloadOnSearch : false
 	});
 

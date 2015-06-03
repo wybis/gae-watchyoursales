@@ -1,0 +1,83 @@
+<div class="panel panel-default">
+	<div class="panel-heading text-center">
+		<span class="pull-left">
+		Order Id : <strong>{{receipt.id}}</strong>
+		</span>
+		&nbsp;&nbsp;
+		Employee : <strong>{{employeesMap[receipt.byUserId].firstName}}</strong>
+		<span class="pull-right">
+		Customer : <strong>{{customersMap[receipt.forUserId].firstName}}</strong>
+		</span>		
+	</div>
+	<table class="table table-condensed table-bordered table-striped">
+	<thead>
+	<tr>
+		<th class="text-right" width="30">#</th>
+	   	<th class="text-center" width="100"><small>Code</small></th>
+	   	<th class="text-center"><small>Name</small></th>
+	   	<th class="text-center" width="60"><small>Type</small></th>
+	   	<th class="text-center"><small>Unit</small></th>
+	   	<th class="text-center" width="60"><small>Rate</small></th>
+	   	<th class="text-center"><small>Amount</small></th>
+	   	<th class="text-center" width="40">&nbsp;</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr x-ng-repeat="item in receipt.orders | orderBy : '-id'">
+		<td class="text-right" width="40">
+			{{$index+1}}
+		</td>
+		<td>
+			{{item.productCode}}
+		</td>
+		<td>
+			{{productsMap[accountsMap[item.accountId].productId].name}}
+		</td>
+		<td class="text-center">
+			{{item.type}}
+		</td>
+		<td class="text-right">
+			{{item.unit | number : 2}}
+		</td>
+		<td class="text-right">
+			{{item.rate | number : 5}}
+		</td>	
+		<td class="text-right">
+			{{item.amount | number : 2}}
+		</td>
+		<td class="text-center">
+			<input type="checkbox" x-ng-model="item.isVerified">
+		</td>
+	</tr>
+	</tbody>
+	</table>
+	<div class="panel-footer text-center">
+		<span class="pull-left">
+			<a class="btn btn-default btn-sm" href="#/customerOrders">
+				Back to Orders
+			</a>
+		</span>
+		<label><small>Re-Assigned To</small></label>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select class="input-sm" x-ng-model="model.employee"
+			x-ng-options="item.id + ' - ' + item.firstName for item in employees">
+		</select>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<button type="button" class="btn btn-warning btn-sm"
+			x-ng-click="assign()">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			Re-Assign
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</button>
+		<span class="pull-right">
+			<button type="button" class="btn btn-primary btn-sm"
+				x-ng-disabled="receipt.isAcceptDisabled"
+				x-ng-click="accept(receipt.id)">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				Accept
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</button>
+		</span>
+	</div>
+</div>
+	

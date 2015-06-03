@@ -47,10 +47,8 @@ appengine {
 			outputFile = file('prodserver-log.txt')
 		}
 
-		app { 
-			//id = 'wybis-wys'
-			id = 'watchyoursales' 
-		}
+		app {  //id = 'wybis-wys'
+			id = 'watchyoursales'  }
 	}
 }
 

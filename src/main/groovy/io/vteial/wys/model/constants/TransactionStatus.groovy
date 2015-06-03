@@ -4,7 +4,7 @@ interface TransactionStatus  {
 
 	final String PENDING = 'pending'
 
-	final String COMPLETE = 'complete'
+	final String COMPLETE = 'completed'
 
 	final String REVERTED = 'reverted'
 

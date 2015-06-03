@@ -1,26 +1,41 @@
 function customerOrderListController($rootScope, $scope, $log,
-		customerOrderService) {
+		customerOrderProcessService) {
 	$log.debug('customerOrderListController...');
 	$rootScope.viewName = 'Customer Orders';
 
-	$scope.productsMap = customerOrderService.productsMap;
-	$scope.accountsMap = customerOrderService.accountsMap;
-	$scope.customers = customerOrderService.customers;
-	$scope.customersMap = customerOrderService.customersMap;
-	$scope.searchCriteria = customerOrderService.searchCriteria;
-	$scope.searchResult = customerOrderService.searchResult;
+	$scope.customers = customerOrderProcessService.customers;
+	$scope.customersMap = customerOrderProcessService.customersMap;
 
-	$scope.onCustomerChange = customerOrderService.onCustomerChange;
-	$scope.selectOrDeSelectAll = customerOrderService.selectOrDeSelectAll;
+	$scope.employees = customerOrderProcessService.employees;
+	$scope.employeesMap = customerOrderProcessService.employeesMap;
 
-	$scope.onOrderSelectionChange = customerOrderService.onOrderSelectionChange;
+	$scope.productsMap = customerOrderProcessService.productsMap;
+	$scope.accountsMap = customerOrderProcessService.accountsMap;
 
-	$scope.refresh = customerOrderService.getPendingOrders;
+	$scope.model = customerOrderProcessService.model;
 
-	$scope.proceed = customerOrderService.proceedToProcessOrder;
+	$scope.onCustomerChange = customerOrderProcessService.onCustomerChange;
 
-	$scope.refresh();
+	$scope.selectOrDeSelectAllReceipts = customerOrderProcessService.selectOrDeSelectAllReceipts;
+	$scope.onReceiptSelectionChange = customerOrderProcessService.onReceiptSelectionChange;
 
+	$scope.selectOrDeSelectAllItems = customerOrderProcessService.selectOrDeSelectAllItems;
+	$scope.onItemSelectionChange = customerOrderProcessService.onItemSelectionChange;
+
+	$scope.refreshReceipts = customerOrderProcessService.getPendingOrderReceipts;
+	$scope.refreshItems = customerOrderProcessService.getPendingOrders;
+
+	$scope.$on('session:properties', function(event, data) {
+		customerOrderProcessService.init();
+	});
+
+	$scope.assign = customerOrderProcessService.assignToEmployee;
+	$scope.accept = customerOrderProcessService.acceptByEmployee;
+
+	$scope.proceed = customerOrderProcessService.proceedToTransaction;
+
+	// customerOrderProcessService.init();
+	$scope.refreshReceipts();
 }
 appControllers.controller('customerOrderListController',
 		customerOrderListController);

@@ -24,6 +24,26 @@ class DefaultTranService extends AbstractService implements TranService {
 	OrderService orderService;
 
 	@Override
+	public TranReceipt findByTranReceiptId(long tranReceiptId) {
+		TranReceipt receipt = TranReceipt.get(tranReceiptId)
+
+		def entitys = datastore.execute {
+			from Tran.class.simpleName
+			and receiptId == tranReceiptId
+		}
+
+		List<Tran> trans = []
+		entitys.each { entity ->
+			Tran model = entity as Tran
+			model.computeAmount()
+			trans <<  model
+		}
+		receipt.trans = trans;
+
+		return receipt;
+	}
+
+	@Override
 	public void add(SessionDto sessionUser, TranReceipt receipt) throws TransactionException {
 
 		Date now = new Date()

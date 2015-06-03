@@ -367,7 +367,7 @@ function counterService($log, $q, wydNotifyService, sessionService, $http) {
 		$log.debug('saveReceiptAsTransaction started...');
 
 		if (receipt.forUser.type == 'employee') {
-			var message = 'Transaction can\'t be done on employees...';
+			var message = 'Transaction can\'t be done for employees...';
 			wydNotifyService.addWarning(message, true);
 			return;
 		}

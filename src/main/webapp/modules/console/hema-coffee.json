@@ -1,0 +1,54 @@
+{
+  "code": "hema-coffee",
+  "name": "Hema Coffee",
+  "products": [
+    {
+      "code": "lt-250",
+      "name": "Lebosa Tea 250 kg",
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 50,
+      "buyPercent": 10,
+      "sellRate": 75,
+      "sellPercent": 10
+    },
+    {
+      "code": "hc-250",
+      "name": "Hema Coffee 250 kg",
+      "baseUnit": 1,
+      "denominator": 1,
+      "buyRate": 75,
+      "buyPercent": 10,
+      "sellRate": 100,
+      "sellPercent": 10
+    }
+  ],
+  "employees": [
+    {
+      "userId": "shivu",
+      "password": "1234",
+      "firstName": "Shivakumar",
+      "roleId": "manager"
+    }
+  ],
+  "dealers": [
+    {
+      "firstName": "Lebosa",
+      "lastName": "Traders"
+    },
+    {
+      "firstName": "Hema",
+      "lastName": "Traders"
+    }
+  ],
+  "customers": [
+    {
+      "firstName": "Naveen",
+      "lastName": "Sagar"
+    },
+    {
+      "firstName": "Bangaluru",
+      "lastName": "Coffee"
+    }
+  ]
+}

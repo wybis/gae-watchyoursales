@@ -226,7 +226,7 @@ function sessionService($log, $http, $q, $rootScope) {
 	}
 
 	function processModel(model) {
-		$log.debug('processing session properties started...');
+		$log.debug('processing session model started...');
 		processStocks(model.stocks);
 		processLedgers(model.ledgers);
 		processEmployees(model.employees);
@@ -234,7 +234,7 @@ function sessionService($log, $http, $q, $rootScope) {
 		processCustomers(model.customers);
 		service.computeStockWorth();
 		service.computeCashWorth();
-		$log.debug('processing session properties finished...');
+		$log.debug('processing session model finished...');
 	}
 
 	service.properties = function() {

@@ -7,6 +7,8 @@ import io.vteial.wys.service.exceptions.OrderException
 
 interface OrderService {
 
+	OrderReceipt findByOrderReceiptId(long orderReceiptId)
+
 	void add(SessionDto sessionUser, OrderReceipt orderReceipt) throws OrderException
 
 	void onTransaction(SessionDto sessionUser, Tran tran)

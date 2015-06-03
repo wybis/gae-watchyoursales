@@ -2,7 +2,7 @@
 	<div class="panel-body">
 		<div class="col-md-2">
    			<label><small>Customer</small></label>
-   			<select class="form-control input-sm" x-ng-model="model.customer"
+   			<select class="form-control input-sm" x-ng-model="searchCriteria.customer"
    				x-ng-change='onCustomerChange()'
 				x-ng-options="item.id + ' - ' + item.firstName for item in customers">
     		</select>
@@ -10,12 +10,12 @@
 	</div>
 </div>
 
-<div class="panel panel-default" x-ng-show="model.customer.id === 0">
+<div class="panel panel-default" x-ng-show="searchCriteria.customer.id != 0">
 	<div class="panel-heading text-center">
 		<span class="pull-left">
 			<button	type="button" class="btn btn-default btn-sm" 
-				x-ng-disabled="searchResultR.items.length == 0"
-				x-ng-click="refreshReceipts()">
+				x-ng-disabled="items.length == 0"
+				x-ng-click="refresh()">
 				<i class="fa fa-refresh"></i>
 			</button>
 		</span>
@@ -23,95 +23,7 @@
 		<span class="pull-right">
 			<button type="button" class="btn btn-default btn-sm"
 				x-ng-disabled="true"
-				x-ng-click="printReceipts()">
-				<i class="fa fa-print"></i>
-			</button>
-		</span>
-	</div>
-	<table class="table table-condensed table-bordered table-striped">
-	<thead>
-	<tr>
-		<th class="text-right" width="30">#</th>
-	   	<th class="text-center"><small>Id</small></th>
-	   	<th class="text-center"><small>Customer</small></th>
-	   	<th class="text-center"><small>Employee</small></th>
-	   	<th class="text-center" width="160"><small>Ordered Time</small></th>
-	   	<th class="text-center" width="160"><small>Updated Time</small></th>
-	   	<th class="text-center" width="100"><small>Status</small></th>
-	   	<th class="text-center" width="100">&nbsp;</th>
-	   	<th class="text-center" width="40">
-			<input type="checkbox" x-ng-model="model.isReceiptSelectedAll"
-				x-ng-change="selectOrDeSelectAllReceipts()">	   	
-		</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr x-ng-repeat="item in model.receipts | orderBy : '-id'">
-		<td class="text-right" width="40">
-			{{$index+1}}
-		</td>
-		<td class="text-right">
-			<a x-ng-href="#/customerOrders/{{item.id}}">{{item.id}}</a>
-		</td>
-		<td>
-			{{customersMap[item.forUserId].firstName}}
-		</td>
-		<td>
-			{{employeesMap[item.byUserId].firstName}}
-		</td>
-		<td>
-			{{item.date | date:'yyyy-MM-dd HH:mm:ss'}}
-		</td>
-		<td>
-			{{item.updateTime | date:'yyyy-MM-dd HH:mm:ss'}}
-		</td>
-		<td>
-			{{item.status}}
-		</td>
-		<td class="text-center">
-			<button type="button" class="btn btn-primary btn-sm"
-				x-ng-disabled="item.isAcceptDisabled"
-				x-ng-click="accept(item.id)">
-				Accept
-			</button>
-		</td>
-		<td class="text-center">
-			<input type="checkbox" x-ng-model="item.isSelected"
-				x-ng-change="onReceiptSelectionChange()">
-		</td>
-	</tr>
-	</tbody>
-	</table>
-	<div class="panel-footer text-center">
-		<label><small>Assigned To</small></label>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<select class="input-sm" x-ng-model="model.employee"
-			x-ng-options="item.id + ' - ' + item.firstName for item in employees">
-		</select>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button type="button" class="btn btn-primary btn-sm"
-			x-ng-click="assign()">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			Assign / Transfer
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		</button>
-	</div>
-</div>
-
-<div class="panel panel-default" x-ng-show="model.customer.id != 0">
-	<div class="panel-heading text-center">
-		<span class="pull-left">
-			<button	type="button" class="btn btn-default btn-sm" 
-				x-ng-disabled="model.items.length == 0"
-				x-ng-click="refreshItems()">
-				<i class="fa fa-refresh"></i>
-			</button>
-		</span>
-		&nbsp;
-		<span class="pull-right">
-			<button type="button" class="btn btn-default btn-sm"
-				x-ng-disabled="true"
-				x-ng-click="printItems()">
+				x-ng-click="print()">
 				<i class="fa fa-print"></i>
 			</button>
 		</span>
@@ -128,13 +40,13 @@
 	   	<th class="text-center"><small>Amount</small></th>
 	   	<th class="text-center" width="160"><small>Date</small></th>
 	   	<th class="text-center" width="40">
-			<input type="checkbox" x-ng-model="model.isItemSelectedAll"
-				x-ng-change="selectOrDeSelectAllItems()">	   	
+			<input type="checkbox" x-ng-model="searchCriteria.isSelectedAll"
+				x-ng-change="selectOrDeSelectAll()">	   	
 		</th>
 	</tr>
 	</thead>
 	<tbody>
-	<tr x-ng-repeat="item in model.items | orderBy : '-id'">
+	<tr x-ng-repeat="item in searchResult.items | orderBy : '-id'">
 		<td class="text-right" width="40">
 			{{$index+1}}
 		</td>
@@ -161,7 +73,7 @@
 		</td>
 		<td class="text-center">
 			<input type="checkbox" x-ng-model="item.isSelected"
-				x-ng-change="onItemSelectionChange()">
+				x-ng-change="onOrderSelectionChange()">
 		</td>
 	</tr>
 	</tbody>
@@ -176,3 +88,70 @@
 	</div>
 </div>
 
+<!-- all pending orders -->
+
+<div class="panel panel-default" x-ng-show="searchCriteria.customer.id === 0">
+	<div class="panel-heading text-center">
+		<span class="pull-left">
+			<button	type="button" class="btn btn-default btn-sm" 
+				x-ng-disabled="items.length == 0"
+				x-ng-click="refresh()">
+				<i class="fa fa-refresh"></i>
+			</button>
+		</span>
+		&nbsp;
+		<span class="pull-right">
+			<button type="button" class="btn btn-default btn-sm"
+				x-ng-disabled="true"
+				x-ng-click="print()">
+				<i class="fa fa-print"></i>
+			</button>
+		</span>
+	</div>
+	<table class="table table-condensed table-bordered table-striped">
+	<thead>
+	<tr>
+		<th class="text-right" width="30">Id</th>
+	   	<th class="text-center" width="100"><small>Code</small></th>
+	   	<th class="text-center"><small>Name</small></th>
+	   	<th class="text-center" width="60"><small>Type</small></th>
+	   	<th class="text-center"><small>Unit</small></th>
+	   	<th class="text-center" width="60"><small>Rate</small></th>
+	   	<th class="text-center"><small>Amount</small></th>
+	   	<th class="text-center" width="160"><small>Date</small></th>
+	   	<th class="text-center"><small>Customer</small></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr x-ng-repeat="item in searchResult.items | orderBy : '-id'">
+		<td class="text-right" width="40">
+			{{$index+1}}
+		</td>
+		<td>
+			{{item.productCode}}
+		</td>
+		<td>
+			{{productsMap[accountsMap[item.accountId].productId].name}}
+		</td>
+		<td class="text-center">
+			{{item.type}}
+		</td>
+		<td class="text-right">
+			{{item.unit | number : 2}}
+		</td>
+		<td class="text-right">
+			{{item.rate | number : 5}}
+		</td>	
+		<td class="text-right">
+			{{item.unit * item.rate | number : 2}}
+		</td>
+		<td>
+			{{item.date | date:'yyyy-MM-dd HH:mm:ss'}}
+		</td>
+		<td>
+			{{customersMap[item.forUserId].firstName}}
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>

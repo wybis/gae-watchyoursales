@@ -3,10 +3,10 @@ package io.vteial.wys.service.impl
 import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionDto
+import io.vteial.wys.model.Account
 import io.vteial.wys.model.Order
 import io.vteial.wys.model.OrderReceipt
 import io.vteial.wys.model.Product
-import io.vteial.wys.model.Account
 import io.vteial.wys.model.Tran
 import io.vteial.wys.model.constants.OrderStatus
 import io.vteial.wys.model.constants.OrderType
@@ -20,13 +20,33 @@ class DefaultOrderService extends AbstractService implements OrderService {
 	GroovyLogger log = new GroovyLogger(DefaultOrderService.class.getName())
 
 	@Override
+	public OrderReceipt findByOrderReceiptId(long orderReceiptId) {
+		OrderReceipt receipt = OrderReceipt.get(orderReceiptId)
+
+		def entitys = datastore.execute {
+			from Order.class.simpleName
+			and receiptId == orderReceiptId
+		}
+
+		List<Order> orders = []
+		entitys.each { entity ->
+			Order model = entity as Order
+			model.computeAmount()
+			orders <<  model
+		}
+		receipt.orders = orders;
+
+		return receipt;
+	}
+
+	@Override
 	public void add(SessionDto sessionUser, OrderReceipt receipt) throws OrderException {
 
 		Date now = new Date()
 		receipt.id = autoNumberService.getNextNumber(sessionUser, OrderReceipt.ID_KEY)
 		receipt.date = now
 		receipt.status = OrderStatus.PENDING
-		receipt.byUserId = sessionUser.id
+		receipt.byUserId = sessionUser.branchVirtualEmployeeId
 		receipt.branchId = sessionUser.branchId
 
 		List<Order> orders = receipt.orders
@@ -35,6 +55,8 @@ class DefaultOrderService extends AbstractService implements OrderService {
 			order.receiptId = receipt.id
 			order.date = receipt.date
 			order.forUserId = receipt.forUserId
+			order.byUserId = receipt.byUserId
+			order.branchId = receipt.branchId
 
 			this.addOrder(sessionUser, order)
 		}
@@ -53,7 +75,7 @@ class DefaultOrderService extends AbstractService implements OrderService {
 
 		order.productCode = product.code
 		order.baseUnit = product.baseUnit
-		//order.computeAmount()
+		order.computeAmount()
 
 		if(order.type == OrderType.BUY) {
 			product.computeVirtualStockAverage(order.unit, order.rate)
@@ -64,9 +86,6 @@ class DefaultOrderService extends AbstractService implements OrderService {
 		}
 		order.averageRate = product.virtualStockAverage
 		order.status = OrderStatus.PENDING
-
-		order.byUserId = sessionUser.id
-		order.branchId = sessionUser.branchId
 
 		order.id = autoNumberService.getNextNumber(sessionUser, Order.ID_KEY)
 

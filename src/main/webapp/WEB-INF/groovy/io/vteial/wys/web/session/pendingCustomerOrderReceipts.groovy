@@ -14,31 +14,34 @@ ResponseDto responseDto = new ResponseDto(type : 0, message : 'success...')
 SessionDto sessionDto = session[SessionService.SESSION_USER_KEY]
 
 try {
-	long userId = params.forUserId as Long
-
 	List<Order> models = []
 
 	def entitys = null
 	if(sessionDto.roleId == Role.ID_MANAGER) {
 		entitys = datastore.execute {
-			from Order.class.simpleName
+			from OrderReceipt.class.simpleName
 			where category == OrderCategory.CUSTOMER
-			and forUserId == userId
-			and status == OrderStatus.ACCEPTED
+			and branchId == sessionDto.branchId
+			and status in [
+				OrderStatus.PENDING,
+				OrderStatus.ASSIGNED
+			]
 		}
 	}
 	else {
 		entitys = datastore.execute {
-			from Order.class.simpleName
+			from OrderReceipt.class.simpleName
 			where category == OrderCategory.CUSTOMER
-			and forUserId == userId
 			and byUserId == sessionDto.id
-			and status == OrderStatus.ACCEPTED
+			and status in [
+				OrderStatus.PENDING,
+				OrderStatus.ASSIGNED
+			]
 		}
 	}
 
 	entitys.each { entity ->
-		Order model = entity as Order
+		OrderReceipt model = entity as OrderReceipt
 		models <<  model
 	}
 

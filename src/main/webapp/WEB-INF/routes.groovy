@@ -34,24 +34,30 @@ get		'/sessions/ledgers',    				forward : '/io/vteial/wys/web/session/ledgers.g
 get		'/sessions/products',    				forward : '/io/vteial/wys/web/session/products.groovy'
 get		'/sessions/stocks',    					forward : '/io/vteial/wys/web/session/stocks.groovy'
 
-post	'/sessions/order',  					forward : '/io/vteial/wys/web/session/order.groovy'
-post	'/sessions/counter',  					forward : '/io/vteial/wys/web/session/counter.groovy'
+post	'/sessions/order',  							forward : '/io/vteial/wys/web/session/order.groovy'
+get		'/sessions/orderReceipts/@orderReceiptId',		forward : '/io/vteial/wys/web/session/orderReceiptById.groovy?orderReceiptId=@orderReceiptId'
+post	'/sessions/assignOrders/@employeeId',			forward : '/io/vteial/wys/web/session/assignOrders.groovy?employeeId=@employeeId'
 
-get		'/sessions/customers',    				forward : '/io/vteial/wys/web/session/customers.groovy'
-get		'/sessions/pendingCustomerOrders',		forward : '/io/vteial/wys/web/session/pendingCustomerOrders.groovy'
-post	'/sessions/customerTran',				forward : '/io/vteial/wys/web/session/customerTran.groovy'
-get		'/sessions/customerTrans',				forward : '/io/vteial/wys/web/session/customerTrans.groovy'
+post	'/sessions/tran',  								forward : '/io/vteial/wys/web/session/tran.groovy'
+get		'/sessions/tranReceipts/@tranReceiptId',		forward : '/io/vteial/wys/web/session/orderReceiptById.groovy?tranReceiptId=@tranReceiptId'
+post	'/sessions/acceptOrders/@employeeId',			forward : '/io/vteial/wys/web/session/acceptOrders.groovy?employeeId=@employeeId'
 
-get		'/sessions/dealers',    				forward : '/io/vteial/wys/web/session/dealers.groovy'
-get		'/sessions/pendingDealerOrders',		forward : '/io/vteial/wys/web/session/pendingDealerOrders.groovy'
-post	'/sessions/dealerTran',					forward : '/io/vteial/wys/web/session/dealerTran.groovy'
-get		'/sessions/dealerTrans',				forward : '/io/vteial/wys/web/session/dealerTrans.groovy'
+get		'/sessions/customers',    						forward : '/io/vteial/wys/web/session/customers.groovy'
+get		'/sessions/pendingCustomerOrderReceipts',		forward : '/io/vteial/wys/web/session/pendingCustomerOrderReceipts.groovy'
+get		'/sessions/pendingCustomerOrders/@customerId',	forward : '/io/vteial/wys/web/session/pendingCustomerOrders.groovy?forUserId=@customerId'
+post	'/sessions/customerTran',						forward : '/io/vteial/wys/web/session/customerTran.groovy'
+get		'/sessions/customerTrans',						forward : '/io/vteial/wys/web/session/customerTrans.groovy'
 
-get		'/sessions/employees',    				forward : '/io/vteial/wys/web/session/employees.groovy'
+get		'/sessions/dealers',    						forward : '/io/vteial/wys/web/session/dealers.groovy'
+get		'/sessions/pendingDealerOrders',				forward : '/io/vteial/wys/web/session/pendingDealerOrders.groovy'
+post	'/sessions/dealerTran',							forward : '/io/vteial/wys/web/session/dealerTran.groovy'
+get		'/sessions/dealerTrans',						forward : '/io/vteial/wys/web/session/dealerTrans.groovy'
 
-post	'/sessions/ledger',  					forward : '/io/vteial/wys/web/session/ledger.groovy'
-get		'/sessions/ledgerTrans',				forward : '/io/vteial/wys/web/session/ledgerTrans.groovy'
-get		'/sessions/recentLedgerTrans',			forward : '/io/vteial/wys/web/session/recentLedgerTrans.groovy'
+get		'/sessions/employees',    						forward : '/io/vteial/wys/web/session/employees.groovy'
+
+post	'/sessions/ledger',  							forward : '/io/vteial/wys/web/session/ledger.groovy'
+get		'/sessions/ledgerTrans',						forward : '/io/vteial/wys/web/session/ledgerTrans.groovy'
+get		'/sessions/recentLedgerTrans',					forward : '/io/vteial/wys/web/session/recentLedgerTrans.groovy'
 
 
 //-------------------------------------------------------------------------------------------------------//

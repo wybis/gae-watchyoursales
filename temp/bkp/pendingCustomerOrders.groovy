@@ -3,7 +3,6 @@ package io.vteial.wys.web.session
 import io.vteial.wys.dto.ResponseDto
 import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Order
-import io.vteial.wys.model.OrderReceipt
 import io.vteial.wys.model.Role
 import io.vteial.wys.model.constants.OrderCategory
 import io.vteial.wys.model.constants.OrderStatus
@@ -14,8 +13,6 @@ ResponseDto responseDto = new ResponseDto(type : 0, message : 'success...')
 SessionDto sessionDto = session[SessionService.SESSION_USER_KEY]
 
 try {
-	long userId = params.forUserId as Long
-
 	List<Order> models = []
 
 	def entitys = null
@@ -23,17 +20,16 @@ try {
 		entitys = datastore.execute {
 			from Order.class.simpleName
 			where category == OrderCategory.CUSTOMER
-			and forUserId == userId
-			and status == OrderStatus.ACCEPTED
+			and branchId == sessionDto.branchId
+			and status == OrderStatus.PENDING
 		}
 	}
 	else {
 		entitys = datastore.execute {
 			from Order.class.simpleName
 			where category == OrderCategory.CUSTOMER
-			and forUserId == userId
 			and byUserId == sessionDto.id
-			and status == OrderStatus.ACCEPTED
+			and status == OrderStatus.PENDING
 		}
 	}
 
