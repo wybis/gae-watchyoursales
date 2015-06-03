@@ -95,14 +95,6 @@ function customerOrderProcessService($log, $q, wydNotifyService,
 		})
 	};
 
-	service.onCustomerChange = function() {
-		if (model.customer.id === 0) {
-			return;
-		}
-		service.getPendingOrders(model.customer.id);
-		model.isItemSelectedAll = false;
-	};
-
 	service.assignToEmployee = function() {
 		var receipts = _.filter(model.receipts, function(item) {
 			return item.isSelected;
@@ -161,9 +153,12 @@ function customerOrderProcessService($log, $q, wydNotifyService,
 		});
 	};
 
-	service.proceedToProcessOrder = function() {
-		var items = _.filter(searchResultO.items, function(item) {
-			return item.isSelected;
+	service.proceedToTransaction = function() {
+		var items = [];
+		_.forEach(model.items, function(item) {
+			if (item.isSelected) {
+				items.push(item.id);
+			}
 		});
 
 		if (items.length === 0) {
@@ -172,7 +167,10 @@ function customerOrderProcessService($log, $q, wydNotifyService,
 			return;
 		}
 
-		$location.path('/processCustomerOrders');
+		var path = '/customers/customer/' + model.customer.id + '/tran/'
+		path += items.join(',');
+
+		$location.path(path);
 	};
 
 	service.init = function() {

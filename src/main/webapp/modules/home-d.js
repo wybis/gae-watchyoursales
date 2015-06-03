@@ -325,35 +325,41 @@ app.config(function($routeProvider, $locationProvider) {
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/customerOrders', {
-		templateUrl : 'modules/customer/order/customerOrderList.html',
-		controller : 'customerOrderListController',
+	$routeProvider.when('/customers/orders', {
+		templateUrl : 'modules/customer/order/customerOrderReceiptList.html',
+		controller : 'customerOrderReceiptListController',
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/customerOrders/:id', {
+	$routeProvider.when('/customers/orders/orderReceipt/:id', {
 		templateUrl : 'modules/customer/order/customerOrderView.html',
 		controller : 'customerOrderViewController',
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/processCustomerOrders', {
-		templateUrl : 'modules/customer/order/customerOrderProcess.html',
-		controller : 'customerOrderProcessController',
+	$routeProvider.when('/customers/customer/:id/orders', {
+		templateUrl : 'modules/customer/order/customerOrderItemList.html',
+		controller : 'customerOrderItemListController',
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/customers/customer/:id/tran', {
+	$routeProvider.when('/customers/customer/:id/tran/:orderIds', {
 		templateUrl : 'modules/customer/tran/customerTran.html',
 		controller : 'customerTranController',
 		reloadOnSearch : false
 	});
 
-	$routeProvider.when('/customerTrans', {
-		templateUrl : 'modules/customer/tran/customerTranList.html',
-		controller : 'customerTranListController',
-		reloadOnSearch : false
-	});
+	// $routeProvider.when('/customers/customer/:id/trans', {
+	// templateUrl : 'modules/customer/tran/customerTrans.html',
+	// controller : 'customerTranController',
+	// reloadOnSearch : false
+	// });
+	//
+	// $routeProvider.when('/customerTrans', {
+	// templateUrl : 'modules/customer/tran/customerTranList.html',
+	// controller : 'customerTranListController',
+	// reloadOnSearch : false
+	// });
 
 	// ledgers
 	$routeProvider.when('/ledgers', {
