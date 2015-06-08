@@ -1,9 +1,12 @@
 function customerOrderReceiptListController($rootScope, $scope, $log,
-		customerOrderReceiptService, $location) {
+		customerOrderReceiptService, sessionService) {
 	$log.debug('customerOrderReceiptListController...');
 	$rootScope.viewName = 'Customer Orders';
 
-	$scope.customers = customerOrderReceiptService.customers;
+	if (sessionService.context.sessionDto) {
+		$scope.roleId = sessionService.context.sessionDto.roleId;
+	}
+
 	$scope.customersMap = customerOrderReceiptService.customersMap;
 
 	$scope.employees = customerOrderReceiptService.employees;
@@ -14,33 +17,19 @@ function customerOrderReceiptListController($rootScope, $scope, $log,
 
 	$scope.model = customerOrderReceiptService.model;
 
-	$scope.onCustomerChange = function() {
-		var path = '';
-		if ($scope.model.customer.id === 0) {
-			path = '/customers/orders';
-		} else {
-			path = '/customers/customer/';
-			path += $scope.model.customer.id;
-			path += '/orders';
-		}
-		$location.path(path);
-	};
-
-	$scope.selectOrDeSelectAll = customerOrderReceiptService.selectOrDeSelectAll;
-	$scope.onItemSelectionChange = customerOrderReceiptService.onItemSelectionChange;
-
 	$scope.assign = customerOrderReceiptService.assignToEmployee;
 	$scope.accept = customerOrderReceiptService.acceptByEmployee;
 
 	$scope.refresh = customerOrderReceiptService.getPendingOrderReceipts;
 
-	// customerOrderReceiptService.init();
 	$scope.$on('session:properties', function(event, data) {
 		customerOrderReceiptService.init();
+		$scope.roleId = sessionService.context.sessionDto.roleId;
 	});
 
-	$scope.model.isSelectedAll = false;
 	$scope.refresh()
+	// customerOrderReceiptService.init();
+
 }
 appControllers.controller('customerOrderReceiptListController',
 		customerOrderReceiptListController);

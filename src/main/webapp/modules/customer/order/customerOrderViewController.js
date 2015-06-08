@@ -1,34 +1,37 @@
 function customerOrderViewController($rootScope, $scope, $log,
-		customerOrderProcessService, $routeParams, $http) {
+		customerOrderReceiptService, $routeParams, $http, sessionService) {
 	$log.debug('customerOrderViewController...');
 	$rootScope.viewName = 'Customer Order View';
 
-	$scope.customersMap = customerOrderProcessService.customersMap;
+	if (sessionService.context.sessionDto) {
+		$scope.roleId = sessionService.context.sessionDto.roleId;
+	}
 
-	$scope.employees = customerOrderProcessService.employees;
-	$scope.employeesMap = customerOrderProcessService.employeesMap;
+	$scope.customersMap = customerOrderReceiptService.customersMap;
 
-	$scope.productsMap = customerOrderProcessService.productsMap;
-	$scope.accountsMap = customerOrderProcessService.accountsMap;
+	$scope.employees = customerOrderReceiptService.employees;
+	$scope.employeesMap = customerOrderReceiptService.employeesMap;
 
-	$scope.model = customerOrderProcessService.model;
+	$scope.productsMap = customerOrderReceiptService.productsMap;
+	$scope.accountsMap = customerOrderReceiptService.accountsMap;
+
+	$scope.model = customerOrderReceiptService.model;
 
 	$scope.$on('session:properties', function(event, data) {
-		customerOrderProcessService.init();
+		customerOrderReceiptService.init();
 	});
 
-	$scope.assign = customerOrderProcessService.assignToEmployee;
-	
-	$scope.accept = customerOrderProcessService.acceptByEmployee;
+	$scope.assign = customerOrderReceiptService.assignToEmployee;
 
-	// customerOrderProcessService.init();
+	$scope.accept = customerOrderReceiptService.acceptByEmployee;
+
 	// var path = '/sessions/orderReceipts/' + $routeParams.id;
 	var path = '/io/vteial/wys/web/session/orderReceiptById.groovy';
 	path += '?orderReceiptId=' + $routeParams.id;
 	$http.get(path).success(function(response) {
 		if (response.type === 0) {
 			$scope.receipt = response.data;
-			customerOrderProcessService.processOrderReceipt($scope.receipt);
+			customerOrderReceiptService.processOrderReceipt($scope.receipt);
 		}
 	});
 }

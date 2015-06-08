@@ -57,18 +57,16 @@
 				Back to Orders
 			</a>
 		</span>
-		<label><small>Re-Assigned To</small></label>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<select class="input-sm" x-ng-model="model.employee"
-			x-ng-options="item.id + ' - ' + item.firstName for item in employees">
-		</select>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button type="button" class="btn btn-warning btn-sm"
-			x-ng-click="assign()">
+		&nbsp;
+		<span x-ng-hide="roleId == 'employee'">
+			<label><small>Re-Assigned To</small></label>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			Re-Assign
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		</button>
+			<select class="input-sm" x-ng-model="receipt.byUser"
+				x-ng-change="assign(receipt)"
+				x-ng-options="item.id + ' - ' + item.firstName for item in employees">
+			</select>
+		</span>
+		&nbsp;
 		<span class="pull-right">
 			<button type="button" class="btn btn-primary btn-sm"
 				x-ng-disabled="receipt.isAcceptDisabled"

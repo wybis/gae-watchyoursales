@@ -4,7 +4,9 @@ import io.vteial.wys.dto.ResponseDto
 import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Order
 import io.vteial.wys.model.OrderReceipt
+import io.vteial.wys.model.Transfer
 import io.vteial.wys.model.constants.OrderStatus
+import io.vteial.wys.model.constants.TransferStatus
 import io.vteial.wys.service.SessionService
 
 ResponseDto responseDto = new ResponseDto(type : 0, message : 'success...')
@@ -18,6 +20,23 @@ try {
 
 	receiptIds.each { receiptId ->
 		OrderReceipt receipt = orderService.findByOrderReceiptId(receiptId)
+
+		Transfer transfer = null
+		if(!receipt.transferId) {
+			transfer = new Transfer()
+			transfer.id = autoNumberService.getNextNumber(sessionUser, Transfer.ID_KEY)
+			transfer.with {
+				date = new Date()
+				status = TransferStatus.PENDING
+				branchId = sessionUser.branchId
+			}
+			receipt.transferId = transfer.id
+			receipt.transfer = transfer
+		}
+		else {
+			transfer = Transfer.get(receipt.transferId)
+		}
+		transfer.fromUserId = receipt.byUserId
 
 		List<Order> orders = receipt.orders
 		orders.each { order ->
@@ -33,6 +52,14 @@ try {
 
 		receipt.preUpdate(sessionUser.id)
 		receipt.save();
+
+		transfer.toUserId = receipt.byUserId
+
+		transfer.byUserId = sessionUser.id
+		transfer.branchId = sessionUser.branchId
+
+		transfer.prePersist(sessionUser.id)
+		transfer.save()
 	}
 
 	responseDto.message = "Successfully assigned...";

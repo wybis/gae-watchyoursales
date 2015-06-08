@@ -24,7 +24,8 @@ try {
 			and branchId == sessionDto.branchId
 			and status in [
 				OrderStatus.PENDING,
-				OrderStatus.ASSIGNED
+				OrderStatus.ASSIGNED,
+				OrderStatus.ACCEPTED,
 			]
 		}
 	}
@@ -34,7 +35,6 @@ try {
 			where category == OrderCategory.CUSTOMER
 			and byUserId == sessionDto.id
 			and status in [
-				OrderStatus.PENDING,
 				OrderStatus.ASSIGNED
 			]
 		}

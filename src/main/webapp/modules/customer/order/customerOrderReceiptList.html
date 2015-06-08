@@ -1,3 +1,4 @@
+<!-- 
 <div class="panel panel-default">
 	<div class="panel-body">
 		<div class="col-md-2">
@@ -9,6 +10,7 @@
 		</div>
 	</div>
 </div>
+-->
 
 <div class="panel panel-default">
 	<div class="panel-heading text-center">
@@ -34,15 +36,11 @@
 		<th class="text-right" width="30">#</th>
 	   	<th class="text-center"><small>Id</small></th>
 	   	<th class="text-center"><small>Customer</small></th>
-	   	<th class="text-center"><small>Employee</small></th>
 	   	<th class="text-center" width="160"><small>Ordered Time</small></th>
 	   	<th class="text-center" width="160"><small>Updated Time</small></th>
 	   	<th class="text-center" width="100"><small>Status</small></th>
+	   	<th class="text-center"><small>Assigned To</small></th>
 	   	<th class="text-center" width="100">&nbsp;</th>
-	   	<th class="text-center" width="40">
-			<input type="checkbox" x-ng-model="model.isSelectedAll"
-				x-ng-change="selectOrDeSelectAll()">	   	
-		</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -57,9 +55,6 @@
 			{{customersMap[item.forUserId].firstName}}
 		</td>
 		<td>
-			{{employeesMap[item.byUserId].firstName}}
-		</td>
-		<td>
 			{{item.date | date:'yyyy-MM-dd HH:mm:ss'}}
 		</td>
 		<td>
@@ -68,33 +63,22 @@
 		<td>
 			{{item.status}}
 		</td>
+		<td>
+			<select class="input-sm form-control" x-ng-model="item.byUser"
+				x-ng-disabled="roleId == 'employee'"
+				x-ng-change='assign(item)'
+				x-ng-options="item.id + ' - ' + item.firstName for item in employees">
+			</select>
+		</td>
 		<td class="text-center">
 			<button type="button" class="btn btn-primary btn-sm"
 				x-ng-disabled="item.isAcceptDisabled"
-				x-ng-click="accept(item.id)">
+				x-ng-click="accept(item)">
 				Accept
 			</button>
-		</td>
-		<td class="text-center">
-			<input type="checkbox" x-ng-model="item.isSelected"
-				x-ng-change="onItemSelectionChange()">
 		</td>
 	</tr>
 	</tbody>
 	</table>
-	<div class="panel-footer text-center">
-		<label><small>Assigned To</small></label>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<select class="input-sm" x-ng-model="model.employee"
-			x-ng-options="item.id + ' - ' + item.firstName for item in employees">
-		</select>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button type="button" class="btn btn-primary btn-sm"
-			x-ng-click="assign()">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			Assign / Transfer
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		</button>
-	</div>
 </div>
 

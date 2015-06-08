@@ -34,6 +34,8 @@ get		'/sessions/ledgers',    				forward : '/io/vteial/wys/web/session/ledgers.g
 get		'/sessions/products',    				forward : '/io/vteial/wys/web/session/products.groovy'
 get		'/sessions/stocks',    					forward : '/io/vteial/wys/web/session/stocks.groovy'
 
+post	'/sessions/counter',    				forward : '/io/vteial/wys/web/session/counter.groovy'
+
 post	'/sessions/order',  							forward : '/io/vteial/wys/web/session/order.groovy'
 get		'/sessions/orderReceipts/@orderReceiptId',		forward : '/io/vteial/wys/web/session/orderReceiptById.groovy?orderReceiptId=@orderReceiptId'
 post	'/sessions/assignOrders/@employeeId',			forward : '/io/vteial/wys/web/session/assignOrders.groovy?employeeId=@employeeId'

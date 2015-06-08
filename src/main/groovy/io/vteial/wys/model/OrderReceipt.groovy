@@ -26,6 +26,11 @@ public class OrderReceipt extends AbstractModel {
 
 	String status
 
+	long transferId
+
+	@Ignore
+	Transfer transfer
+
 	long forUserId
 
 	@Ignore

@@ -6,9 +6,42 @@ import io.vteial.wys.model.Account
 import io.vteial.wys.model.Order
 import io.vteial.wys.model.OrderReceipt
 import io.vteial.wys.model.Product
+import io.vteial.wys.model.Transfer
 import io.vteial.wys.model.constants.OrderStatus
 import io.vteial.wys.model.constants.OrderType
 import io.vteial.wys.service.SessionService
+
+def findByCodeAndBranchId = { prdCode, prdBranchId ->
+	def entitys = datastore.execute {
+		from Product.class.simpleName
+		where code == prdCode
+		and branchId == prdBranchId
+	}
+
+	Product product = null
+
+	entitys.each { entity ->
+		product = entity as Product
+	}
+
+	return product
+}
+
+def findByProductIdAndUserId = { accProductId, accUserId ->
+	def entitys = datastore.execute {
+		from Account.class.simpleName
+		where productId == accProductId
+		and userId == accUserId
+	}
+
+	Account account = null
+
+	entitys.each { entity ->
+		account = entity as Account
+	}
+
+	return account
+}
 
 ResponseDto responseDto = new ResponseDto(type : 0, message : 'success...')
 
@@ -24,23 +57,33 @@ try {
 	receiptIds.each { receiptId ->
 		OrderReceipt receipt = orderService.findByOrderReceiptId(receiptId)
 
+		Transfer transfer = Transfer.get(receipt.transferId)
+		receipt.transfer = transfer
+
 		List<Order> orders = receipt.orders
 		orders.each { order ->
 			order.status = OrderStatus.ACCEPTED
 
 			if(order.type == OrderType.SELL) {
-				Account account = Account.get(order.accountId)
-				order.account = account;
+				Product product = findByCodeAndBranchId(order.productCode, order.branchId)
 
-				Product product = Product.get(account.productId)
-				account.product = product
+				Account frAccount = findByProductIdAndUserId(product.id, transfer.fromUserId)
+				frAccount.product = product
 
-				account.depositHandStock(order.unit)
+				frAccount.withdrawHandStock(order.unit)
 
-				account.preUpdate(sessionUser.id)
-				account.save()
+				frAccount.preUpdate(sessionUser.id)
+				frAccount.save()
 
-				accounts << account
+				Account toAccount = findByProductIdAndUserId(product.id, transfer.toUserId)
+				toAccount.product = product
+
+				toAccount.depositHandStock(order.unit)
+
+				toAccount.preUpdate(sessionUser.id)
+				toAccount.save()
+
+				accounts << toAccount
 			}
 
 			order.preUpdate(sessionUser.id)
