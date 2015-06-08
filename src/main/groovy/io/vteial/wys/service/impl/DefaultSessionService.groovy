@@ -65,9 +65,9 @@ SessionService {
 			throw new InvalidCredentialException()
 		}
 		User aUser = entitys[0] as User
-		if(aUser.status == UserStatus.PASSIVE || aUser.isVirtual()) {
-			throw new UnAuthorizedException()
-		}
+//		if(aUser.status == UserStatus.PASSIVE || aUser.isVirtual()) {
+//			throw new UnAuthorizedException()
+//		}
 		if(!localMode && aUser.password != userDto.password) {
 			throw new InvalidCredentialException()
 		}

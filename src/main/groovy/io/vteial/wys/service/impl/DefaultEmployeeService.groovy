@@ -4,6 +4,7 @@ import groovyx.gaelyk.GaelykBindings
 import groovyx.gaelyk.logging.GroovyLogger
 import io.vteial.wys.dto.SessionDto
 import io.vteial.wys.model.Branch
+import io.vteial.wys.model.Role;
 import io.vteial.wys.model.User
 import io.vteial.wys.model.constants.UserType
 import io.vteial.wys.service.AccountService
@@ -35,8 +36,10 @@ class DefaultEmployeeService extends DefaultUserService implements EmployeeServi
 
 		model.userId = branch.id + '@' + branch.code
 		model.with {
+			password = '123'
 			firstName = branch.name
 			lastName = branch.id as String
+			roleId = Role.ID_MANAGER
 			branchId = branch.id
 		}
 
