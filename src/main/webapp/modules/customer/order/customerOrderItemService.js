@@ -1,27 +1,24 @@
 function customerOrderItemService($log, $q, wydNotifyService, sessionService,
-		$http) {
+		$http, $location) {
 	var basePath = '/sessions'
 	var service = {}, customers = [], employees = [], model = {}, flag = false;
 
 	service.customers = customers;
 	service.customersMap = sessionService.customersMap;
-	service.employees = employees;
-	service.employeesMap = sessionService.employeesMap;
 
 	service.productsMap = sessionService.productsMap;
 	service.accountsMap = sessionService.accountsMap;
 
 	model.customer = customers[0];
-	model.employee = employees[0];
 
-	model.isSelectedAll = false;
+	model.isItemSelectedAll = false;
 	model.items = [];
 
 	service.model = model;
 
 	service.selectOrDeSelectAll = function() {
 		_.forEach(model.items, function(item) {
-			item.isSelected = model.isSelectedAll;
+			item.isSelected = model.isItemSelectedAll;
 		});
 	};
 
@@ -33,7 +30,7 @@ function customerOrderItemService($log, $q, wydNotifyService, sessionService,
 				i = items.length;
 			}
 		}
-		model.isSelectedAll = flag;
+		model.isItemSelectedAll = flag;
 	};
 
 	service.getPendingOrders = function(customerId) {
@@ -44,6 +41,13 @@ function customerOrderItemService($log, $q, wydNotifyService, sessionService,
 				model.items = response.data;
 			}
 		})
+	};
+
+	service.onCustomerChange = function() {
+		var path = '/customers/customer/';
+		path += $scope.model.customer.id;
+		path += '/orders';
+		$location.path(path);
 	};
 
 	service.proceedToTransaction = function() {
@@ -66,37 +70,14 @@ function customerOrderItemService($log, $q, wydNotifyService, sessionService,
 		$location.path(path);
 	};
 
-	service.init = function() {
-
+	service.init = function(customerId) {
 		if (customers.length == 0) {
-			customers.push({
-				id : 0,
-				firstName : 'All'
-			});
 			_.forEach(sessionService.customers, function(item) {
 				customers.push(item);
 			});
-			model.customer = customers[0];
 		}
-
-		if (employees.length == 0) {
-			employees.push({
-				id : 0,
-				firstName : '<Select Employee>'
-			});
-			_.forEach(sessionService.employees, function(item) {
-				employees.push(item);
-			});
-			model.employee = employees[0];
-		}
-
+		model.customer = service.customersMap[customerId];
 	};
-
-	function fail(action, data, message) {
-		$log.debug(message);
-		$log.info(data);
-		wydNotifyService.addError(message, true);
-	}
 
 	return service;
 }

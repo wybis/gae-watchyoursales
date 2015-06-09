@@ -336,7 +336,7 @@ app.config(function($routeProvider, $locationProvider) {
 		controller : 'customerOrderViewController',
 		reloadOnSearch : false
 	});
-
+	
 	$routeProvider.when('/customers/customer/:id/orders', {
 		templateUrl : 'modules/customer/order/customerOrderItemList.html',
 		controller : 'customerOrderItemListController',

@@ -17,7 +17,7 @@
 	   	<th class="text-center" width="220"><small>Email Id</small></th>
 	   	<th class="text-center" width="140"><small>Mobile No</small></th>
 	   	<th class="text-center" width="160"><small>Amount</small></th>
-	   	<th class="text-center" width="40"><small>&nbsp;</small></th>
+	   	<th class="text-center" width="50"><small>&nbsp;</small></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -40,8 +40,24 @@
 		<td class="text-right">
 			{{item.cashAccount.amount  | number : 2}}
 		</td>
-		<td>
-			&nbsp;
+		<td class="text-center">
+			<div class="btn-group" dropdown>
+      			<button type="button" class="btn btn-default btn-sm dropdown-toggle" 
+      				dropdown-toggle>
+        			<i class="fa fa-bars"></i>
+      			</button>
+				<ul class="dropdown-menu" role="menu">
+					<li>
+			<a x-ng-href="#/customers/customer/{{item.id}}/edit">Edit</a>
+					</li>
+					<li>
+			<a x-ng-href="#/customers/customer/{{item.id}}/orders">Orders</a>
+					</li>
+					<li>
+			<a x-ng-href="#/customers/customer/{{item.id}}/trans">Transactions</a>
+					</li>
+				</ul>
+		    </div>
 		</td>
 	</tr>
 	</tbody>
